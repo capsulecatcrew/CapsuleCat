@@ -65,16 +65,16 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    void UpdatePlayerHealthBar()
+    void UpdatePlayerHealthBar(Damageable damageable)
     {
         playerHealthBar.SetFill(playerDamageable.currentHp);
     }
-    void UpdateEnemyHealthBar()
+    void UpdateEnemyHealthBar(Damageable damageable)
     {
         enemyHealthBar.SetFill(enemyDamageable.currentHp);
     }
 
-    void Win()
+    void Win(Damageable damageable)
     {
         if (_battleIsOver) return;
         GlobalAudio.AudioSource.PlayOneShot(enemyDefeatSound);
@@ -88,7 +88,7 @@ public class BattleManager : MonoBehaviour
         _battleIsOver = true;
     }
 
-    void Lose()
+    void Lose(Damageable damageable)
     {
         if (_battleIsOver) return;
         levelLoader.LoadLevel("Game Over");

@@ -74,15 +74,9 @@ public class EnemyShield : MonoBehaviour
         }
     }
 
-    void DisableDeadShield()
+    void DisableDeadShield(Damageable shield)
     {
-        foreach (GameObject shield in shields)
-        {
-            if (shield.activeSelf && shield.GetComponent<Damageable>().currentHp == 0)
-            {
-                shield.SetActive(false);
-            }
-        }
+        shield.gameObject.SetActive(false);
     }
     
     public void GenerateShield(int hp, int numOfShields)
@@ -163,8 +157,8 @@ public class EnemyShield : MonoBehaviour
     {
         // Pause rotation
         _paused = true;
-        // 50% chance to change rotation direction
-        if (Random.Range(0, 2) == 1) ChangeRotateDirection();
+        // 66.7% chance to change rotation direction
+        if (Random.Range(0, 3) > 0) ChangeRotateDirection();
         // Wait for some seconds
         yield return new WaitForSeconds(Random.Range(minPauseTime, maxPauseTime));
         // Unpause

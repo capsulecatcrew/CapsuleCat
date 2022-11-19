@@ -66,7 +66,8 @@ public class Bullet : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Debug.DrawLine(transform.position, transform.position + _normDirection * 10, Color.magenta);
+        Vector3 position = transform.position;
+        Debug.DrawLine(position, position + _normDirection * 10, Color.magenta);
     }
 
     void OnTriggerEnter(Collider other)

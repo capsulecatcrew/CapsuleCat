@@ -64,7 +64,7 @@ public class EnemyLaserAttack : MonoBehaviour
         _currLaser.SetActive(true);
     }
 
-    void RadialLasers()
+    void RadialLasers(int numOfLasers, Vector3 arcCenter, float arcAngle = 360)
     {
         // another time.
     }

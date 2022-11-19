@@ -4253,7 +4253,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25070
+  m_Name: pb_Mesh27160
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4892,6 +4892,8 @@ MonoBehaviour:
   maxHp: 5
   currentHp: 5
   invincibilitySeconds: 0.3
+  damageSoundSource: {fileID: 963194231}
+  damageSound: {fileID: 8300000, guid: 7ae321aa1fe8c4562ad529f98d8e10e2, type: 3}
 --- !u!54 &725430203
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5059,7 +5061,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 26
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -6131,6 +6133,8 @@ MonoBehaviour:
   maxHp: 50
   currentHp: 50
   invincibilitySeconds: 0
+  damageSoundSource: {fileID: 0}
+  damageSound: {fileID: 0}
 --- !u!1 &1771190941
 GameObject:
   m_ObjectHideFlags: 0
@@ -6362,6 +6366,8 @@ MonoBehaviour:
   maxHp: 50
   currentHp: 50
   invincibilitySeconds: 0
+  damageSoundSource: {fileID: 0}
+  damageSound: {fileID: 0}
 --- !u!65 &1906900860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6531,9 +6537,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 518911314}
     m_Modifications:
-    - target: {fileID: 5336160480522472586, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
-      propertyPath: maxTimeBetweenPauses
-      value: 10
+    - target: {fileID: 62777516492969168, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 651380356367815247, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172028969537046853, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382038069075203410, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891293514146088485, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3838282114962428270, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899930815199538360, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5336160480522472587, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
       propertyPath: m_RootOrder
@@ -6581,7 +6611,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336160480522472628, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
       propertyPath: m_Name
-      value: Enemy Shields
+      value: Enemy Shields Ring
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438440902820541463, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862590751557906510, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393561315196722595, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598610505525023194, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707925085289679222, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
