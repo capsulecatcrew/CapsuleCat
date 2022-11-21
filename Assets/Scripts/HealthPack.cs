@@ -9,11 +9,7 @@ public class HealthPack : MonoBehaviour
     public AudioClip healingSound;
     public RestAreaController restAreaController;
     public int healAmount = 1;
-
-    public bool rotate = true;
-
-    public float rotateSpeed = 5;
-
+    
     public delegate void IntParam(int value);
 
     public event IntParam PlayerHeal;
@@ -22,13 +18,7 @@ public class HealthPack : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (rotate) transform.Rotate(new Vector3(0, rotateSpeed * Time.deltaTime, 0));
-    }
-
+    
     private void OnEnable()
     {
         hitbox.HitboxEnter += OnHitboxEnter;

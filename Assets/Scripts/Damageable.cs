@@ -35,7 +35,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage, bool ignoreInvincibility = false)
+    public void TakeDamage(int damage, bool ignoreInvincibility = false, string damageType = "default")
     {
         if (ignoreInvincibility || _timeSinceLastHit > invincibilitySeconds)
         {

@@ -6,11 +6,13 @@ using Random = UnityEngine.Random;
 
 public class EnemyShield : MonoBehaviour
 {
+    [Header("Rotation Variables")]
     public float rotateSpeed = 20;
     public float baseRotateSpeed = 20;
     public float rotateSpeedLvlMultiplier = 1.2f;
     public float maxRotateSpeed = 100;
 
+    [Header("Pause Variables")]
     public float minPauseTime = 3;
     public float baseMinPauseTime = 3;
     public float maxPauseTime = 10;
@@ -18,13 +20,18 @@ public class EnemyShield : MonoBehaviour
     public float pauseTimeLvlMultiplier = 0.8f;
     public float absoluteMinPauseTime = 0.5f;
     private bool _paused;
-
     public float minTimeBetweenPauses = 2;
     public float maxTimeBetweenPauses = 60;
     [SerializeField] private float _timeTillNextPause;
     
     private bool _clockwiseRotate;
+    
+    [Header("Shield Variables")]
     public GameObject[] shields;
+
+    [Header("Shield HP")]
+    public Color maxHpColor;
+    public Color minHpColor;
     
     public int shieldStartingHp = 5;
     public int startingShieldCount = 3;
@@ -34,7 +41,7 @@ public class EnemyShield : MonoBehaviour
     void Awake()
     {
         shieldStartingHp += PlayerStats.LevelsCompleted * 2;
-        startingShieldCount += Random.Range(PlayerStats.LevelsCompleted / 2, PlayerStats.LevelsCompleted);
+        startingShieldCount += Random.Range(PlayerStats.LevelsCompleted / 4, PlayerStats.LevelsCompleted);
         _clockwiseRotate = Random.Range(0, 2) == 1;
     }
     
@@ -62,6 +69,7 @@ public class EnemyShield : MonoBehaviour
         foreach (GameObject shield in shields)
         {
             Damageable damageable = shield.GetComponent<Damageable>();
+            damageable.OnDamage += UpdateShieldColor;
             damageable.OnDeath += DisableDeadShield;
         }
     }
@@ -70,6 +78,7 @@ public class EnemyShield : MonoBehaviour
         foreach (GameObject shield in shields)
         {
             Damageable damageable = shield.GetComponent<Damageable>();
+            damageable.OnDamage += UpdateShieldColor;
             damageable.OnDeath -= DisableDeadShield;
         }
     }
@@ -77,6 +86,12 @@ public class EnemyShield : MonoBehaviour
     void DisableDeadShield(Damageable shield)
     {
         shield.gameObject.SetActive(false);
+    }
+
+    void UpdateShieldColor(Damageable shield)
+    {
+        shield.gameObject.GetComponent<Renderer>().material.color =
+            Color.Lerp(minHpColor, maxHpColor, (float)shield.currentHp / shield.maxHp);
     }
     
     public void GenerateShield(int hp, int numOfShields)

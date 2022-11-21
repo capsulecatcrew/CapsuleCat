@@ -12,15 +12,19 @@ public class EnemyLaserAttack : MonoBehaviour
     private GameObject _currLaser;
     private EnemyLaser _laserLogic;
 
+    [Header("Laser Damage")]
     public int startingDamage = 2;
     private int _damage;
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;
+    
+    [Header("Shot Intervals")]
     public float startingMinTimeBetweenShots = 6;
     private float _minTimeBetweenShots;
     public float startingMaxTimeBetweenShots = 20;
     private float _maxTimeBetweenShots;
-    public float absoluteMinTimeBetweenShots = 1.5f;
+    public float minTimeLowerLimit = 1.5f;
+    public float maxTimeLowerLimit = 3;
     public float timerDecreaseByLevel = 0.5f;
     
     private float _timeSinceLastLaser;
@@ -31,9 +35,9 @@ public class EnemyLaserAttack : MonoBehaviour
         _damage = startingDamage + dmgIncrease * PlayerStats.LevelsCompleted / dmgIncreaseLvlInterval;
 
         _minTimeBetweenShots = startingMinTimeBetweenShots - timerDecreaseByLevel * PlayerStats.LevelsCompleted;
-        if (_minTimeBetweenShots < absoluteMinTimeBetweenShots) _minTimeBetweenShots = absoluteMinTimeBetweenShots;
+        if (_minTimeBetweenShots < minTimeLowerLimit) _minTimeBetweenShots = minTimeLowerLimit;
         _maxTimeBetweenShots = startingMaxTimeBetweenShots - timerDecreaseByLevel * PlayerStats.LevelsCompleted;
-        if (_maxTimeBetweenShots < absoluteMinTimeBetweenShots) _maxTimeBetweenShots = absoluteMinTimeBetweenShots;
+        if (_maxTimeBetweenShots < maxTimeLowerLimit) _maxTimeBetweenShots = maxTimeLowerLimit;
     }
 
     // Start is called before the first frame update

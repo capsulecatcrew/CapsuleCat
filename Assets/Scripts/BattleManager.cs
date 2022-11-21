@@ -15,7 +15,7 @@ public class BattleManager : MonoBehaviour
     public Damageable enemyDamageable;
     public AudioClip enemyDefeatSound;
     
-    public GameObject enemyAI;
+    public GameObject enemy;
 
     public HealthBar playerHealthBar;
 
@@ -78,7 +78,7 @@ public class BattleManager : MonoBehaviour
     {
         if (_battleIsOver) return;
         GlobalAudio.AudioSource.PlayOneShot(enemyDefeatSound);
-        enemyAI.SetActive(false);
+        enemy.SetActive(false);
         enemyHealthBar.gameObject.SetActive(false);
         playerDamageable.enabled = false;
         PlayerStats.MaxHp = playerDamageable.maxHp;

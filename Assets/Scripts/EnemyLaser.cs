@@ -100,7 +100,7 @@ public class EnemyLaser : MonoBehaviour
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(damage, false);
+                    damageable.TakeDamage(damage, false, "laser");
                 }
             }
         }
