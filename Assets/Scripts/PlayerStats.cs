@@ -3,20 +3,19 @@ using System.Collections.Generic;
 
 public static class PlayerStats
 {
-    // player's maximum HP
-    public static int MaxHp = 10;
+    public static PlayerStat Hp = new PlayerStat(10, 10, 50, 50);
 
-    // player's current HP
-    public static int CurrentHp = 10;
-    
-    // number of levels completed by player
+    public static PlayerStat FiringRate = new PlayerStat(0.3f, -0.025f, 50, 50);
+
+    public static int Money = 0;
+
     public static int LevelsCompleted = 0;
 
     public static void ResetStats()
     {
-        MaxHp = 10;
-        CurrentHp = 10;
+        Hp = new PlayerStat(10, 10, 50, 50);
+        FiringRate = new PlayerStat(0.3f, -0.025f, 50, 50);
+        Money = 0;
         LevelsCompleted = 0;
     }
-    
 }

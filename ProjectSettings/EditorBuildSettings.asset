@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rest Area.unity
     guid: 8abf9358b4f0248029b9a6d86d044e9b
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 471a024b0895f41bab5e019fbbed2adf
   m_configObjects: {}

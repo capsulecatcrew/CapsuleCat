@@ -19,12 +19,12 @@ public class HealthBar : MonoBehaviour
         
     }
 
-    public void SetMax(int value)
+    public void SetMax(float value)
     {
         barFill.maxValue = value;
     }
     
-    public void SetFill(int amount)
+    public void SetFill(float amount)
     {
         barFill.value = amount;
     }

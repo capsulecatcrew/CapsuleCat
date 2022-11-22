@@ -24,8 +24,8 @@ public class BattleManager : MonoBehaviour
     private bool _battleIsOver;
     private void Awake()
     {
-        playerDamageable.SetMaxHp(PlayerStats.MaxHp);
-        playerDamageable.SetCurrentHp(PlayerStats.CurrentHp);
+        playerDamageable.SetMaxHp((int) PlayerStats.Hp.GetMaxValue());
+        playerDamageable.SetCurrentHp((int) PlayerStats.Hp.GetCurrentValue());
         int enemyHealth = 20 + PlayerStats.LevelsCompleted * 10;
         enemyDamageable.SetMaxHp(enemyHealth);
         enemyDamageable.SetCurrentHp(enemyHealth);
@@ -81,9 +81,9 @@ public class BattleManager : MonoBehaviour
         enemy.SetActive(false);
         enemyHealthBar.gameObject.SetActive(false);
         playerDamageable.enabled = false;
-        PlayerStats.MaxHp = playerDamageable.maxHp;
-        PlayerStats.CurrentHp = playerDamageable.currentHp;
+        PlayerStats.Hp.SetCurrentValue(playerDamageable.currentHp);
         PlayerStats.LevelsCompleted += 1;
+        PlayerStats.Money += PlayerStats.LevelsCompleted * 100;
         levelLoader.LoadLevel("Victory");
         _battleIsOver = true;
     }

@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RestAreaController : MonoBehaviour
 {
     public LevelLoader levelLoader;
 
+    public HitboxTrigger nextLevelTeleport;
+    public HitboxTrigger shopTeleport;
+    
     public HealthBar playerHealthBar;
     
     // Start is called before the first frame update
@@ -21,29 +25,38 @@ public class RestAreaController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    public void PlayerHeal(int value)
+    {
+        PlayerStats.Hp.IncreaseCurrentValue(value);
+        UpdatePlayerHealthBar();
+    }
+
+    private void OnEnable()
+    {
+        nextLevelTeleport.HitboxEnter += GoToNextLevel;
+        shopTeleport.HitboxEnter += GoToShop;
+    }
+
+    private void OnDisable()
+    {
+        nextLevelTeleport.HitboxEnter += GoToNextLevel;
+        shopTeleport.HitboxEnter -= GoToShop;
+    }
+    
+    private void GoToNextLevel(Collider other)
     {
         if (other.CompareTag("Player")) levelLoader.LoadLevel("Battle");
     }
 
-    public void PlayerHeal(int value)
-    {
-        PlayerStats.CurrentHp = PlayerStats.CurrentHp + value > PlayerStats.MaxHp
-                                ? PlayerStats.MaxHp
-                                : PlayerStats.CurrentHp + value;
-        UpdatePlayerHealthBar();
+    private void GoToShop(Collider other) {
+        if (other.CompareTag("Player")) levelLoader.LoadLevel("Shop");
     }
 
-    public void PlayerIncreaseMaxHealth(int value)
-    {
-        PlayerStats.MaxHp += value;
-        PlayerStats.CurrentHp += value;
-        UpdatePlayerHealthBar();
-    }
 
     void UpdatePlayerHealthBar()
     {
-        playerHealthBar.SetMax(PlayerStats.MaxHp);
-        playerHealthBar.SetFill(PlayerStats.CurrentHp);
+        playerHealthBar.SetMax(PlayerStats.Hp.GetMaxValue());
+        playerHealthBar.SetFill(PlayerStats.Hp.GetCurrentValue());
     }
 }
