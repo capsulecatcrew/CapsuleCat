@@ -13,6 +13,7 @@ public class ShopItemButton: MonoBehaviour
         MaxHp,
         FiringRate,
         EnergyCapacity,
+        EnergyAbsorption,
         HealthRecovery
     }
 
@@ -32,6 +33,9 @@ public class ShopItemButton: MonoBehaviour
                 break;
             case Stat.EnergyCapacity:
                 LinkedStat = PlayerStats.Energy;
+                break;
+            case Stat.EnergyAbsorption:
+                LinkedStat = PlayerStats.EnergyAbsorb;
                 break;
             default:
                 break;

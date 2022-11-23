@@ -27,7 +27,7 @@ public class BattleManager : MonoBehaviour
     {
         playerDamageable.SetMaxHp((int) PlayerStats.Hp.GetMaxValue());
         playerDamageable.SetCurrentHp((int) PlayerStats.Hp.GetCurrentValue());
-        int enemyHealth = 20 + PlayerStats.LevelsCompleted * 10;
+        int enemyHealth = 30 + PlayerStats.LevelsCompleted * 20;
         enemyDamageable.SetMaxHp(enemyHealth);
         enemyDamageable.SetCurrentHp(enemyHealth);
         

@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.CompareTag(t))
             {
-                Damageable damageable = other.gameObject.GetComponent<Damageable>();
+                var damageable = other.gameObject.GetComponent(typeof(Damageable)) as Damageable;
 
                 if (damageable != null)
                 {

@@ -96,11 +96,11 @@ public class EnemyLaser : MonoBehaviour
         {
             if (other.CompareTag(tag))
             {
-                Damageable damageable = other.gameObject.GetComponent<Damageable>();
+                Damageable damageable = other.gameObject.GetComponent(typeof(Damageable)) as Damageable;
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(damage, false, "laser");
+                    damageable.TakeDamage(damage, false, Damageable.DamageType.Laser);
                 }
             }
         }

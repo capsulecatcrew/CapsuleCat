@@ -9,7 +9,9 @@ public class PlayerEnergy : MonoBehaviour
     private bool _isEmpty;
     [SerializeField] float maxAmount;
     [SerializeField] float currentAmount;
-
+    
+    public List<DamageAbsorber> energyAbsorbers;
+    
     public delegate void NoParams();
 
     public event NoParams EnergyUpdate;
@@ -18,9 +20,31 @@ public class PlayerEnergy : MonoBehaviour
     {
         maxAmount = PlayerStats.Energy.GetMaxValue();
         currentAmount = PlayerStats.Energy.GetCurrentValue();
+        foreach (var absorber in energyAbsorbers)
+        {
+            absorber.absorbMultiplier = PlayerStats.EnergyAbsorb.GetCurrentValue();
+        }
+
         _isMax = Math.Abs(maxAmount - currentAmount) < float.Epsilon;
     }
 
+    private void OnEnable()
+    {
+        foreach (var absorber in energyAbsorbers)
+        {
+            absorber.OnDamageAbsorb += AddAmount;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var absorber in energyAbsorbers)
+        {
+            absorber.OnDamageAbsorb -= AddAmount;
+        }
+    }
+
+    
     public void AddAmount(float amount)
     {
         currentAmount += amount;

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
+    public enum DamageType
+    {
+        Bullet,
+        Laser
+    }
+    
     public int maxHp = 10;
 
     public int currentHp = 10;
@@ -13,7 +19,7 @@ public class Damageable : MonoBehaviour
     public AudioSource damageSoundSource;
     public AudioClip damageSound;
     
-    private float _timeSinceLastHit;
+    protected float TimeSinceLastHit;
     public delegate void HealthUpdate(Damageable damageable);
 
     public event HealthUpdate OnDamage;
@@ -23,21 +29,21 @@ public class Damageable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _timeSinceLastHit = 0.0f;
+        TimeSinceLastHit = 0.0f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        if (invincibilitySeconds > 0 && _timeSinceLastHit < invincibilitySeconds)
+        if (invincibilitySeconds > 0 && TimeSinceLastHit < invincibilitySeconds)
         {
-            _timeSinceLastHit += Time.deltaTime;
+            TimeSinceLastHit += Time.deltaTime;
         }
     }
 
-    public void TakeDamage(int damage, bool ignoreInvincibility = false, string damageType = "default")
+    public virtual void TakeDamage(int damage, bool ignoreInvincibility = false, DamageType damageType = DamageType.Bullet)
     {
-        if (ignoreInvincibility || _timeSinceLastHit > invincibilitySeconds)
+        if (ignoreInvincibility || TimeSinceLastHit > invincibilitySeconds)
         {
             currentHp -= damage;
             OnDamage?.Invoke(this);
@@ -47,7 +53,7 @@ public class Damageable : MonoBehaviour
                 OnDeath?.Invoke(this);
             }
             
-            if (invincibilitySeconds > 0.0f) _timeSinceLastHit = 0.0f;
+            if (invincibilitySeconds > 0.0f) TimeSinceLastHit = 0.0f;
 
             if (damageSoundSource != null && damageSound != null)
             {
