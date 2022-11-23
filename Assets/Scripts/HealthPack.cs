@@ -10,9 +10,6 @@ public class HealthPack : MonoBehaviour
     public RestAreaController restAreaController;
     public int healAmount = 1;
     
-    public delegate void IntParam(int value);
-
-    public event IntParam PlayerHeal;
     // Start is called before the first frame update
     void Start()
     {

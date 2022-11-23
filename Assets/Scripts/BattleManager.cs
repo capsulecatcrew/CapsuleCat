@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviour
     public LevelLoader levelLoader;
 
     public Damageable playerDamageable;
+    public PlayerEnergy playerEnergy;
     
     public GameObject enemyBody;
     public Damageable enemyDamageable;
@@ -18,7 +19,7 @@ public class BattleManager : MonoBehaviour
     public GameObject enemy;
 
     public HealthBar playerHealthBar;
-
+    public HealthBar playerEnergyBar;
     public HealthBar enemyHealthBar;
 
     private bool _battleIsOver;
@@ -39,8 +40,10 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         playerHealthBar.SetMax(playerDamageable.maxHp);
+        playerEnergyBar.SetMax(playerEnergy.GetMax());
         enemyHealthBar.SetMax(enemyDamageable.maxHp);
         playerHealthBar.SetFill(playerDamageable.currentHp);
+        playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
         enemyHealthBar.SetFill(enemyDamageable.currentHp);
     }
 
@@ -53,6 +56,9 @@ public class BattleManager : MonoBehaviour
     {
         playerDamageable.OnDamage += UpdatePlayerHealthBar;
         playerDamageable.OnDeath += Lose;
+
+        playerEnergy.EnergyUpdate += UpdatePlayerEnergyBar;
+
         enemyDamageable.OnDamage += UpdateEnemyHealthBar;
         enemyDamageable.OnDeath += Win;
     }
@@ -60,6 +66,9 @@ public class BattleManager : MonoBehaviour
     {
         playerDamageable.OnDamage -= UpdatePlayerHealthBar;
         playerDamageable.OnDeath -= Lose;
+        
+        playerEnergy.EnergyUpdate -= UpdatePlayerEnergyBar;
+        
         enemyDamageable.OnDamage -= UpdateEnemyHealthBar;
         enemyDamageable.OnDeath -= Win;
 
@@ -68,6 +77,11 @@ public class BattleManager : MonoBehaviour
     void UpdatePlayerHealthBar(Damageable damageable)
     {
         playerHealthBar.SetFill(playerDamageable.currentHp);
+    }
+
+    void UpdatePlayerEnergyBar()
+    {
+        playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
     }
     void UpdateEnemyHealthBar(Damageable damageable)
     {
@@ -83,7 +97,7 @@ public class BattleManager : MonoBehaviour
         playerDamageable.enabled = false;
         PlayerStats.Hp.SetCurrentValue(playerDamageable.currentHp);
         PlayerStats.LevelsCompleted += 1;
-        PlayerStats.Money += PlayerStats.LevelsCompleted * 100;
+        PlayerStats.Money += PlayerStats.LevelsCompleted * 50;
         levelLoader.LoadLevel("Victory");
         _battleIsOver = true;
     }

@@ -10,6 +10,8 @@ public class PlayerShootBasic : MonoBehaviour
 {
     private PlayerControls _playerControls;
 
+    public PlayerEnergy playerEnergy;
+    
     public ObjectPool bulletPool;
     private GameObject _bullet;
 
@@ -27,10 +29,11 @@ public class PlayerShootBasic : MonoBehaviour
 
     public float bulletDespawnDist = 20;
 
-    public int bulletDmg = 1;
-
+    public int bulletDmg = 2;
+    public int noEnergyPenalty = 3;
+    
     public float timeBetweenShots = 0.5f;
-    private float _timeTillNexttShot;
+    private float _timeTillNextShot;
 
     private Vector3 _bulletDirection;
     
@@ -40,27 +43,48 @@ public class PlayerShootBasic : MonoBehaviour
         _playerControls = PlayerMovement.PlayerController;
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
         _bulletDirection = target.position - shootingOrigin.position;
-        _timeTillNexttShot = 0;
+        _timeTillNextShot = 0;
+        timeBetweenShots = PlayerStats.FiringRate.GetCurrentValue();
     }
 
     // Update is called once per frame
     void Update()
     {
         _bulletDirection = target.position - shootingOrigin.position;
-        if (_playerControls.Land.Attack.IsPressed() && _timeTillNexttShot < float.Epsilon)
+        if (_playerControls.Land.Attack.IsPressed() && _timeTillNextShot < float.Epsilon)
         {
-            _timeTillNexttShot = timeBetweenShots;
+            // reset shooting timer
+            _timeTillNextShot = timeBetweenShots;
+            
+            // set up bullet damage
+            int dmg = bulletDmg;
+            
+            // reduce fire rate and bullet damage if player has no energy
+            if (playerEnergy.IsEmpty())
+            {
+                _timeTillNextShot *= noEnergyPenalty;
+                dmg /= noEnergyPenalty;
+                // make sure damage is at least 1.
+                dmg = Math.Max(dmg, 1);
+            }
+            
+            // initialise bullet
             _bullet = bulletPool.GetPooledObject();
             _bullet.transform.position = shootingOrigin.position;
-            _bullet.GetComponent<Bullet>().Init(bulletDmg, _bulletDirection, bulletSpeed, bulletDespawnDist, tagsToHit);
+            _bullet.GetComponent<Bullet>().Init(dmg, _bulletDirection, bulletSpeed, bulletDespawnDist, tagsToHit);
             _bullet.SetActive(true);
+            
+            // reduce player energy
+            playerEnergy.AddAmount(-1);
+            
+            // Play shooting audio
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(shootingAudio);
         }
 
-        if (_timeTillNexttShot > 0.0f)
+        if (_timeTillNextShot > 0.0f)
         {
-            _timeTillNexttShot -= Time.deltaTime;
+            _timeTillNextShot -= Time.deltaTime;
         }
     }
 

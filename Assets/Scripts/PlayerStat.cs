@@ -1,16 +1,18 @@
 public class PlayerStat
 {
-    private float _statLevel;
+    private int _statLevel;
+    private readonly int _maxLevel;
     private readonly float _baseStat;
     private float _currentStatMax;
     private float _currentStatValue;
     private readonly float _statIncrementPerLevel;
-    private readonly float _baseUpgradeCost;
-    private float _currentUpgradeCost;
-    private readonly float _costIncrementPerLevel;
+    private readonly int _baseUpgradeCost;
+    private int _currentUpgradeCost;
+    private readonly int _costIncrementPerLevel;
 
-    public PlayerStat(float baseStat, float statIncrementPerLevel, float baseUpgradeCost, float costIncrementPerLevel, float currentLevel = 1)
+    public PlayerStat(float baseStat, float statIncrementPerLevel, int baseUpgradeCost, int costIncrementPerLevel, int maxLevel = 10, int currentLevel = 0)
     {
+        _maxLevel = maxLevel;
         _statLevel = currentLevel;
         _baseStat = baseStat;
         _statIncrementPerLevel = statIncrementPerLevel;
@@ -21,22 +23,26 @@ public class PlayerStat
         _currentUpgradeCost = baseUpgradeCost + _statLevel * costIncrementPerLevel;
     }
     
-    public void ResetStats()
+    public void ResetStat()
     {
-        _statLevel = 1;
+        _statLevel = 0;
         _currentStatMax = _baseStat;
         _currentStatValue = _baseStat;
         _currentUpgradeCost = _baseUpgradeCost;
     }
 
-    public void IncrementLevel()
+    public bool IncrementLevel(bool spendMoney = true)
     {
+        if (_statLevel == _maxLevel) return false;
         _statLevel++;
         _currentStatMax += _statIncrementPerLevel;
         _currentStatValue += _statIncrementPerLevel;
+        if (spendMoney) PlayerStats.Money -= _currentUpgradeCost;
         _currentUpgradeCost += _costIncrementPerLevel;
+        return true;
     }
 
+    
     public void SetCurrentValue(float value)
     {
         _currentStatValue = value > _currentStatMax ? _currentStatMax : value;
@@ -62,4 +68,15 @@ public class PlayerStat
     {
         return _currentUpgradeCost;
     }
+
+    public float GetCurrentLevel()
+    {
+        return _statLevel;
+    }
+    
+    public bool IsMaxLevel()
+    {
+        return _statLevel == _maxLevel;
+    }
+
 }

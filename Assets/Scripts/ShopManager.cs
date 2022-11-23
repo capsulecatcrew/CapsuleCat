@@ -7,8 +7,8 @@ public class ShopManager : MonoBehaviour
 {
     public TMP_Text moneyCount;
 
-    public PlayerStatScriptableObject playerHpStatScriptableObject;
-    
+    public List<ShopItemButton> itemButtons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,27 +21,22 @@ public class ShopManager : MonoBehaviour
         
     }
 
-    public void BuyItem(string itemName)
+    public void BuyItem(int index)
     {
-        PlayerStat statToUpgrade = null;
-        switch (itemName)
+        PlayerStat statToUpgrade = itemButtons[index].LinkedStat;
+        if (statToUpgrade == null)
         {
-            case "Max HP":
-                statToUpgrade = PlayerStats.Hp;
-                break;
-            case "Firing Rate":
-                statToUpgrade = PlayerStats.FiringRate;
-                break;
-            default:
-                Debug.LogWarning("itemName" + itemName + "does not exist!");
-                break;
+            Debug.Log("Stat is null");
+            return;
         }
-        if (statToUpgrade != null && PlayerStats.Money > statToUpgrade.GetCurrentCost())
+
+        if (PlayerStats.Money < statToUpgrade.GetCurrentCost())
         {
-            statToUpgrade.IncrementLevel();
-            UpdateMoneyCounter();
-            UpdateShopItem(0);
+            return;
         }
+        statToUpgrade.IncrementLevel();
+        UpdateMoneyCounter();
+        UpdateShopItem(index);
 
     }
 
@@ -52,11 +47,6 @@ public class ShopManager : MonoBehaviour
 
     private void UpdateShopItem(int index)
     {
-        
-    }
-
-    public void IncreaseHp()
-    {
-        playerHpStatScriptableObject.baseStat += 5;
+        itemButtons[index].UpdateItemText();
     }
 }

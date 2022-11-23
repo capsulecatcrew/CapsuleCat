@@ -428,7 +428,7 @@ RectTransform:
   - {fileID: 41013034}
   - {fileID: 497994668}
   m_Father: {fileID: 357913703}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -478,7 +478,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 177300974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 984327094}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &177300974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,7 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Energy Absorb Level
+  m_text: Energy Capacity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -685,10 +697,10 @@ RectTransform:
   m_Children:
   - {fileID: 1809928654}
   - {fileID: 788959706}
-  - {fileID: 1318587027}
   - {fileID: 460236104}
-  - {fileID: 177300972}
   - {fileID: 1442650922}
+  - {fileID: 1318587027}
+  - {fileID: 177300972}
   - {fileID: 2136437573}
   - {fileID: 534564748}
   - {fileID: 768650610}
@@ -908,6 +920,7 @@ GameObject:
   - component: {fileID: 460236107}
   - component: {fileID: 460236106}
   - component: {fileID: 460236105}
+  - component: {fileID: 460236108}
   m_Layer: 5
   m_Name: Upgrade Button M Top
   m_TagString: Untagged
@@ -931,7 +944,7 @@ RectTransform:
   - {fileID: 1837995807}
   - {fileID: 1636373634}
   m_Father: {fileID: 357913703}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -985,11 +998,11 @@ MonoBehaviour:
       - m_Target: {fileID: 984327094}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: BuyItem
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: Firing Rate
           m_BoolArgument: 0
@@ -1032,6 +1045,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460236103}
   m_CullTransparentMesh: 1
+--- !u!114 &460236108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460236103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5236960883774faf8fb99c34f85d0c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: {fileID: 449918413}
+  itemDescription: {fileID: 1837995808}
+  itemCost: {fileID: 1636373635}
+  linkedStat: 1
 --- !u!1 &497994667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1746,7 @@ GameObject:
   - component: {fileID: 788959709}
   - component: {fileID: 788959708}
   - component: {fileID: 788959707}
+  - component: {fileID: 788959710}
   m_Layer: 5
   m_Name: Upgrade Button L Top
   m_TagString: Untagged
@@ -1794,7 +1824,7 @@ MonoBehaviour:
       - m_Target: {fileID: 984327094}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: BuyItem
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1841,6 +1871,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788959705}
   m_CullTransparentMesh: 1
+--- !u!114 &788959710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788959705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5236960883774faf8fb99c34f85d0c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: {fileID: 1831790486}
+  itemDescription: {fileID: 673803211}
+  itemCost: {fileID: 1177375231}
+  linkedStat: 0
 --- !u!1 &797112933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,7 +2688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyCount: {fileID: 1130731789}
-  playerHpStatScriptableObject: {fileID: 0}
+  itemButtons:
+  - {fileID: 788959710}
+  - {fileID: 460236108}
+  - {fileID: 1442650926}
 --- !u!4 &984327095
 Transform:
   m_ObjectHideFlags: 0
@@ -2963,7 +3012,7 @@ RectTransform:
   - {fileID: 861848452}
   - {fileID: 845842360}
   m_Father: {fileID: 357913703}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3013,7 +3062,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1318587029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 984327094}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1318587029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3064,6 +3125,7 @@ GameObject:
   - component: {fileID: 1442650925}
   - component: {fileID: 1442650924}
   - component: {fileID: 1442650923}
+  - component: {fileID: 1442650926}
   m_Layer: 5
   m_Name: Upgrade Button R Top
   m_TagString: Untagged
@@ -3087,7 +3149,7 @@ RectTransform:
   - {fileID: 1635768289}
   - {fileID: 1838461421}
   m_Father: {fileID: 357913703}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3137,7 +3199,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1442650924}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 984327094}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1442650924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3176,6 +3250,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442650921}
   m_CullTransparentMesh: 1
+--- !u!114 &1442650926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442650921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5236960883774faf8fb99c34f85d0c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: {fileID: 292853522}
+  itemDescription: {fileID: 1635768290}
+  itemCost: {fileID: 1838461422}
+  linkedStat: 2
 --- !u!1 &1464133624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4382,12 +4472,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 984327094}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: IncreaseHp
-        m_Mode: 1
+        m_MethodName: BuyItem
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
