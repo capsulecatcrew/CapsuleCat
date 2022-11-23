@@ -13,7 +13,7 @@ public class HealthPack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        healAmount = (int) PlayerStats.HealthRecovery.GetCurrentValue();
     }
     
     private void OnEnable()
@@ -33,11 +33,9 @@ public class HealthPack : MonoBehaviour
 
     private void OnHitboxEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            restAreaController.PlayerHeal(healAmount);
-            GlobalAudio.AudioSource.PlayOneShot(healingSound);
-            gameObject.SetActive(false);
-        }
+        if (!other.CompareTag("Player")) return;
+        restAreaController.PlayerHeal(healAmount);
+        GlobalAudio.AudioSource.PlayOneShot(healingSound);
+        gameObject.SetActive(false);
     }
 }

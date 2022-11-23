@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Energy Absorption
+  m_text: HP Box Recovery
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2693,6 +2693,7 @@ MonoBehaviour:
   - {fileID: 460236108}
   - {fileID: 1442650926}
   - {fileID: 1318587031}
+  - {fileID: 2136437577}
 --- !u!4 &984327095
 Transform:
   m_ObjectHideFlags: 0
@@ -3130,7 +3131,7 @@ MonoBehaviour:
   itemName: {fileID: 540198736}
   itemDescription: {fileID: 861848453}
   itemCost: {fileID: 845842361}
-  linkedStat: 3
+  linkedStat: 4
 --- !u!1 &1442650921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,7 +3343,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Not Implemented
+  m_text: Energy Absorption
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4414,6 +4415,7 @@ GameObject:
   - component: {fileID: 2136437576}
   - component: {fileID: 2136437575}
   - component: {fileID: 2136437574}
+  - component: {fileID: 2136437577}
   m_Layer: 5
   m_Name: Upgrade Button R Bottom
   m_TagString: Untagged
@@ -4538,3 +4540,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136437572}
   m_CullTransparentMesh: 1
+--- !u!114 &2136437577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136437572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5236960883774faf8fb99c34f85d0c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: {fileID: 1464133626}
+  itemDescription: {fileID: 948341796}
+  itemCost: {fileID: 154369104}
+  linkedStat: 3

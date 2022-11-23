@@ -10,6 +10,8 @@ public static class PlayerStats
     public static PlayerStat Energy = new PlayerStat(25, 25, 100, 100);
 
     public static PlayerStat EnergyAbsorb = new PlayerStat(0.1f, 0.1f, 100, 100);
+
+    public static PlayerStat HealthRecovery = new PlayerStat(2, 2, 50, 50, 30);
     
     public static int Money = 0;
 
@@ -21,6 +23,7 @@ public static class PlayerStats
         FiringRate.ResetStat();
         Energy.ResetStat();
         EnergyAbsorb.ResetStat();
+        HealthRecovery.ResetStat();
         Money = 0;
         LevelsCompleted = 0;
     }

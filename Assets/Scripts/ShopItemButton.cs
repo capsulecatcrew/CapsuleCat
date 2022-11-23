@@ -37,6 +37,9 @@ public class ShopItemButton: MonoBehaviour
             case Stat.EnergyAbsorption:
                 LinkedStat = PlayerStats.EnergyAbsorb;
                 break;
+            case Stat.HealthRecovery:
+                LinkedStat = PlayerStats.HealthRecovery;
+                break;
             default:
                 break;
         }

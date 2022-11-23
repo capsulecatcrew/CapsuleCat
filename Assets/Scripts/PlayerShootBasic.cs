@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public class PlayerShootBasic : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerShootBasic : MonoBehaviour
     public PlayerEnergy playerEnergy;
     
     public ObjectPool bulletPool;
+    public ObjectPool lowBulletPool;
     private GameObject _bullet;
 
     public AudioClip shootingAudio;
@@ -53,29 +55,31 @@ public class PlayerShootBasic : MonoBehaviour
         _bulletDirection = target.position - shootingOrigin.position;
         if (_playerControls.Land.Attack.IsPressed() && _timeTillNextShot < float.Epsilon)
         {
+            bool noEnergy = playerEnergy.IsEmpty();
             // reset shooting timer
             _timeTillNextShot = timeBetweenShots;
             
             // set up bullet damage
             int dmg = bulletDmg;
-            
+            float spd = bulletSpeed;
             // reduce fire rate and bullet damage if player has no energy
-            if (playerEnergy.IsEmpty())
+            if (noEnergy)
             {
                 _timeTillNextShot *= noEnergyPenalty;
                 dmg /= noEnergyPenalty;
+                spd /= noEnergyPenalty;
                 // make sure damage is at least 1.
                 dmg = Math.Max(dmg, 1);
             }
             
             // initialise bullet
-            _bullet = bulletPool.GetPooledObject();
+            _bullet = noEnergy ? lowBulletPool.GetPooledObject() : bulletPool.GetPooledObject();
             _bullet.transform.position = shootingOrigin.position;
-            _bullet.GetComponent<Bullet>().Init(dmg, _bulletDirection, bulletSpeed, bulletDespawnDist, tagsToHit);
+            _bullet.GetComponent<Bullet>().Init(dmg, _bulletDirection, spd, bulletDespawnDist, tagsToHit);
             _bullet.SetActive(true);
             
             // reduce player energy
-            playerEnergy.AddAmount(-1);
+            if (!noEnergy) playerEnergy.AddAmount(-1);
             
             // Play shooting audio
             audioSource.pitch = Random.Range(0.8f, 1.2f);

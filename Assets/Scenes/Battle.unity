@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.42352942, g: 0.45490196, b: 0.5176471, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 705b27f6a09944d21b616c4e32b91661, type: 2}
   m_LightingSettings: {fileID: 2052422102}
 --- !u!196 &4
 NavMeshSettings:
@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 89983468}
   - component: {fileID: 89983471}
   - component: {fileID: 89983470}
+  - component: {fileID: 89983472}
   - component: {fileID: 89983469}
   m_Layer: 0
   m_Name: Player
@@ -338,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerEnergy: {fileID: 89983471}
   bulletPool: {fileID: 89983470}
+  lowBulletPool: {fileID: 89983472}
   shootingAudio: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
   audioSource: {fileID: 89983469}
   tagsToHit:
@@ -482,6 +484,22 @@ MonoBehaviour:
   - {fileID: 2069980392}
   - {fileID: 911234958}
   - {fileID: 1073716596}
+--- !u!114 &89983472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89983463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ca9546357884f65bbbe28be8307d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToPool: {fileID: 3181999364343464044, guid: b7019a2c5fd0a43b0a7a7b6d85bae6e7, type: 3}
+  amountToPool: 5
+  parentTransform: {fileID: 1961851102}
+  pooledObjects: []
 --- !u!1 &159096222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5647997688415474682, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -4447,7 +4465,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh148096
+  m_Name: pb_Mesh157970
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5371,7 +5389,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: f531e09e2ad2fb440b4eed7605863143, type: 2}
 --- !u!1 &1073716595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3694461141564957661, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -6912,9 +6930,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 725430198}
     m_Modifications:
+    - target: {fileID: 1518021532, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 947068922249067175, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
       propertyPath: m_Name
       value: Player Wings
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759002792334841191, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9169349068699098260, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
       propertyPath: m_RootOrder
