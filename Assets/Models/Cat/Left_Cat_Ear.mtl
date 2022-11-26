@@ -1,0 +1,8 @@
+newmtl Cat_Fur_Light
+Kd 0.9433962 0.9041961 0.8410466
+d 1
+
+newmtl Cat_Pink
+Kd 0.990566 0.873754 0.9208275
+d 1
+

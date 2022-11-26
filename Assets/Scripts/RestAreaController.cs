@@ -39,9 +39,8 @@ public class RestAreaController : MonoBehaviour
         }
 
         player.SetActive(false);
-        player.transform.position = spawnPoint.position;
         var rotation = spawnPoint.rotation;
-        player.transform.Rotate(rotation.x, rotation.y, rotation.z);
+        player.transform.SetPositionAndRotation(spawnPoint.position, rotation);
         player.SetActive(true);
     }
 

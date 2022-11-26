@@ -35,7 +35,7 @@ public class ObjectPool : MonoBehaviour
 
     private GameObject AddToPool()
     {
-        Debug.Log("Insufficient" + prefabToPool + "in object pool, adding 1 more");
+        Debug.Log("Insufficient " + prefabToPool + "in object pool, adding 1 more");
         GameObject addedObject = Instantiate(prefabToPool, parentTransform);
         addedObject.SetActive(false);
         pooledObjects.Add(addedObject);

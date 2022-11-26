@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerControls PlayerController;
 
+    public Transform pivot;
+    public Transform mainBody;
+    
     public float maxSpeed = 50;
     public float stoppingSpeed = 150;
 
@@ -30,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         PlayerController = new PlayerControls();
-        _lastGroundedY = transform.position.y;
+        _lastGroundedY = mainBody.position.y;
         _isGrounded = true;
     }
 
@@ -51,19 +54,23 @@ public class PlayerMovement : MonoBehaviour
         if (movement != 0)
         {
             _currentVelocity = maxSpeed * movement;
+            pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
         else if (Math.Abs(_currentVelocity) > float.Epsilon)
         {
-            _currentVelocity =  _currentVelocity > 0 ? _currentVelocity - stoppingSpeed * Time.deltaTime 
-                                                     : _currentVelocity + stoppingSpeed * Time.deltaTime;
-            _currentVelocity = Math.Abs(_currentVelocity) < float.Epsilon ? 0 : _currentVelocity;
+            _currentVelocity =  _currentVelocity > 0 ? Math.Max(_currentVelocity - stoppingSpeed * Time.deltaTime, 0) 
+                                                     : Math.Min(_currentVelocity + stoppingSpeed * Time.deltaTime, 0);
+            pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
-        transform.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
+        else
+        {
+            _currentVelocity = 0.0f;
+        }
 
         if (_isGrounded && PlayerController.Land.Jump.triggered)
         {
             _isGrounded = false;
-            _lastGroundedY = transform.position.y;
+            _lastGroundedY = mainBody.position.y;
             _yVelocity = jumpSpeed;
             _airTime = 0;
         }
@@ -84,10 +91,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             
-            transform.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
-            if (transform.position.y <= _lastGroundedY)
+            mainBody.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
+            if (mainBody.position.y <= _lastGroundedY)
             {
-                transform.position = new Vector3(transform.position.x, _lastGroundedY, transform.position.z);
+                var position = mainBody.position;
+                position = new Vector3(position.x, _lastGroundedY, position.z);
+                mainBody.position = position;
                 _yVelocity = 0.0f;
                 _isGrounded = true;
             }
