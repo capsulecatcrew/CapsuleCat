@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotate: 1
-  rotateSpeed: 50
+  rotateSpeed: 25
   verticalOscillate: 1
   dist: 0.5
 --- !u!4 &2140397283 stripped

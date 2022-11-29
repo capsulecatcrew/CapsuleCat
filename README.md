@@ -10,6 +10,8 @@ Between stages, have a rest and upgrade your stats at the shop!
 
 Watch out, the space cubes aren't defenseless. With tough shields, projectiles, and giant lasers to protect themselves, you must dodge and fight back! How far can you progress before Capsule Cat is shot down?
 
+This game was made for CS50G as a Final Project and was developed with Unity 2021.3.13f1.
+
 ## Features
 ### 1. Multiple game states
 
