@@ -35,7 +35,7 @@ public class HealthPack : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         restAreaController.PlayerHeal(healAmount);
-        GlobalAudio.AudioSource.PlayOneShot(healingSound);
+        GlobalAudio.Singleton.PlaySound("Healing");
         gameObject.SetActive(false);
     }
 }

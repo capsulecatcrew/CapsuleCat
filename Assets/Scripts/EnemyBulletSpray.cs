@@ -84,7 +84,7 @@ public class EnemyBulletSpray : MonoBehaviour
                 _bullet.SetActive(true);
 
             }
-            GlobalAudio.AudioSource.PlayOneShot(firingSound);
+            GlobalAudio.Singleton.PlaySound("Pulsing");
             _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
             _timeSinceLastAttack = 0.0f;
         }

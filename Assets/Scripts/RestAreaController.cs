@@ -26,6 +26,7 @@ public class RestAreaController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
         healthBox.SetActive(!_healthBoxUsed);
         UpdatePlayerHealthBar();
         Transform spawnPoint;
@@ -36,6 +37,8 @@ public class RestAreaController : MonoBehaviour
         else
         {
             spawnPoint = defaultSpawn;
+            GlobalAudio.Singleton.StopMusic();
+            GlobalAudio.Singleton.PlayMusic("Rest Area");
         }
 
         player.SetActive(false);

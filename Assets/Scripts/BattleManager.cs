@@ -33,6 +33,9 @@ public class BattleManager : MonoBehaviour
         
         enemyBody.GetComponent<Renderer>().material.color = new Color(Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f));
         
+        GlobalAudio.Singleton.StopMusic();
+        GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
+        
         _battleIsOver = false;
     }
 
@@ -54,7 +57,7 @@ public class BattleManager : MonoBehaviour
 
     private void OnEnable()
     {
-        playerDamageable.OnDamage += UpdatePlayerHealthBar;
+        playerDamageable.OnDamage += PlayerDamage;
         playerDamageable.OnDeath += Lose;
 
         playerEnergy.EnergyUpdate += UpdatePlayerEnergyBar;
@@ -64,7 +67,7 @@ public class BattleManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        playerDamageable.OnDamage -= UpdatePlayerHealthBar;
+        playerDamageable.OnDamage -= PlayerDamage;
         playerDamageable.OnDeath -= Lose;
         
         playerEnergy.EnergyUpdate -= UpdatePlayerEnergyBar;
@@ -74,8 +77,9 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    void UpdatePlayerHealthBar(Damageable damageable)
+    void PlayerDamage(Damageable ignore)
     {
+        GlobalAudio.Singleton.PlaySound("Damage");
         playerHealthBar.SetFill(playerDamageable.currentHp);
     }
 
@@ -91,7 +95,9 @@ public class BattleManager : MonoBehaviour
     void Win(Damageable damageable)
     {
         if (_battleIsOver) return;
-        GlobalAudio.AudioSource.PlayOneShot(enemyDefeatSound);
+        GlobalAudio.Singleton.PlaySound("Explode");
+        GlobalAudio.Singleton.StopMusic();
+        GlobalAudio.Singleton.PlayMusic("Victory");
         enemy.SetActive(false);
         enemyHealthBar.gameObject.SetActive(false);
         playerDamageable.enabled = false;
@@ -105,6 +111,7 @@ public class BattleManager : MonoBehaviour
     void Lose(Damageable damageable)
     {
         if (_battleIsOver) return;
+        GlobalAudio.Singleton.StopMusic();
         levelLoader.LoadLevel("Game Over");
         _battleIsOver = true;
     }

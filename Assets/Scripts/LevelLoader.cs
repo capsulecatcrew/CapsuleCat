@@ -31,6 +31,12 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(SceneTransition(sceneName));
     }
 
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
+    
     IEnumerator SceneTransition(string sceneName)
     {
         transition.SetInteger("WipeDirection", Random.Range(0, 4));

@@ -55,7 +55,7 @@ public class Damageable : MonoBehaviour
             
             if (invincibilitySeconds > 0.0f) TimeSinceLastHit = 0.0f;
 
-            if (damageSoundSource != null && damageSound != null)
+            if (damageSoundSource != null && damageSoundSource.isActiveAndEnabled && damageSound != null)
             {
                 damageSoundSource.PlayOneShot(damageSound);
             }

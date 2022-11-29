@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4748703264835457971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4265839613740073818}
+  - component: {fileID: 726937676748201933}
+  m_Layer: 0
+  m_Name: Global Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4265839613740073818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4748703264835457971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &726937676748201933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4748703264835457971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ce1ad87c37f42b0b22d6d666faf27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music:
+  - name: Victory
+    clip: {fileID: 8300000, guid: c9faa68e8f76f4300b80a56f76c25d76, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Rest Area
+    clip: {fileID: 8300000, guid: 9c91cbeceb8754f0eb652c7f57491d12, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 1
+    clip: {fileID: 8300000, guid: e59a20f319c254fda967b63c11d77bc3, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 2
+    clip: {fileID: 8300000, guid: 922488db17fa343d486f28744886a5a7, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 3
+    clip: {fileID: 8300000, guid: 8cd9cb51861b24285a35af894e20205b, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 4
+    clip: {fileID: 8300000, guid: 9921eb84d9af34e09b7c30e1a7c74173, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 5
+    clip: {fileID: 8300000, guid: d84ce97f501d545b0896e756bb2f4cbc, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 6
+    clip: {fileID: 8300000, guid: 0b51614ad67c24fa08228ca1483cae23, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Battle 7
+    clip: {fileID: 8300000, guid: 38f955b9017a249d2924837cb02c1342, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  sounds:
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
+    priority: 128
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Explode
+    clip: {fileID: 8300000, guid: 9c47d184eb57743118ab203f06371b15, type: 3}
+    priority: 128
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Healing
+    clip: {fileID: 8300000, guid: d5723a415294d4caaaeacd1244612936, type: 3}
+    priority: 128
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pulsing
+    clip: {fileID: 8300000, guid: 63f93e6cebded4c01be05225e5825aa7, type: 3}
+    priority: 128
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: 7ae321aa1fe8c4562ad529f98d8e10e2, type: 3}
+    priority: 89
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
