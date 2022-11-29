@@ -50,6 +50,8 @@ Players must make decisions on how to best prepare for the increasing stage diff
 ### 5. Scoring System
 If a player's HP reaches zero, it's Game Over. Players must try to clear as many stages as possible.
 
+My high score is 17 stages completed btw just saying
+
 ### 6. Animated Scene Transitions
 Using Unity's animation system, slick wipe transitions have been placed when players transition between scenes in game.
 
