@@ -1,5 +1,5 @@
 # Capsule Cat's Big Space Adventure
-
+![coverimage](Docs/Images/cover.png)
 ## What is CCBSA?
 
 Capsule Cat's Big Space Adventure is a 3rd person arcade shooter, inspired by old-school shoot-em-ups.
@@ -88,3 +88,5 @@ Skyboxes by [Avionx](https://assetstore.unity.com/packages/2d/textures-materials
 All in-game models were made by myself in Unity.
 
 All other sound effects, sprites and texture maps were made by myself. Normal maps were converted using [NormalMap Online](https://cpetry.github.io/NormalMap-Online/).
+
+![icon](Docs/Images/icon.png)
