@@ -14,7 +14,7 @@ public class LevelLoader : MonoBehaviour
         transition.SetInteger("WipeDirection", Random.Range(0, 4));
         if (setResolution)
         {
-            // Screen.SetResolution(1920, 1080, FullScreenMode.MaximizedWindow, 60);
+            Screen.SetResolution(1920, 1080, FullScreenMode.MaximizedWindow, 60);
             setResolution = false;
         }
         
