@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalAudio : MonoBehaviour
@@ -11,7 +9,7 @@ public class GlobalAudio : MonoBehaviour
     private Sound _currentMusic;
     
     public Sound[] sounds;
-    // Start is called before the first frame update
+    
     void Awake()
     {
         if (Singleton == null)
@@ -28,31 +26,16 @@ public class GlobalAudio : MonoBehaviour
         
         foreach (Sound s in music)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.priority = s.priority;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-
-            s.source.loop = s.loop;
+            s.BindAudioSourceProperties(gameObject.AddComponent<AudioSource>());
         }
         
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.priority = s.priority;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-
-            s.source.loop = s.loop;
+            s.BindAudioSourceProperties(gameObject.AddComponent<AudioSource>());
         }
 
     }
 
-    // Update is called once per frame
     public void PlaySound(string soundName)
     {
         Sound sound = Array.Find(sounds, s => s.name == soundName);
@@ -102,6 +85,4 @@ public class GlobalAudio : MonoBehaviour
     {
         _currentMusic?.source.Stop();
     }
-
-
 }

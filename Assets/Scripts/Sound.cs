@@ -1,4 +1,3 @@
-using UnityEngine.Audio;
 using UnityEngine;
 
 [System.Serializable]
@@ -16,4 +15,14 @@ public class Sound
     public bool loop;
 
     [HideInInspector] public AudioSource source;
+
+    public void BindAudioSourceProperties(AudioSource auSource)
+    {
+        source = auSource;
+        auSource.clip = clip;
+        auSource.priority = priority;
+        auSource.volume = volume;
+        auSource.pitch = pitch;
+        auSource.loop = loop;
+    }
 }
