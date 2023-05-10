@@ -8,15 +8,16 @@ public class ScoreDisplay : MonoBehaviour
 {
     public TMP_Text scoreText;
 
+    public string textBefore, textAfter = "";
     public int offset = 0;
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = (PlayerStats.LevelsCompleted + offset).ToString();
+        UpdateScore();
     }
 
     public void UpdateScore()
     {
-        scoreText.text = PlayerStats.LevelsCompleted.ToString();
+        scoreText.text = textBefore + (PlayerStats.LevelsCompleted + offset).ToString() + textAfter;
     }
 }

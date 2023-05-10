@@ -45,6 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music:
+  - name: Title
+    clip: {fileID: 8300000, guid: 362c6e71b337249a6b420961ac099af8, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Victory
     clip: {fileID: 8300000, guid: c9faa68e8f76f4300b80a56f76c25d76, type: 3}
     priority: 128
