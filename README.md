@@ -92,3 +92,11 @@ All in-game models were made by myself in Unity.
 All other sound effects, sprites and texture maps were made by myself. Normal maps were converted using [NormalMap Online](https://cpetry.github.io/NormalMap-Online/).
 
 ![icon](Docs/Images/icon.png)
+
+## Roadmap
+### Add Automated Unit Testing on merge request
+- [test runner action](https://github.com/marketplace/actions/unity-test-runner)
+    - [yaml syntax](https://learnxinyminutes.com/docs/yaml/)
+    - [github workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows)
+- [test runner docs](https://game.ci/docs/github/test-runner)
+- [code coverage](https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/index.html)
