@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float maxSpeed = 50;
     public float stoppingSpeed = 150;
+    [Range(0, 360)]
+    public int movementRange = 360;
     
     [Header("Jump")]
     public float shortJumpTime = 0.1f;
@@ -52,9 +54,22 @@ public class PlayerMovement : MonoBehaviour
         PlayerController.Disable();
     }
 
+    private void OnDrawGizmos()
+    {
+        float length = Math.Abs(mainBody.localPosition.z) + 5;
+        float halfAngle = movementRange * 0.5f * Mathf.Deg2Rad;
+        float endX = length * Mathf.Sin(halfAngle);
+        float endZ = length * Mathf.Cos(halfAngle);
+        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x + endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
+        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x - endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
+    }
+
     // Update is called once per frame
     void Update()
     {
+        /*
+         * Rotational Movement
+         */
         float movement = PlayerController.Land.MoveLR.ReadValue<float>();
         if (movement != 0)
         {
@@ -72,6 +87,22 @@ public class PlayerMovement : MonoBehaviour
             _currentVelocity = 0.0f;
         }
 
+        if (movementRange < 360) {
+            float halfAngle = (float) movementRange * 0.5f;
+            float rot = pivot.rotation.eulerAngles.y;
+            if (rot > halfAngle && rot < 180)
+            {
+                pivot.rotation = Quaternion.Euler(0, halfAngle, 0);
+            }
+            else if (rot < 360 - halfAngle && rot > 180)
+            {
+                pivot.rotation = Quaternion.Euler(0, 360 - halfAngle, 0);
+            }
+        }
+
+        /*
+         * Jumping
+         */
         if (_isGrounded && PlayerController.Land.Jump.triggered)
         {
             _isGrounded = false;
