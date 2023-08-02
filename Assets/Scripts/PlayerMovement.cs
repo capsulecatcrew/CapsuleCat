@@ -12,19 +12,24 @@ public class PlayerMovement : MonoBehaviour
     public Transform pivot;
     public Transform mainBody;
     
+    [Header("Movement")]
     public float maxSpeed = 50;
     public float stoppingSpeed = 150;
-
-    public float jumpTime = 1;
+    
+    [Header("Jump")]
+    public float shortJumpTime = 0.1f;
+    public float longJumpTime = 0.2f;
     public float jumpSpeed = 3;
     public float weight = 1;
-    public float jumpDecel = 10;
+    public float jumpDecel = 100;
     private static float _gravityConstant = -9.81f;
     private bool _isGrounded;
 
     private float _lastGroundedY;
     private float _yVelocity;
     private float _airTime;
+    private float _jumpTime;
+    private bool _isHoldingJump = false;
 
     private float _currentVelocity;
     
@@ -73,16 +78,24 @@ public class PlayerMovement : MonoBehaviour
             _lastGroundedY = mainBody.position.y;
             _yVelocity = jumpSpeed;
             _airTime = 0;
+            _jumpTime = longJumpTime;
+            _isHoldingJump = true;
         }
 
         if (!_isGrounded)
-        {
+        {   
+            if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Land.Jump.IsPressed()) 
+            {
+                _isHoldingJump = false;
+                _jumpTime = shortJumpTime;
+            }
+
             _airTime += Time.deltaTime;
-            if (_airTime > jumpTime)
+            if (_airTime > _jumpTime)
             {
                 if (_yVelocity > 0.0f)
                 {
-                    _yVelocity += _gravityConstant * jumpDecel * weight * Time.deltaTime;
+                    _yVelocity += -jumpDecel * weight * Time.deltaTime;
                     if (_yVelocity < 0.0f) _yVelocity = 0.0f;
                 }
                 else
