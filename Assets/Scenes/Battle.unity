@@ -4709,7 +4709,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh128284
+  m_Name: pb_Mesh25218
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5824,7 +5824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805783937}
-  m_LocalRotation: {x: -3.1513144e-25, y: 0.99981654, z: -0.01915611, w: -1.6447682e-23}
+  m_LocalRotation: {x: -3.1507297e-25, y: 0.99981654, z: -0.01915611, w: -1.644463e-23}
   m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5946,8 +5946,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -3.1442107e-25, y: 0.99981654, z: -0.01915611, w: -1.6410604e-23}
-  m_LocalPosition: {x: 6.5606257e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -3.1507297e-25, y: 0.99981654, z: -0.01915611, w: -1.644463e-23}
+  m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6146,8 +6146,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -3.1442107e-25, y: 0.99981654, z: -0.01915611, w: -1.6410604e-23}
-  m_LocalPosition: {x: 6.5606257e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -3.1434724e-25, y: 0.99981654, z: -0.01915611, w: -1.6406753e-23}
+  m_LocalPosition: {x: 6.559087e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7760,7 +7760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1532447025
 Transform:
   m_ObjectHideFlags: 0
@@ -7787,8 +7787,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1588538303}
-  - component: {fileID: 1588538304}
   - component: {fileID: 1588538305}
+  - component: {fileID: 1588538304}
+  - component: {fileID: 1588538306}
   m_Layer: 0
   m_Name: Enemy Lasers
   m_TagString: Untagged
@@ -7825,6 +7826,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 725430197}
   laserPool: {fileID: 1588538305}
+  bigAttacks:
+  - {fileID: 1588538306}
   startingDamage: 2
   dmgIncreaseLvlInterval: 5
   dmgIncrease: 1
@@ -7846,9 +7849,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToPool: {fileID: 5607062548565506657, guid: ef16542cb1e7a488a892ec7da00fa249, type: 3}
-  amountToPool: 5
+  amountToPool: 10
   parentTransform: {fileID: 0}
   pooledObjects: []
+--- !u!114 &1588538306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588538302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012190d5d79104353bf575f57f0d7b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  numOfLasers: 5
+  rotationSpeed: 50
 --- !u!1 &1627916139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 875710972588870714, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -9336,7 +9354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1876447376
 Transform:
   m_ObjectHideFlags: 0

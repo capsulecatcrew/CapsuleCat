@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Rotational Movement
          */
-        float movement = PlayerController.Land.MoveLR.ReadValue<float>();
+        float movement = PlayerController.Player1.MoveLR.ReadValue<float>();
         if (movement != 0)
         {
             _currentVelocity = maxSpeed * movement;
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         if (movementRange < 360) {
             float halfAngle = (float) movementRange * 0.5f;
             float rot = pivot.rotation.eulerAngles.y;
-            if (rot > halfAngle && rot < 180)
+            if (rot > halfAngle && rot <= 180)
             {
                 pivot.rotation = Quaternion.Euler(0, halfAngle, 0);
             }
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Jumping
          */
-        if (_isGrounded && PlayerController.Land.Jump.triggered)
+        if (_isGrounded && PlayerController.Player1.Jump.triggered)
         {
             _isGrounded = false;
             _lastGroundedY = mainBody.position.y;
@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!_isGrounded)
         {   
-            if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Land.Jump.IsPressed()) 
+            if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Player1.Jump.IsPressed()) 
             {
                 _isHoldingJump = false;
                 _jumpTime = shortJumpTime;
