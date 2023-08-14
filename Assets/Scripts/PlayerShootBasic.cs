@@ -52,7 +52,7 @@ public class PlayerShootBasic : MonoBehaviour
     void Update()
     {
         _bulletDirection = target.position - shootingOrigin.position;
-        if (_playerControls.Land.Attack.IsPressed() && _timeTillNextShot < float.Epsilon)
+        if (_playerControls.Player1.Attack.IsPressed() && _timeTillNextShot < float.Epsilon)
         {
             bool noEnergy = playerEnergy.IsEmpty();
             // reset shooting timer

@@ -9,6 +9,9 @@ public class EnemyLaserAttack : MonoBehaviour
 {
     public GameObject target;
     public ObjectPool laserPool;
+
+    public EnemyAttack[] bigAttacks;
+
     private GameObject _currLaser;
     private EnemyLaser _laserLogic;
 
@@ -29,6 +32,9 @@ public class EnemyLaserAttack : MonoBehaviour
     
     private float _timeSinceLastLaser;
     private float _timeTillNextLaser;
+
+    private int _bigAttackIndex;
+    private bool _doingBigAttack = false;
 
     private void Awake()
     {
@@ -51,9 +57,20 @@ public class EnemyLaserAttack : MonoBehaviour
     void Update()
     {
         _timeSinceLastLaser += Time.deltaTime;
-        if (_timeSinceLastLaser > _timeTillNextLaser)
+        if (!_doingBigAttack && _timeSinceLastLaser > _timeTillNextLaser)
         {
+            if (bigAttacks.Length > 0 && Random.Range(1, 11) > 1)
+            {
+                _doingBigAttack = true;
+                _bigAttackIndex = Random.Range(0, bigAttacks.Length);
+                bigAttacks[_bigAttackIndex].OnFinish += FinishedBigAttack;
+                bigAttacks[_bigAttackIndex].StartAttack();
+            }
+            else
+            {
             SingleAimedLaser();
+            }
+
             ResetTimer();
         }
     }
@@ -64,15 +81,22 @@ public class EnemyLaserAttack : MonoBehaviour
         _laserLogic = _currLaser.GetComponent<EnemyLaser>();
         _laserLogic.SetDamage(_damage);
         _laserLogic.SetTargetTracking(target.transform);
+        _laserLogic.SetFiringTiming(firingDuration: 2);
         _currLaser.transform.position = transform.position;
         _currLaser.SetActive(true);
     }
 
-    void RadialLasers(int numOfLasers, Vector3 arcCenter, float arcAngle = 360)
+    void FinishedBigAttack()
     {
-        // another time.
+        _doingBigAttack = false;
+        bigAttacks[_bigAttackIndex].OnFinish -= FinishedBigAttack;
     }
     
+    IEnumerator WaitBeforeExecution(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
+
     void ResetTimer()
     {
         _timeSinceLastLaser = 0.0f;

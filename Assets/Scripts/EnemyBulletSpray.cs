@@ -15,6 +15,7 @@ public class EnemyBulletSpray : MonoBehaviour
 
     public float bulletDespawnDist = 50;
 
+    [Header("Level Scaling")]
     public float startingMinTimeBetweenShots = 3;
     private float _minTimeBetweenShots;
     public float startingMaxTimeBetweenShots = 10;

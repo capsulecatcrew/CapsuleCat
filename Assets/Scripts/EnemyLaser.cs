@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class EnemyLaser : MonoBehaviour
 {
@@ -20,13 +17,14 @@ public class EnemyLaser : MonoBehaviour
     public AudioClip chargingSound;
     public AudioClip firingSound;
 
-    public float chargingDuration;
-    public float lockOnDuration;
-    public float firingDuration;
+    public float chargingDuration = 2.5f;
+    public float lockOnDuration = 0.5f;
+    public float firingDuration = 2.0f;
 
-    public int damage;
+    public int damage = 1;
 
     private bool _trackingTarget = false;
+    private bool _nonStopTracking = false;
     
     public delegate void Trigger();
 
@@ -43,7 +41,7 @@ public class EnemyLaser : MonoBehaviour
     {
         if (_trackingTarget)
         {
-            transform.rotation = Quaternion.LookRotation(target.position - transform.position);
+            SetTargetPosition(target.position);
         }
     }
 
@@ -58,12 +56,12 @@ public class EnemyLaser : MonoBehaviour
         hitbox.HitboxStay -= OnHitBoxStay;
     }
 
-    IEnumerator FireLaser()
+    IEnumerator FireLaser(bool trackAfterLockOn = false)
     {
         audioSource.PlayOneShot(chargingSound);
         yield return new WaitForSeconds(chargingDuration);
         animator.SetTrigger(LockOnTrigger);
-        _trackingTarget = false;
+        _trackingTarget = trackAfterLockOn;
         yield return new WaitForSeconds(lockOnDuration);
         animator.SetTrigger(FireTrigger);
         audioSource.PlayOneShot(firingSound);
@@ -83,6 +81,18 @@ public class EnemyLaser : MonoBehaviour
     {
         this.target = target;
         _trackingTarget = true;
+    }
+
+    public void SetTargetPosition(Vector3 targetPos)
+    {
+        transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
+    }
+
+    public void SetFiringTiming(float chargingDuration = 0, float lockOnDuration = 0, float firingDuration = 0)
+    {
+        if (chargingDuration > 0) this.chargingDuration = chargingDuration;
+        if (lockOnDuration > 0) this.lockOnDuration = lockOnDuration;
+        if (firingDuration > 0) this.firingDuration = firingDuration;
     }
 
     public void DisableTargetTracking()

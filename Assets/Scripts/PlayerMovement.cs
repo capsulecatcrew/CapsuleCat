@@ -12,19 +12,26 @@ public class PlayerMovement : MonoBehaviour
     public Transform pivot;
     public Transform mainBody;
     
+    [Header("Movement")]
     public float maxSpeed = 50;
     public float stoppingSpeed = 150;
-
-    public float jumpTime = 1;
+    [Range(0, 360)]
+    public int movementRange = 360;
+    
+    [Header("Jump")]
+    public float shortJumpTime = 0.1f;
+    public float longJumpTime = 0.2f;
     public float jumpSpeed = 3;
     public float weight = 1;
-    public float jumpDecel = 10;
+    public float jumpDecel = 100;
     private static float _gravityConstant = -9.81f;
     private bool _isGrounded;
 
     private float _lastGroundedY;
     private float _yVelocity;
     private float _airTime;
+    private float _jumpTime;
+    private bool _isHoldingJump = false;
 
     private float _currentVelocity;
     
@@ -47,10 +54,23 @@ public class PlayerMovement : MonoBehaviour
         PlayerController.Disable();
     }
 
+    private void OnDrawGizmos()
+    {
+        float length = Math.Abs(mainBody.localPosition.z) + 5;
+        float halfAngle = movementRange * 0.5f * Mathf.Deg2Rad;
+        float endX = length * Mathf.Sin(halfAngle);
+        float endZ = length * Mathf.Cos(halfAngle);
+        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x + endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
+        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x - endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        float movement = PlayerController.Land.MoveLR.ReadValue<float>();
+        /*
+         * Rotational Movement
+         */
+        float movement = PlayerController.Player1.MoveLR.ReadValue<float>();
         if (movement != 0)
         {
             _currentVelocity = maxSpeed * movement;
@@ -67,22 +87,46 @@ public class PlayerMovement : MonoBehaviour
             _currentVelocity = 0.0f;
         }
 
-        if (_isGrounded && PlayerController.Land.Jump.triggered)
+        if (movementRange < 360) {
+            float halfAngle = (float) movementRange * 0.5f;
+            float rot = pivot.rotation.eulerAngles.y;
+            if (rot > halfAngle && rot <= 180)
+            {
+                pivot.rotation = Quaternion.Euler(0, halfAngle, 0);
+            }
+            else if (rot < 360 - halfAngle && rot > 180)
+            {
+                pivot.rotation = Quaternion.Euler(0, 360 - halfAngle, 0);
+            }
+        }
+
+        /*
+         * Jumping
+         */
+        if (_isGrounded && PlayerController.Player1.Jump.triggered)
         {
             _isGrounded = false;
             _lastGroundedY = mainBody.position.y;
             _yVelocity = jumpSpeed;
             _airTime = 0;
+            _jumpTime = longJumpTime;
+            _isHoldingJump = true;
         }
 
         if (!_isGrounded)
-        {
+        {   
+            if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Player1.Jump.IsPressed()) 
+            {
+                _isHoldingJump = false;
+                _jumpTime = shortJumpTime;
+            }
+
             _airTime += Time.deltaTime;
-            if (_airTime > jumpTime)
+            if (_airTime > _jumpTime)
             {
                 if (_yVelocity > 0.0f)
                 {
-                    _yVelocity += _gravityConstant * jumpDecel * weight * Time.deltaTime;
+                    _yVelocity += -jumpDecel * weight * Time.deltaTime;
                     if (_yVelocity < 0.0f) _yVelocity = 0.0f;
                 }
                 else
