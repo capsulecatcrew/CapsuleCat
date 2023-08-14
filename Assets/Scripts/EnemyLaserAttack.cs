@@ -59,7 +59,8 @@ public class EnemyLaserAttack : MonoBehaviour
         _timeSinceLastLaser += Time.deltaTime;
         if (!_doingBigAttack && _timeSinceLastLaser > _timeTillNextLaser)
         {
-            if (bigAttacks.Length > 0 && Random.Range(1, 11) > 1)
+            // 10% chance of doing a big attack
+            if (bigAttacks.Length > 0 && Random.Range(1, 11) > 9)
             {
                 _doingBigAttack = true;
                 _bigAttackIndex = Random.Range(0, bigAttacks.Length);
@@ -68,7 +69,7 @@ public class EnemyLaserAttack : MonoBehaviour
             }
             else
             {
-            SingleAimedLaser();
+                SingleAimedLaser();
             }
 
             ResetTimer();
@@ -92,11 +93,6 @@ public class EnemyLaserAttack : MonoBehaviour
         bigAttacks[_bigAttackIndex].OnFinish -= FinishedBigAttack;
     }
     
-    IEnumerator WaitBeforeExecution(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-    }
-
     void ResetTimer()
     {
         _timeSinceLastLaser = 0.0f;

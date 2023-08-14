@@ -5,8 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyLaserAttack))]
 public class EnemyRadialLaserAttack : EnemyAttack
 {
-    public int damage = 1;
-    public int numOfLasers = 3;
+    [Header("Laser Damage")]
+    public int startingDamage = 2;
+    private int _damage;
+    public int dmgIncreaseLvlInterval = 5;
+    public int dmgIncrease = 1;
+
+    [Header("Attack Parameters")]
+    public int startingNumOfLasers = 3;
+    public int maxNumOfLasers = 7;
+    public int lasersIncreaseLvlInterval = 5;
+    private int _numOfLasers;
+
     public float rotationSpeed = 0;
 
     // private references
@@ -15,7 +25,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
     private EnemyLaser _laserLogic;
     private ArrayList _lasersInUse;
 
-    // private variables
+    // other private variables
     private bool _isSpinning = false;
     private int _spinDir = 1;
 
@@ -23,12 +33,14 @@ public class EnemyRadialLaserAttack : EnemyAttack
     {
         _lasersInUse = new ArrayList();
         _laserPool = GetComponent<EnemyLaserAttack>().laserPool;
+        _damage = startingDamage + dmgIncrease * PlayerStats.LevelsCompleted / dmgIncreaseLvlInterval;
+        _numOfLasers = startingNumOfLasers + PlayerStats.LevelsCompleted / lasersIncreaseLvlInterval;
     }
 
     public override void StartAttack()
     {
         _spinDir = Random.Range(0, 2) == 1 ? 1 : -1;
-        RadialLasers(damage, numOfLasers);
+        RadialLasers(_damage, _numOfLasers);
         StartCoroutine(StartSpinning());
         StartCoroutine(FinishAttack());
     }
@@ -67,7 +79,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
 
     IEnumerator StartSpinning()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.5f);
         _isSpinning = true;
         yield return null;
     }
@@ -75,7 +87,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
     IEnumerator FinishAttack()
     {
         yield return new WaitForSeconds(8.5f);
-        // _isSpinning = false;
+        _isSpinning = false;
         _lasersInUse.Clear();
         DeclareAttackDone();
         yield return null;
