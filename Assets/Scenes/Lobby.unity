@@ -547,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 236523474}
   healingSound: {fileID: 8300000, guid: d5723a415294d4caaaeacd1244612936, type: 3}
-  lobbyController: {fileID: 0}
+  lobbyController: {fileID: 1459162600}
   healAmount: 2
 --- !u!114 &236523474
 MonoBehaviour:
