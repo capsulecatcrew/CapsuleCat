@@ -95,7 +95,7 @@ All other sound effects, sprites and texture maps were made by myself. Normal ma
 
 ## Roadmap
 ### Add Local Multiplayer
-- yes
+- Allow 2 players to play on the same computer and run into a lot of conflicts during movement
 
 ### Add Automated Unit Testing on merge request
 - [test runner action](https://github.com/marketplace/actions/unity-test-runner)
