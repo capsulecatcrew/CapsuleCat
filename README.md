@@ -94,6 +94,9 @@ All other sound effects, sprites and texture maps were made by myself. Normal ma
 ![icon](Docs/Images/icon.png)
 
 ## Roadmap
+### Add Local Multiplayer
+- yes
+
 ### Add Automated Unit Testing on merge request
 - [test runner action](https://github.com/marketplace/actions/unity-test-runner)
     - [yaml syntax](https://learnxinyminutes.com/docs/yaml/)
