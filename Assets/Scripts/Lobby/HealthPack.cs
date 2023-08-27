@@ -7,7 +7,7 @@ public class HealthPack : MonoBehaviour
 {
     public HitboxTrigger hitbox;
     public AudioClip healingSound;
-    public RestAreaController restAreaController;
+    public LobbyController lobbyController;
     public int healAmount = 1;
     
     // Start is called before the first frame update
@@ -34,7 +34,7 @@ public class HealthPack : MonoBehaviour
     private void OnHitboxEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        restAreaController.PlayerHeal(healAmount);
+        lobbyController.PlayerHeal(healAmount);
         GlobalAudio.Singleton.PlaySound("Healing");
         gameObject.SetActive(false);
     }

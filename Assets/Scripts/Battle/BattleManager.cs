@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Battle scene manager class
+/// </summary>
 public class BattleManager : MonoBehaviour
 {
     public LevelLoader levelLoader;

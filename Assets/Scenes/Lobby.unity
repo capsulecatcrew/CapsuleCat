@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1156385048}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 236523474}
   healingSound: {fileID: 8300000, guid: d5723a415294d4caaaeacd1244612936, type: 3}
-  restAreaController: {fileID: 1459162600}
+  lobbyController: {fileID: 0}
   healAmount: 2
 --- !u!114 &236523474
 MonoBehaviour:
@@ -2264,6 +2264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1856883205}
+  textBefore: 
+  textAfter: 
   offset: 1
 --- !u!114 &1276260787
 MonoBehaviour:
@@ -2472,6 +2474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 256094187}
+  textBefore: 
+  textAfter: 
   offset: 1
 --- !u!114 &1305661677
 MonoBehaviour:
@@ -2649,7 +2653,7 @@ GameObject:
   - component: {fileID: 1459162601}
   - component: {fileID: 1459162600}
   m_Layer: 0
-  m_Name: Rest Area Controller
+  m_Name: Lobby Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
