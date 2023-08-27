@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Victory.unity
     guid: 7654508543dcc4ebe94d6f44d27b6f1c
   - enabled: 1
-    path: Assets/Scenes/Rest Area.unity
+    path: Assets/Scenes/Lobby.unity
     guid: 8abf9358b4f0248029b9a6d86d044e9b
   - enabled: 1
     path: Assets/Scenes/Shop.unity

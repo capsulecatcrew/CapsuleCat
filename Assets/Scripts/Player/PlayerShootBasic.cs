@@ -33,6 +33,7 @@ public class PlayerShootBasic : MonoBehaviour
     public int bulletDmg = 2;
     public int noEnergyPenalty = 3;
     
+    // Time in seconds between each basic attack
     public float timeBetweenShots = 0.5f;
     private float _timeTillNextShot;
 

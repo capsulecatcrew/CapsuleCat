@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -321,8 +321,10 @@ MonoBehaviour:
   mainBody: {fileID: 725430198}
   maxSpeed: 35
   stoppingSpeed: 150
-  jumpTime: 0.2
-  jumpSpeed: 20
+  movementRange: 360
+  shortJumpTime: 0.1
+  longJumpTime: 0.2
+  jumpSpeed: 15
   weight: 2
   jumpDecel: 10
 --- !u!114 &89983468
@@ -4690,7 +4692,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25232
+  m_Name: pb_Mesh60392
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5805,7 +5807,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805783937}
-  m_LocalRotation: {x: -3.1518886e-25, y: 0.99981654, z: -0.01915611, w: -1.645068e-23}
+  m_LocalRotation: {x: 2.0600459e-11, y: 0.99981654, z: -0.01915611, w: 0.0000000010752017}
   m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5927,8 +5929,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -3.1450307e-25, y: 0.99981654, z: -0.01915611, w: -1.6414886e-23}
-  m_LocalPosition: {x: 6.562338e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6127,8 +6129,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -3.1450307e-25, y: 0.99981654, z: -0.01915611, w: -1.6414886e-23}
-  m_LocalPosition: {x: 6.562338e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7653,6 +7655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 725430197}
   laserPool: {fileID: 1588538305}
+  bigAttacks: []
   startingDamage: 2
   dmgIncreaseLvlInterval: 5
   dmgIncrease: 1

@@ -5,7 +5,7 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RestAreaController : MonoBehaviour
+public class LobbyController : MonoBehaviour
 {
     private static bool _healthBoxUsed = false;
     private static bool _comingFromShop = false;
@@ -38,7 +38,7 @@ public class RestAreaController : MonoBehaviour
         {
             spawnPoint = defaultSpawn;
             GlobalAudio.Singleton.StopMusic();
-            GlobalAudio.Singleton.PlayMusic("Rest Area");
+            GlobalAudio.Singleton.PlayMusic("Lobby");
         }
 
         player.SetActive(false);

@@ -59,7 +59,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: Rest Area
+  - name: Lobby
     clip: {fileID: 8300000, guid: 9c91cbeceb8754f0eb652c7f57491d12, type: 3}
     priority: 128
     volume: 0.05
