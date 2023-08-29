@@ -1,0 +1,5 @@
+line one
+@line two::fire
+@~Slow~line three Congrats!
+@~Fast~line four off again::off
+@line five tada.

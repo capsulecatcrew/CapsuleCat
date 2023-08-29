@@ -1,0 +1,17 @@
+Phew! Here's a safe place away from all those monsters.
+@Oh! *Ahem*
+@~Slow~Hello hello he-LLO! Welcome to Nowhere Express Minimart.
+@You know how they say "Nothing is Perfect"?
+@Here at Nowhere, our goods are better than nothing!
+@Slake that thirst with some delicious forest water! Bottled straight from the river!
+@Only $20.99.
+@Buy a bottle?     > Nope   > Nah
+@. . .No?
+@(This doesn't make sense! My buddy in Serra told me that people would pay anything for some water!)
+@(Oh well, no need to be discouraged. This person's probably some wacko who doesn't know what he's missing.)
+@~Slow~...
+@~Fast~Oh, you're still here!
+@Anyway, would you like to save?     > Yes   > No
+@Game Saved! (this ain't working yet)
+@If you need anything, please come again!
+@~Slow~Nowhere Express. Convenience in catastrophe!
