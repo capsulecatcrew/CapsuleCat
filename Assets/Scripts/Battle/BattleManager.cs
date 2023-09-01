@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -46,11 +48,12 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         playerHealthBar.SetMax(playerDamageable.maxHp);
-        playerEnergyBar.SetMax(playerEnergy.GetMax());
+        // playerEnergyBar.SetMax(playerEnergy.GetMax());
         enemyHealthBar.SetMax(enemyDamageable.maxHp);
         playerHealthBar.SetFill(playerDamageable.currentHp);
-        playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
+        // playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
         enemyHealthBar.SetFill(enemyDamageable.currentHp);
+        SetUpPlayerInputs();
     }
 
     // Update is called once per frame
@@ -63,7 +66,7 @@ public class BattleManager : MonoBehaviour
         playerDamageable.OnDamage += PlayerDamage;
         playerDamageable.OnDeath += Lose;
 
-        playerEnergy.EnergyUpdate += UpdatePlayerEnergyBar;
+        // playerEnergy.EnergyUpdate += UpdatePlayerEnergyBar;
 
         enemyDamageable.OnDamage += UpdateEnemyHealthBar;
         enemyDamageable.OnDeath += Win;
@@ -73,7 +76,7 @@ public class BattleManager : MonoBehaviour
         playerDamageable.OnDamage -= PlayerDamage;
         playerDamageable.OnDeath -= Lose;
         
-        playerEnergy.EnergyUpdate -= UpdatePlayerEnergyBar;
+        // playerEnergy.EnergyUpdate -= UpdatePlayerEnergyBar;
         
         enemyDamageable.OnDamage -= UpdateEnemyHealthBar;
         enemyDamageable.OnDeath -= Win;
@@ -117,5 +120,50 @@ public class BattleManager : MonoBehaviour
         GlobalAudio.Singleton.StopMusic();
         levelLoader.LoadLevel("Game Over");
         _battleIsOver = true;
+    }
+
+    /**
+     * =================
+     * SetUpPlayerInputs
+     * =================
+     * Sets the local multiplayer input devices according to how many gamepads/controllers are connected.
+     * 
+     */
+    void SetUpPlayerInputs()
+    {
+        var player1 = PlayerInput.all[0];
+        var player2 = PlayerInput.all[1];
+    
+        // Discard existing assignments.
+        player1.user.UnpairDevices();
+        player2.user.UnpairDevices();
+    
+        // Assign devices and control schemes.
+        var gamepadCount = Gamepad.all.Count;
+        if (gamepadCount >= 2)
+        {
+            InputUser.PerformPairingWithDevice(Gamepad.all[0], user: player1.user);
+            InputUser.PerformPairingWithDevice(Gamepad.all[1], user: player2.user);
+    
+            player1.user.ActivateControlScheme("Gamepad");
+            player2.user.ActivateControlScheme("Gamepad");
+        }
+        else if (gamepadCount == 1)
+        {
+            InputUser.PerformPairingWithDevice(Gamepad.all[0], user: player1.user);
+            InputUser.PerformPairingWithDevice(Keyboard.current, user: player2.user);
+    
+            player1.user.ActivateControlScheme("Gamepad");
+            player2.user.ActivateControlScheme("SplitKeyboardL");
+        }
+        else
+        {
+            InputUser.PerformPairingWithDevice(Keyboard.current, user: player1.user);
+            InputUser.PerformPairingWithDevice(Keyboard.current, user: player2.user);
+    
+            player1.user.ActivateControlScheme(player1.defaultControlScheme);
+            player2.user.ActivateControlScheme(player2.defaultControlScheme);
+        }
+
     }
 }
