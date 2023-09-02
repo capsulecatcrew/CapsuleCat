@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private static float _gravityConstant = -9.81f;
     private bool _isGrounded;
 
-    private float _lastGroundedY;
+    private float _GroundYPos;
     private float _yVelocity;
     private float _airTime;
     private float _jumpTime;
@@ -35,12 +35,16 @@ public class PlayerMovement : MonoBehaviour
 
     private float _currentVelocity;
     
+    private float _playerOneMovement = 0;
+    private float _playerTwoMovement = 0;
+    private bool _playerOneCanJump = true;
+    private bool _playerTwoCanJump = true; 
     
     // Start is called before the first frame update
     void Awake()
     {
         PlayerController = new PlayerControls();
-        _lastGroundedY = mainBody.position.y;
+        _GroundYPos = mainBody.position.y;
         _isGrounded = true;
     }
 
@@ -54,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         PlayerController.Disable();
     }
 
+    /**
+     * Code to run to render gizmos in the Scene view for visual debugging.
+     * Shows the arc in which the player is allowed to move.
+     */
     private void OnDrawGizmos()
     {
         float length = Math.Abs(mainBody.localPosition.z) + 5;
@@ -64,24 +72,85 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawLine(pivot.position, new Vector3(pivot.position.x - endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
     }
 
-    // Update is called once per frame
-    void Update()
+    /**
+     * =================
+     * SetPlayerMovement
+     * =================
+     * Takes in a movement input and adds it to the net movement value.
+     * 
+     * @param player    which player is inputting (1 or 2)
+     * @param value     value of player input
+     */
+    public void SetPlayerMovement(int player, float value)
+    {
+        if (player == 1)
+        {
+            _playerOneMovement = value;
+        }
+        else if (player == 2)
+        {
+            _playerTwoMovement = value;
+        }
+    }
+
+    /**
+     * =================
+     * RequestPlayerJump
+     * =================
+     * For players to request a jump, results determined if player is able to jump
+     *
+     * @param player    which player is sending the jump command
+     * @return          true if jump is successful; false otherwise.
+     */
+    public bool RequestPlayerJump(int player)
+    {
+        bool success = false;
+
+        if (player == 1 && _playerOneCanJump)
+        {
+            _playerOneCanJump = false;
+            success = true;
+        }
+        else if (player == 2 && _playerTwoCanJump)
+        {
+            _playerTwoCanJump = false;
+            success = true;
+        }
+
+        if (success)
+        {
+            if (_isGrounded)
+            {
+                _isGrounded = false;
+            }
+            _yVelocity = jumpSpeed;
+            _airTime = 0;
+            _jumpTime = longJumpTime;
+            _isHoldingJump = true;
+        }
+
+        return success;
+    }
+
+    // LateUpdate is called once per frame, after all Update calls
+    void LateUpdate()
     {
         /*
          * Rotational Movement
          */
-        float movement = PlayerController.Player1.MoveLR.ReadValue<float>();
+        float movement = _playerOneMovement + _playerTwoMovement;
+
         if (movement != 0)
         {
             _currentVelocity = maxSpeed * movement;
             pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
-        else if (Math.Abs(_currentVelocity) > float.Epsilon)
-        {
-            _currentVelocity =  _currentVelocity > 0 ? Math.Max(_currentVelocity - stoppingSpeed * Time.deltaTime, 0) 
-                                                     : Math.Min(_currentVelocity + stoppingSpeed * Time.deltaTime, 0);
-            pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
-        }
+        // else if (Math.Abs(_currentVelocity) > float.Epsilon) // Slowdown before stopping after button is released
+        // {
+        //     _currentVelocity =  _currentVelocity > 0 ? Math.Max(_currentVelocity - stoppingSpeed * Time.deltaTime, 0) 
+        //                                              : Math.Min(_currentVelocity + stoppingSpeed * Time.deltaTime, 0);
+        //     pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
+        // }
         else
         {
             _currentVelocity = 0.0f;
@@ -103,23 +172,14 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Jumping
          */
-        if (_isGrounded && PlayerController.Player1.Jump.triggered)
-        {
-            _isGrounded = false;
-            _lastGroundedY = mainBody.position.y;
-            _yVelocity = jumpSpeed;
-            _airTime = 0;
-            _jumpTime = longJumpTime;
-            _isHoldingJump = true;
-        }
-
         if (!_isGrounded)
         {   
-            if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Player1.Jump.IsPressed()) 
-            {
-                _isHoldingJump = false;
-                _jumpTime = shortJumpTime;
-            }
+            // Short hop, implementation unfinished
+            // if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Player1.Jump.IsPressed()) 
+            // {
+            //     _isHoldingJump = false;
+            //     _jumpTime = shortJumpTime;
+            // }
 
             _airTime += Time.deltaTime;
             if (_airTime > _jumpTime)
@@ -136,13 +196,15 @@ public class PlayerMovement : MonoBehaviour
             }
             
             mainBody.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
-            if (mainBody.position.y <= _lastGroundedY)
+            if (mainBody.position.y <= _GroundYPos)
             {
                 var position = mainBody.position;
-                position = new Vector3(position.x, _lastGroundedY, position.z);
+                position = new Vector3(position.x, _GroundYPos, position.z);
                 mainBody.position = position;
                 _yVelocity = 0.0f;
                 _isGrounded = true;
+                _playerOneCanJump = true;
+                _playerTwoCanJump = true;
             }
         }
 
