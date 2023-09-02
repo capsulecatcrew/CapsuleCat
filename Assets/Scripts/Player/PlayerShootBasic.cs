@@ -29,6 +29,10 @@ public class PlayerShootBasic : MonoBehaviour
     
     public float bulletSpeed = 10;
 
+    public float aimSpeed = 20;
+    public float aimXLimit = 35;
+    public float aimYLimit = 45;
+
     public float bulletDespawnDist = 20;
 
     public int bulletDmg = 2;
@@ -70,30 +74,28 @@ public class PlayerShootBasic : MonoBehaviour
         foreach (GameObject gun in weapons)
         {
             
-            gun.transform.Rotate(new Vector3(0, dir.x, 0), Space.World);
-            gun.transform.Rotate(new Vector3(dir.y, 0, 0), Space.Self);
+            gun.transform.Rotate(new Vector3(0, dir.x * Time.deltaTime * aimSpeed, 0), Space.World);
+            gun.transform.Rotate(new Vector3(dir.y * Time.deltaTime * aimSpeed, 0, 0), Space.Self);
 
             // optimise this chunk of code later
-            float xLimit = 35;
-            float yLimit = 45;
             float xRot = gun.transform.rotation.eulerAngles.x;
             float yRot = gun.transform.localRotation.eulerAngles.y;
-            if (xRot <= 180 && xRot > xLimit)
+            if (xRot <= 180 && xRot > aimXLimit)
             {
-                gun.transform.rotation = Quaternion.Euler(xLimit, gun.transform.rotation.eulerAngles.y, 0);
+                gun.transform.rotation = Quaternion.Euler(aimXLimit, gun.transform.rotation.eulerAngles.y, 0);
             }
-            else if (xRot > 180 && xRot < 360 - xLimit)
+            else if (xRot > 180 && xRot < 360 - aimXLimit)
             {
-                gun.transform.rotation = Quaternion.Euler(360 - xLimit, gun.transform.rotation.eulerAngles.y, 0);
+                gun.transform.rotation = Quaternion.Euler(360 - aimXLimit, gun.transform.rotation.eulerAngles.y, 0);
             }
 
-            if (yRot <= 180 && yRot > yLimit)
+            if (yRot <= 180 && yRot > aimYLimit)
             {
-                gun.transform.localRotation= Quaternion.Euler(gun.transform.rotation.eulerAngles.x, yLimit, 0);
+                gun.transform.localRotation= Quaternion.Euler(gun.transform.rotation.eulerAngles.x, aimYLimit, 0);
             }
-            else if (yRot > 180 && yRot < 360 - yLimit)
+            else if (yRot > 180 && yRot < 360 - aimYLimit)
             {
-                gun.transform.localRotation = Quaternion.Euler(gun.transform.rotation.eulerAngles.x, 360 - yLimit, 0);
+                gun.transform.localRotation = Quaternion.Euler(gun.transform.rotation.eulerAngles.x, 360 - aimYLimit, 0);
             }
 
         }
