@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,14 +10,13 @@ public enum ControlMode
 [RequireComponent(typeof(PlayerInput))]
 public class PilotInput : MonoBehaviour
 {
-    [Range(1, 2)]
-    public int player; // player 1 or 2
+    [Range(1, 2)] public int player; // player 1 or 2
     public ControlMode controlMode;
 
     public GameObject wings;
     public PlayerMovement movementController;
     public GameObject weapons;
-    public PlayerShootBasic weaponController;
+    public PlayerShoot weaponController;
 
     private float _movement = 0;
     private Vector2 _weaponMovement = Vector2.zero;
@@ -33,7 +30,7 @@ public class PilotInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controlMode == ControlMode.Movement) 
+        if (controlMode == ControlMode.Movement)
         {
             movementController.SetPlayerMovement(player, _movement);
             _weaponMovement = Vector2.zero;
@@ -48,11 +45,10 @@ public class PilotInput : MonoBehaviour
 
     public void OnMoveLR(InputAction.CallbackContext context)
     {
-        if (controlMode == ControlMode.Movement) 
+        if (controlMode == ControlMode.Movement)
         {
             _movement = context.ReadValue<float>();
         }
-
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -83,7 +79,6 @@ public class PilotInput : MonoBehaviour
 
     public void OnSecondary(InputAction.CallbackContext context)
     {
-
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
@@ -98,6 +93,7 @@ public class PilotInput : MonoBehaviour
             {
                 controlMode = ControlMode.Movement;
             }
+
             ActivateParts();
         }
     }
