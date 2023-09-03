@@ -183,7 +183,7 @@ public class PlayerShoot : MonoBehaviour
 
         foreach (Transform shootingOrigin in shootingOrigins)
         {
-            GameObject bullet = bulletPool.GetPooledObject();
+            GameObject bullet = lowBulletPool.GetPooledObject();
 
             bullet.transform.position = shootingOrigin.position;
             Vector3 direction = shootingOrigin.forward;
