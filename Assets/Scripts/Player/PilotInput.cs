@@ -18,7 +18,7 @@ public class PilotInput : MonoBehaviour
     public GameObject weapons;
     public PlayerShoot weaponController;
 
-    private float _movement = 0;
+    private float _movement;
     private Vector2 _weaponMovement = Vector2.zero;
 
     // Start is called before the first frame update
@@ -59,22 +59,24 @@ public class PilotInput : MonoBehaviour
         }
     }
 
-    public void OnPrimary(InputAction.CallbackContext context)
+    public void OnBasicAttack(InputAction.CallbackContext context)
     {
-        if (context.action.triggered)
-        {
-            switch (controlMode)
-            {
-                case ControlMode.Movement:
-                    movementController.RequestPlayerJump(player);
-                    break;
-                case ControlMode.Shooting:
-                    weaponController.ShootBullet();
-                    break;
-                default:
-                    break;
-            }
-        }
+        print("bye");
+        if (!context.action.triggered) return;
+        print("bye1");
+        if (controlMode != ControlMode.Shooting) return;
+        print("bye2");
+        weaponController.ShootBullet();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        print("hi");
+        if (!context.action.triggered) return;
+        print("hi1");
+        if (controlMode != ControlMode.Movement) return;
+        print("hi2");
+        movementController.RequestPlayerJump(player);
     }
 
     public void OnSecondary(InputAction.CallbackContext context)

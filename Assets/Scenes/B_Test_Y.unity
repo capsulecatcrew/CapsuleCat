@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5035,7 +5035,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56804
+  m_Name: pb_Mesh25300
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5253,11 +5253,16 @@ MonoBehaviour:
   - {fileID: 562993161}
   - {fileID: 1949053549}
   target: {fileID: 1755626510}
+  aimSpeed: 20
+  aimXLimit: 35
+  aimYLimit: 45
+  bulletCooldown: 0.5
+  bulletDmg: 2
   bulletSpeed: 30
   bulletDespawnDist: 50
-  bulletDmg: 2
-  noEnergyPenalty: 3
-  timeBetweenShots: 0.3
+  weakBulletDamageMultiplier: 0.7
+  weakBulletSpeedMultiplier: 0.5
+  weakBulletCooldownMultiplier: 3
 --- !u!1 &449428936 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2336632604105835871, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -6443,7 +6448,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805783937}
-  m_LocalRotation: {x: 1.2642806e-25, y: 0.99981654, z: -0.01915611, w: 6.598671e-24}
+  m_LocalRotation: {x: 2.0600454e-11, y: 0.99981654, z: -0.01915611, w: 0.0000000010752015}
   m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6890,8 +6895,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -2.08268e-25, y: 0.99981654, z: -0.01915611, w: -1.0870149e-23}
-  m_LocalPosition: {x: 4.3456653e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7221,8 +7226,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -2.08268e-25, y: 0.99981654, z: -0.01915611, w: -1.0870149e-23}
-  m_LocalPosition: {x: 4.3456653e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8463,6 +8468,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e61b63f7-cb9f-4d45-bbe8-de1140c613b9
     m_ActionName: Player/Quit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4542f7a6-5dd4-4065-968c-89efbf7c28c3
+    m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/period]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 49f28545-823b-4744-997b-a2ebaa93f793
+    m_ActionName: Player/HeavyAttack[/Keyboard/2,/Keyboard/equals]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: SplitKeyboardR
   m_DefaultActionMap: Player
@@ -9035,11 +9048,16 @@ MonoBehaviour:
   - {fileID: 1027699382}
   - {fileID: 825875409}
   target: {fileID: 1755626510}
+  aimSpeed: 20
+  aimXLimit: 35
+  aimYLimit: 45
+  bulletCooldown: 0.5
+  bulletDmg: 2
   bulletSpeed: 30
   bulletDespawnDist: 50
-  bulletDmg: 2
-  noEnergyPenalty: 3
-  timeBetweenShots: 0.3
+  weakBulletDamageMultiplier: 0.7
+  weakBulletSpeedMultiplier: 0.5
+  weakBulletCooldownMultiplier: 3
 --- !u!1 &1526053823
 GameObject:
   m_ObjectHideFlags: 0
@@ -10305,6 +10323,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e61b63f7-cb9f-4d45-bbe8-de1140c613b9
     m_ActionName: Player/Quit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4542f7a6-5dd4-4065-968c-89efbf7c28c3
+    m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/period]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 49f28545-823b-4744-997b-a2ebaa93f793
+    m_ActionName: Player/HeavyAttack[/Keyboard/2,/Keyboard/equals]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: SplitKeyboardL
   m_DefaultActionMap: Player

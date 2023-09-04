@@ -37,9 +37,27 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Primary"",
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""4542f7a6-5dd4-4065-968c-89efbf7c28c3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BasicAttack"",
                     ""type"": ""Button"",
                     ""id"": ""3fa87180-5432-4e2d-bf22-9e34cebceed6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""49f28545-823b-4744-997b-a2ebaa93f793"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -85,45 +103,23 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""8a6ae72f-311a-4c87-9820-695e4485ca89"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""SplitKeyboardL"",
-                    ""action"": ""Primary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0242fc3c-7c6e-4b93-a33c-b78649879371"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""SplitKeyboardL"",
-                    ""action"": ""Primary"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""80653a62-57f2-44bc-bf4e-9fbaf4ae690d"",
+                    ""id"": ""1cc0f00c-76e6-422f-bf2f-6770aa199d45"",
                     ""path"": ""<Keyboard>/equals"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""SplitKeyboardR"",
-                    ""action"": ""Primary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b7289c2b-ccc5-4b50-8340-7dab94b9c025"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""SplitKeyboardR"",
-                    ""action"": ""Primary"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -134,18 +130,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Primary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5522bbe3-b366-423c-996f-0795feb05474"",
-                    ""path"": ""<DualShockGamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Primary"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -156,18 +141,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Primary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""de1b9975-d828-412a-8579-2cfed179a045"",
-                    ""path"": ""<WebGLGamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Primary"",
+                    ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -588,6 +562,94 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5388c87-5c8c-4615-9f43-1d8424a7a125"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""SplitKeyboardL"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a4f0468-2317-4e1b-88d3-f9a7dd6d65bc"",
+                    ""path"": ""<Keyboard>/equals"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""SplitKeyboardR"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fca41069-0de1-481b-a3b6-6b480c41bced"",
+                    ""path"": ""<SwitchProControllerHID>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9af94a73-e770-4e7d-9cac-3c5ee8a125cf"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a12619d2-da58-48d1-9ef2-7a77e7e07276"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""SplitKeyboardL"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c01b9780-7832-42a1-a8be-515e91b7dd08"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""SplitKeyboardR"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb6a9dfa-93ce-4cdd-ba7b-88e1bb85eb98"",
+                    ""path"": ""<WebGLGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b2c7dbd-cac7-4b8b-ab09-a60aff28eefe"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -631,7 +693,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MoveLR = m_Player.FindAction("MoveLR", throwIfNotFound: true);
-        m_Player_Primary = m_Player.FindAction("Primary", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
+        m_Player_HeavyAttack = m_Player.FindAction("HeavyAttack", throwIfNotFound: true);
         m_Player_Secondary = m_Player.FindAction("Secondary", throwIfNotFound: true);
         m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
@@ -696,7 +760,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_MoveLR;
-    private readonly InputAction m_Player_Primary;
+    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_BasicAttack;
+    private readonly InputAction m_Player_HeavyAttack;
     private readonly InputAction m_Player_Secondary;
     private readonly InputAction m_Player_Switch;
     private readonly InputAction m_Player_Move;
@@ -706,7 +772,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveLR => m_Wrapper.m_Player_MoveLR;
-        public InputAction @Primary => m_Wrapper.m_Player_Primary;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
         public InputAction @Secondary => m_Wrapper.m_Player_Secondary;
         public InputAction @Switch => m_Wrapper.m_Player_Switch;
         public InputAction @Move => m_Wrapper.m_Player_Move;
@@ -723,9 +791,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MoveLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
                 @MoveLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
                 @MoveLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
-                @Primary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
-                @Primary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
-                @Primary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @BasicAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
+                @BasicAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBasicAttack;
+                @HeavyAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
                 @Secondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
                 @Secondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
                 @Secondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
@@ -745,9 +819,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MoveLR.started += instance.OnMoveLR;
                 @MoveLR.performed += instance.OnMoveLR;
                 @MoveLR.canceled += instance.OnMoveLR;
-                @Primary.started += instance.OnPrimary;
-                @Primary.performed += instance.OnPrimary;
-                @Primary.canceled += instance.OnPrimary;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @BasicAttack.started += instance.OnBasicAttack;
+                @BasicAttack.performed += instance.OnBasicAttack;
+                @BasicAttack.canceled += instance.OnBasicAttack;
+                @HeavyAttack.started += instance.OnHeavyAttack;
+                @HeavyAttack.performed += instance.OnHeavyAttack;
+                @HeavyAttack.canceled += instance.OnHeavyAttack;
                 @Secondary.started += instance.OnSecondary;
                 @Secondary.performed += instance.OnSecondary;
                 @Secondary.canceled += instance.OnSecondary;
@@ -794,7 +874,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMoveLR(InputAction.CallbackContext context);
-        void OnPrimary(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnBasicAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
