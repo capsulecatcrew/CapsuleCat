@@ -59,7 +59,7 @@ public class PilotInput : MonoBehaviour
         }
     }
 
-    public void OnBasicAttack(InputAction.CallbackContext context)
+    public void OnPrimary(InputAction.CallbackContext context)
     {
         if (!context.action.triggered) return;
         if (controlMode != ControlMode.Shooting) return;
@@ -68,7 +68,9 @@ public class PilotInput : MonoBehaviour
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
     {
-        
+        if (!context.action.triggered) return;
+        if (controlMode != ControlMode.Shooting) return;
+        weaponController.ShootHeavyBullets();
     }
 
     public void OnJump(InputAction.CallbackContext context)

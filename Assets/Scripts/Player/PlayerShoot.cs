@@ -134,28 +134,29 @@ public class PlayerShoot : MonoBehaviour
 
     public void ShootHeavyBullets()
     {
-        // charge heavy attack if attack button held for 2 turns in a row
-        if (_isHeavyBullet)
-        {
-            _heavyBulletCharge += Time.deltaTime;
-        }
-        else
-        {
-            if (_heavyBulletCharge > 0)
-            {
-                _heavyBulletCharge = 0;
-            }
-        }
-
-        // toggle heavy attack status if charging now
-        if (!_isHeavyBullet)
-        {
-            _isHeavyBullet = true;
-        }
-
-        if (_heavyBulletCharge > _heavyBulletMaxCharge)
-        {
-        }
+        // // charge heavy attack if attack button held for 2 turns in a row
+        // if (_isHeavyBullet)
+        // {
+        //     _heavyBulletCharge += Time.deltaTime;
+        // }
+        // else
+        // {
+        //     if (_heavyBulletCharge > 0)
+        //     {
+        //         _heavyBulletCharge = 0;
+        //     }
+        // }
+        //
+        // // toggle heavy attack status if charging now
+        // if (!_isHeavyBullet)
+        // {
+        //     _isHeavyBullet = true;
+        // }
+        //
+        // if (_heavyBulletCharge > _heavyBulletMaxCharge)
+        // {
+        // }
+        print("hi" + Time.renderedFrameCount);
     }
 
     private void ShootBasicBullets()
