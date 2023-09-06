@@ -61,21 +61,20 @@ public class PilotInput : MonoBehaviour
 
     public void OnBasicAttack(InputAction.CallbackContext context)
     {
-        print("bye");
         if (!context.action.triggered) return;
-        print("bye1");
         if (controlMode != ControlMode.Shooting) return;
-        print("bye2");
         weaponController.ShootBullet();
+    }
+
+    public void OnHeavyAttack(InputAction.CallbackContext context)
+    {
+        
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        print("hi");
         if (!context.action.triggered) return;
-        print("hi1");
         if (controlMode != ControlMode.Movement) return;
-        print("hi2");
         movementController.RequestPlayerJump(player);
     }
 

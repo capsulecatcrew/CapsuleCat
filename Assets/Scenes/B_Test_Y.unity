@@ -6895,8 +6895,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
-  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 2.0600454e-11, y: 0.99981654, z: -0.01915611, w: 0.0000000010752015}
+  m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8404,7 +8404,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1361610033}
         m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
-        m_MethodName: OnPrimary
+        m_MethodName: OnBasicAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8469,11 +8469,35 @@ MonoBehaviour:
     m_ActionId: e61b63f7-cb9f-4d45-bbe8-de1140c613b9
     m_ActionName: Player/Quit[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1361610033}
+        m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4542f7a6-5dd4-4065-968c-89efbf7c28c3
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/period]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1361610033}
+        m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
+        m_MethodName: OnHeavyAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 49f28545-823b-4744-997b-a2ebaa93f793
     m_ActionName: Player/HeavyAttack[/Keyboard/2,/Keyboard/equals]
   m_NeverAutoSwitchControlSchemes: 1
@@ -10259,7 +10283,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1822170218}
         m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
-        m_MethodName: OnPrimary
+        m_MethodName: OnBasicAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10324,11 +10348,35 @@ MonoBehaviour:
     m_ActionId: e61b63f7-cb9f-4d45-bbe8-de1140c613b9
     m_ActionName: Player/Quit[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822170218}
+        m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4542f7a6-5dd4-4065-968c-89efbf7c28c3
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/period]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822170218}
+        m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
+        m_MethodName: OnHeavyAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 49f28545-823b-4744-997b-a2ebaa93f793
     m_ActionName: Player/HeavyAttack[/Keyboard/2,/Keyboard/equals]
   m_NeverAutoSwitchControlSchemes: 1
