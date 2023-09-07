@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerEnergy : MonoBehaviour
 {
+    [Range(1, 2)] public int playerNo = 1;
     private bool _isMax;
     private bool _isEmpty;
     [SerializeField] float maxAmount;
@@ -18,11 +19,11 @@ public class PlayerEnergy : MonoBehaviour
     
     private void Start()
     {
-        maxAmount = PlayerStats.Energy.GetMaxValue();
-        currentAmount = PlayerStats.Energy.GetCurrentValue();
+        maxAmount = PlayerStats.GetPlayer(playerNo).Energy.GetMaxValue();
+        currentAmount = PlayerStats.GetPlayer(playerNo).Energy.GetCurrentValue();
         foreach (var absorber in energyAbsorbers)
         {
-            absorber.absorbMultiplier = PlayerStats.EnergyAbsorb.GetCurrentValue();
+            absorber.absorbMultiplier = PlayerStats.GetPlayer(playerNo).EnergyAbsorb.GetCurrentValue();
         }
 
         _isMax = Math.Abs(maxAmount - currentAmount) < float.Epsilon;

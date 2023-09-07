@@ -1,5 +1,6 @@
 public class PlayerStat
 {
+    public readonly string name;
     private int _statLevel;
     private readonly int _maxLevel;
     private readonly float _baseStat;
@@ -10,8 +11,9 @@ public class PlayerStat
     private int _currentUpgradeCost;
     private readonly int _costIncrementPerLevel;
 
-    public PlayerStat(float baseStat, float statIncrementPerLevel, int baseUpgradeCost, int costIncrementPerLevel, int maxLevel = 10, int currentLevel = 0)
+    public PlayerStat(string name, float baseStat, float statIncrementPerLevel, int baseUpgradeCost, int costIncrementPerLevel, int maxLevel = 10, int currentLevel = 0)
     {
+        this.name = name;
         _maxLevel = maxLevel;
         _statLevel = currentLevel;
         _baseStat = baseStat;
@@ -31,13 +33,12 @@ public class PlayerStat
         _currentUpgradeCost = _baseUpgradeCost;
     }
 
-    public bool IncrementLevel(bool spendMoney = true)
+    public bool IncrementLevel()
     {
         if (_statLevel == _maxLevel) return false;
         _statLevel++;
         _currentStatMax += _statIncrementPerLevel;
         _currentStatValue += _statIncrementPerLevel;
-        if (spendMoney) PlayerStats.Money -= _currentUpgradeCost;
         _currentUpgradeCost += _costIncrementPerLevel;
         return true;
     }

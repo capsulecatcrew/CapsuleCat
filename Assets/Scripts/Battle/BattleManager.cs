@@ -109,7 +109,8 @@ public class BattleManager : MonoBehaviour
         playerDamageable.enabled = false;
         PlayerStats.Hp.SetCurrentValue(playerDamageable.currentHp);
         PlayerStats.LevelsCompleted += 1;
-        PlayerStats.Money += PlayerStats.LevelsCompleted * 50;
+        PlayerStats.Player1.Money += PlayerStats.LevelsCompleted * 50;
+        PlayerStats.Player2.Money += PlayerStats.LevelsCompleted * 50;
         levelLoader.LoadLevel("Victory");
         _battleIsOver = true;
     }
