@@ -41,6 +41,7 @@ public class PilotInput : MonoBehaviour
             _movement = 0;
             weaponController.MoveGunsBy(_weaponMovement);
         }
+        
     }
 
     public void OnMoveLR(InputAction.CallbackContext context)
@@ -63,14 +64,15 @@ public class PilotInput : MonoBehaviour
     {
         if (!context.action.triggered) return;
         if (controlMode != ControlMode.Shooting) return;
-        weaponController.ShootBullet();
+        weaponController.ShootBullets();
     }
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
     {
-        if (!context.action.triggered) return;
+        var elapsedTime = context.time - context.startTime;
+        if (elapsedTime < weaponController.heavyBulletMinCharge) return;
         if (controlMode != ControlMode.Shooting) return;
-        weaponController.ShootHeavyBullets();
+        weaponController.ShootHeavyBullets((float) elapsedTime);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -80,7 +82,7 @@ public class PilotInput : MonoBehaviour
         movementController.RequestPlayerJump(player);
     }
 
-    public void OnSecondary(InputAction.CallbackContext context)
+    public void OnSpecial(InputAction.CallbackContext context)
     {
     }
 

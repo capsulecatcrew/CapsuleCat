@@ -5260,9 +5260,16 @@ MonoBehaviour:
   bulletDmg: 2
   bulletSpeed: 30
   bulletDespawnDist: 50
+  bulletEnergyCost: 1
   weakBulletDamageMultiplier: 0.7
   weakBulletSpeedMultiplier: 0.5
   weakBulletCooldownMultiplier: 3
+  heavyBulletMinCharge: 1.5
+  heavyBulletMaxCharge: 3
+  heavyBulletDamageMultiplier: 2.5
+  heavyBulletSpeedMultiplier: 0.5
+  heavyBulletCooldownMultiplier: 0.5
+  heavyBulletEnergyCostMultiplier: 3
 --- !u!1 &449428936 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2336632604105835871, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -8420,7 +8427,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1361610033}
         m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
-        m_MethodName: OnSecondary
+        m_MethodName: OnSpecial
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9079,9 +9086,16 @@ MonoBehaviour:
   bulletDmg: 2
   bulletSpeed: 30
   bulletDespawnDist: 50
+  bulletEnergyCost: 1
   weakBulletDamageMultiplier: 0.7
   weakBulletSpeedMultiplier: 0.5
   weakBulletCooldownMultiplier: 3
+  heavyBulletMinCharge: 1.5
+  heavyBulletMaxCharge: 3
+  heavyBulletDamageMultiplier: 2.5
+  heavyBulletSpeedMultiplier: 0.5
+  heavyBulletCooldownMultiplier: 0.5
+  heavyBulletEnergyCostMultiplier: 3
 --- !u!1 &1526053823
 GameObject:
   m_ObjectHideFlags: 0
@@ -10094,8 +10108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfa126a51064f7e97a5be698d04a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 50
-  currentHp: 50
+  maxHp: 200
+  currentHp: 200
   invincibilitySeconds: 0
   damageSoundSource: {fileID: 0}
   damageSound: {fileID: 0}
@@ -10299,7 +10313,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1822170218}
         m_TargetAssemblyTypeName: PilotInput, Assembly-CSharp
-        m_MethodName: OnSecondary
+        m_MethodName: OnSpecial
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

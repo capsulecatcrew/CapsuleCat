@@ -33,6 +33,7 @@ public class PlayerShoot : MonoBehaviour
     public int bulletDmg = 2;
     public float bulletSpeed = 10;
     public float bulletDespawnDist = 20;
+    public float bulletEnergyCost = 1;
     private float _bulletCooldownTime;
 
     // Weak bullet fields
@@ -41,13 +42,12 @@ public class PlayerShoot : MonoBehaviour
     public float weakBulletCooldownMultiplier = 3.0f;
 
     // Heavy bullet fields
-    private bool _isHeavyBullet;
-    private float _heavyBulletCharge;
-    private float _heavyBulletMaxCharge = 3.0f;
-    private float _heavyBulletIdle;
-    private float _heavyBulletMaxIdle = 1.5f;
-    private float _heavyBulletDamageMultiplier = 1.5f;
-    private float _heavyBulletSpeedMultiplier = 0.5f;
+    public float heavyBulletMinCharge = 1.5f;
+    public float heavyBulletMaxCharge = 3.0f;
+    public float heavyBulletDamageMultiplier = 2.0f;
+    public float heavyBulletSpeedMultiplier = 0.1f;
+    public float heavyBulletCooldownMultiplier = 0.5f;
+    public float heavyBulletEnergyCostMultiplier = 3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -109,13 +109,10 @@ public class PlayerShoot : MonoBehaviour
     /// <summary>
     /// Shoots bullets.
     /// </summary>
-    public void ShootBullet()
+    public void ShootBullets()
     {
         // Prevent shooting if player is charging heavy attack or if insufficient time has passed.
         if (_bulletCooldownTime >= float.Epsilon) return;
-        
-        // Change to this once heavy shots are introduced.
-        // if (_bulletCooldownTime >= float.Epsilon || !_isHeavyAttack) return;
 
         // All clear, shoot bullets.
         if (playerEnergy.IsEmpty())
@@ -132,31 +129,39 @@ public class PlayerShoot : MonoBehaviour
         audioSource.PlayOneShot(shootingAudio);
     }
 
-    public void ShootHeavyBullets()
+    public void ShootHeavyBullets(float chargeTime)
     {
-        // // charge heavy attack if attack button held for 2 turns in a row
-        // if (_isHeavyBullet)
-        // {
-        //     _heavyBulletCharge += Time.deltaTime;
-        // }
-        // else
-        // {
-        //     if (_heavyBulletCharge > 0)
-        //     {
-        //         _heavyBulletCharge = 0;
-        //     }
-        // }
-        //
-        // // toggle heavy attack status if charging now
-        // if (!_isHeavyBullet)
-        // {
-        //     _isHeavyBullet = true;
-        // }
-        //
-        // if (_heavyBulletCharge > _heavyBulletMaxCharge)
-        // {
-        // }
-        print("hi" + Time.renderedFrameCount);
+        if (_bulletCooldownTime >= float.Epsilon) return;
+
+        // All clear, shoot bullets.
+        if (playerEnergy.IsEmpty())
+        {
+            ShootWeakBullets();
+        }
+        else
+        {
+            float chargePercent = Math.Clamp(chargeTime, 1.5f, 3.0f) / heavyBulletMaxCharge;
+            int damage = (int)Math.Floor(bulletDmg * heavyBulletDamageMultiplier * chargePercent);
+            float speed = bulletSpeed * heavyBulletSpeedMultiplier / chargePercent;
+            foreach (Transform shootingOrigin in shootingOrigins)
+            {
+                GameObject bullet = bulletPool.GetPooledObject();
+
+                bullet.transform.position = shootingOrigin.position;
+                var direction = shootingOrigin.forward;
+
+                bullet.GetComponent<Bullet>().Init(damage, direction, speed, bulletDespawnDist, tagsToHit);
+                bullet.SetActive(true);
+            }
+
+            float energyCost = bulletEnergyCost * heavyBulletEnergyCostMultiplier * chargePercent;
+            playerEnergy.AddAmount(-energyCost);
+            _bulletCooldownTime = bulletCooldown + chargeTime / heavyBulletCooldownMultiplier;
+        }
+        
+        // All done - play shooting audio
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(shootingAudio);
     }
 
     private void ShootBasicBullets()
@@ -172,7 +177,7 @@ public class PlayerShoot : MonoBehaviour
             bullet.SetActive(true);
         }
 
-        playerEnergy.AddAmount(-1);
+        playerEnergy.AddAmount(bulletEnergyCost);
         _bulletCooldownTime = bulletCooldown;
     }
 
@@ -201,10 +206,5 @@ public class PlayerShoot : MonoBehaviour
     {
         if (_bulletCooldownTime <= 0.0f) return;
         _bulletCooldownTime -= Time.deltaTime;
-        // _heavyBulletIdle += Time.deltaTime;
-        // if (_heavyBulletIdle > _heavyBulletMaxIdle)
-        // {
-        //     _isHeavyBullet = false;
-        // }
     }
 }
