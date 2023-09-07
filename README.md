@@ -1,6 +1,6 @@
 # Capsule Cat's Big Space Adventure
 ![coverimage](Docs/Images/cover.png)
-## What is CCBSA? capsule
+## What is Capsule Cat's Big Space Adventure (CCBSA)?
 
 Capsule Cat's Big Space Adventure is a 3rd person arcade shooter, inspired by old-school shoot-em-ups.
 
