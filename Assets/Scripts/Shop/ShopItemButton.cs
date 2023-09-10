@@ -4,65 +4,77 @@ using UnityEngine;
 
 public class ShopItemButton: MonoBehaviour
 {
+    [Range(1, 2)] public int forPlayer = 1;
+
+    [Header("Sprite Properties")]
+    public SpriteRenderer spriteRenderer;
+    public Sprite normalIcon;
+    public Sprite highlightedIcon;
+    public Sprite disabledIcon;
+
+    [Header("Text Components")]
     public TMP_Text itemName;
     public TMP_Text itemDescription;
     public TMP_Text itemCost;
 
-    public enum Stat
+    [Space]
+    public bool useable = true;
+    private PlayerStat _linkedStat;
+
+    void Update()
     {
-        MaxHp,
-        FiringRate,
-        EnergyCapacity,
-        EnergyAbsorption,
-        HealthRecovery
+
     }
 
-    public Stat linkedStat;
-    
-    public PlayerStat LinkedStat;
-
-    private void Start()
+    /// <summary>
+    /// Sets the stat upgrade item the shop button is linked to.
+    /// </summary>
+    public void UpdateShopItem(PlayerStat playerStat)
     {
-        switch (linkedStat)
+        _linkedStat = playerStat;
+        if (_linkedStat != null)
         {
-            case Stat.MaxHp:
-                LinkedStat = PlayerStats.Hp;
-                break;
-            case Stat.FiringRate:
-                LinkedStat = PlayerStats.FiringRate;
-                break;
-            case Stat.EnergyCapacity:
-                LinkedStat = PlayerStats.Energy;
-                break;
-            case Stat.EnergyAbsorption:
-                LinkedStat = PlayerStats.EnergyAbsorb;
-                break;
-            case Stat.HealthRecovery:
-                LinkedStat = PlayerStats.HealthRecovery;
-                break;
-            default:
-                break;
-        }
-        UpdateItemText();
-    }
-
-    public void UpdateItemText()
-    {
-        if (LinkedStat != null)
-        {
-            itemDescription.text = "Lv. " + LinkedStat.GetCurrentLevel();
-            if (LinkedStat.IsMaxLevel())
+            itemName.text = _linkedStat.name + " " + _linkedStat.GetCurrentLevel();
+            if (_linkedStat.IsMaxLevel())
             {
                 itemCost.text = "Max Level";
-            } 
-            else
+                useable = false;
+            }
+            else 
             {
-                itemCost.text = "Upgrade - $" + LinkedStat.GetCurrentCost();
+                itemCost.text = "$" + _linkedStat.GetCurrentCost();
             }
         }
         else
         {
             Debug.LogWarning("No Player Stat linked to button!");
         }
+
+    }
+
+    /// <summary>
+    /// Attempts to purchase item
+    /// </summary>
+    /// <param name="playerNo">Player attempting to purchase</param>
+    public void AttemptPurchase(int playerNo)
+    {
+        if (!useable) return;
+        if (playerNo != forPlayer) return;
+
+        int playerMoney = PlayerStats.GetPlayer(playerNo).Money;
+        float cost = _linkedStat.GetCurrentCost();
+        if (playerMoney < cost) return;
+
+        // Spend money
+        PlayerStats.GetPlayer(playerNo).Money -= (int) _linkedStat.GetCurrentCost();
+
+        // Upgrade stat
+        _linkedStat.IncrementLevel();
+
+        // Update button info
+        UpdateShopItem(_linkedStat);
+
+        // Disable button
+        useable = false;
     }
 }
