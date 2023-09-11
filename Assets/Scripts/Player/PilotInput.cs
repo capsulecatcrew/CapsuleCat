@@ -64,15 +64,21 @@ public class PilotInput : MonoBehaviour
     {
         if (!context.action.triggered) return;
         if (controlMode != ControlMode.Shooting) return;
-        weaponController.ShootBullets();
+        weaponController.ShootBasicBullets();
     }
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
     {
-        var elapsedTime = context.time - context.startTime;
-        if (elapsedTime < weaponController.heavyBulletMinCharge) return;
+        // Check if heavy attack has started charging.
+        if (context.started)
+        {
+            weaponController.ChargeHeavyBullet();
+            return;
+        }
         if (controlMode != ControlMode.Shooting) return;
-        weaponController.ShootHeavyBullets((float) elapsedTime);
+        
+        var elapsedTime = context.time - context.startTime;
+        weaponController.ShootHeavyBullet((float) elapsedTime);
     }
 
     public void OnJump(InputAction.CallbackContext context)

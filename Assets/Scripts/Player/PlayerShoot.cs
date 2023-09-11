@@ -9,8 +9,10 @@ public class PlayerShoot : MonoBehaviour
 
     public PlayerEnergy playerEnergy;
 
-    public ObjectPool bulletPool;
-    public ObjectPool lowBulletPool;
+    [SerializeField] private ObjectPool basicBulletPool;
+    [SerializeField] private ObjectPool lowBulletPool;
+    [SerializeField] private ObjectPool heavyBulletPool;
+    [SerializeField] private ScreenShaker screenShaker;
 
     public AudioClip shootingAudio;
 
@@ -18,44 +20,48 @@ public class PlayerShoot : MonoBehaviour
 
     public string[] tagsToHit;
 
-    public Transform[] shootingOrigins;
-
     public Transform target;
 
     public float aimSpeed = 20;
     public float aimXLimit = 35;
     public float aimYLimit = 45;
 
-    // General bullet info - start at 0.5 so that player can't shoot until level is loaded
+    // General bullet info
     public float bulletCooldown = 0.5f;
+    public Transform[] shootingOrigins;
 
     // Basic bullet fields
-    public int bulletDmg = 2;
-    public float bulletSpeed = 10;
-    public float bulletDespawnDist = 20;
-    public float bulletEnergyCost = 1;
-    private float _bulletCooldownTime;
+    public int basicDamage = 2;
+    public float basicSpeed = 20;
+    public float basicTravelDist = 50;
+    public float basicEnergyCost = 1;
+    private float _cooldownTime;
 
     // Weak bullet fields
-    public float weakBulletDamageMultiplier = 0.7f;
-    public float weakBulletSpeedMultiplier = 0.5f;
-    public float weakBulletCooldownMultiplier = 3.0f;
+    [SerializeField] private float weakDamageMultiplier = 0.7f;
+    [SerializeField] private float weakSpeedMultiplier = 0.5f;
+    [SerializeField] private float weakCooldownMultiplier = 3.0f;
 
     // Heavy bullet fields
-    public float heavyBulletMinCharge = 1.5f;
-    public float heavyBulletMaxCharge = 3.0f;
-    public float heavyBulletDamageMultiplier = 2.0f;
-    public float heavyBulletSpeedMultiplier = 0.1f;
-    public float heavyBulletCooldownMultiplier = 0.5f;
-    public float heavyBulletEnergyCostMultiplier = 3.0f;
+    [SerializeField] private float heavyMinCharge = 1.5f;
+    [SerializeField] private float heavyMaxCharge = 3.0f;
+    [SerializeField] private float heavyDamageMultiplier = 2.0f;
+    [SerializeField] private float heavySpeedMultiplier = 0.2f;
+    [SerializeField] private float heavyCooldownMultiplier = 0.5f;
+    [SerializeField] private float heavyEnergyCostMultiplier = 3.0f;
+    [SerializeField] private float heavyScreenShakeMultiplier = 2f;
+    [SerializeField] private int heavyScreenShakeMaxAmount = 4;
+    [SerializeField] private float heavySizeMultiplier = 0.35f;
+    private bool _isHeavyCharging;
+    private float _heavyChargeTime;
+    private GameObject _heavyBullet;
 
     // Start is called before the first frame update
     void Start()
     {
         _playerControls = PlayerMovement.PlayerController;
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
-        // _bulletDirection = shootingOrigin.forward;
-        _bulletCooldownTime = 0;
+        _cooldownTime = 0;
         bulletCooldown = PlayerStats.FiringRate.GetCurrentValue();
     }
 
@@ -107,64 +113,105 @@ public class PlayerShoot : MonoBehaviour
     }
 
     /// <summary>
-    /// Shoots bullets.
+    /// Checks if firing cooldown is over.
     /// </summary>
-    public void ShootBullets()
+    private bool IsCooldownOver()
     {
-        // Prevent shooting if player is charging heavy attack or if insufficient time has passed.
-        if (_bulletCooldownTime >= float.Epsilon) return;
+        return _cooldownTime <= float.Epsilon;
+    }
 
-        // All clear, shoot bullets.
-        if (playerEnergy.IsEmpty())
+    /// <summary>
+    /// Checks if a player can fire a weak bullet.
+    /// </summary>
+    private bool CanShootWeak()
+    {
+        return IsCooldownOver() && !_isHeavyCharging;
+    }
+
+    /// <summary>
+    /// Checks if a player can fire a basic bullet.
+    /// </summary>
+    private bool CanShootBasic()
+    {
+        return IsCooldownOver() && playerEnergy.HasEnergy(basicEnergyCost) && !_isHeavyCharging;
+    }
+
+    /// <summary>
+    /// Checks if a player can fire a heavy bullet.
+    /// </summary>
+    /// <param name="chargeTime">Fired heavy bullet's charge time.</param>
+    /// <param name="energyCost">Fired heavy bullet's energy cost.</param>
+    /// <returns></returns>
+    private bool CanShootHeavy(double chargeTime, float energyCost)
+    {
+        return IsCooldownOver() && chargeTime >= heavyMinCharge && playerEnergy.HasEnergy(energyCost);
+    }
+
+    public void ChargeHeavyBullet()
+    {
+        if (!CanShootBasic()) return;
+        _isHeavyCharging = true;
+        screenShaker.ChargeShake(heavyMinCharge, heavyScreenShakeMultiplier, heavyScreenShakeMaxAmount);
+        TransformHeavyBullet();
+    }
+
+    /// <summary>
+    /// Fires off heavy bullet.
+    /// </summary>
+    /// <param name="chargeTime">Fired heavy bullet's charge time.</param>
+    public void ShootHeavyBullet(float chargeTime)
+    {
+        ResetHeavyCharge();
+        screenShaker.EndShake();
+        float chargePercent = Math.Clamp(chargeTime, 1.5f, 3.0f) / heavyMaxCharge;
+        float energyCost = basicEnergyCost * heavyEnergyCostMultiplier * chargePercent;
+
+        if (!CanShootHeavy(chargeTime, energyCost))
         {
-            ShootWeakBullets();
-        }
-        else
-        {
+            DestroyHeavyBullet();
             ShootBasicBullets();
+            return;
         }
 
-        // All done - play shooting audio
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(shootingAudio);
+        ReleaseHeavyBullet(chargePercent);
+
+        playerEnergy.AddAmount(-energyCost);
+        _cooldownTime = bulletCooldown + chargeTime / heavyCooldownMultiplier;
+
+        PlayHeavyBulletAudio();
     }
 
-    public void ShootHeavyBullets(float chargeTime)
+    public void ShootBasicBullets()
     {
-        if (_bulletCooldownTime >= float.Epsilon) return;
-
-        // All clear, shoot bullets.
-        if (playerEnergy.IsEmpty())
+        if (!CanShootBasic())
         {
             ShootWeakBullets();
+            return;
         }
-        else
-        {
-            float chargePercent = Math.Clamp(chargeTime, 1.5f, 3.0f) / heavyBulletMaxCharge;
-            int damage = (int)Math.Floor(bulletDmg * heavyBulletDamageMultiplier * chargePercent);
-            float speed = bulletSpeed * heavyBulletSpeedMultiplier / chargePercent;
-            foreach (Transform shootingOrigin in shootingOrigins)
-            {
-                GameObject bullet = bulletPool.GetPooledObject();
 
-                bullet.transform.position = shootingOrigin.position;
-                var direction = shootingOrigin.forward;
+        playerEnergy.AddAmount(basicEnergyCost);
 
-                bullet.GetComponent<Bullet>().Init(damage, direction, speed, bulletDespawnDist, tagsToHit);
-                bullet.SetActive(true);
-            }
+        TransformBullets(basicBulletPool, basicDamage, basicSpeed);
 
-            float energyCost = bulletEnergyCost * heavyBulletEnergyCostMultiplier * chargePercent;
-            playerEnergy.AddAmount(-energyCost);
-            _bulletCooldownTime = bulletCooldown + chargeTime / heavyBulletCooldownMultiplier;
-        }
-        
-        // All done - play shooting audio
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(shootingAudio);
+        _cooldownTime = bulletCooldown;
+
+        PlayBulletAudio();
     }
 
-    private void ShootBasicBullets()
+    private void ShootWeakBullets()
+    {
+        if (!CanShootWeak()) return;
+
+        int damage = (int)Math.Round(basicDamage * weakDamageMultiplier);
+        float speed = basicSpeed * weakSpeedMultiplier;
+        TransformBullets(lowBulletPool, damage, speed);
+
+        _cooldownTime = bulletCooldown * weakCooldownMultiplier;
+
+        PlayBulletAudio();
+    }
+
+    private void TransformBullets(ObjectPool bulletPool, int damage, float speed)
     {
         foreach (Transform shootingOrigin in shootingOrigins)
         {
@@ -173,38 +220,90 @@ public class PlayerShoot : MonoBehaviour
             bullet.transform.position = shootingOrigin.position;
             Vector3 direction = shootingOrigin.forward;
 
-            bullet.GetComponent<Bullet>().Init(bulletDmg, direction, bulletSpeed, bulletDespawnDist, tagsToHit);
+            bullet.GetComponent<Bullet>().Init(damage, direction, speed, basicTravelDist, tagsToHit);
             bullet.SetActive(true);
         }
-
-        playerEnergy.AddAmount(bulletEnergyCost);
-        _bulletCooldownTime = bulletCooldown;
     }
 
-    private void ShootWeakBullets()
+    /// <summary>
+    /// Spawn heavy bullet for charging.
+    /// </summary>
+    private void TransformHeavyBullet()
     {
-        int damage = (int)Math.Round(bulletDmg * weakBulletDamageMultiplier);
-        float speed = bulletSpeed * weakBulletSpeedMultiplier;
-        float cooldown = bulletCooldown * weakBulletCooldownMultiplier;
+        _heavyBullet = heavyBulletPool.GetPooledObject();
 
-        foreach (Transform shootingOrigin in shootingOrigins)
-        {
-            GameObject bullet = lowBulletPool.GetPooledObject();
+        _heavyBullet.transform.position = CalculateHeavyPosition();
 
-            bullet.transform.position = shootingOrigin.position;
-            Vector3 direction = shootingOrigin.forward;
-
-            bullet.GetComponent<Bullet>().Init(damage, direction, speed, bulletDespawnDist, tagsToHit);
-            bullet.SetActive(true);
-        }
-
-        _bulletCooldownTime = cooldown;
+        _heavyBullet.GetComponent<Bullet>().Init(1, CalculateHeavyForward(), 0, basicTravelDist, tagsToHit);
+        _heavyBullet.SetActive(true);
     }
 
-    // Update is called once per frame
+    private Vector3 CalculateHeavyPosition()
+    {
+        Vector3 positionL = shootingOrigins[0].position;
+        Vector3 positionR = shootingOrigins[1].position;
+        return positionL + (positionR - positionL) / 2;
+    }
+
+    private Vector3 CalculateHeavyForward()
+    {
+        Vector3 forwardL = shootingOrigins[0].forward;
+        Vector3 forwardR = shootingOrigins[1].forward;
+        return forwardL + (forwardR - forwardL) / 2;
+    }
+
+    private void ReleaseHeavyBullet(float chargePercent)
+    {
+        int damage = (int)Math.Floor(basicDamage * heavyDamageMultiplier * chargePercent);
+        float speed = basicSpeed * heavySpeedMultiplier / chargePercent;
+
+        _heavyBullet.GetComponent<Bullet>().Fire(CalculateHeavyForward(), damage, speed);
+    }
+
+    private void DestroyHeavyBullet()
+    {
+        _heavyBullet.SetActive(false);
+    }
+
+    private void PlayBulletAudio()
+    {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(shootingAudio);
+    }
+    
+    private void PlayHeavyBulletAudio()
+    {
+        audioSource.pitch = Random.Range(0.3f, 0.5f);
+        audioSource.PlayOneShot(shootingAudio);
+    }
+
+    private void UpdateCooldown(float deltaTime)
+    {
+        if (IsCooldownOver()) return;
+        _cooldownTime -= deltaTime;
+    }
+
+    private void UpdateHeavyCharge(float deltaTime)
+    {
+        if (_isHeavyCharging)
+        {
+            _heavyChargeTime += deltaTime;
+            var scalar = _heavyChargeTime * heavySizeMultiplier;
+            Vector3 scale = new Vector3(scalar, scalar, scalar);
+            _heavyBullet.transform.localScale = scale;
+            _heavyBullet.transform.position = CalculateHeavyPosition();
+        }
+    }
+
+    private void ResetHeavyCharge()
+    {
+        _isHeavyCharging = false;
+        _heavyChargeTime = 0;
+    }
+
     void Update()
     {
-        if (_bulletCooldownTime <= 0.0f) return;
-        _bulletCooldownTime -= Time.deltaTime;
+        UpdateCooldown(Time.deltaTime);
+        UpdateHeavyCharge(Time.deltaTime);
     }
 }
