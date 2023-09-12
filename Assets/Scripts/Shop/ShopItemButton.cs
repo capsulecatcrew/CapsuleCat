@@ -6,11 +6,7 @@ public class ShopItemButton: MonoBehaviour
 {
     [Range(1, 2)] public int forPlayer = 1;
 
-    [Header("Sprite Properties")]
-    public SpriteRenderer spriteRenderer;
-    public Sprite normalIcon;
-    public Sprite highlightedIcon;
-    public Sprite disabledIcon;
+    public ButtonSprite buttonSpriteManager;
 
     [Header("Text Components")]
     public TMP_Text itemName;
@@ -21,11 +17,6 @@ public class ShopItemButton: MonoBehaviour
     public bool useable = true;
     private PlayerStat _linkedStat;
 
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// Sets the stat upgrade item the shop button is linked to.
     /// </summary>
@@ -34,9 +25,10 @@ public class ShopItemButton: MonoBehaviour
         _linkedStat = playerStat;
         if (_linkedStat != null)
         {
-            itemName.text = _linkedStat.name + " " + _linkedStat.GetCurrentLevel();
+            itemName.text = _linkedStat.name + " " + (_linkedStat.GetCurrentLevel() + 1);
             if (_linkedStat.IsMaxLevel())
             {
+                itemName.text = _linkedStat.name;
                 itemCost.text = "Max Level";
                 useable = false;
             }
@@ -74,7 +66,16 @@ public class ShopItemButton: MonoBehaviour
         // Update button info
         UpdateShopItem(_linkedStat);
 
+        // Set Sprite to disabled version
+        buttonSpriteManager.SetToSpriteState(2);
+
         // Disable button
         useable = false;
+        buttonSpriteManager.useable = false;
+    }
+
+    public void SetColor(Color color)
+    {
+        buttonSpriteManager.SetColor(color);
     }
 }

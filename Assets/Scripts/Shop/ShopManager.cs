@@ -87,9 +87,10 @@ public class ShopManager : MonoBehaviour
         }
 
         // Set shop buttons for player
-        for (int i = 0; i < selectedNumbers.Count; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
             buttons[i].UpdateShopItem(PlayerStats.GetPlayer(playerNo).stats[selectedNumbers[i]]);
+            // buttons[i].SetColor(playerNo == 1 ? Color.green : Color.red);
         }
     }
 
