@@ -320,7 +320,6 @@ MonoBehaviour:
   pivot: {fileID: 241017968}
   mainBody: {fileID: 725430198}
   maxSpeed: 35
-  stoppingSpeed: 150
   movementRange: 360
   shortJumpTime: 0.1
   longJumpTime: 0.2
@@ -512,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToPool: {fileID: 3181999364343464044, guid: 30313e5c63885794b9992a90a0ff764e, type: 3}
-  amountToPool: 10
+  amountToPool: 20
   parentTransform: {fileID: 1961851102}
   pooledObjects: []
 --- !u!1 &159096222 stripped
@@ -5264,6 +5263,7 @@ MonoBehaviour:
   lowBulletPool: {fileID: 89983472}
   heavyBulletPool: {fileID: 89983474}
   screenShaker: {fileID: 1106076139}
+  _playerMovement: {fileID: 89983467}
   shootingAudio: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
   audioSource: {fileID: 89983469}
   tagsToHit:
@@ -5284,7 +5284,7 @@ MonoBehaviour:
   weakSpeedMultiplier: 0.5
   weakCooldownMultiplier: 3
   heavyMinCharge: 1.5
-  heavyMaxCharge: 3
+  heavyMaxCharge: 4
   heavyDamageMultiplier: 2
   heavySpeedMultiplier: 0.2
   heavyCooldownMultiplier: 0.5
@@ -6924,8 +6924,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -2.0600459e-11, y: 0.99981654, z: -0.01915611, w: -0.0000000010752017}
-  m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7242,6 +7242,7 @@ GameObject:
   - component: {fileID: 1106076137}
   - component: {fileID: 1106076138}
   - component: {fileID: 1106076139}
+  - component: {fileID: 1106076140}
   m_Layer: 0
   m_Name: Virtual Camera 1
   m_TagString: Untagged
@@ -7256,8 +7257,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 1.8702493e-11, y: 0.99981654, z: -0.01915611, w: 9.76141e-10}
-  m_LocalPosition: {x: -0.00000003902414, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
+  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7304,6 +7305,19 @@ MonoBehaviour:
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 341657345}
 --- !u!114 &1106076139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106076136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1483f9c3398874b871b4704e60533e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopShakeThreshold: 0.005
+--- !u!114 &1106076140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9109,7 +9123,8 @@ MonoBehaviour:
   basicBulletPool: {fileID: 89983470}
   lowBulletPool: {fileID: 89983472}
   heavyBulletPool: {fileID: 89983474}
-  screenShaker: {fileID: 1106076139}
+  screenShaker: {fileID: 1106076140}
+  _playerMovement: {fileID: 89983467}
   shootingAudio: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
   audioSource: {fileID: 89983469}
   tagsToHit:
@@ -9130,7 +9145,7 @@ MonoBehaviour:
   weakSpeedMultiplier: 0.5
   weakCooldownMultiplier: 3
   heavyMinCharge: 1.5
-  heavyMaxCharge: 3
+  heavyMaxCharge: 4
   heavyDamageMultiplier: 2
   heavySpeedMultiplier: 0.2
   heavyCooldownMultiplier: 0.5

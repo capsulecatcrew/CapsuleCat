@@ -69,14 +69,14 @@ public class PilotInput : MonoBehaviour
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
     {
+        if (controlMode != ControlMode.Shooting) return;
         // Check if heavy attack has started charging.
         if (context.started)
         {
             weaponController.ChargeHeavyBullet();
             return;
         }
-        if (controlMode != ControlMode.Shooting) return;
-        
+
         var elapsedTime = context.time - context.startTime;
         weaponController.ShootHeavyBullet((float) elapsedTime);
     }
@@ -102,6 +102,7 @@ public class PilotInput : MonoBehaviour
             }
             else if (controlMode == ControlMode.Shooting)
             {
+                if (weaponController.IsHeavyCharging()) return;
                 controlMode = ControlMode.Movement;
             }
 

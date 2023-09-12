@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 public class PlayerShoot : MonoBehaviour
 {
     public GameObject[] weapons;
-    private PlayerControls _playerControls;
 
     public PlayerEnergy playerEnergy;
 
@@ -13,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private ObjectPool lowBulletPool;
     [SerializeField] private ObjectPool heavyBulletPool;
     [SerializeField] private ScreenShaker screenShaker;
+    [SerializeField] private PlayerMovement _playerMovement;
 
     public AudioClip shootingAudio;
 
@@ -44,7 +44,7 @@ public class PlayerShoot : MonoBehaviour
 
     // Heavy bullet fields
     [SerializeField] private float heavyMinCharge = 1.5f;
-    [SerializeField] private float heavyMaxCharge = 3.0f;
+    [SerializeField] private float heavyMaxCharge = 4.0f;
     [SerializeField] private float heavyDamageMultiplier = 2.0f;
     [SerializeField] private float heavySpeedMultiplier = 0.2f;
     [SerializeField] private float heavyCooldownMultiplier = 0.5f;
@@ -59,7 +59,6 @@ public class PlayerShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerControls = PlayerMovement.PlayerController;
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
         _cooldownTime = 0;
         bulletCooldown = PlayerStats.FiringRate.GetCurrentValue();
@@ -149,7 +148,7 @@ public class PlayerShoot : MonoBehaviour
 
     public void ChargeHeavyBullet()
     {
-        if (!CanShootBasic()) return;
+        if (!IsCooldownOver()) return;
         _isHeavyCharging = true;
         screenShaker.ChargeShake(heavyMinCharge, heavyScreenShakeMultiplier, heavyScreenShakeMaxAmount);
         TransformHeavyBullet();
@@ -163,10 +162,11 @@ public class PlayerShoot : MonoBehaviour
     {
         ResetHeavyCharge();
         screenShaker.EndShake();
-        float chargePercent = Math.Clamp(chargeTime, 1.5f, 3.0f) / heavyMaxCharge;
+        float clampedTime = Math.Clamp(chargeTime, 0, heavyMaxCharge);
+        float chargePercent = clampedTime / heavyMaxCharge;
         float energyCost = basicEnergyCost * heavyEnergyCostMultiplier * chargePercent;
 
-        if (!CanShootHeavy(chargeTime, energyCost))
+        if (!CanShootHeavy(clampedTime, energyCost))
         {
             DestroyHeavyBullet();
             ShootBasicBullets();
@@ -176,7 +176,7 @@ public class PlayerShoot : MonoBehaviour
         ReleaseHeavyBullet(chargePercent);
 
         playerEnergy.AddAmount(-energyCost);
-        _cooldownTime = bulletCooldown + chargeTime / heavyCooldownMultiplier;
+        _cooldownTime = bulletCooldown + clampedTime / heavyCooldownMultiplier;
 
         PlayHeavyBulletAudio();
     }
@@ -189,7 +189,7 @@ public class PlayerShoot : MonoBehaviour
             return;
         }
 
-        playerEnergy.AddAmount(basicEnergyCost);
+        playerEnergy.AddAmount(-basicEnergyCost);
 
         TransformBullets(basicBulletPool, basicDamage, basicSpeed);
 
@@ -288,10 +288,14 @@ public class PlayerShoot : MonoBehaviour
         if (_isHeavyCharging)
         {
             _heavyChargeTime += deltaTime;
-            var scalar = _heavyChargeTime * heavySizeMultiplier;
+            float clampedTime = Math.Clamp(_heavyChargeTime, 0, heavyMaxCharge);
+            var scalar = clampedTime * heavySizeMultiplier;
             Vector3 scale = new Vector3(scalar, scalar, scalar);
             _heavyBullet.transform.localScale = scale;
             _heavyBullet.transform.position = CalculateHeavyPosition();
+            print(CalculateHeavyPosition());
+            float slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
+            _playerMovement.slowSpeed(slowMultiplier);
         }
     }
 
@@ -299,6 +303,12 @@ public class PlayerShoot : MonoBehaviour
     {
         _isHeavyCharging = false;
         _heavyChargeTime = 0;
+        _playerMovement.resetMaxSpeed();
+    }
+
+    public bool IsHeavyCharging()
+    {
+        return _isHeavyCharging;
     }
 
     void Update()

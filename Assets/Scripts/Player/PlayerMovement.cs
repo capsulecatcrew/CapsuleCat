@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform mainBody;
     
     [Header("Movement")]
-    public float maxSpeed = 50;
-    public float stoppingSpeed = 150;
+    private float speed = 35;
+
+    public float maxSpeed = 35;
     [Range(0, 360)]
     public int movementRange = 360;
     
@@ -31,12 +28,12 @@ public class PlayerMovement : MonoBehaviour
     private float _yVelocity;
     private float _airTime;
     private float _jumpTime;
-    private bool _isHoldingJump = false;
+    private bool _isHoldingJump;
 
     private float _currentVelocity;
     
-    private float _playerOneMovement = 0;
-    private float _playerTwoMovement = 0;
+    private float _playerOneMovement;
+    private float _playerTwoMovement;
     private bool _playerOneCanJump = true;
     private bool _playerTwoCanJump = true; 
     
@@ -46,6 +43,16 @@ public class PlayerMovement : MonoBehaviour
         PlayerController = new PlayerControls();
         _GroundYPos = mainBody.position.y;
         _isGrounded = true;
+    }
+
+    public void slowSpeed(float multiplier)
+    {
+        speed = maxSpeed * multiplier;
+    }
+
+    public void resetMaxSpeed()
+    {
+        speed = maxSpeed;
     }
 
     private void OnEnable()
@@ -142,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement != 0)
         {
-            _currentVelocity = maxSpeed * movement;
+            _currentVelocity = speed * movement;
             pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
         // else if (Math.Abs(_currentVelocity) > float.Epsilon) // Slowdown before stopping after button is released
