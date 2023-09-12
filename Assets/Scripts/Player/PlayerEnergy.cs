@@ -105,4 +105,9 @@ public class PlayerEnergy : MonoBehaviour
     {
         return _isEmpty;
     }
+
+    public bool HasEnergy(float amount)
+    {
+        return currentAmount >= amount;
+    }
 }

@@ -18,7 +18,7 @@ public class PilotInput : MonoBehaviour
     public GameObject weapons;
     public PlayerShoot weaponController;
 
-    private float _movement = 0;
+    private float _movement;
     private Vector2 _weaponMovement = Vector2.zero;
 
     // Start is called before the first frame update
@@ -41,6 +41,7 @@ public class PilotInput : MonoBehaviour
             _movement = 0;
             weaponController.MoveGunsBy(_weaponMovement);
         }
+        
     }
 
     public void OnMoveLR(InputAction.CallbackContext context)
@@ -61,23 +62,33 @@ public class PilotInput : MonoBehaviour
 
     public void OnPrimary(InputAction.CallbackContext context)
     {
-        if (context.action.triggered)
-        {
-            switch (controlMode)
-            {
-                case ControlMode.Movement:
-                    movementController.RequestPlayerJump(player);
-                    break;
-                case ControlMode.Shooting:
-                    weaponController.ShootBullet();
-                    break;
-                default:
-                    break;
-            }
-        }
+        if (!context.action.triggered) return;
+        if (controlMode != ControlMode.Shooting) return;
+        weaponController.ShootBasicBullets();
     }
 
-    public void OnSecondary(InputAction.CallbackContext context)
+    public void OnHeavyAttack(InputAction.CallbackContext context)
+    {
+        if (controlMode != ControlMode.Shooting) return;
+        // Check if heavy attack has started charging.
+        if (context.started)
+        {
+            weaponController.ChargeHeavyBullet();
+            return;
+        }
+
+        var elapsedTime = context.time - context.startTime;
+        weaponController.ShootHeavyBullet((float) elapsedTime);
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (!context.action.triggered) return;
+        if (controlMode != ControlMode.Movement) return;
+        movementController.RequestPlayerJump(player);
+    }
+
+    public void OnSpecial(InputAction.CallbackContext context)
     {
     }
 
@@ -91,6 +102,7 @@ public class PilotInput : MonoBehaviour
             }
             else if (controlMode == ControlMode.Shooting)
             {
+                if (weaponController.IsHeavyCharging()) return;
                 controlMode = ControlMode.Movement;
             }
 

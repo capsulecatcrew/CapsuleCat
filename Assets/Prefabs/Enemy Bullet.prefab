@@ -91,9 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  speed: 10
   tagsToHit: []
-  travelSpeed: 10
-  direction: {x: 18.722668, y: 4, z: -3.2344627}
+  ignoreIFrames: 0
   maxDistance: 20
 --- !u!54 &3181999364343464042
 Rigidbody:
