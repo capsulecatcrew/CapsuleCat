@@ -456,7 +456,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a12619d2-da58-48d1-9ef2-7a77e7e07276"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""SplitKeyboardL"",
@@ -467,7 +467,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c01b9780-7832-42a1-a8be-515e91b7dd08"",
-                    ""path"": ""<Keyboard>/period"",
+                    ""path"": ""<Keyboard>/minus"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""SplitKeyboardR"",
