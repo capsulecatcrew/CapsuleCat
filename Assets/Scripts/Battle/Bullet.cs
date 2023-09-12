@@ -19,6 +19,10 @@ public class Bullet : MonoBehaviour
     public float maxDistance = 10;
 
     // Tim I swear to god your Start() call was causing the weirdest fucking issue and I wanted to kms :))))))))))))))))
+    void Start()
+    {
+        _origin = transform.position;
+    }
     
     public void Init(int damage, Vector3 direction, float speed, float maxDistance, string[] tagsToHit)
     {
@@ -31,6 +35,13 @@ public class Bullet : MonoBehaviour
         this.maxDistance = maxDistance;
         _maxTravelPoint = _origin + _normDirection * this.maxDistance;
         this.tagsToHit = tagsToHit;
+    }
+
+    public void Hold(Vector3 scale, Vector3 position)
+    {
+        transform.localScale = scale;
+        transform.position = position;
+        _origin = position;
     }
 
     public void Fire(Vector3 direction, int damage, float speed)

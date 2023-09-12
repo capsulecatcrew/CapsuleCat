@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToPool: {fileID: 3181999364343464044, guid: 30313e5c63885794b9992a90a0ff764e, type: 3}
-  amountToPool: 20
+  amountToPool: 10
   parentTransform: {fileID: 1961851102}
   pooledObjects: []
 --- !u!1 &159096222 stripped
@@ -5051,7 +5051,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32042
+  m_Name: pb_Mesh25436
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5285,7 +5285,7 @@ MonoBehaviour:
   weakCooldownMultiplier: 3
   heavyMinCharge: 1.5
   heavyMaxCharge: 4
-  heavyDamageMultiplier: 2
+  heavyDamageMultiplier: 3
   heavySpeedMultiplier: 0.2
   heavyCooldownMultiplier: 0.5
   heavyEnergyCostMultiplier: 3
@@ -6924,8 +6924,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
-  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 1.8702493e-11, y: 0.99981654, z: -0.01915611, w: 9.76141e-10}
+  m_LocalPosition: {x: -0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7257,8 +7257,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -1.870248e-11, y: 0.99981654, z: -0.01915611, w: -9.761403e-10}
-  m_LocalPosition: {x: 0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 1.8702493e-11, y: 0.99981654, z: -0.01915611, w: 9.76141e-10}
+  m_LocalPosition: {x: -0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9146,7 +9146,7 @@ MonoBehaviour:
   weakCooldownMultiplier: 3
   heavyMinCharge: 1.5
   heavyMaxCharge: 4
-  heavyDamageMultiplier: 2
+  heavyDamageMultiplier: 3
   heavySpeedMultiplier: 0.2
   heavyCooldownMultiplier: 0.5
   heavyEnergyCostMultiplier: 3

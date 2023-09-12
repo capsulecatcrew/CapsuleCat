@@ -54,7 +54,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float heavySizeMultiplier = 0.35f;
     private bool _isHeavyCharging;
     private float _heavyChargeTime;
-    private GameObject _heavyBullet;
+    private GameObject _heavyObject;
+    private Bullet _heavyBullet;
 
     // Start is called before the first frame update
     void Start()
@@ -230,12 +231,13 @@ public class PlayerShoot : MonoBehaviour
     /// </summary>
     private void TransformHeavyBullet()
     {
-        _heavyBullet = heavyBulletPool.GetPooledObject();
+        _heavyObject = heavyBulletPool.GetPooledObject();
+        _heavyBullet = _heavyObject.GetComponent<Bullet>();
 
-        _heavyBullet.transform.position = CalculateHeavyPosition();
+        _heavyObject.transform.position = CalculateHeavyPosition();
 
-        _heavyBullet.GetComponent<Bullet>().Init(1, CalculateHeavyForward(), 0, basicTravelDist, tagsToHit);
-        _heavyBullet.SetActive(true);
+        _heavyBullet.Init(1, CalculateHeavyForward(), 0, basicTravelDist, tagsToHit);
+        _heavyObject.SetActive(true);
     }
 
     private Vector3 CalculateHeavyPosition()
@@ -257,12 +259,12 @@ public class PlayerShoot : MonoBehaviour
         int damage = (int)Math.Floor(basicDamage * heavyDamageMultiplier * chargePercent);
         float speed = basicSpeed * heavySpeedMultiplier / chargePercent;
 
-        _heavyBullet.GetComponent<Bullet>().Fire(CalculateHeavyForward(), damage, speed);
+        _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);
     }
 
     private void DestroyHeavyBullet()
     {
-        _heavyBullet.SetActive(false);
+        _heavyObject.SetActive(false);
     }
 
     private void PlayBulletAudio()
@@ -290,10 +292,8 @@ public class PlayerShoot : MonoBehaviour
             _heavyChargeTime += deltaTime;
             float clampedTime = Math.Clamp(_heavyChargeTime, 0, heavyMaxCharge);
             var scalar = clampedTime * heavySizeMultiplier;
-            Vector3 scale = new Vector3(scalar, scalar, scalar);
-            _heavyBullet.transform.localScale = scale;
-            _heavyBullet.transform.position = CalculateHeavyPosition();
-            print(CalculateHeavyPosition());
+            var scale = new Vector3(scalar, scalar, scalar);
+            _heavyBullet.Hold(scale, CalculateHeavyPosition());
             float slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
             _playerMovement.slowSpeed(slowMultiplier);
         }
