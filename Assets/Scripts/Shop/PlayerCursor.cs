@@ -6,7 +6,6 @@ public class PlayerCursor : MonoBehaviour
 {
     [Range(1, 2)]
     public int playerNo = 1;
-    public Color color;
     public SpriteRenderer sprite;
     public Vector2 boundarySize = new Vector2(4, 2.25f);
     public float selectRadius = 0.25f;
@@ -32,9 +31,8 @@ public class PlayerCursor : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        Gizmos.color = color;
-        Gizmos.DrawWireCube(Vector3.zero, 2 * boundarySize);
         Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(Vector3.zero, 2 * boundarySize);
         Gizmos.DrawWireSphere(transform.position, selectRadius);
     }
 
