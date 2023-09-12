@@ -102,7 +102,7 @@ public class PilotInput : MonoBehaviour
             }
             else if (controlMode == ControlMode.Shooting)
             {
-                if (weaponController.IsHeavyCharging()) return;
+                if (weaponController.CanSwitchControlMode()) return;
                 controlMode = ControlMode.Movement;
             }
 

@@ -5,41 +5,50 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage = 1;
+    private int damage = 1;
     private Vector3 _direction;
-    private Vector3 _normDirection;
     public float speed = 10;
     private Vector3 _maxTravelPoint;
     public string[] tagsToHit;
-    
+
     public bool ignoreIFrames;
     private Vector3 _origin;
+
+    private PlayerSpecial playerSpecial;
+    private bool isPlayerBullet;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     // maximum distance before bullet is destroyed
     public float maxDistance = 10;
 
-    // Tim I swear to god your Start() call was causing the weirdest fucking issue and I wanted to kms :))))))))))))))))
     void Start()
     {
         _origin = transform.position;
     }
-    
-    public void Init(int damage, Vector3 direction, float speed, float maxDistance, string[] tagsToHit)
+
+    public void Init(int dmg, Vector3 dir, float spd, float maxDist, string[] tags)
     {
         _origin = transform.position;
-        
-        this.damage = damage;
-        _direction = direction;
-        _normDirection = _direction.normalized;
-        this.speed = speed;
-        this.maxDistance = maxDistance;
-        _maxTravelPoint = _origin + _normDirection * this.maxDistance;
-        this.tagsToHit = tagsToHit;
+
+        damage = dmg;
+        _direction = dir;
+        speed = spd;
+        maxDistance = maxDist;
+        _maxTravelPoint = _origin + _direction.normalized * maxDistance;
+        tagsToHit = tags;
+    }
+
+    public void Init(int dmg, Vector3 dir, float spd, float maxDist, string[] tags, PlayerSpecial playerSpec)
+    {
+        Init(dmg, dir, spd, maxDist, tags);
+        isPlayerBullet = true;
+        playerSpecial = playerSpec;
     }
 
     public void Hold(Vector3 scale, Vector3 position)
     {
         transform.localScale = scale;
+        trailRenderer.widthMultiplier = scale.magnitude + 0.1f;
         transform.position = position;
         _origin = position;
     }
@@ -47,16 +56,18 @@ public class Bullet : MonoBehaviour
     public void Fire(Vector3 direction, int damage, float speed)
     {
         _direction = direction;
-        _normDirection = _direction.normalized;
         this.damage = damage;
         this.speed = speed;
+    }
+
+    public void Delete()
+    {
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // move bullet in direction of travel
-        // transform.position += speed * Time.deltaTime * _normDirection;
         transform.position += speed * Time.deltaTime * _direction.normalized;
 
         // if bullet has reached its maximum travel point, destroy it
@@ -68,25 +79,22 @@ public class Bullet : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 position = transform.position;
-        Debug.DrawLine(position, position + _normDirection * 10, Color.magenta);
+        var position = transform.position;
+        Debug.DrawLine(position, position + _direction.normalized * 10, Color.magenta);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        foreach (string t in tagsToHit)
+        foreach (var t in tagsToHit)
         {
-            if (other.CompareTag(t))
+            if (!other.CompareTag(t)) continue;
+            if (other.gameObject.TryGetComponent<Damageable>(out var damageable))
             {
-                var damageable = other.gameObject.GetComponent(typeof(Damageable)) as Damageable;
-
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(damage, ignoreIFrames);
-                }
-
-                gameObject.SetActive(false);
+                damageable.TakeDamage(damage, ignoreIFrames);
+                if (isPlayerBullet) playerSpecial.GainDamagePower(damage);
             }
+
+            Delete();
         }
     }
 }
