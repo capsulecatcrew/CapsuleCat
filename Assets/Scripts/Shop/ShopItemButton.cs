@@ -54,6 +54,7 @@ public class ShopItemButton: MonoBehaviour
         if (playerNo != forPlayer) return;
 
         int playerMoney = PlayerStats.GetPlayer(playerNo).Money;
+        
         float cost = _linkedStat.GetCurrentCost();
         if (playerMoney < cost) return;
 
@@ -66,16 +67,26 @@ public class ShopItemButton: MonoBehaviour
         // Update button info
         UpdateShopItem(_linkedStat);
 
+        // Disable button
+        DisableButton();
+    }
+
+    public void DisableButton()
+    {
         // Set Sprite to disabled version
         buttonSpriteManager.SetToSpriteState(2);
-
-        // Disable button
-        useable = false;
         buttonSpriteManager.useable = false;
+
+        useable = false;
     }
 
     public void SetColor(Color color)
     {
         buttonSpriteManager.SetColor(color);
+    }
+    
+    public PlayerStat GetLinkedStat()
+    {
+        return _linkedStat;
     }
 }
