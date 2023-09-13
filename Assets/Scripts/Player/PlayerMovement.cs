@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
 {
     public static PlayerControls PlayerController;
+    [SerializeField] private PlayerSpecial _playerSpecial;
 
     public Transform pivot;
     public Transform mainBody;
@@ -71,10 +72,10 @@ public class PlayerMovement : MonoBehaviour
      */
     private void OnDrawGizmos()
     {
-        float length = Math.Abs(mainBody.localPosition.z) + 5;
-        float halfAngle = movementRange * 0.5f * Mathf.Deg2Rad;
-        float endX = length * Mathf.Sin(halfAngle);
-        float endZ = length * Mathf.Cos(halfAngle);
+        var length = Math.Abs(mainBody.localPosition.z) + 5;
+        var halfAngle = movementRange * 0.5f * Mathf.Deg2Rad;
+        var endX = length * Mathf.Sin(halfAngle);
+        var endZ = length * Mathf.Cos(halfAngle);
         Debug.DrawLine(pivot.position, new Vector3(pivot.position.x + endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
         Debug.DrawLine(pivot.position, new Vector3(pivot.position.x - endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
     }
@@ -111,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
      */
     public bool RequestPlayerJump(int player)
     {
-        bool success = false;
+        var success = false;
 
         if (player == 1 && _playerOneCanJump)
         {
@@ -145,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Rotational Movement
          */
-        float movement = _playerOneMovement + _playerTwoMovement;
+        var movement = _playerOneMovement + _playerTwoMovement;
 
         if (movement != 0)
         {
@@ -164,8 +165,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (movementRange < 360) {
-            float halfAngle = (float) movementRange * 0.5f;
-            float rot = pivot.rotation.eulerAngles.y;
+            var halfAngle = (float) movementRange * 0.5f;
+            var rot = pivot.rotation.eulerAngles.y;
             if (rot > halfAngle && rot <= 180)
             {
                 pivot.rotation = Quaternion.Euler(0, halfAngle, 0);
@@ -215,5 +216,19 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+    }
+
+    public void UseSpecialMovement(float power)
+    {
+        if (!_playerSpecial.UsePower(power)) return;
+        // TODO: Implement some sort of burst special movement
+        // e.g. dash, tp
+    }
+
+    public void UseContinuousSpecialMovement(float multiplier)
+    {
+        _playerSpecial.UseContinuousPower(multiplier, this);
+        // TODO: Implement some sort of continuous special movement
+        // e.g. speed boost? shield?
     }
 }

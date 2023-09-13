@@ -75,7 +75,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -105,9 +105,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 0, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 1, a: 0}
+      key0: {r: 0.9056604, g: 0.026042722, b: 0, a: 1}
+      key1: {r: 1, g: 0.15174358, b: 0, a: 1}
+      key2: {r: 1, g: 0.30837655, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -244,10 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97a9b88c6bee4b599dd0a208f0af658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
   speed: 10
   tagsToHit: []
   ignoreIFrames: 1
+  trailRenderer: {fileID: 4714105104879316315}
   maxDistance: 20
 --- !u!54 &3181999364343464042
 Rigidbody:

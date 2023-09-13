@@ -9,6 +9,10 @@ public class Damageable : MonoBehaviour
         Bullet,
         Laser
     }
+
+    [SerializeField] private PlayerSpecial player1Special;
+    [SerializeField] private PlayerSpecial player2Special;
+    [SerializeField] private bool isPlayer;
     
     public int maxHp = 10;
 
@@ -47,6 +51,11 @@ public class Damageable : MonoBehaviour
         {
             currentHp -= damage;
             OnDamage?.Invoke(this);
+            if (isPlayer)
+            {
+                player1Special.GainDamagedPower(damage);
+                player2Special.GainDamagedPower(damage);
+            }
             if (currentHp <= 0)
             {
                 currentHp = 0;

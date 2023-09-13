@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageAbsorber: Damageable
 {
     public List<DamageType> damageTypes;
+    [SerializeField] private PlayerSpecial _playerSpecial;
 
     public float absorbMultiplier = 1.0f;
     
@@ -19,6 +19,7 @@ public class DamageAbsorber: Damageable
         if (damageTypes.Contains(damageType))
         {
             OnDamageAbsorb?.Invoke(damage * absorbMultiplier);
+            _playerSpecial.GainAbsorbPower(damage);
             TimeSinceLastHit = 0.0f;
         }
         else

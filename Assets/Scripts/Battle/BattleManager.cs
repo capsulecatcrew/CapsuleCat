@@ -27,21 +27,33 @@ public class BattleManager : MonoBehaviour
     public HealthBar playerEnergyBar;
     public HealthBar enemyHealthBar;
 
+    public int enemyBaseHealth = 80;
+    public int enemyAddHealth = 20;
+
     private bool _battleIsOver;
     private void Awake()
     {
         playerDamageable.SetMaxHp((int) PlayerStats.Hp.GetMaxValue());
         playerDamageable.SetCurrentHp((int) PlayerStats.Hp.GetCurrentValue());
-        int enemyHealth = 30 + PlayerStats.LevelsCompleted * 20;
+        
+        var enemyHealth = enemyBaseHealth + PlayerStats.LevelsCompleted * enemyAddHealth;
         enemyDamageable.SetMaxHp(enemyHealth);
         enemyDamageable.SetCurrentHp(enemyHealth);
-        
-        enemyBody.GetComponent<Renderer>().material.color = new Color(Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f));
+
+        enemyBody.GetComponent<Renderer>().material.color = getEnemyColor();
         
         GlobalAudio.Singleton.StopMusic();
         GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
         
         _battleIsOver = false;
+    }
+
+    private Color getEnemyColor()
+    {
+        var r = Random.Range(0.1f, 1.0f);
+        var g = Random.Range(0.1f, 1.0f);
+        var b = Random.Range(0.1f, 1.0f);
+        return new Color(r, g, b);
     }
 
     // Start is called before the first frame update
