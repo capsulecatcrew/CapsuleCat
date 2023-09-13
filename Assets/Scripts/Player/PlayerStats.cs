@@ -17,8 +17,8 @@ public static class PlayerStats
             stats.Add(AttackPower);
             stats.Add(Energy);
             stats.Add(EnergyAbsorb);
-            stats.Add(EnergySharing);
-            stats.Add(Sprint);
+            // stats.Add(EnergySharing);
+            // stats.Add(Sprint);
         }
     }
 
@@ -28,11 +28,6 @@ public static class PlayerStats
     public static int LevelsCompleted = 0;
 
     // DEPRECATED
-    public static PlayerStat FiringRate = new PlayerStat("", 0.3f, -0.025f, 100, 75);
-    public static PlayerStat Energy = new PlayerStat("", 25, 25, 100, 100);
-    public static PlayerStat EnergyAbsorb = new PlayerStat("", 0.1f, 0.1f, 100, 100);
-    public static PlayerStat HealthRecovery = new PlayerStat("", 2, 2, 50, 50, 30);
-    public static int Money = 0;
     // DEPRECATED
 
 
@@ -51,11 +46,6 @@ public static class PlayerStats
     public static void ResetStats()
     {
         Hp.ResetStat();
-        FiringRate.ResetStat();
-        Energy.ResetStat();
-        EnergyAbsorb.ResetStat();
-        HealthRecovery.ResetStat();
-        Money = 0;
         LevelsCompleted = 0;
         Player1 = new Player();
         Player2 = new Player();

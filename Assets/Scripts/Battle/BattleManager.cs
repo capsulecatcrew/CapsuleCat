@@ -15,18 +15,23 @@ public class BattleManager : MonoBehaviour
     public LevelLoader levelLoader;
 
     public Damageable playerDamageable;
-    public PlayerEnergy playerEnergy;
-    
+    [Header("Energy")]
+    public PlayerEnergy player1Energy;
+    public PlayerEnergy player2Energy;
+
+    [Header("UI Bars")]
+    public HealthBar playerHealthBar;
+    public HealthBar player1EnergyBar;
+    public HealthBar player2EnergyBar;
+    public HealthBar player1SpecialBar;
+    public HealthBar player2SpecialBar;
+    public HealthBar enemyHealthBar;
+
+    [Header("Enemy Parameters")]    
+    public GameObject enemy;
     public GameObject enemyBody;
     public Damageable enemyDamageable;
     public AudioClip enemyDefeatSound;
-    
-    public GameObject enemy;
-
-    public HealthBar playerHealthBar;
-    public HealthBar playerEnergyBar;
-    public HealthBar enemyHealthBar;
-
     public int enemyBaseHealth = 80;
     public int enemyAddHealth = 20;
 
@@ -60,12 +65,13 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         playerHealthBar.SetMax(playerDamageable.maxHp);
-        // playerEnergyBar.SetMax(playerEnergy.GetMax());
+        player1EnergyBar.SetMax(PlayerStats.GetPlayer(1).Energy.GetMaxValue());
+        player2EnergyBar.SetMax(PlayerStats.GetPlayer(2).Energy.GetMaxValue());
         enemyHealthBar.SetMax(enemyDamageable.maxHp);
         playerHealthBar.SetFill(playerDamageable.currentHp);
-        // playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
+        player1EnergyBar.SetFill(PlayerStats.GetPlayer(1).Energy.GetCurrentValue());
+        player2EnergyBar.SetFill(PlayerStats.GetPlayer(2).Energy.GetCurrentValue());
         enemyHealthBar.SetFill(enemyDamageable.currentHp);
-        SetUpPlayerInputs();
     }
 
     // Update is called once per frame
@@ -78,7 +84,8 @@ public class BattleManager : MonoBehaviour
         playerDamageable.OnDamage += PlayerDamage;
         playerDamageable.OnDeath += Lose;
 
-        // playerEnergy.EnergyUpdate += UpdatePlayerEnergyBar;
+        player1Energy.EnergyUpdate += UpdatePlayerEnergyBar;
+        player2Energy.EnergyUpdate += UpdatePlayerEnergyBar;
 
         enemyDamageable.OnDamage += UpdateEnemyHealthBar;
         enemyDamageable.OnDeath += Win;
@@ -88,7 +95,8 @@ public class BattleManager : MonoBehaviour
         playerDamageable.OnDamage -= PlayerDamage;
         playerDamageable.OnDeath -= Lose;
         
-        // playerEnergy.EnergyUpdate -= UpdatePlayerEnergyBar;
+        player1Energy.EnergyUpdate -= UpdatePlayerEnergyBar;
+        player2Energy.EnergyUpdate -= UpdatePlayerEnergyBar;
         
         enemyDamageable.OnDamage -= UpdateEnemyHealthBar;
         enemyDamageable.OnDeath -= Win;
@@ -103,7 +111,8 @@ public class BattleManager : MonoBehaviour
 
     void UpdatePlayerEnergyBar()
     {
-        playerEnergyBar.SetFill(playerEnergy.GetCurrentAmount());
+        player1EnergyBar.SetFill(player1Energy.GetCurrentAmount());
+        player2EnergyBar.SetFill(player2Energy.GetCurrentAmount());
     }
     void UpdateEnemyHealthBar(Damageable damageable)
     {
@@ -135,48 +144,4 @@ public class BattleManager : MonoBehaviour
         _battleIsOver = true;
     }
 
-    /**
-     * =================
-     * SetUpPlayerInputs
-     * =================
-     * Sets the local multiplayer input devices according to how many gamepads/controllers are connected.
-     * 
-     */
-    void SetUpPlayerInputs()
-    {
-        var player1 = PlayerInput.all[0];
-        var player2 = PlayerInput.all[1];
-    
-        // Discard existing assignments.
-        player1.user.UnpairDevices();
-        player2.user.UnpairDevices();
-    
-        // Assign devices and control schemes.
-        var gamepadCount = Gamepad.all.Count;
-        if (gamepadCount >= 2)
-        {
-            InputUser.PerformPairingWithDevice(Gamepad.all[0], user: player1.user);
-            InputUser.PerformPairingWithDevice(Gamepad.all[1], user: player2.user);
-    
-            player1.user.ActivateControlScheme("Gamepad");
-            player2.user.ActivateControlScheme("Gamepad");
-        }
-        else if (gamepadCount == 1)
-        {
-            InputUser.PerformPairingWithDevice(Gamepad.all[0], user: player1.user);
-            InputUser.PerformPairingWithDevice(Keyboard.current, user: player2.user);
-    
-            player1.user.ActivateControlScheme("Gamepad");
-            player2.user.ActivateControlScheme("SplitKeyboardL");
-        }
-        else
-        {
-            InputUser.PerformPairingWithDevice(Keyboard.current, user: player1.user);
-            InputUser.PerformPairingWithDevice(Keyboard.current, user: player2.user);
-    
-            player1.user.ActivateControlScheme(player1.defaultControlScheme);
-            player2.user.ActivateControlScheme(player2.defaultControlScheme);
-        }
-
-    }
 }

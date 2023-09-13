@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 {
+    [Range(1, 2)] int playerNo = 1;
     [Header("Trackers")] public PlayerEnergy playerEnergy;
     public GameObject[] weapons;
     public Transform[] shootingOrigins;
@@ -64,7 +65,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
         _cooldownTime = 0;
-        basicCooldownTime = PlayerStats.FiringRate.GetCurrentValue();
+        basicDamage = (int) PlayerStats.GetPlayer(playerNo).AttackPower.GetCurrentValue();
     }
 
     /// <summary>
