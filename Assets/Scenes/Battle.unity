@@ -5511,7 +5511,7 @@ MonoBehaviour:
   enemyBody: {fileID: 1755626506}
   enemyDamageable: {fileID: 1755626511}
   enemyDefeatSound: {fileID: 8300000, guid: 9c47d184eb57743118ab203f06371b15, type: 3}
-  enemyBaseHealth: 80
+  enemyBaseHealth: 50
   enemyAddHealth: 20
 --- !u!4 &203013227
 Transform:
@@ -14917,7 +14917,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh59174
+  m_Name: pb_Mesh128202
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15553,7 +15553,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5290f6272505845989ab80728ca250ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16469,7 +16469,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5290f6272505845989ab80728ca250ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16870,8 +16870,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 2.0838106e-25, y: 0.99981654, z: -0.01915611, w: 1.0876048e-23}
-  m_LocalPosition: {x: -4.348024e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 2.0797687e-25, y: 0.99981654, z: -0.01915611, w: 1.0854953e-23}
+  m_LocalPosition: {x: -4.3395907e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17069,7 +17069,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5290f6272505845989ab80728ca250ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17207,8 +17207,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 2.0838106e-25, y: 0.99981654, z: -0.01915611, w: 1.0876048e-23}
-  m_LocalPosition: {x: -4.348024e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 2.0797687e-25, y: 0.99981654, z: -0.01915611, w: 1.0854953e-23}
+  m_LocalPosition: {x: -4.3395907e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24357,8 +24357,8 @@ MonoBehaviour:
   dmgIncrease: 1
   startingNumOfLasers: 3
   maxNumOfLasers: 7
-  lasersIncreaseLvlInterval: 5
-  rotationSpeed: 0
+  lasersIncreaseLvlInterval: 4
+  rotationSpeed: 40
 --- !u!1 &1627916139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 875710972588870714, guid: a0aea8cd64ed746a4a2bc8b7cc6f9909, type: 3}
@@ -26378,7 +26378,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5290f6272505845989ab80728ca250ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

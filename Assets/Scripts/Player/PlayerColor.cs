@@ -26,6 +26,15 @@ public class PlayerColor : MonoBehaviour
         
         foreach (GameObject obj in gameObjects)
         {
+            Renderer renderer;
+            if (obj.TryGetComponent(out renderer))
+            {
+                renderer.material.color = _color;
+                if (renderer.material.IsKeywordEnabled("_EMISSION"))
+                {
+                    renderer.material.SetColor("_EmissionColor", _color * 0.9f);
+                }
+            }
             obj.GetComponent<Renderer>().material.color = _color;
         }
 

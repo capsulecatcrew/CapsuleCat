@@ -47,9 +47,6 @@ public class BattleManager : MonoBehaviour
 
         enemyBody.GetComponent<Renderer>().material.color = getEnemyColor();
         
-        GlobalAudio.Singleton.StopMusic();
-        GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
-        
         _battleIsOver = false;
     }
 
@@ -72,6 +69,9 @@ public class BattleManager : MonoBehaviour
         player1EnergyBar.SetFill(PlayerStats.GetPlayer(1).Energy.GetCurrentValue());
         player2EnergyBar.SetFill(PlayerStats.GetPlayer(2).Energy.GetCurrentValue());
         enemyHealthBar.SetFill(enemyDamageable.currentHp);
+
+        GlobalAudio.Singleton.StopMusic();
+        GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
     }
 
     // Update is called once per frame
