@@ -15150,7 +15150,7 @@ MonoBehaviour:
   heavyCooldownMultiplier: 0.5
   heavyEnergyCostMultiplier: 3
   heavyScreenShakeMultiplier: 1
-  heavyScreenShakeMaxAmount: 4
+  heavyScreenShakeMaxAmount: 1
   heavySizeMultiplier: 0.35
   heavyBulletPool: {fileID: 89983474}
   aimSpeed: 20
@@ -16870,8 +16870,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 2.0797687e-25, y: 0.99981654, z: -0.01915611, w: 1.0854953e-23}
-  m_LocalPosition: {x: -4.3395907e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
+  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17207,8 +17207,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 2.0797687e-25, y: 0.99981654, z: -0.01915611, w: 1.0854953e-23}
-  m_LocalPosition: {x: -4.3395907e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
+  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24031,7 +24031,7 @@ MonoBehaviour:
   heavyCooldownMultiplier: 0.5
   heavyEnergyCostMultiplier: 3
   heavyScreenShakeMultiplier: 1
-  heavyScreenShakeMaxAmount: 4
+  heavyScreenShakeMaxAmount: 1
   heavySizeMultiplier: 0.35
   heavyBulletPool: {fileID: 89983474}
   aimSpeed: 20
