@@ -73,6 +73,7 @@ public class ShopItemButton: MonoBehaviour
 
     public void DisableButton()
     {
+        itemName.text = "DISABLED";
         // Set Sprite to disabled version
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;

@@ -16,7 +16,9 @@ public class ShopManager : MonoBehaviour
     public List<ShopItemButton> p1ItemButtons;
     public List<ShopItemButton> p2ItemButtons;
 
-
+    [Header("Debug")]
+    public bool debug;
+    public TMP_Text debugText;
     // Start is called before the first frame update
     void Start()
     {
@@ -100,7 +102,6 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < buttons.Count; i++)
         {
             buttons[i].UpdateShopItem(PlayerStats.GetPlayer(playerNo).stats[selectedNumbers[i]]);
-            // buttons[i].SetColor(playerNo == 1 ? Color.green : Color.red);
         }
     }
 
@@ -121,6 +122,7 @@ public class ShopManager : MonoBehaviour
             ShopState.Add(new Tuple<PlayerStat, bool>(p2ItemButtons[i].GetLinkedStat(), p2ItemButtons[i].useable));
         }
 
+        // DebugPrintShopState();
     }
 
     /// <summary>
@@ -135,15 +137,23 @@ public class ShopManager : MonoBehaviour
             if (i < p1ItemButtons.Count)
             {
                 p1ItemButtons[i].UpdateShopItem(ShopState[i].Item1);
-                if (!ShopState[i].Item2) p1ItemButtons[i].DisableButton();
+                if (!ShopState[i].Item2) 
+                {
+                    p1ItemButtons[i].DisableButton();
+                }
             }
             else
             {
                 int j = i - p1ItemButtons.Count;
                 p2ItemButtons[j].UpdateShopItem(ShopState[i].Item1);
-                if (!ShopState[i].Item2) p2ItemButtons[j].DisableButton();
+                if (!ShopState[i].Item2)
+                {
+                    p2ItemButtons[j].DisableButton();
+                }
             }
         }
+
+        // DebugPrintShopState();
     }
 
     /// <summary>
@@ -155,4 +165,18 @@ public class ShopManager : MonoBehaviour
         moneyCount2.text = "$" + PlayerStats.Player2.Money.ToString();
     }
 
+    public void DebugPrintShopState()
+    {
+        if (!debug) return;
+        string str = "[";
+        for (int i = 0; i < ShopState.Count; i++)
+        {
+            str += i + ": (" + ShopState[i].Item1.name + ", " + ShopState[i].Item2 + ")";
+            if (i != ShopState.Count - 1) str += ", ";
+        }
+
+        str += "]";
+        if(debugText != null) debugText.text = str;
+        Debug.Log(str);
+    }
 }

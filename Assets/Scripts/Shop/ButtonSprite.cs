@@ -10,7 +10,7 @@ public class ButtonSprite : MonoBehaviour
     public Sprite highlightedSprite;
     public Sprite disabledSprite;
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
