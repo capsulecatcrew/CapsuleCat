@@ -29,12 +29,6 @@ public class EnemyLaser : MonoBehaviour
     public delegate void Trigger();
 
     public event Trigger OnFinish;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -110,7 +104,7 @@ public class EnemyLaser : MonoBehaviour
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(damage, false, Damageable.DamageType.Laser);
+                    damageable.TakeDamage(damage, false);
                 }
             }
         }

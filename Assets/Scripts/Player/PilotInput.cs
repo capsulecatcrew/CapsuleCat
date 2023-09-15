@@ -63,13 +63,28 @@ public class PilotInput : MonoBehaviour
     public void OnPrimary(InputAction.CallbackContext context)
     {
         if (!context.action.triggered) return;
-        if (controlMode != ControlMode.Shooting) return;
+        if (controlMode == ControlMode.Shooting) OnPrimaryShoot(context);
+        if (controlMode == ControlMode.Movement) OnPrimaryJump();
+    }
+
+    private void OnPrimaryShoot(InputAction.CallbackContext context)
+    {
         weaponController.ShootBasicBullets();
     }
 
-    public void OnHeavyAttack(InputAction.CallbackContext context)
+    private void OnPrimaryJump()
     {
-        if (controlMode != ControlMode.Shooting) return;
+        movementController.RequestPlayerJump(player);
+    }
+
+    public void OnSecondary(InputAction.CallbackContext context)
+    {
+        if (controlMode == ControlMode.Shooting) OnSecondaryShoot(context);
+        if (controlMode == ControlMode.Movement) OnSecondaryMove(context);
+    }
+
+    private void OnSecondaryShoot(InputAction.CallbackContext context)
+    {
         // Check if heavy attack has started charging.
         if (context.started)
         {
@@ -81,15 +96,25 @@ public class PilotInput : MonoBehaviour
         weaponController.ShootHeavyBullet((float) elapsedTime);
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    private void OnSecondaryMove(InputAction.CallbackContext context)
     {
-        if (!context.action.triggered) return;
-        if (controlMode != ControlMode.Movement) return;
-        movementController.RequestPlayerJump(player);
+        
     }
 
     public void OnSpecial(InputAction.CallbackContext context)
     {
+        if (controlMode == ControlMode.Shooting) OnSpecialAttack(context);
+        if (controlMode == ControlMode.Movement) OnSpecialMove(context);
+    }
+
+    public void OnSpecialAttack(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    public void OnSpecialMove(InputAction.CallbackContext context)
+    {
+        
     }
 
     public void OnSwitch(InputAction.CallbackContext context)

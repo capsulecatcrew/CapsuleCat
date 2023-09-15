@@ -1,85 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    public enum DamageType
-    {
-        Bullet,
-        Laser
-    }
+    private HealthStat _health;
 
-    [SerializeField] private PlayerSpecial player1Special;
-    [SerializeField] private PlayerSpecial player2Special;
-    [SerializeField] private bool isPlayer;
-    
-    public int maxHp = 10;
-
-    public int currentHp = 10;
-
-    public float invincibilitySeconds = 0;
+    protected const float DamageBaseCooldown = 1;
+    protected float DamageCooldown;
 
     public AudioSource damageSoundSource;
     public AudioClip damageSound;
-    
-    protected float TimeSinceLastHit;
-    public delegate void HealthUpdate(Damageable damageable);
-
-    public event HealthUpdate OnDamage;
-
-    public event HealthUpdate OnDeath;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        TimeSinceLastHit = 0.0f;
-    }
 
     // Update is called once per frame
     protected void Update()
     {
-        if (invincibilitySeconds > 0 && TimeSinceLastHit < invincibilitySeconds)
-        {
-            TimeSinceLastHit += Time.deltaTime;
-        }
+        if (DamageCooldown <= 0) return;
+        DamageCooldown -= Time.deltaTime;
     }
 
-    public virtual void TakeDamage(int damage, bool ignoreInvincibility = false, DamageType damageType = DamageType.Bullet)
+    public void TakeDamage(float damage, bool ignoreCooldown)
     {
-        if (ignoreInvincibility || TimeSinceLastHit > invincibilitySeconds)
-        {
-            currentHp -= damage;
-            OnDamage?.Invoke(this);
-            if (isPlayer)
-            {
-                player1Special.GainDamagedPower(damage);
-                player2Special.GainDamagedPower(damage);
-            }
-            if (currentHp <= 0)
-            {
-                currentHp = 0;
-                OnDeath?.Invoke(this);
-            }
-            
-            if (invincibilitySeconds > 0.0f) TimeSinceLastHit = 0.0f;
-
-            if (damageSoundSource != null && damageSoundSource.isActiveAndEnabled && damageSound != null)
-            {
-                damageSoundSource.PlayOneShot(damageSound);
-            }
-            
-        }
-
+        if (!ignoreCooldown && DamageCooldown > 0) return;
+        _health.Damage(damage);
+        DamageCooldown = DamageBaseCooldown;
+        
+        if (damageSoundSource == null || !damageSoundSource.isActiveAndEnabled || damageSound == null) return;
+        damageSoundSource.PlayOneShot(damageSound);
     }
 
-    public void SetMaxHp(int value)
+    public void SetHealthSet(HealthStat healthStat)
     {
-        maxHp = value;
+        _health = healthStat;
     }
-    
-    public void SetCurrentHp(int value)
+
+    public HealthStat GetHealthStat()
     {
-        currentHp = value;
+        return _health;
     }
 }

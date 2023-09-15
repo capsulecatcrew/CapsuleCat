@@ -4,38 +4,33 @@ using Random = UnityEngine.Random;
 
 public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 {
-    [Range(1, 2)] int playerNo = 1;
-    [Header("Trackers")] public PlayerEnergy playerEnergy;
+    [Header("Trackers")]
+    [SerializeField] [Range(1, 2)] private int playerNum;
     public GameObject[] weapons;
     public Transform[] shootingOrigins;
     [SerializeField] private ScreenShaker screenShaker;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerSpecial _playerSpecial;
 
     // General bullet info
     private float _cooldownTime;
     public string[] tagsToHit;
-
-    // Basic bullet fields
-    [Header("Basic Bullets")] public int basicDamage = 2;
-    public float basicSpeed = 20;
-    public float basicTravelDist = 50;
-    public float basicEnergyCost = 1;
+    private const float Speed = 20;
+    private const float TravelDist = 50;
+    
+    [Header("Basic Bullets")]
+    private float _damage = 2;
+    private const float EnergyCost = 1;
     [SerializeField] private float basicCooldownTime = 0.5f;
     [SerializeField] private ObjectPool basicBulletPool;
-
-    // Weak bullet fields
-    [Header("Weak Bullets")] [SerializeField]
-    private float weakDamageMultiplier = 0.7f;
-
+    
+    [Header("Weak Bullets")]
+    [SerializeField] private float weakDamageMultiplier = 0.7f;
     [SerializeField] private float weakSpeedMultiplier = 0.5f;
     [SerializeField] private float weakCooldownMultiplier = 3.0f;
     [SerializeField] private ObjectPool lowBulletPool;
-
-    // Heavy bullet fields
-    [Header("Heavy Bullets")] [SerializeField]
-    private float heavyMinCharge = 1.5f;
-
+    
+    [Header("Heavy Bullets")]
+    [SerializeField] private float heavyMinCharge = 1.5f;
     [SerializeField] private float heavyMaxCharge = 4.0f;
     [SerializeField] private float heavyDamageMultiplier = 2.0f;
     [SerializeField] private float heavySpeedMultiplier = 0.2f;
@@ -50,22 +45,31 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     private Bullet _heavyBullet;
     [SerializeField] private ObjectPool heavyBulletPool;
 
+    [Header("Special")]
+    private PlayerSpecialMove _specialMove;
+
+    [Header("Aiming")]
     [SerializeField] private float aimSpeed = 20;
     [SerializeField] private float aimXLimit = 35;
     [SerializeField] private float aimYLimit = 45;
 
+    [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip shootingAudio;
 
+    [Header("Particles")]
     [SerializeField] private ParticleSystem particlesL;
     [SerializeField] private ParticleSystem particlesR;
+
+    public delegate void FireUpdate(float energyCost);
+    
+    public event FireUpdate OnFire;
 
     // Start is called before the first frame update
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
-        _cooldownTime = 0;
-        basicDamage = (int) PlayerStats.GetPlayer(playerNo).AttackPower.GetCurrentValue();
+        _damage = PlayerStats.GetDamage(playerNum);
     }
 
     /// <summary>
@@ -152,7 +156,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     /// </summary>
     private bool CanShootBasic()
     {
-        return IsCooldownOver() && playerEnergy.HasEnergy(basicEnergyCost) && !_isHeavyCharging;
+        return IsCooldownOver() && !_isHeavyCharging && PlayerStats.CanUseEnergy(playerNum, EnergyCost);
     }
 
     /// <summary>
@@ -162,7 +166,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     /// <param name="energyCost">Fired heavy bullet's energy cost.</param>
     private bool CanShootHeavy(double chargeTime, float energyCost)
     {
-        return IsCooldownOver() && chargeTime >= heavyMinCharge && playerEnergy.HasEnergy(energyCost);
+        return IsCooldownOver() && chargeTime >= heavyMinCharge && PlayerStats.CanUseEnergy(playerNum, energyCost);
     }
 
     /// <summary>
@@ -186,7 +190,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         screenShaker.EndShake();
         var clampedTime = Math.Clamp(chargeTime, 0, heavyMaxCharge);
         var chargePercent = clampedTime / heavyMaxCharge;
-        var energyCost = basicEnergyCost * heavyEnergyCostMultiplier * chargePercent;
+        var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
 
         if (!CanShootHeavy(clampedTime, energyCost))
         {
@@ -197,7 +201,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 
         ReleaseHeavyBullet(chargePercent);
 
-        playerEnergy.AddAmount(-energyCost);
+        OnFire?.Invoke(energyCost);
         _cooldownTime = basicCooldownTime + clampedTime / heavyCooldownMultiplier;
 
         PlayHeavyBulletAudio();
@@ -211,9 +215,9 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
             return;
         }
 
-        playerEnergy.AddAmount(-basicEnergyCost);
+        OnFire?.Invoke(EnergyCost);
 
-        TransformBullets(basicBulletPool, basicDamage, basicSpeed);
+        TransformBullets(basicBulletPool, _damage, Speed);
 
         _cooldownTime = basicCooldownTime;
 
@@ -230,8 +234,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
             return;
         }
 
-        var damage = (int)Math.Round(basicDamage * weakDamageMultiplier);
-        var speed = basicSpeed * weakSpeedMultiplier;
+        var damage = (int)Math.Round(this._damage * weakDamageMultiplier);
+        var speed = Speed * weakSpeedMultiplier;
         TransformBullets(lowBulletPool, damage, speed);
 
         _cooldownTime = basicCooldownTime * weakCooldownMultiplier;
@@ -246,7 +250,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         if (particlesR.isStopped) particlesR.Play();
     }
 
-    private void TransformBullets(ObjectPool bulletPool, int damage, float speed)
+    private void TransformBullets(ObjectPool bulletPool, float damage, float speed)
     {
         foreach (var shootingOrigin in shootingOrigins)
         {
@@ -256,7 +260,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
             var direction = shootingOrigin.forward;
 
             bullet.TryGetComponent<Bullet>(out var bulletComponent);
-            bulletComponent.Init(damage, direction, speed, basicTravelDist, tagsToHit, _playerSpecial);
+            bulletComponent.Init(damage, direction, speed, TravelDist, tagsToHit);
             bullet.SetActive(true);
         }
     }
@@ -271,7 +275,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 
         _heavyObject.transform.position = CalculateHeavyPosition();
 
-        _heavyBullet.Init(1, CalculateHeavyForward(), 0, basicTravelDist, tagsToHit, _playerSpecial);
+        _heavyBullet.Init(1, CalculateHeavyForward(), 0, TravelDist, tagsToHit);
         _heavyObject.SetActive(true);
     }
 
@@ -291,8 +295,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 
     private void ReleaseHeavyBullet(float chargePercent)
     {
-        var damage = (int)Math.Floor(basicDamage * heavyDamageMultiplier * chargePercent);
-        var speed = basicSpeed * heavySpeedMultiplier / chargePercent;
+        var damage = (int)Math.Floor(this._damage * heavyDamageMultiplier * chargePercent);
+        var speed = Speed * heavySpeedMultiplier / chargePercent;
 
         _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);
     }
@@ -337,8 +341,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         playerMovement.slowSpeed(slowMultiplier);
 
         var chargePercent = clampedTime / heavyMaxCharge;
-        var energyCost = basicEnergyCost * heavyEnergyCostMultiplier * chargePercent;
-        if (!playerEnergy.HasEnergy(energyCost)) ShootHeavyBullet(clampedTime);
+        var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
+        if (!PlayerStats.CanUseEnergy(playerNum, energyCost)) ShootHeavyBullet(clampedTime);
     }
 
     private void ResetHeavyCharge()
@@ -348,16 +352,21 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         playerMovement.resetMaxSpeed();
     }
 
-    public void ShootHeavyAttack(float power)
+    /// <summary>
+    /// Sets player's current special move.
+    /// </summary>
+    /// <param name="specialMove">Special move to give player.</param>
+    public void SetSpecialMove(PlayerSpecialMove specialMove)
     {
-        if (!_playerSpecial.UsePower(power)) return;
-        // TODO: Implement some sort of fired special attack
+        _specialMove = specialMove;
     }
 
-    public void ShootContinuousHeavyAttack(float multiplier)
+    /// <summary>
+    /// Removes player's current special move.
+    /// </summary>
+    public void RemoveSpecialMove()
     {
-        _playerSpecial.UseContinuousPower(multiplier, this);
-        // TODO: Implement some sort of continuous special attack
+        _specialMove = null;
     }
 
     void Update()

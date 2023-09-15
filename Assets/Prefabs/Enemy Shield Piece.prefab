@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6871544596492064287}
   - component: {fileID: 6871544596492064286}
   - component: {fileID: 955163538685341772}
+  - component: {fileID: -4995261920376977731}
   - component: {fileID: 5078083984037796972}
   m_Layer: 0
   m_Name: Enemy Shield Piece
@@ -111,11 +112,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfa126a51064f7e97a5be698d04a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  currentHp: 10
-  invincibilitySeconds: 0
   damageSoundSource: {fileID: 5078083984037796972}
   damageSound: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+--- !u!114 &-4995261920376977731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871544596492064280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca77596c1b0643d99db3cce1bc98945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHpColor: {r: 0, g: 0.33522224, b: 1, a: 0}
+  minHpColor: {r: 0.7169812, g: 0, b: 0, a: 0}
+  damageable: {fileID: 955163538685341772}
 --- !u!82 &5078083984037796972
 AudioSource:
   m_ObjectHideFlags: 0

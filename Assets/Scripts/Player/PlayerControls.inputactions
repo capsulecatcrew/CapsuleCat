@@ -15,16 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "4542f7a6-5dd4-4065-968c-89efbf7c28c3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "HeavyAttack",
+                    "name": "Secondary",
                     "type": "Value",
                     "id": "49f28545-823b-4744-997b-a2ebaa93f793",
                     "expectedControlType": "Button",
@@ -433,56 +424,12 @@
                 },
                 {
                     "name": "",
-                    "id": "a12619d2-da58-48d1-9ef2-7a77e7e07276",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "SplitKeyboardL",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c01b9780-7832-42a1-a8be-515e91b7dd08",
-                    "path": "<Keyboard>/minus",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "SplitKeyboardR",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eb6a9dfa-93ce-4cdd-ba7b-88e1bb85eb98",
-                    "path": "<WebGLGamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5b2c7dbd-cac7-4b8b-ab09-a60aff28eefe",
-                    "path": "<DualShockGamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b5388c87-5c8c-4615-9f43-1d8424a7a125",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
-                    "action": "HeavyAttack",
+                    "action": "Secondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -493,14 +440,14 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
-                    "action": "HeavyAttack",
+                    "action": "Secondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0db2379a-831c-441a-812f-5ea8946e56a1",
-                    "path": "<Keyboard>/backquote",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -511,7 +458,7 @@
                 {
                     "name": "",
                     "id": "d9d028f8-426a-4152-affb-da4b2cd1ed00",
-                    "path": "<Keyboard>/9",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",

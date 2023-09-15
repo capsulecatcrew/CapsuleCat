@@ -49,11 +49,11 @@ public class EnemyBulletSpray : MonoBehaviour
             origin = transform;
         }
 
-        _damage = startingDamage + dmgIncrease * PlayerStats.LevelsCompleted / dmgIncreaseLvlInterval;
+        _damage = startingDamage + dmgIncrease * PlayerStats.GetCurrentStage() / dmgIncreaseLvlInterval;
         _timeSinceLastAttack = 0;
-        _minTimeBetweenShots = startingMinTimeBetweenShots - timerDecreaseByLevel * PlayerStats.LevelsCompleted;
+        _minTimeBetweenShots = startingMinTimeBetweenShots - timerDecreaseByLevel * PlayerStats.GetCurrentStage();
         if (_minTimeBetweenShots < absoluteMinTimeBetweenShots) _minTimeBetweenShots = absoluteMinTimeBetweenShots;
-        _maxTimeBetweenShots = startingMaxTimeBetweenShots - timerDecreaseByLevel * PlayerStats.LevelsCompleted;
+        _maxTimeBetweenShots = startingMaxTimeBetweenShots - timerDecreaseByLevel * PlayerStats.GetCurrentStage();
         if (_maxTimeBetweenShots < absoluteMinTimeBetweenShots) _maxTimeBetweenShots = absoluteMinTimeBetweenShots;
 
         _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
