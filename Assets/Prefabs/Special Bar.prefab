@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9057981173095259182}
   - component: {fileID: 9057981173095259181}
   m_Layer: 5
-  m_Name: Energy Bar Fill
+  m_Name: Special Bar Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 9057981174074241144}
+  playerNum: 0
 --- !u!114 &9057981174074241144
 MonoBehaviour:
   m_ObjectHideFlags: 0

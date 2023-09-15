@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageAbsorber: Damageable
 {
-    [SerializeField] [Range(0, 2)] private int playerNum;
+    [SerializeField] [Range(1, 2)] private int playerNum;
 
     public new void TakeDamage(float damage, bool ignoreCooldown)
     {

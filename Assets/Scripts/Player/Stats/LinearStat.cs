@@ -7,6 +7,14 @@ public class LinearStat : Stat
     {
         if (IsMaxLevel()) return;
         base.Upgrade();
-        _value += _changeValue;
+        Value += ChangeValue;
+    }
+
+    public new void SetLevel(int level)
+    {
+        Level = level;
+        if (IsMaxLevel()) Level = MaxLevel;
+        Value = BaseValue + (Level - 1) * ChangeValue;
+        base.SetLevel(level);
     }
 }

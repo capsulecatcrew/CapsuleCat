@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 public class EnemyLaserAttack : MonoBehaviour
@@ -34,7 +30,9 @@ public class EnemyLaserAttack : MonoBehaviour
     private float _timeTillNextLaser;
 
     private int _bigAttackIndex;
-    private bool _doingBigAttack = false;
+    private bool _doingBigAttack;
+
+    [SerializeField] private BattleManager battleManager;
 
     private void Awake()
     {

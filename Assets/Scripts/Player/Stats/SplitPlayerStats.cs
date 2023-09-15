@@ -38,6 +38,21 @@ public class SplitPlayerStats
         return StatEnergy;
     }
 
+    public LinearStat GetMaxEnergyStat()
+    {
+        return StatMaxEnergy;
+    }
+
+    public float GetMaxSpecial()
+    {
+        return StatSpecial.GetMaxValue();
+    }
+
+    public SpecialStat GetSpecialStat()
+    {
+        return StatSpecial;
+    }
+
     public float GetDamage()
     {
         return StatDamage.GetValue();

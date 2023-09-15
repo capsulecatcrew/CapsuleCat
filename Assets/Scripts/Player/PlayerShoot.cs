@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     public Transform[] shootingOrigins;
     [SerializeField] private ScreenShaker screenShaker;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private BattleManager _battleManager;
 
     // General bullet info
     private float _cooldownTime;
@@ -18,7 +19,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     private const float TravelDist = 50;
     
     [Header("Basic Bullets")]
-    private float _damage = 2;
+    private float _damage = 1.5f;
     private const float EnergyCost = 1;
     [SerializeField] private float basicCooldownTime = 0.5f;
     [SerializeField] private ObjectPool basicBulletPool;
@@ -31,8 +32,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     
     [Header("Heavy Bullets")]
     [SerializeField] private float heavyMinCharge = 1.5f;
-    [SerializeField] private float heavyMaxCharge = 4.0f;
-    [SerializeField] private float heavyDamageMultiplier = 2.0f;
+    [SerializeField] private float heavyMaxCharge = 3.0f;
+    [SerializeField] private float heavyDamageMultiplier = 6.0f;
     [SerializeField] private float heavySpeedMultiplier = 0.2f;
     [SerializeField] private float heavyCooldownMultiplier = 0.5f;
     [SerializeField] private float heavyEnergyCostMultiplier = 3.0f;
@@ -65,7 +66,13 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     
     public event FireUpdate OnFire;
 
-    // Start is called before the first frame update
+    public void Awake()
+    {
+        lowBulletPool.SetBattleManager(_battleManager);
+        basicBulletPool.SetBattleManager(_battleManager);
+        heavyBulletPool.SetBattleManager(_battleManager);
+    }
+    
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();

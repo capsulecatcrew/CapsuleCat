@@ -29,8 +29,7 @@ public class WingGlow : MonoBehaviour
     
     private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         _statEnergy = PlayerStats.GetEnergyStat(playerNum);
         _glowState = GlowState.Off;
@@ -43,10 +42,6 @@ public class WingGlow : MonoBehaviour
             mat.SetColor(EmissionColor, Color.black);
             _materials.Add(mat);
         }
-    }
-
-    private void OnEnable()
-    {
         _statEnergy.OnAbsorbUpdate += TurnOnGlow;
     }
     private void OnDisable()

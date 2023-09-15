@@ -1,3 +1,5 @@
+using System;
+
 public class ExponentialStat : Stat
 {
     private readonly float _minValue;
@@ -12,14 +14,22 @@ public class ExponentialStat : Stat
         _minValue = minValue;
         _maxValue = maxValue;
     }
+    
+    public new void SetLevel(int level)
+    {
+        Level = level;
+        if (IsMaxLevel()) Level = MaxLevel;
+        Value = BaseValue * (int) Math.Pow(ChangeValue, Level - 1);
+        base.SetLevel(level);
+    }
 
     public new void Upgrade()
     {
         if (IsMaxLevel()) return;
         base.Upgrade();
-        var newValue = _value * _changeValue;
-        _value = newValue;
-        if (_value < _minValue) _value = _minValue;
-        if (_value > _maxValue) _value = _maxValue;
+        var newValue = Value * ChangeValue;
+        Value = newValue;
+        if (Value < _minValue) Value = _minValue;
+        if (Value > _maxValue) Value = _maxValue;
     }
 }

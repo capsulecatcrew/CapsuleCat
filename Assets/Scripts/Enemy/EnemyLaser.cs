@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
-    public string[] tagsToHit;
+    [SerializeField] private string[] tagsToHit;
     public HitboxTrigger hitbox;
     public Transform target;
     
@@ -23,12 +23,13 @@ public class EnemyLaser : MonoBehaviour
 
     public int damage = 1;
 
-    private bool _trackingTarget = false;
+    private bool _trackingTarget;
     private bool _nonStopTracking = false;
     
-    public delegate void Trigger();
+    public delegate void LaserHitUpdate(GameObject hitObject, float damage, bool ignoreIFrames);
+    
+    public event LaserHitUpdate OnLaserHitUpdate;
 
-    public event Trigger OnFinish;
 
     // Update is called once per frame
     void Update()
@@ -43,11 +44,17 @@ public class EnemyLaser : MonoBehaviour
     {
         hitbox.HitboxStay += OnHitBoxStay;
         StartCoroutine(FireLaser());
+        var controller = GameObject.FindGameObjectWithTag("GameController");
+        var battleManager = controller.GetComponent<BattleManager>();
+        battleManager.RegisterLaser(this);
     }
 
     private void OnDisable()
     {
         hitbox.HitboxStay -= OnHitBoxStay;
+        var controller = GameObject.FindGameObjectWithTag("GameController");
+        var battleManager = controller.GetComponent<BattleManager>();
+        battleManager.DeregisterLaser(this);
     }
 
     IEnumerator FireLaser(bool trackAfterLockOn = false)
@@ -62,7 +69,6 @@ public class EnemyLaser : MonoBehaviour
         yield return new WaitForSeconds(firingDuration);
         animator.SetTrigger(FinishTrigger);
         yield return new WaitForSeconds(0.4f);
-        OnFinish?.Invoke();
         gameObject.SetActive(false);
     }
 
@@ -98,15 +104,8 @@ public class EnemyLaser : MonoBehaviour
     {
         foreach (string tag in tagsToHit)
         {
-            if (other.CompareTag(tag))
-            {
-                Damageable damageable = other.gameObject.GetComponent(typeof(Damageable)) as Damageable;
-
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(damage, false);
-                }
-            }
+            if (!other.CompareTag(tag)) continue;
+            OnLaserHitUpdate?.Invoke(other.gameObject, damage, false);
         }
     }
 }

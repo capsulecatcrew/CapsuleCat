@@ -377,7 +377,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6469fb8cad0c4b238273142a5c4e040b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shields: []
+  shields:
+  - {fileID: 7393561315196722595}
+  - {fileID: 1382038069075203410}
+  - {fileID: 6862590751557906510}
+  - {fileID: 2891293514146088485}
+  - {fileID: 7598610505525023194}
+  - {fileID: 4899930815199538360}
+  - {fileID: 651380356367815247}
+  - {fileID: 62777516492969168}
+  - {fileID: 5438440902820541463}
+  - {fileID: 3838282114962428270}
+  - {fileID: 7707925085289679222}
+  - {fileID: 1172028969537046853}
 --- !u!1 &5438440902820541463
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +557,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7223767375072001249}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -611,6 +627,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4745032626221442375}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -677,6 +697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 198040186092150617}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -743,6 +767,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2881838801725622468}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -809,6 +837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6372319059332906342}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -875,6 +907,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1082894536976254323}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -941,6 +977,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6216669064448856415}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -1007,6 +1047,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1979597860768319357}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -1073,6 +1117,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6886797752746790485}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -1139,6 +1187,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5312346350108330159}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -1205,6 +1257,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6780872305562266511}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 
@@ -1271,6 +1327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3622597515543232119}
     m_Modifications:
+    - target: {fileID: -4995261920376977731, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: enemyShieldController
+      value: 
+      objectReference: {fileID: -4767179778141335660}
     - target: {fileID: 955163538685341772, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: damageSoundSource
       value: 

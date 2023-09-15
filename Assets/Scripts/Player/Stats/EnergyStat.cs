@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnergyStat
 {
     private float _energy;
@@ -13,9 +11,9 @@ public class EnergyStat
 
     public EnergyStat(LinearStat statMaxEnergy, LinearStat statEnergyAbsorb)
     {
-        _energy = statMaxEnergy.GetValue();
         _statMaxEnergy = statMaxEnergy;
         _statEnergyAbsorb = statEnergyAbsorb;
+        _energy = statMaxEnergy.GetValue();
     }
     public void Reset(bool isLoss)
     {

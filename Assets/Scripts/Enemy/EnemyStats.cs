@@ -1,25 +1,31 @@
-using HUD.ProgressBars;
 using UnityEngine;
 
 public class EnemyStats : Damageable
 {
     [SerializeField] private GameObject enemy;
-    [SerializeField] private GameObject enemyBody;
-    
-    [SerializeField] private HealthBar healthBar;
 
-    public void Start()
+    [SerializeField] private EnemyHealthBar healthBar;
+    private static readonly LinearStat StatMaxHealth = new ("Max Health", int.MaxValue, 50, 20, 0, 0);
+
+    public void OnEnable()
     {
-        enemyBody.GetComponent<Renderer>().material.color = GetEnemyColor();
+        StatMaxHealth.SetLevel(PlayerStats.GetCurrentStage());
+        Health = new HealthStat(StatMaxHealth);
         GetHealthStat().OnDeath += OnDie;
+        healthBar.SetStats(StatMaxHealth, Health);
+    }
+
+    public void OnDisable()
+    {
+        GetHealthStat().OnDeath -= OnDie;
     }
     
-    private Color GetEnemyColor()
+    public void SetEnemyColor(GameObject enemyBody)
     {
         var r = Random.Range(0.1f, 1.0f);
         var g = Random.Range(0.1f, 1.0f);
         var b = Random.Range(0.1f, 1.0f);
-        return new Color(r, g, b);
+        enemyBody.GetComponent<Renderer>().material.color = new Color(r, g, b);
     }
 
     private void OnDie()

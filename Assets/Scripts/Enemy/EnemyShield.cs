@@ -5,20 +5,18 @@ public class EnemyShield : MonoBehaviour
     [SerializeField] private Color maxHpColor;
     [SerializeField] private Color minHpColor;
 
+    [SerializeField] private EnemyShieldController enemyShieldController;
+
     private HealthStat _statHealth;
     [SerializeField] private Damageable damageable;
     private Renderer _renderer;
 
-    void Awake()
-    {
-        _statHealth = new HealthStat(EnemyShieldController.GetMaxHealthStat());
-        _renderer = gameObject.GetComponent<Renderer>();
-    }
-    
     private void OnEnable()
     {
+        _statHealth = new HealthStat(enemyShieldController.GetMaxHealthStat());
+        _renderer = gameObject.GetComponent<Renderer>();
         _statHealth.Reset();
-        damageable.SetHealthSet(_statHealth);
+        damageable.SetHealthStat(_statHealth);
         damageable.GetHealthStat().OnDamageUpdate += UpdateShieldColor;
         damageable.GetHealthStat().OnDeath += DisableDeadShield;
     }

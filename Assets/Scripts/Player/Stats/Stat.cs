@@ -2,60 +2,61 @@ using System.Text;
 
 public class Stat
 {
-    protected readonly string _name;
+    private readonly string _name;
     
-    protected int _level = 1;
-    protected readonly int _maxLevel;
+    protected int Level = 1;
+    protected readonly int MaxLevel;
     
-    protected readonly float _baseValue;
-    protected readonly float _changeValue;
-    protected float _value;
-    
-    protected readonly int _baseCost;
-    protected readonly int _addCost;
-    protected int _cost;
+    protected readonly float BaseValue;
+    protected readonly float ChangeValue;
+    protected float Value;
+
+    private readonly int _baseCost;
+    private readonly int _addCost;
+    private int _cost;
     
     public delegate void StatUpdate(int level, float value, int cost);
 
     public event StatUpdate OnStatUpdate;
 
-    public Stat(string name, int maxLevel, float baseValue, float changeValue, int baseCost, int addCost)
+    protected Stat(string name, int maxLevel, float baseValue, float changeValue, int baseCost, int addCost)
     {
         _name = name;
-        _maxLevel = maxLevel;
-        _baseValue = baseValue;
-        _changeValue = changeValue;
+        MaxLevel = maxLevel;
+        BaseValue = baseValue;
+        ChangeValue = changeValue;
         _baseCost = baseCost;
         _addCost = addCost;
+        
+        Value = baseValue;
+        _cost = _baseCost;
     }
 
     public void Upgrade()
     {
-        _level++;
+        Level++;
         _cost += _addCost;
-        OnStatUpdate?.Invoke(_level, _value, _cost);
+        OnStatUpdate?.Invoke(Level, Value, _cost);
     }
 
-    public void SetLevel(int level)
+    protected void SetLevel(int level)
     {
-        _level = level;
-        _cost = _baseCost + (_cost - 1) * _addCost;
-        OnStatUpdate?.Invoke(_level, _value, _cost);
+        Level = level;
+        if (IsMaxLevel()) Level = MaxLevel;
+        _cost = _baseCost + (Level - 1) * _addCost;
+        OnStatUpdate?.Invoke(Level, Value, _cost);
     }
     
     public void Reset()
     {
-        _level = 0;
-        _value = _baseValue;
+        Level = 1;
+        Value = BaseValue;
         _cost = _baseCost;
     }
-
-    /// <summary>
-    /// Check if a value is lower than the current value of this stat.
-    /// </summary>
+    
     public bool IsWithinBounds(float value)
     {
-        return value <= _value;
+        return value <= Value;
     }
 
     private string GetShopItemName()
@@ -65,7 +66,7 @@ public class Stat
         if (!IsMaxLevel())
         {
             shopItemNameBuilder.Append(" ");
-            shopItemNameBuilder.Append(_level);
+            shopItemNameBuilder.Append(Level);
         }
         return shopItemNameBuilder.ToString();
     }
@@ -77,12 +78,12 @@ public class Stat
     
     protected bool IsMaxLevel()
     {
-        return _level == _maxLevel;
+        return Level >= MaxLevel;
     }
 
     public float GetValue()
     {
-        return _value;
+        return Value;
     }
 
     public ShopItemButton GetShopButton()

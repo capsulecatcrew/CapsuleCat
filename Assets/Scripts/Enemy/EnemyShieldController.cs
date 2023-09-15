@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemyShieldController : MonoBehaviour
 {
-    public enum RotateDirection
+    private enum RotateDirection
     {
         Clockwise,
         Anticlockwise
@@ -16,22 +14,22 @@ public class EnemyShieldController : MonoBehaviour
     private const int MaxShieldCount = 12;
     private int _shieldCount;
 
-    private static readonly LinearStat StatMaxHealth = new ("Health", int.MaxValue, 5, 2, 0, 0);
+    private readonly LinearStat _statMaxHealth = new ("Health", int.MaxValue, 5, 2, 0, 0);
 
     private RotateDirection _rotateDirection;
-    private static readonly ExponentialStat StatRotateSpeed = new("Rotate", int.MaxValue, 20, 1.2f, 0, 100, 0, 0);
+    private readonly ExponentialStat _statRotateSpeed = new("Rotate", int.MaxValue, 20, 1.2f, 0, 100, 0, 0);
     
     private float _pauseTime;
     private float _pauseCooldown;
 
-    private static readonly ExponentialStat StatMinPauseTime =
+    private readonly ExponentialStat _statMinPauseTime =
         new("Min Pause", int.MaxValue, 2, 0.8f, float.MaxValue, 0.5f, 0, 0);
-    private static readonly ExponentialStat StatMaxPauseTime =
+    private readonly ExponentialStat _statMaxPauseTime =
         new("Max Pause", int.MaxValue, 60, 0.8f, float.MaxValue, 0.6f, 0, 0);
     
-    private static readonly ExponentialStat StatMinCooldownTime =
+    private readonly ExponentialStat _statMinCooldownTime =
         new("Min Cooldown", int.MaxValue, 3, 0.8f, float.MaxValue, 0.5f, 0, 0);
-    private static readonly ExponentialStat StatMaxCooldownTime =
+    private readonly ExponentialStat _statMaxCooldownTime =
         new("Max Cooldown", int.MaxValue, 10, 0.8f, float.MaxValue, 0.5f, 0, 0);
 
     public void Awake()
@@ -40,15 +38,14 @@ public class EnemyShieldController : MonoBehaviour
         _shieldCount = Random.Range(currentStage / 4, currentStage);
         if (_shieldCount > MaxShieldCount) _shieldCount = MaxShieldCount;
 
-        StatMaxHealth.SetLevel(currentStage);
-        StatRotateSpeed.SetLevel(currentStage);
-        StatMinPauseTime.SetLevel(currentStage);
-        StatMaxPauseTime.SetLevel(currentStage);
-        StatMinCooldownTime.SetLevel(currentStage);
-        StatMaxCooldownTime.SetLevel(currentStage);
+        _statMaxHealth.SetLevel(currentStage);
+        _statRotateSpeed.SetLevel(currentStage);
+        _statMinPauseTime.SetLevel(currentStage);
+        _statMaxPauseTime.SetLevel(currentStage);
+        _statMinCooldownTime.SetLevel(currentStage);
+        _statMaxCooldownTime.SetLevel(currentStage);
 
-        PickRandomDirection();
-        UpdatePauseTime();
+        PauseRotateShields();
     }
 
     public void Start()
@@ -58,10 +55,13 @@ public class EnemyShieldController : MonoBehaviour
 
     public void Update()
     {
-        UpdatePauseTime();
+        _pauseTime -= Time.deltaTime;
+        if (_pauseTime > 0) return;
+        RotateShields();
+        _pauseCooldown = Random.Range(_statMinCooldownTime.GetValue(), _statMaxCooldownTime.GetValue());
     }
 
-    public void GenerateShields()
+    private void GenerateShields()
     {
         DisableShields();
         
@@ -73,11 +73,11 @@ public class EnemyShieldController : MonoBehaviour
         var shieldGroups = possibleShieldGroupNums[Random.Range(0, possibleShieldGroupNums.Count)];
         var shieldsPerGroup = _shieldCount / shieldGroups;
 
-        for (int i = 0; i < MaxShieldCount; i += shieldsPerGroup)
+        for (var i = 0; i < MaxShieldCount; i += shieldsPerGroup)
         {
-            for (int j = 0; j < shieldsPerGroup; j++)
+            for (var j = 0; j < shieldsPerGroup; j++)
             {
-                GameObject shield = shields[i + j];
+                var shield = shields[i + j];
                 shield.SetActive(true);
             }
         }
@@ -93,9 +93,9 @@ public class EnemyShieldController : MonoBehaviour
         };
     }
 
-    public static LinearStat GetMaxHealthStat()
+    public LinearStat GetMaxHealthStat()
     {
-        return StatMaxHealth;
+        return _statMaxHealth;
     }
 
     private void DisableShields()
@@ -126,10 +126,10 @@ public class EnemyShieldController : MonoBehaviour
         switch (_rotateDirection)
         {
             case RotateDirection.Clockwise:
-                shield.transform.Rotate(0, StatRotateSpeed.GetValue() * deltaTime, 0);
+                shield.transform.Rotate(0, _statRotateSpeed.GetValue() * deltaTime, 0);
                 break;
             case RotateDirection.Anticlockwise:
-                shield.transform.Rotate(0, -StatRotateSpeed.GetValue() * deltaTime, 0);
+                shield.transform.Rotate(0, -_statRotateSpeed.GetValue() * deltaTime, 0);
                 break;
             default:
                 return;
@@ -138,15 +138,7 @@ public class EnemyShieldController : MonoBehaviour
 
     private void PauseRotateShields()
     {
-        _pauseTime = Random.Range(StatMinPauseTime.GetValue(), StatMaxPauseTime.GetValue());
+        _pauseTime = Random.Range(_statMinPauseTime.GetValue(), _statMaxPauseTime.GetValue());
         if (Random.Range(0, 3) > 0) PickRandomDirection();
-    }
-
-    private void UpdatePauseTime()
-    {
-        _pauseTime -= Time.deltaTime;
-        if (_pauseTime > 0) return;
-        RotateShields();
-        _pauseCooldown = Random.Range(StatMinCooldownTime.GetValue(), StatMaxCooldownTime.GetValue());
     }
 }

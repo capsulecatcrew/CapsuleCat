@@ -1,10 +1,13 @@
+using UnityEngine;
+
 public static class PlayerStats
 {
-    private static SplitPlayerStats _statsPlayer1 = new ();
-    private static SplitPlayerStats _statsPlayer2 = new ();
+    private static SplitPlayerStats _statsPlayer1 = new();
+    private static SplitPlayerStats _statsPlayer2 = new();
     private static Damageable _player;
     private static readonly LinearStat StatMaxHealth = new ("Max Health", 10, 25, 10, 50, 25);
     private static readonly HealthStat StatHealth = new (StatMaxHealth);
+    private static Damageable _damageable;
     private static int _currentStage = 1;
     private const int CompletionMoney = 50;
 
@@ -12,6 +15,7 @@ public static class PlayerStats
 
     public static void SetLevelLoader(LevelLoader levelLoader)
     {
+        if (!_levelLoader) return;
         _levelLoader.OnLevelChange -= SoftReset;
         _levelLoader = levelLoader;
         _levelLoader.OnLevelChange += SoftReset;
@@ -38,9 +42,15 @@ public static class PlayerStats
         _statsPlayer2.Reset(isLoss);
     }
 
-    private static void SoftReset()
+    private static void SoftReset(string sceneName)
     {
         Reset(false);
+    }
+
+    public static void UpdateDamageable(Damageable damageable)
+    {
+        _damageable = damageable;
+        _damageable.SetHealthStat(StatHealth);
     }
 
     public static float GetDamage(int playerNum)
@@ -140,9 +150,9 @@ public static class PlayerStats
         }
     }
 
-    public static void Damage(float amount)
+    public static void Damage(float amount, bool ignoreIFrames)
     {
-        StatHealth.Damage(amount);
+        _damageable.TakeDamage(amount, ignoreIFrames);
     }
     
     public static void Heal(float amount)
@@ -155,6 +165,11 @@ public static class PlayerStats
         return StatHealth;
     }
 
+    public static LinearStat GetMaxHealthStat()
+    {
+        return StatMaxHealth;
+    }
+
     public static EnergyStat GetEnergyStat(int playerNum)
     {
         switch (playerNum)
@@ -163,6 +178,42 @@ public static class PlayerStats
                 return _statsPlayer1.GetEnergyStat();
             case 2:
                 return _statsPlayer2.GetEnergyStat();
+        }
+        return null;
+    }
+    
+    public static LinearStat GetMaxEnergyStat(int playerNum)
+    {
+        switch (playerNum)
+        {
+            case 1:
+                return _statsPlayer1.GetMaxEnergyStat();
+            case 2:
+                return _statsPlayer2.GetMaxEnergyStat();
+        }
+        return null;
+    }
+
+    public static float GetMaxSpecial(int playerNum)
+    {
+        switch (playerNum)
+        {
+            case 1:
+                return _statsPlayer1.GetMaxSpecial();
+            case 2:
+                return _statsPlayer2.GetMaxSpecial();
+        }
+        return 0;
+    }
+
+    public static SpecialStat GetSpecialStat(int playerNum)
+    {
+        switch (playerNum)
+        {
+            case 1:
+            return _statsPlayer1.GetSpecialStat();
+            case 2:
+            return _statsPlayer2.GetSpecialStat();
         }
         return null;
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBulletSpray : MonoBehaviour
@@ -28,7 +26,7 @@ public class EnemyBulletSpray : MonoBehaviour
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;
     
-    public string[] tagsToHit;
+    [SerializeField] private string[] tagsToHit;
 
     public int[] bulletAmounts;
     private int _amountsCount;
@@ -40,8 +38,7 @@ public class EnemyBulletSpray : MonoBehaviour
     private float _timeSinceLastAttack;
 
     private float _timeTillNextAttack;
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         if (origin == null)
@@ -68,7 +65,7 @@ public class EnemyBulletSpray : MonoBehaviour
         if (_timeSinceLastAttack > _timeTillNextAttack)
         {
             // Attack
-            float height = bulletHeights[Random.Range((int)0, _heightsCount)];
+            float height = bulletHeights[Random.Range(0, _heightsCount)];
             float amount = bulletAmounts[Random.Range(0, _amountsCount)];
             float theta = 2 * PI / amount;
             // random starting angle so the "empty spots"
@@ -83,7 +80,6 @@ public class EnemyBulletSpray : MonoBehaviour
                 _bullet.transform.position = position;
                 _bullet.GetComponent<Bullet>().Init(_damage, dir, bulletSpeed, bulletDespawnDist, tagsToHit);
                 _bullet.SetActive(true);
-
             }
             GlobalAudio.Singleton.PlaySound("Pulsing");
             _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);

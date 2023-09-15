@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97a9b88c6bee4b599dd0a208f0af658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  tagsToHit: []
+  tagsToHit:
+  - Enemy
   ignoreIFrames: 1
   trailRenderer: {fileID: 4714105104879316315}
   maxDistance: 20

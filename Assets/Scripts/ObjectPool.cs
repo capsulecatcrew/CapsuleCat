@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +7,14 @@ public class ObjectPool : MonoBehaviour
     public int amountToPool;
     public Transform parentTransform;
     public List<GameObject> pooledObjects;
+    
+    private BattleManager _battleManager;
 
+    public void SetBattleManager(BattleManager battleManager)
+    {
+        _battleManager = battleManager;
+    }
+    
     private void Start()
     {
         if (parentTransform == null) parentTransform = transform;
@@ -20,6 +25,8 @@ public class ObjectPool : MonoBehaviour
             temp = Instantiate(prefabToPool, parentTransform);
             temp.SetActive(false);
             pooledObjects.Add(temp);
+            if (!_battleManager) continue;
+            _battleManager.RegisterBullet(temp.GetComponent<Bullet>());
         }
     }
 

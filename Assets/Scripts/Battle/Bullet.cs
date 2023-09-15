@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
@@ -7,11 +8,15 @@ public class Bullet : MonoBehaviour
     private float _speed = 10;
     private Vector3 _maxTravelPoint;
     public string[] tagsToHit;
-
-    public bool ignoreIFrames;
+    
     private Vector3 _origin;
+    [SerializeField] private bool ignoreIFrames;
     
     [SerializeField] private TrailRenderer trailRenderer;
+
+    public delegate void BulletHitUpdate(GameObject hitObject, float damage, bool ignoreIFrames);
+    
+    public event BulletHitUpdate OnBulletHitUpdate;
 
     // maximum distance before bullet is destroyed
     public float maxDistance = 10;
@@ -21,10 +26,25 @@ public class Bullet : MonoBehaviour
         _origin = transform.position;
     }
 
+    public void OnEnable()
+    {
+        var controller = GameObject.FindGameObjectWithTag("GameController");
+        var battleManager = controller.GetComponent<BattleManager>();
+        battleManager.RegisterBullet(this);
+    }
+    
+    void OnDisable()
+    {
+        var controller = GameObject.FindGameObjectWithTag("GameController");
+        var battleManager = controller.GetComponent<BattleManager>();
+        battleManager.DeregisterBullet(this);
+    }
+
     public void Init(float damage, Vector3 direction, float spd, float maxDist, string[] tags)
     {
         _origin = transform.position;
         _damage = damage;
+        if (_damage < 1) _damage = 1;
         _direction = direction;
         _speed = spd;
         maxDistance = maxDist;
@@ -43,7 +63,8 @@ public class Bullet : MonoBehaviour
     {
         _direction = direction;
         _damage = damage;
-        this._speed = speed;
+        if (_damage < 1) _damage = 1;
+        _speed = speed;
     }
 
     public void Delete()
@@ -71,13 +92,10 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        foreach (var t in tagsToHit)
+        foreach (var tag in tagsToHit)
         {
-            if (!other.CompareTag(t)) continue;
-            if (other.gameObject.TryGetComponent<Damageable>(out var damageable))
-            {
-                damageable.TakeDamage(_damage, ignoreIFrames);
-            }
+            if (!other.CompareTag(tag)) continue;
+            OnBulletHitUpdate?.Invoke(other.gameObject, _damage, ignoreIFrames);
             Delete();
         }
     }

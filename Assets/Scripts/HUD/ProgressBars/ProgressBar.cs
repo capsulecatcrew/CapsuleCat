@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] protected Slider slider;
-    
+
     void Start()
     {
         Canvas.ForceUpdateCanvases();
     }
 
-    protected void SetMaxValue(int ignore1, float maxValue, int ignore2)
+    public void SetMaxValue(int ignore1, float maxValue, int ignore2)
     {
         slider.maxValue = maxValue;
     }
