@@ -181,6 +181,11 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     /// <param name="chargeTime">Fired heavy bullet's charge time.</param>
     public void ShootHeavyBullet(float chargeTime)
     {
+        if (!_isHeavyCharging)
+        {
+            PlayCantShootParticles(true);
+            return;
+        }
         ResetHeavyCharge();
         screenShaker.EndShake();
         var clampedTime = Math.Clamp(chargeTime, 0, heavyMaxCharge);
@@ -237,9 +242,9 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         PlayBulletAudio();
     }
 
-    private void PlayCantShootParticles()
+    private void PlayCantShootParticles(bool ignoreMinCooldown = false)
     {
-        if (_cooldownTime <= basicCooldownTime) return;
+        if (!ignoreMinCooldown && _cooldownTime <= basicCooldownTime) return;
         if (particlesL.isStopped) particlesL.Play();
         if (particlesR.isStopped) particlesR.Play();
     }
@@ -292,7 +297,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 
     private void ReleaseHeavyBullet(float chargePercent)
     {
-        var damage = (int)Math.Floor(this._damage * heavyDamageMultiplier * chargePercent);
+        var damage = (int)Math.Floor(_damage * heavyDamageMultiplier * chargePercent);
         var speed = Speed * heavySpeedMultiplier / chargePercent;
 
         _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);

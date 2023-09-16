@@ -48,8 +48,7 @@ public class EnemyShieldController : MonoBehaviour
     public void Awake()
     {
         var currentStage = PlayerStats.GetCurrentStage();
-        // _activeShieldCount = Random.Range(currentStage / 4, currentStage);
-        _activeShieldCount = 6;
+        _activeShieldCount = Random.Range(currentStage / 4, currentStage);
         if (_activeShieldCount > MaxShieldCount) _activeShieldCount = MaxShieldCount;
 
         _maxHealth.SetLevel(currentStage);

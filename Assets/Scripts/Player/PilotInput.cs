@@ -85,13 +85,11 @@ public class PilotInput : MonoBehaviour
 
     private void OnSecondaryShoot(InputAction.CallbackContext context)
     {
-        // Check if heavy attack has started charging.
         if (context.started)
         {
             weaponController.ChargeHeavyBullet();
             return;
         }
-
         var elapsedTime = context.time - context.startTime;
         weaponController.ShootHeavyBullet((float) elapsedTime);
     }
