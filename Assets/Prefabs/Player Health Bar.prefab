@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8424715645523209795}
   - component: {fileID: 8424715645523209797}
   - component: {fileID: 8424715645523209796}
-  - component: {fileID: 995851210604648924}
+  - component: {fileID: 1034320364103853575}
   - component: {fileID: 8424715645523209798}
   m_Layer: 5
   m_Name: Player Health Bar
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &995851210604648924
+--- !u!114 &1034320364103853575
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8424715645523209793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65cbc8ddb246cb4280e35233b74958e, type: 3}
+  m_Script: {fileID: 11500000, guid: d45c3bab8d48b4548a2ebd4d920fe30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 8424715645523209798}

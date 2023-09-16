@@ -1,4 +1,5 @@
 using System;
+using Battle;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,16 +11,14 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     public Transform[] shootingOrigins;
     [SerializeField] private ScreenShaker screenShaker;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private BattleManager _battleManager;
+    [SerializeField] private BattleManager battleManager;
 
     // General bullet info
     private float _cooldownTime;
-    public string[] tagsToHit;
     private const float Speed = 20;
-    private const float TravelDist = 50;
-    
+
     [Header("Basic Bullets")]
-    private float _damage = 1.5f;
+    private float _damage;
     private const float EnergyCost = 1;
     [SerializeField] private float basicCooldownTime = 0.5f;
     [SerializeField] private ObjectPool basicBulletPool;
@@ -62,21 +61,10 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     [SerializeField] private ParticleSystem particlesL;
     [SerializeField] private ParticleSystem particlesR;
 
-    public delegate void FireUpdate(float energyCost);
-    
-    public event FireUpdate OnFire;
-
-    public void Awake()
+    public void Start()
     {
-        lowBulletPool.SetBattleManager(_battleManager);
-        basicBulletPool.SetBattleManager(_battleManager);
-        heavyBulletPool.SetBattleManager(_battleManager);
-    }
-    
-    void Start()
-    {
-        if (audioSource == null) audioSource = GetComponent<AudioSource>();
         _damage = PlayerStats.GetDamage(playerNum);
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -163,7 +151,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     /// </summary>
     private bool CanShootBasic()
     {
-        return IsCooldownOver() && !_isHeavyCharging && PlayerStats.CanUseEnergy(playerNum, EnergyCost);
+        return IsCooldownOver() && !_isHeavyCharging && battleManager.HasEnergy(playerNum, EnergyCost);
     }
 
     /// <summary>
@@ -173,7 +161,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     /// <param name="energyCost">Fired heavy bullet's energy cost.</param>
     private bool CanShootHeavy(double chargeTime, float energyCost)
     {
-        return IsCooldownOver() && chargeTime >= heavyMinCharge && PlayerStats.CanUseEnergy(playerNum, energyCost);
+        return IsCooldownOver() && chargeTime >= heavyMinCharge && battleManager.HasEnergy(playerNum, energyCost);
     }
 
     /// <summary>
@@ -207,8 +195,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         }
 
         ReleaseHeavyBullet(chargePercent);
-
-        OnFire?.Invoke(energyCost);
+        battleManager.UseEnergy(playerNum, energyCost);
+        
         _cooldownTime = basicCooldownTime + clampedTime / heavyCooldownMultiplier;
 
         PlayHeavyBulletAudio();
@@ -222,9 +210,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
             return;
         }
 
-        OnFire?.Invoke(EnergyCost);
-
         TransformBullets(basicBulletPool, _damage, Speed);
+        battleManager.UseEnergy(playerNum, EnergyCost);
 
         _cooldownTime = basicCooldownTime;
 
@@ -267,7 +254,9 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
             var direction = shootingOrigin.forward;
 
             bullet.TryGetComponent<Bullet>(out var bulletComponent);
-            bulletComponent.Init(damage, direction, speed, TravelDist, tagsToHit);
+            
+            var firer = playerNum == 1 ? Firer.Player1 : Firer.Player2;
+            bulletComponent.Init(damage, speed, direction, firer);
             bullet.SetActive(true);
         }
     }
@@ -279,10 +268,11 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     {
         _heavyObject = heavyBulletPool.GetPooledObject();
         _heavyBullet = _heavyObject.GetComponent<Bullet>();
-
+        
         _heavyObject.transform.position = CalculateHeavyPosition();
 
-        _heavyBullet.Init(1, CalculateHeavyForward(), 0, TravelDist, tagsToHit);
+        var firer = playerNum == 1 ? Firer.Player1 : Firer.Player2;
+        _heavyBullet.InitHeavy(CalculateHeavyForward(), firer);
         _heavyObject.SetActive(true);
     }
 
@@ -342,14 +332,14 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
 
         var scalar = clampedTime * heavySizeMultiplier;
         var scale = new Vector3(scalar, scalar, scalar);
-        _heavyBullet.Hold(scale, CalculateHeavyPosition());
+        _heavyBullet.HoldHeavy(scale, CalculateHeavyPosition());
 
         var slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
         playerMovement.slowSpeed(slowMultiplier);
 
         var chargePercent = clampedTime / heavyMaxCharge;
         var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
-        if (!PlayerStats.CanUseEnergy(playerNum, energyCost)) ShootHeavyBullet(clampedTime);
+        if (!battleManager.HasEnergy(playerNum, energyCost)) ShootHeavyBullet(clampedTime);
     }
 
     private void ResetHeavyCharge()

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 9057981174074241127}
   - component: {fileID: 9057981174074241146}
   - component: {fileID: 9057981174074241145}
-  - component: {fileID: 7947022895738170643}
+  - component: {fileID: 7549288777722464784}
   - component: {fileID: 9057981174074241144}
   m_Layer: 5
   m_Name: Special Bar
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7947022895738170643
+--- !u!114 &7549288777722464784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,11 +164,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9057981174074241126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03be035d1c3042f387d3e1f6c4cb1cc3, type: 3}
+  m_Script: {fileID: 11500000, guid: d45c3bab8d48b4548a2ebd4d920fe30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 9057981174074241144}
-  playerNum: 0
 --- !u!114 &9057981174074241144
 MonoBehaviour:
   m_ObjectHideFlags: 0

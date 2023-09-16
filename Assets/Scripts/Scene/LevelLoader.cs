@@ -23,11 +23,6 @@ public class LevelLoader : MonoBehaviour
         _setResolution = false;
     }
 
-    public void Start()
-    {
-        PlayerStats.SetLevelLoader(this);
-    }
-
     public void LoadLevel(string sceneName)
     {
         StartCoroutine(SceneTransition(sceneName));

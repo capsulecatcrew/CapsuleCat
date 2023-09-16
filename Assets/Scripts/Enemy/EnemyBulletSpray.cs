@@ -1,3 +1,4 @@
+using Battle;
 using UnityEngine;
 
 public class EnemyBulletSpray : MonoBehaviour
@@ -25,8 +26,6 @@ public class EnemyBulletSpray : MonoBehaviour
     private int _damage;
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;
-    
-    [SerializeField] private string[] tagsToHit;
 
     public int[] bulletAmounts;
     private int _amountsCount;
@@ -78,7 +77,7 @@ public class EnemyBulletSpray : MonoBehaviour
                 Vector3 dir = new Vector3(Mathf.Sin(startingAngle + theta * i), 0, Mathf.Cos(startingAngle + theta * i));
                 _bullet = bulletPool.GetPooledObject();
                 _bullet.transform.position = position;
-                _bullet.GetComponent<Bullet>().Init(_damage, dir, bulletSpeed, bulletDespawnDist, tagsToHit);
+                _bullet.GetComponent<Bullet>().Init(_damage, bulletSpeed, dir, Firer.Enemy);
                 _bullet.SetActive(true);
             }
             GlobalAudio.Singleton.PlaySound("Pulsing");

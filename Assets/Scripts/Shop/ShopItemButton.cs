@@ -1,3 +1,4 @@
+using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class ShopItemButton
 
     public ButtonSprite ButtonSpriteManager;
 
+    private UpgradeableStat _stat;
+
     [Header("Text Components")]
     public TMP_Text Name;
     public TMP_Text Description;
@@ -14,30 +17,30 @@ public class ShopItemButton
 
     [Space]
     private bool _usable;
-    private Stat _stat;
+    private int _cost;
 
-    public ShopItemButton(Stat stat, string name, string description, string cost, bool usable)
+    public ShopItemButton(UpgradeableStat stat, string name, string description, string stringCost, bool usable, int cost)
     {
         _stat = stat;
         Name.text = name;
         Description.text = description;
-        Cost.text = cost;
+        Cost.text = stringCost;
         _usable = usable;
+        _cost = cost;
     }
 
     /// <summary>
-    /// Attempts to purchase item
+    /// Attempts to purchase item for specified player.
     /// </summary>
-    /// <param name="playerNo">Player attempting to purchase</param>
+    /// <param name="playerNum">Player attempting to purchase item.</param>
     public void AttemptPurchase(int playerNum)
     {
         if (!_usable) return;
         if (playerNum != _playerNum) return;
         
-        if (!PlayerStats.RemovePlayerMoney(playerNum, _stat.GetCost())) return;
-        
-        _stat.Upgrade();
-        
+        if (!PlayerStats.RemoveMoney(playerNum, _cost)) return;
+        _stat.UpgradeLevel();
+
         Disable();
     }
 

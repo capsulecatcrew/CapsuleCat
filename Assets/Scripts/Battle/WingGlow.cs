@@ -5,7 +5,6 @@ using UnityEngine;
 public class WingGlow : MonoBehaviour
 {
     [SerializeField] [Range(1, 2)] private int playerNum;
-    private EnergyStat _statEnergy;
     public List<Renderer> glowingParts;
 
     private List<Material> _materials;
@@ -31,7 +30,6 @@ public class WingGlow : MonoBehaviour
 
     private void OnEnable()
     {
-        _statEnergy = PlayerStats.GetEnergyStat(playerNum);
         _glowState = GlowState.Off;
 
         _materials = new List<Material>();
@@ -42,14 +40,8 @@ public class WingGlow : MonoBehaviour
             mat.SetColor(EmissionColor, Color.black);
             _materials.Add(mat);
         }
-        _statEnergy.OnAbsorbUpdate += TurnOnGlow;
     }
-    private void OnDisable()
-    {
-        _statEnergy.OnAbsorbUpdate -= TurnOnGlow;
-    }
-
-    // Update is called once per frame
+    
     public void Update()
     {
         switch (_glowState)
@@ -74,7 +66,7 @@ public class WingGlow : MonoBehaviour
         }
     }
 
-    private void TurnOnGlow(float unused)
+    public void TurnOnGlow(float unused)
     {
         if (_glowState != GlowState.On)
         {

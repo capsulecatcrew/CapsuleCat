@@ -1,276 +1,210 @@
-using UnityEngine;
+using Player.Stats.Persistent;
+using Player.Stats.Templates;
 
 public static class PlayerStats
 {
-    private static SplitPlayerStats _statsPlayer1 = new();
-    private static SplitPlayerStats _statsPlayer2 = new();
-    private static Damageable _player;
-    private static readonly LinearStat StatMaxHealth = new ("Max Health", 10, 25, 10, 50, 25);
-    private static readonly HealthStat StatHealth = new (StatMaxHealth);
-    private static Damageable _damageable;
     private static int _currentStage = 1;
     private const int CompletionMoney = 50;
+    private const float SpecialMax = 50;
+    
+    private static int _money1;
+    private static readonly UpgradeableLinearStat Damage1 = new ("Attack Damage", 10, 2, 1, 50, 25);
 
-    private static LevelLoader _levelLoader;
+    private static readonly UpgradeableLinearStat MaxEnergy1 = new ("Max Energy", 10, 25, 10, 50, 25);
+    private static readonly UpgradeableLinearStat EnergyAbsorb1 = new ("Energy Absorb", 10, 1, 0.1f, 50, 25);
+    private static readonly Stat Energy1 = new ("Energy", MaxEnergy1);
+    
+    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new ("Special Absorb Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamage1 = new ("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamaged1 = new ("Special Damaged Rate", 10, 0.3f, 0.05f, 50, 75);
+    private static readonly Stat Special1 = new ("Special", SpecialMax);
+    
+    private static int _money2;
+    private static readonly UpgradeableLinearStat Damage2 = new ("Attack Damage", 10, 2, 1, 50, 25);
+    
+    private static readonly UpgradeableLinearStat MaxEnergy2 = new ("Max Energy", 10, 25, 10, 50, 25);
+    private static readonly UpgradeableLinearStat EnergyAbsorb2 = new ("Energy Absorb", 10, 1, 0.1f, 50, 25);
+    private static readonly Stat Energy2 = new ("Energy", MaxEnergy2);
 
-    public static void SetLevelLoader(LevelLoader levelLoader)
+    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new ("Special Absorb Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamage2 = new ("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamaged2 = new ("Special Damaged Rate", 10, 0.3f, 0.05f, 50, 75);
+    private static readonly Stat Special2 = new ("Special", SpecialMax);
+
+    private static readonly UpgradeableLinearStat MaxHealth = new ("Max Health", 10, 25, 10, 50, 25);
+    private static readonly Stat Health = new ("Health", MaxHealth);
+
+    static PlayerStats()
     {
-        if (!_levelLoader) return;
-        _levelLoader.OnLevelChange -= SoftReset;
-        _levelLoader = levelLoader;
-        _levelLoader.OnLevelChange += SoftReset;
+        OnEnable();
     }
 
-    /// <summary>
-    /// Hard reset method. Called when player loses the game.
-    /// </summary>
-    private static void HardReset()
+    private static void OnEnable()
     {
-        _statsPlayer1 = new SplitPlayerStats();
-        _statsPlayer1.Reset(true);
-        _statsPlayer2 = new SplitPlayerStats();
-        _statsPlayer2.Reset(true);
-        StatMaxHealth.Reset();
+        Special1.SetValue(0);
+        Special2.SetValue(0);
+    }
+
+    private static void Reset()
+    {
         _currentStage = 1;
-        StatHealth.Reset();
-        Reset(true);
+        _money1 = 0;
+        Damage1.Reset();
+        MaxEnergy1.Reset();
+        EnergyAbsorb1.Reset();
+        SpecialAbsorb1.Reset();
+        SpecialDamage1.Reset();
+        SpecialDamaged1.Reset();
+        _money2 = 0;
+        Damage2.Reset();
+        MaxEnergy2.Reset();
+        EnergyAbsorb2.Reset();
+        SpecialAbsorb2.Reset();
+        SpecialDamage2.Reset();
+        SpecialDamaged2.Reset();
+        MaxHealth.Reset();
+        OnEnable();
     }
-
-    private static void Reset(bool isLoss)
+ 
+    public static int GetCurrentStage()
     {
-        _statsPlayer1.Reset(isLoss);
-        _statsPlayer2.Reset(isLoss);
+        return _currentStage;
     }
-
-    private static void SoftReset(string sceneName)
+    
+    public static void Win()
     {
-        Reset(false);
+        _currentStage++;
+        _money1 += GetCurrentStage() * CompletionMoney;
+        _money2 += GetCurrentStage() * CompletionMoney;
     }
 
-    public static void UpdateDamageable(Damageable damageable)
+    public static void Lose()
     {
-        _damageable = damageable;
-        _damageable.SetHealthStat(StatHealth);
+        Reset();
     }
 
-    public static float GetDamage(int playerNum)
+    public static BattleStat CreateBattleHealthStat(ProgressBar healthBar)
+    {
+        MaxHealth.LinkProgressBar(healthBar);
+        var battleHealthStat = Health.CreateBattleStat();
+        healthBar.SetValue(battleHealthStat.Value);
+        battleHealthStat.OnStatChange += healthBar.SetValue;
+        return battleHealthStat;
+    }
+
+    public static BattleStat CreateBattleEnergyStat(int playerNum, ProgressBar energyBar)
     {
         switch (playerNum)
         {
             case 1:
-                return _statsPlayer1.GetDamage();
+                MaxEnergy1.LinkProgressBar(energyBar);
+                Energy1.Reset();
+                var battleEnergyStat1 = Energy1.CreateBattleStat();
+                energyBar.SetValue(battleEnergyStat1.Value);
+                battleEnergyStat1.OnStatChange += energyBar.SetValue;
+                return battleEnergyStat1;
             case 2:
-                return _statsPlayer2.GetDamage();
+                MaxEnergy2.LinkProgressBar(energyBar);
+                Energy2.Reset();
+                var battleEnergyStat2 = Energy2.CreateBattleStat();
+                energyBar.SetValue(battleEnergyStat2.Value);
+                battleEnergyStat2.OnStatChange += energyBar.SetValue;
+                return battleEnergyStat2;
         }
-        return 0;
+        return null;
     }
 
-    public static float GetMaxHealth()
+    public static BattleStat CreateBattleSpecialStat(int playerNum, ProgressBar specialBar)
     {
-        return StatMaxHealth.GetValue();
+        specialBar.SetMaxValue(0, SpecialMax, 0);
+        switch (playerNum) {
+            case 1:
+                var battleSpecialStat1 = Special1.CreateBattleStat();
+                specialBar.SetValue(battleSpecialStat1.Value);
+                battleSpecialStat1.OnStatChange += specialBar.SetValue;
+                return battleSpecialStat1;
+            case 2:
+                var battleSpecialStat2 = Special2.CreateBattleStat();
+                specialBar.SetValue(battleSpecialStat2.Value);
+                battleSpecialStat2.OnStatChange += specialBar.SetValue;
+                return battleSpecialStat2;
+        }
+        return null;
     }
 
-    public static bool CanUseEnergy(int playerNum, float amount)
+    public static float ApplyEnergyAbsorbMultiplier(int playerNum, float amount)
     {
         return playerNum switch
         {
-            1 => _statsPlayer1.CanUseEnergy(amount),
-            2 => _statsPlayer2.CanUseEnergy(amount),
-            _ => false
+            1 => EnergyAbsorb1.ApplyValue(amount),
+            2 => EnergyAbsorb2.ApplyValue(amount),
+            _ => amount
         };
     }
 
-    public static void AbsorbEnergy(int playerNum, float amount)
+    public static float ApplySpecialAbsorbMultipler(int playerNum, float amount)
     {
-        switch (playerNum)
+        return playerNum switch
         {
-            case 1:
-                _statsPlayer1.AbsorbEnergy(amount);
-                break;
-            case 2:
-                _statsPlayer2.AbsorbEnergy(amount);
-                break;
-        }
-    }
-
-    public static void UpgradeHealth()
-    {
-        StatMaxHealth.Upgrade();
-    }
-
-    public static void UpgradeDamage(int playerNum)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _statsPlayer1.UpgradeDamage();
-                break;
-            case 2:
-                _statsPlayer2.UpgradeDamage();
-                break;
-        }
-    }
-
-    public static void UpgradeMaxEnergy(int playerNum)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _statsPlayer1.UpgradeMaxEnergy();
-                break;
-            case 2:
-                _statsPlayer2.UpgradeMaxEnergy();
-                break;
-        }
-    }
-
-    public static void UpgradeEnergyAbsorb(int playerNum)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _statsPlayer1.UpgradeEnergyAbsorb();
-                break;
-            case 2:
-                _statsPlayer2.UpgradeEnergyAbsorb();
-                break;
-        }
-    }
-
-    public static void UpgradeSpecialStats(int playerNum)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _statsPlayer1.UpgradeSpecialStats();
-                break;
-            case 2:
-                _statsPlayer2.UpgradeSpecialStats();
-                break;
-        }
-    }
-
-    public static void Damage(float amount, bool ignoreIFrames)
-    {
-        _damageable.TakeDamage(amount, ignoreIFrames);
+            1 => SpecialAbsorb1.ApplyValue(amount),
+            2 => SpecialAbsorb2.ApplyValue(amount),
+            _ => amount
+        };
     }
     
-    public static void Heal(float amount)
+    public static float ApplySpecialDamageMultipler(int playerNum, float amount)
     {
-        StatHealth.Heal(amount);
-    }
-
-    public static HealthStat GetHealthStat()
-    {
-        return StatHealth;
-    }
-
-    public static LinearStat GetMaxHealthStat()
-    {
-        return StatMaxHealth;
-    }
-
-    public static EnergyStat GetEnergyStat(int playerNum)
-    {
-        switch (playerNum)
+        return playerNum switch
         {
-            case 1:
-                return _statsPlayer1.GetEnergyStat();
-            case 2:
-                return _statsPlayer2.GetEnergyStat();
-        }
-        return null;
+            1 => SpecialDamage1.ApplyValue(amount),
+            2 => SpecialDamage2.ApplyValue(amount),
+            _ => amount
+        };
     }
     
-    public static LinearStat GetMaxEnergyStat(int playerNum)
+    public static float ApplySpecialDamagedMultipler(int playerNum, float amount)
     {
-        switch (playerNum)
+        return playerNum switch
         {
-            case 1:
-                return _statsPlayer1.GetMaxEnergyStat();
-            case 2:
-                return _statsPlayer2.GetMaxEnergyStat();
-        }
-        return null;
+            1 => SpecialDamaged1.ApplyValue(amount),
+            2 => SpecialDamaged2.ApplyValue(amount),
+            _ => amount
+        };
     }
 
-    public static float GetMaxSpecial(int playerNum)
+    public static bool RemoveMoney(int playerNum, int amount)
     {
         switch (playerNum)
         {
             case 1:
-                return _statsPlayer1.GetMaxSpecial();
+                if (_money1 < amount) return false;
+                _money1 -= amount;
+                return true;
             case 2:
-                return _statsPlayer2.GetMaxSpecial();
-        }
-        return 0;
-    }
-
-    public static SpecialStat GetSpecialStat(int playerNum)
-    {
-        switch (playerNum)
-        {
-            case 1:
-            return _statsPlayer1.GetSpecialStat();
-            case 2:
-            return _statsPlayer2.GetSpecialStat();
-        }
-        return null;
-    }
-
-    public static void AddPlayerMoney(int playerNum, int amount)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _statsPlayer1.AddMoney(amount);
-                break;
-            case 2:
-                _statsPlayer2.AddMoney(amount);
-                break;
-        }
-    }
-
-    public static bool RemovePlayerMoney(int playerNum, int amount)
-    {
-        switch (playerNum)
-        {
-            case 1:
-                return _statsPlayer1.RemoveMoney(amount);
-            case 2:
-                return _statsPlayer2.RemoveMoney(amount);
+                if (_money2 < amount) return false;
+                _money2 -= amount;
+                return true;
         }
         return false;
     }
 
-    public static string GetPlayerMoneyString(int playerNum)
+    public static string GetMoneyString(int playerNum)
     {
-        switch (playerNum)
+        return playerNum switch
         {
-            case 1:
-                return _statsPlayer1.GetMoneyString();
-            case 2:
-                return _statsPlayer2.GetMoneyString();
-        }
-
-        return "$0";
+            1 => "$" + _money1,
+            2 => "$" + _money2,
+            _ => "$0"
+        };
     }
 
-    public static void SetBattleManager(BattleManager battleManager)
+    public static float GetDamage(int playerNum)
     {
-        battleManager.OnPlayerWin += Win;
-        battleManager.OnPlayerLose += HardReset;
-    }
-
-    private static void Win()
-    {
-        _currentStage++;
-        _statsPlayer1.AddMoney(GetCurrentStage() * CompletionMoney);
-        _statsPlayer2.AddMoney(GetCurrentStage() * CompletionMoney);
-    }
-
-    public static int GetCurrentStage()
-    {
-        return _currentStage;
+        return playerNum switch
+        {
+            1 => Damage1.Value,
+            2 => Damage2.Value,
+            _ => 1.5f
+        };
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Player.Stats.Persistent;
 using TMPro;
 using UnityEngine;
 using Random = System.Random;
@@ -9,7 +10,7 @@ public class ShopManager : MonoBehaviour
     private static int _currentShopLevel = 1;
 
     // Saves which shop buttons were available, and if they are useable
-    public static List<Tuple<LinearStat, bool>> ShopState = new ();
+    public static List<Tuple<UpgradeableLinearStat, bool>> ShopState = new ();
 
     public TMP_Text moneyCount1, moneyCount2;
 
@@ -145,7 +146,7 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     public void UpdateMoneyCounter()
     {
-        moneyCount1.text = PlayerStats.GetPlayerMoneyString(1);
-        moneyCount2.text = PlayerStats.GetPlayerMoneyString(2);
+        moneyCount1.text = PlayerStats.GetMoneyString(1);
+        moneyCount2.text = PlayerStats.GetMoneyString(2);
     }
 }

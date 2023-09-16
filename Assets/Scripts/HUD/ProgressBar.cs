@@ -5,27 +5,27 @@ public class ProgressBar : MonoBehaviour
 {
     [SerializeField] protected Slider slider;
 
-    void Start()
+    public void Start()
     {
         Canvas.ForceUpdateCanvases();
     }
 
-    public void SetMaxValue(int ignore1, float maxValue, int ignore2)
+    public void SetMaxValue(int ignored1, float maxValue, int ignored2)
     {
         slider.maxValue = maxValue;
     }
     
-    protected void SetValue(float value)
+    public void SetValue(float value)
     {
         slider.value = value;
     }
 
-    protected void AddValue(float value)
+    public void AddValue(float value)
     {
         slider.value += value;
     }
 
-    protected void MinusValue(float value)
+    public void MinusValue(float value)
     {
         slider.value -= value;
     }

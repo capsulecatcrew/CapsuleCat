@@ -377,19 +377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6469fb8cad0c4b238273142a5c4e040b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shields:
-  - {fileID: 7393561315196722595}
-  - {fileID: 1382038069075203410}
-  - {fileID: 6862590751557906510}
-  - {fileID: 2891293514146088485}
-  - {fileID: 7598610505525023194}
-  - {fileID: 4899930815199538360}
-  - {fileID: 651380356367815247}
-  - {fileID: 62777516492969168}
-  - {fileID: 5438440902820541463}
-  - {fileID: 3838282114962428270}
-  - {fileID: 7707925085289679222}
-  - {fileID: 1172028969537046853}
+  shields: []
+  maxHpColor: {r: 0.2856582, g: 0.060590927, b: 0.8679245, a: 0}
+  minHpColor: {r: 0.6886792, g: 0.12782258, b: 0, a: 0}
 --- !u!1 &5438440902820541463
 GameObject:
   m_ObjectHideFlags: 0

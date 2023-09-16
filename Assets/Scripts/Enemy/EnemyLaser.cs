@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
+using Battle;
 using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
-    [SerializeField] private string[] tagsToHit;
     public HitboxTrigger hitbox;
     public Transform target;
     
@@ -17,18 +18,22 @@ public class EnemyLaser : MonoBehaviour
     public AudioClip chargingSound;
     public AudioClip firingSound;
 
-    public float chargingDuration = 2.5f;
-    public float lockOnDuration = 0.5f;
-    public float firingDuration = 2.0f;
+    private float chargingDuration = 2.5f;
+    private float lockOnDuration = 0.5f;
+    private float firingDuration = 2.0f;
 
-    public int damage = 1;
+    private int _damage = 1;
 
     private bool _trackingTarget;
     private bool _nonStopTracking = false;
     
-    public delegate void LaserHitUpdate(GameObject hitObject, float damage, bool ignoreIFrames);
-    
-    public event LaserHitUpdate OnLaserHitUpdate;
+    private BattleManager _battleManager;
+
+    private void Awake()
+    {
+        var gameController = GameObject.FindGameObjectWithTag("GameController");
+        _battleManager = gameController.GetComponent<BattleManager>();
+    }
 
 
     // Update is called once per frame
@@ -44,17 +49,11 @@ public class EnemyLaser : MonoBehaviour
     {
         hitbox.HitboxStay += OnHitBoxStay;
         StartCoroutine(FireLaser());
-        var controller = GameObject.FindGameObjectWithTag("GameController");
-        var battleManager = controller.GetComponent<BattleManager>();
-        battleManager.RegisterLaser(this);
     }
 
     private void OnDisable()
     {
         hitbox.HitboxStay -= OnHitBoxStay;
-        var controller = GameObject.FindGameObjectWithTag("GameController");
-        var battleManager = controller.GetComponent<BattleManager>();
-        battleManager.DeregisterLaser(this);
     }
 
     IEnumerator FireLaser(bool trackAfterLockOn = false)
@@ -74,7 +73,7 @@ public class EnemyLaser : MonoBehaviour
 
     public void SetDamage(int damage)
     {
-        this.damage = damage;
+        _damage = damage;
     }
     
     public void SetTargetTracking(Transform target)
@@ -102,10 +101,6 @@ public class EnemyLaser : MonoBehaviour
     
     private void OnHitBoxStay(Collider other)
     {
-        foreach (string tag in tagsToHit)
-        {
-            if (!other.CompareTag(tag)) continue;
-            OnLaserHitUpdate?.Invoke(other.gameObject, damage, false);
-        }
+        _battleManager.HitTarget(Firer.Enemy, other.gameObject, _damage, false);
     }
 }
