@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Player.Stats.Persistent;
 using Player.Stats.Templates;
 
@@ -6,32 +9,52 @@ public static class PlayerStats
     private static int _currentStage = 1;
     private const int CompletionMoney = 50;
     private const float SpecialMax = 50;
-    
+    private static readonly Random Random = new ();
+
     private static int _money1;
+    // p1 - Stat 1
     private static readonly UpgradeableLinearStat Damage1 = new ("Attack Damage", 10, 2, 1, 50, 25);
 
+    // p1 - Stat 2
     private static readonly UpgradeableLinearStat MaxEnergy1 = new ("Max Energy", 10, 25, 10, 50, 25);
+    // p1 - Stat 3
     private static readonly UpgradeableLinearStat EnergyAbsorb1 = new ("Energy Absorb", 10, 1, 0.1f, 50, 25);
     private static readonly Stat Energy1 = new ("Energy", MaxEnergy1);
     
+    // p1 - Stat 4
     private static readonly UpgradeableLinearStat SpecialAbsorb1 = new ("Special Absorb Rate", 10, 0.15f, 0.02f, 50, 75);
+    // p1 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage1 = new ("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    // p1 - Stat 6
     private static readonly UpgradeableLinearStat SpecialDamaged1 = new ("Special Damaged Rate", 10, 0.3f, 0.05f, 50, 75);
     private static readonly Stat Special1 = new ("Special", SpecialMax);
+
+    private static readonly List<UpgradeableStat> Player1Stats = new()
+        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1 };
     
     private static int _money2;
+    // p2 - Stat 1
     private static readonly UpgradeableLinearStat Damage2 = new ("Attack Damage", 10, 2, 1, 50, 25);
     
+    // p2 - Stat 2
     private static readonly UpgradeableLinearStat MaxEnergy2 = new ("Max Energy", 10, 25, 10, 50, 25);
+    // p2 - Stat 3
     private static readonly UpgradeableLinearStat EnergyAbsorb2 = new ("Energy Absorb", 10, 1, 0.1f, 50, 25);
     private static readonly Stat Energy2 = new ("Energy", MaxEnergy2);
 
+    // p2 - Stat 4
     private static readonly UpgradeableLinearStat SpecialAbsorb2 = new ("Special Absorb Rate", 10, 0.15f, 0.02f, 50, 75);
+    // p2 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage2 = new ("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    // p2 - Stat 6
     private static readonly UpgradeableLinearStat SpecialDamaged2 = new ("Special Damaged Rate", 10, 0.3f, 0.05f, 50, 75);
     private static readonly Stat Special2 = new ("Special", SpecialMax);
+    
+    private static readonly List<UpgradeableStat> Player2Stats = new()
+        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2 };
 
-    private static readonly UpgradeableLinearStat MaxHealth = new ("Max Health", 10, 25, 10, 50, 25);
+    // both - Stat 5
+    public static readonly UpgradeableLinearStat MaxHealth = new ("Max Health", 10, 25, 10, 50, 25);
     private static readonly Stat Health = new ("Health", MaxHealth);
 
     static PlayerStats()
@@ -205,6 +228,16 @@ public static class PlayerStats
             1 => Damage1.Value,
             2 => Damage2.Value,
             _ => 1.5f
+        };
+    }
+
+    public static List<UpgradeableStat> GetStatsToUpgrade(int playerNum)
+    {
+        return playerNum switch
+        {
+            1 => Player1Stats.OrderBy(_ => Random.Next()).Take(3).ToList(),
+            2 => Player2Stats.OrderBy(_ => Random.Next()).Take(3).ToList(),
+            _ => new List<UpgradeableStat>()
         };
     }
 }

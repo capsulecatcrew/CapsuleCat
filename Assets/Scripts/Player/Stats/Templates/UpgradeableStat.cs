@@ -9,7 +9,7 @@ namespace Player.Stats.Templates
         
         protected readonly float ChangeValue;
 
-        protected int Cost;
+        private int _cost;
         private readonly int _baseCost;
         private readonly int _changeCost;
 
@@ -23,7 +23,7 @@ namespace Player.Stats.Templates
         {
             MaxLevel = maxLevel;
             ChangeValue = changeValue;
-            Cost = baseCost;
+            _cost = baseCost;
             _baseCost = baseCost;
             _changeCost = changeCost;
         }
@@ -37,9 +37,9 @@ namespace Player.Stats.Templates
         public new void Reset()
         {
             Level = 1;
-            Cost = _baseCost;
+            _cost = _baseCost;
             base.Reset();
-            OnStatUpdate?.Invoke(Level, Value, Cost);
+            OnStatUpdate?.Invoke(Level, Value, _cost);
         }
         
         /// <summary>
@@ -51,8 +51,8 @@ namespace Player.Stats.Templates
         {
             if (IsMaxLevel()) return;
             Level++;
-            Cost += _changeCost;
-            OnStatUpdate?.Invoke(Level, Value, Cost);
+            _cost += _changeCost;
+            OnStatUpdate?.Invoke(Level, Value, _cost);
         }
 
         /// <summary>
@@ -60,12 +60,12 @@ namespace Player.Stats.Templates
         /// <p>Clamps the values to max level.</p>
         /// <p>Invokes OnStatUpdate event.</p>
         /// </summary>
-        public void SetLevel(int level)
+        protected void SetLevel(int level)
         {
             Level = level;
             if (IsMaxLevel()) Level = MaxLevel;
-            Cost = _baseCost + (Level - 1) * _changeCost;
-            OnStatUpdate?.Invoke(Level, Value, Cost);
+            _cost = _baseCost + (Level - 1) * _changeCost;
+            OnStatUpdate?.Invoke(Level, Value, _cost);
         }
         
         protected bool IsMaxLevel()
@@ -74,11 +74,11 @@ namespace Player.Stats.Templates
         }
 
         /// <summary>
-        /// Makes the ShopItemButton for the shop.
+        /// Initialised a ShopItemButton in the shop.
         /// </summary>
-        public ShopItemButton GetShopButton()
+        public void InitShopItemButton(ShopItemButton shopItemButton)
         {
-            return new ShopItemButton(this, GetShopItemName(), "", GetCostString(), IsMaxLevel(), Cost);
+            shopItemButton.Init(this, GetShopItemName(), GetCostString(), IsMaxLevel(), _cost);
         }
         
         private string GetShopItemName()
@@ -95,7 +95,7 @@ namespace Player.Stats.Templates
         
         private string GetCostString()
         {
-            return IsMaxLevel() ? "MAX LEVEL" : "$" + Cost;
+            return IsMaxLevel() ? "MAX LEVEL" : "$" + _cost;
         }
 
         public void LinkProgressBar(ProgressBar progressBar)

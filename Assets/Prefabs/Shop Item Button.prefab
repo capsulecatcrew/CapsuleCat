@@ -334,12 +334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5236960883774faf8fb99c34f85d0c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forPlayer: 1
+  playerNum: 1
   buttonSpriteManager: {fileID: 5201478510264246997}
-  itemName: {fileID: 3073361160155843767}
-  itemDescription: {fileID: 0}
-  itemCost: {fileID: 3073361161631856771}
-  useable: 1
+  Name: {fileID: 3073361160155843767}
+  Cost: {fileID: 3073361161631856771}
 --- !u!114 &3073361160947701025
 MonoBehaviour:
   m_ObjectHideFlags: 0
