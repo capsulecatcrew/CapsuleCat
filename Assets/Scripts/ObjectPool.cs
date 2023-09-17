@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
@@ -14,10 +13,9 @@ public class ObjectPool : MonoBehaviour
     {
         if (parentTransform == null) parentTransform = transform;
         pooledObjects = new List<GameObject>();
-        GameObject temp;
-        for (int i = 0; i < amountToPool; i++)
+        for (var i = 0; i < amountToPool; i++)
         {
-            temp = Instantiate(prefabToPool, parentTransform);
+            var temp = Instantiate(prefabToPool, parentTransform);
             temp.SetActive(false);
             pooledObjects.Add(temp);
         }
@@ -25,9 +23,9 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
-        foreach (GameObject pooledObject in pooledObjects)
+        foreach (var pooledObject in pooledObjects.Where(pooledObject => !pooledObject.activeInHierarchy))
         {
-            if (!pooledObject.activeInHierarchy) return pooledObject;
+            return pooledObject;
         }
 
         return AddToPool();
@@ -37,7 +35,7 @@ public class ObjectPool : MonoBehaviour
     {
         // Changed to print, not as expensive as Debug.log apparently
         print("Insufficient " + prefabToPool + "in object pool, adding 1 more");
-        GameObject addedObject = Instantiate(prefabToPool, parentTransform);
+        var addedObject = Instantiate(prefabToPool, parentTransform);
         addedObject.SetActive(false);
         pooledObjects.Add(addedObject);
         return addedObject;

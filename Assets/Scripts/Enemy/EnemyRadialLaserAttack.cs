@@ -33,8 +33,8 @@ public class EnemyRadialLaserAttack : EnemyAttack
     {
         _lasersInUse = new ArrayList();
         _laserPool = GetComponent<EnemyLaserAttack>().laserPool;
-        _damage = startingDamage + dmgIncrease * PlayerStats.LevelsCompleted / dmgIncreaseLvlInterval;
-        _numOfLasers = startingNumOfLasers + PlayerStats.LevelsCompleted / lasersIncreaseLvlInterval;
+        _damage = startingDamage + dmgIncrease * PlayerStats.GetCurrentStage() / dmgIncreaseLvlInterval;
+        _numOfLasers = startingNumOfLasers + PlayerStats.GetCurrentStage() / lasersIncreaseLvlInterval;
     }
 
     public override void StartAttack()

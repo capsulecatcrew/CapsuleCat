@@ -1,31 +1,29 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
+public class PlayerMovement : MonoBehaviour
 {
     public static PlayerControls PlayerController;
-    [SerializeField] private PlayerSpecial _playerSpecial;
 
     public Transform pivot;
     public Transform mainBody;
     
     [Header("Movement")]
-    private float speed = 35;
+    private float _speed = 35;
 
     public float maxSpeed = 35;
     [Range(0, 360)]
     public int movementRange = 360;
     
     [Header("Jump")]
-    public float shortJumpTime = 0.1f;
-    public float longJumpTime = 0.2f;
+    public float jumpTime = 0.2f;
     public float jumpSpeed = 3;
     public float weight = 1;
     public float jumpDecel = 100;
-    private static float _gravityConstant = -9.81f;
+    private const float GravityConstant = -9.81f;
     private bool _isGrounded;
 
-    private float _GroundYPos;
+    private float _groundYPos;
     private float _yVelocity;
     private float _airTime;
     private float _jumpTime;
@@ -42,18 +40,18 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
     void Awake()
     {
         PlayerController = new PlayerControls();
-        _GroundYPos = mainBody.position.y;
+        _groundYPos = mainBody.position.y;
         _isGrounded = true;
     }
 
     public void slowSpeed(float multiplier)
     {
-        speed = maxSpeed * multiplier;
+        _speed = maxSpeed * multiplier;
     }
 
     public void resetMaxSpeed()
     {
-        speed = maxSpeed;
+        _speed = maxSpeed;
     }
 
     private void OnEnable()
@@ -133,7 +131,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
             }
             _yVelocity = jumpSpeed;
             _airTime = 0;
-            _jumpTime = longJumpTime;
+            _jumpTime = jumpTime;
             _isHoldingJump = true;
         }
 
@@ -150,7 +148,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
 
         if (movement != 0)
         {
-            _currentVelocity = speed * movement;
+            _currentVelocity = _speed * movement;
             pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
         // else if (Math.Abs(_currentVelocity) > float.Epsilon) // Slowdown before stopping after button is released
@@ -199,15 +197,15 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
                 }
                 else
                 {
-                    _yVelocity += _gravityConstant * weight * Time.deltaTime;
+                    _yVelocity += GravityConstant * weight * Time.deltaTime;
                 }
             }
             
             mainBody.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
-            if (mainBody.position.y <= _GroundYPos)
+            if (mainBody.position.y <= _groundYPos)
             {
                 var position = mainBody.position;
-                position = new Vector3(position.x, _GroundYPos, position.z);
+                position = new Vector3(position.x, _groundYPos, position.z);
                 mainBody.position = position;
                 _yVelocity = 0.0f;
                 _isGrounded = true;
@@ -215,20 +213,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
                 _playerTwoCanJump = true;
             }
         }
-
     }
-
-    public void UseSpecialMovement(float power)
+    
+    public void UseSpecialMove(int playerNum)
     {
-        if (!_playerSpecial.UsePower(power)) return;
-        // TODO: Implement some sort of burst special movement
-        // e.g. dash, tp
-    }
-
-    public void UseContinuousSpecialMovement(float multiplier)
-    {
-        _playerSpecial.UseContinuousPower(multiplier, this);
-        // TODO: Implement some sort of continuous special movement
-        // e.g. speed boost? shield?
+        PlayerStats.UseSpecialMove(playerNum);
     }
 }

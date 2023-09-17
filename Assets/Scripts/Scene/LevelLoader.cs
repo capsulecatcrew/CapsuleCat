@@ -1,29 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
+
 public class LevelLoader : MonoBehaviour
 {
-    private static bool setResolution = true;
+    private static bool _setResolution = true;
     
     public Animator transition;
+    private static readonly int WipeAnimator = Animator.StringToHash("WipeDirection");
+    private static readonly int StartAnimator = Animator.StringToHash("Start");
 
-    public bool resetPlayerStatsOnLoad = false;
-    void Awake()
-    {
-        transition.SetInteger("WipeDirection", Random.Range(0, 4));
-        if (setResolution)
-        {
-            Screen.SetResolution(1920, 1080, FullScreenMode.MaximizedWindow, 60);
-            setResolution = false;
-        }
-        
-    }
+    public delegate void LevelChange(string sceneName);
 
-    // Update is called once per frame
-    void Update()
+    public event LevelChange OnLevelChange;
+
+    public void Awake()
     {
-        
+        transition.SetInteger(WipeAnimator, Random.Range(0, 4));
+        if (!_setResolution) return;
+        Screen.SetResolution(1920, 1080, FullScreenMode.MaximizedWindow, 60);
+        _setResolution = false;
     }
 
     public void LoadLevel(string sceneName)
@@ -36,13 +33,13 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
-    
-    IEnumerator SceneTransition(string sceneName)
+
+    private IEnumerator SceneTransition(string sceneName)
     {
-        transition.SetInteger("WipeDirection", Random.Range(0, 4));
-        transition.SetTrigger("Start");
+        transition.SetInteger(WipeAnimator, Random.Range(0, 4));
+        transition.SetTrigger(StartAnimator);
         yield return new WaitForSeconds(0.6f);
-        if (resetPlayerStatsOnLoad) PlayerStats.ResetStats();
         SceneManager.LoadScene(sceneName);
+        OnLevelChange?.Invoke(sceneName);
     }
 }

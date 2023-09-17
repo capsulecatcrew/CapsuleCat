@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WingGlow : MonoBehaviour
 {
-    public List<DamageAbsorber> absorbers;
+    [SerializeField] [Range(1, 2)] private int playerNum;
     public List<Renderer> glowingParts;
 
     private List<Material> _materials;
@@ -15,8 +14,8 @@ public class WingGlow : MonoBehaviour
     public float timeTillFade = 2.0f;
     public float glowFadeTime = 1.0f;
 
-    private float _timer = 0.0f;
-    private float _fadeTimer = 0.0f;
+    private float _timer;
+    private float _fadeTimer;
 
     private enum GlowState
     {
@@ -29,8 +28,7 @@ public class WingGlow : MonoBehaviour
     
     private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         _glowState = GlowState.Off;
 
@@ -43,24 +41,8 @@ public class WingGlow : MonoBehaviour
             _materials.Add(mat);
         }
     }
-
-    private void OnEnable()
-    {
-        foreach (var absorber in absorbers)
-        {
-            absorber.OnDamageAbsorb += TurnOnGlow;
-        }
-    }
-    private void OnDisable()
-    {
-        foreach (var absorber in absorbers)
-        {
-            absorber.OnDamageAbsorb -= TurnOnGlow;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void Update()
     {
         switch (_glowState)
         {
@@ -79,10 +61,12 @@ public class WingGlow : MonoBehaviour
                 break;
             case GlowState.Off:
                 break;
+            default:
+                return;
         }
     }
 
-    void TurnOnGlow(float unused)
+    public void TurnOnGlow(float unused)
     {
         if (_glowState != GlowState.On)
         {
@@ -98,7 +82,7 @@ public class WingGlow : MonoBehaviour
         _fadeTimer = 0.0f;
     }
 
-    void FadeGlow()
+    private void FadeGlow()
     {
         foreach (var mat in _materials)
         {
@@ -106,7 +90,7 @@ public class WingGlow : MonoBehaviour
         }
     }
 
-    void TurnOffGlow()
+    private void TurnOffGlow()
     {
         foreach (var mat in _materials)
         {

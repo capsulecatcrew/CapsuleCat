@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
+using Battle;
 using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
-    public string[] tagsToHit;
     public HitboxTrigger hitbox;
     public Transform target;
     
@@ -17,24 +18,23 @@ public class EnemyLaser : MonoBehaviour
     public AudioClip chargingSound;
     public AudioClip firingSound;
 
-    public float chargingDuration = 2.5f;
-    public float lockOnDuration = 0.5f;
-    public float firingDuration = 2.0f;
+    private float chargingDuration = 2.5f;
+    private float lockOnDuration = 0.5f;
+    private float firingDuration = 2.0f;
 
-    public int damage = 1;
+    private int _damage = 1;
 
-    private bool _trackingTarget = false;
+    private bool _trackingTarget;
     private bool _nonStopTracking = false;
     
-    public delegate void Trigger();
+    private BattleManager _battleManager;
 
-    public event Trigger OnFinish;
-    
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        var gameController = GameObject.FindGameObjectWithTag("GameController");
+        _battleManager = gameController.GetComponent<BattleManager>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -68,13 +68,12 @@ public class EnemyLaser : MonoBehaviour
         yield return new WaitForSeconds(firingDuration);
         animator.SetTrigger(FinishTrigger);
         yield return new WaitForSeconds(0.4f);
-        OnFinish?.Invoke();
         gameObject.SetActive(false);
     }
 
     public void SetDamage(int damage)
     {
-        this.damage = damage;
+        _damage = damage;
     }
     
     public void SetTargetTracking(Transform target)
@@ -102,17 +101,6 @@ public class EnemyLaser : MonoBehaviour
     
     private void OnHitBoxStay(Collider other)
     {
-        foreach (string tag in tagsToHit)
-        {
-            if (other.CompareTag(tag))
-            {
-                Damageable damageable = other.gameObject.GetComponent(typeof(Damageable)) as Damageable;
-
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(damage, false, Damageable.DamageType.Laser);
-                }
-            }
-        }
+        _battleManager.HitTarget(Firer.Enemy, other.gameObject, _damage, false);
     }
 }

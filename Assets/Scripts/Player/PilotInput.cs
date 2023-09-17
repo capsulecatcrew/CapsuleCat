@@ -63,33 +63,58 @@ public class PilotInput : MonoBehaviour
     public void OnPrimary(InputAction.CallbackContext context)
     {
         if (!context.action.triggered) return;
-        if (controlMode != ControlMode.Shooting) return;
+        if (controlMode == ControlMode.Shooting) OnPrimaryShoot(context);
+        if (controlMode == ControlMode.Movement) OnPrimaryJump();
+    }
+
+    private void OnPrimaryShoot(InputAction.CallbackContext context)
+    {
         weaponController.ShootBasicBullets();
     }
 
-    public void OnHeavyAttack(InputAction.CallbackContext context)
+    private void OnPrimaryJump()
     {
-        if (controlMode != ControlMode.Shooting) return;
-        // Check if heavy attack has started charging.
+        movementController.RequestPlayerJump(player);
+    }
+
+    public void OnSecondary(InputAction.CallbackContext context)
+    {
+        if (controlMode == ControlMode.Shooting) OnSecondaryShoot(context);
+        if (controlMode == ControlMode.Movement) OnSecondaryMove(context);
+    }
+
+    private void OnSecondaryShoot(InputAction.CallbackContext context)
+    {
         if (context.started)
         {
             weaponController.ChargeHeavyBullet();
             return;
         }
-
         var elapsedTime = context.time - context.startTime;
         weaponController.ShootHeavyBullet((float) elapsedTime);
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    private void OnSecondaryMove(InputAction.CallbackContext context)
     {
-        if (!context.action.triggered) return;
-        if (controlMode != ControlMode.Movement) return;
-        movementController.RequestPlayerJump(player);
+        
     }
 
-    public void OnSpecial(InputAction.CallbackContext context)
+    public void OnSpecial(InputAction.CallbackContext ignored)
     {
+        if (controlMode == ControlMode.Shooting) OnSpecialAttack();
+        if (controlMode == ControlMode.Movement) OnSpecialMove();
+    }
+
+    public void OnSpecialAttack()
+    {
+        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Shooting) return;
+        weaponController.UseSpecialMove();
+    }
+
+    public void OnSpecialMove()
+    {
+        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Movement) return;
+        movementController.UseSpecialMove(player);
     }
 
     public void OnSwitch(InputAction.CallbackContext context)

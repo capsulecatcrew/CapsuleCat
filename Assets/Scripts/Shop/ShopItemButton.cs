@@ -1,93 +1,50 @@
-using System;
+using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;
 
-public class ShopItemButton: MonoBehaviour
+public class ShopItemButton : MonoBehaviour
 {
-    [Range(1, 2)] public int forPlayer = 1;
+    [SerializeField] [Range(1, 2)] private int playerNum = 1;
 
     public ButtonSprite buttonSpriteManager;
 
-    [Header("Text Components")]
-    public TMP_Text itemName;
-    public TMP_Text itemDescription;
-    public TMP_Text itemCost;
+    private UpgradeableStat _stat;
+    
+    [SerializeField] private TMP_Text Name;
+    [SerializeField] private TMP_Text Cost;
+    
+    private bool _usable;
+    private int _cost;
 
-    [Space]
-    public bool useable = true;
-    private PlayerStat _linkedStat;
-
-    /// <summary>
-    /// Sets the stat upgrade item the shop button is linked to.
-    /// </summary>
-    public void UpdateShopItem(PlayerStat playerStat)
+    public void Init(UpgradeableStat stat, string name, string stringCost, bool usable, int cost)
     {
-        _linkedStat = playerStat;
-        if (_linkedStat != null)
-        {
-            itemName.text = _linkedStat.name + " " + (_linkedStat.GetCurrentLevel() + 1);
-            if (_linkedStat.IsMaxLevel())
-            {
-                itemName.text = _linkedStat.name;
-                itemCost.text = "Max Level";
-                useable = false;
-            }
-            else 
-            {
-                itemCost.text = "$" + _linkedStat.GetCurrentCost();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No Player Stat linked to button!");
-        }
-
+        _stat = stat;
+        Name.text = name;
+        Cost.text = stringCost;
+        _usable = usable;
+        _cost = cost;
     }
 
     /// <summary>
-    /// Attempts to purchase item
+    /// Attempts to purchase item for specified player.
     /// </summary>
-    /// <param name="playerNo">Player attempting to purchase</param>
-    public void AttemptPurchase(int playerNo)
+    /// <param name="purchaserNum">Number of player attempting to purchase item.</param>
+    public void AttemptPurchase(int purchaserNum)
     {
-        if (!useable) return;
-        if (playerNo != forPlayer) return;
-
-        int playerMoney = PlayerStats.GetPlayer(playerNo).Money;
+        if (!_usable) return;
+        if (purchaserNum != playerNum) return;
+        if (!PlayerStats.RemoveMoney(playerNum, _cost)) return;
         
-        float cost = _linkedStat.GetCurrentCost();
-        if (playerMoney < cost) return;
-
-        // Spend money
-        PlayerStats.GetPlayer(playerNo).Money -= (int) _linkedStat.GetCurrentCost();
-
-        // Upgrade stat
-        _linkedStat.IncrementLevel();
-
-        // Update button info
-        UpdateShopItem(_linkedStat);
-
-        // Disable button
-        DisableButton();
+        _stat.UpgradeLevel();
+        Disable();
     }
 
-    public void DisableButton()
+    private void Disable()
     {
-        itemName.text = "DISABLED";
-        // Set Sprite to disabled version
+        Name.text = "PURCHASED";
+        _usable = false;
+        
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
-
-        useable = false;
-    }
-
-    public void SetColor(Color color)
-    {
-        buttonSpriteManager.SetColor(color);
-    }
-    
-    public PlayerStat GetLinkedStat()
-    {
-        return _linkedStat;
     }
 }

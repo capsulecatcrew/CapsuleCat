@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+
 public class RestArea : MonoBehaviour
 {
     public Avatar p1Avatar, p2Avatar;
     public TMP_Text p1Status, p2Status;
-    private bool _p1Ready, _p2Ready = false;
-    private bool _startingNextLevel = false;
+    private bool _p1Ready, _p2Ready;
+    private bool _startingNextLevel;
     public UnityEvent m_OnBothPlayersReady;
 
     void Update()
@@ -38,8 +39,6 @@ public class RestArea : MonoBehaviour
                 p2Avatar.SetBackgroundSprite(1);
                 p2Avatar.SetCharacterSprite(1);
                 p2Status.text = "READY";
-                break;
-            default:
                 break;
         }
     }
