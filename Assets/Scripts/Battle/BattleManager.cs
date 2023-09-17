@@ -213,12 +213,10 @@ public class BattleManager : MonoBehaviour
         switch (playerNum)
         {
             case 1:
-                _player1Special.MinusValue(amount, false);
-                PlayerStats.UseSpecialMove(1);
+                _player1Special.MinusValue(amount, true);
                 break;
             case 2:
-                _player2Special.MinusValue(amount, false);
-                PlayerStats.UseSpecialMove(2);
+                _player2Special.MinusValue(amount, true);
                 break;
         }
     }

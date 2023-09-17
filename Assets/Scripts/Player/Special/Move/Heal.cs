@@ -1,17 +1,19 @@
 namespace Player.Special.Move
 {
-    public class Heal : SpecialBurstMove
+    public class Heal : SpecialMove
     {
         private const int Amount = 10;
 
         public Heal(int playerNum) : base(playerNum, 20) { }
         
-        public new bool Start()
+        public override void Start()
         {
-            if (!base.Start()) return false;
+            if (!BattleManager.HasSpecial(PlayerNum, Cost)) return;
+            BattleManager.UseSpecial(PlayerNum, Cost);
             ApplyEffect(Amount);
-            return true;
         }
+
+        public override void Stop() { }
 
         protected override void ApplyEffect(float amount)
         {

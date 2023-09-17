@@ -34,11 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private float _playerOneMovement;
     private float _playerTwoMovement;
     private bool _playerOneCanJump = true;
-    private bool _playerTwoCanJump = true; 
-    
+    private bool _playerTwoCanJump = true;
+
     // Start is called before the first frame update
     void Awake()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleManager>();
         PlayerController = new PlayerControls();
         _groundYPos = mainBody.position.y;
         _isGrounded = true;

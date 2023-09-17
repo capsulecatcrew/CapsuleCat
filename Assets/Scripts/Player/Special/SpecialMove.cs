@@ -13,7 +13,7 @@ public abstract class SpecialMove
         BattleManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleManager>();
     }
 
-    public abstract bool Start();
+    public abstract void Start();
 
     public abstract void Stop();
 
