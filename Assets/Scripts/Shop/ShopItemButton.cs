@@ -29,11 +29,11 @@ public class ShopItemButton : MonoBehaviour
     /// <summary>
     /// Attempts to purchase item for specified player.
     /// </summary>
-    /// <param name="otherPlayerNum">Player attempting to purchase item.</param>
-    public void AttemptPurchase(int otherPlayerNum)
+    /// <param name="purchaserNum">Number of player attempting to purchase item.</param>
+    public void AttemptPurchase(int purchaserNum)
     {
         if (!_usable) return;
-        if (otherPlayerNum != playerNum) return;
+        if (purchaserNum != playerNum) return;
         if (!PlayerStats.RemoveMoney(playerNum, _cost)) return;
         
         _stat.UpgradeLevel();
@@ -47,10 +47,5 @@ public class ShopItemButton : MonoBehaviour
         
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
-    }
-
-    public void SetColor(Color color)
-    {
-        buttonSpriteManager.SetColor(color);
     }
 }
