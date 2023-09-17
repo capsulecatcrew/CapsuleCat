@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls BGM and global-scale sound effects.
+/// 
+/// For localised sound effects in the envt,
+/// Expose AudioSources and AudioClips in the respective scripts instead.
+/// Eg. EnemyLaser.cs
+/// </summary>
 public class GlobalAudio : MonoBehaviour
 {
     public static GlobalAudio Singleton;
@@ -36,53 +43,52 @@ public class GlobalAudio : MonoBehaviour
 
     }
 
+    // Used for 'global-scale' sound effects that are not localised
     public void PlaySound(string soundName)
     {
-        Sound sound = Array.Find(sounds, s => s.name == soundName);
-        if (sound == null)
-        {
-            Debug.LogWarning("Global Audio: Sound " + soundName + " not found!");
-            return;
-        }
+        Sound sound = FindSound(sounds, soundName);
         sound.source.Play();
     }
     
     public void StopSound(string soundName)
     {
-        Sound sound = Array.Find(sounds, s => s.name == soundName);
-        if (sound == null)
-        {
-            Debug.LogWarning("Global Audio: Sound " + soundName + " not found!");
-            return;
-        }
+        Sound sound = FindSound(sounds, soundName);
         sound.source.Stop();
     }    
     public void PlayMusic(string songName)
     {
-        Sound sound = Array.Find(music, s => s.name == songName);
-        if (sound == null)
-        {
-            Debug.LogWarning("Global Audio: Music " + songName + " not found!");
-            return;
-        }
-
+        Sound sound = FindSound(music, songName);
         _currentMusic = sound;
         sound.source.Play();
     }
     
+    /// <summary>
+    /// For use if there are 2 songs playing and you want to
+    /// stop a specific one.
+    /// </summary>
+    /// <param name="songName">The song you wish to stop</param>
     public void StopMusic(string songName)
     {
-        Sound sound = Array.Find(music, s => s.name == songName);
-        if (sound == null)
-        {
-            Debug.LogWarning("Global Audio: Music " + songName + " not found!");
-            return;
-        }
+        Sound sound = FindSound(music, songName);
         sound.source.Stop();
     }
     
     public void StopMusic()
     {
         _currentMusic?.source.Stop();
+    }
+
+    private Sound FindSound(Sound[] arr, string name)
+    {
+        Sound sound = Array.Find(arr, s => s.name == name);
+        if (sound != null) return sound;
+
+        string sourceName = arr == music
+                ? "Music " 
+                : arr == sounds
+                ? "Sound "
+                : "Unknown ";
+        Debug.LogWarning("Global Audio: " + sourceName + name + " not found!");
+        return null;
     }
 }

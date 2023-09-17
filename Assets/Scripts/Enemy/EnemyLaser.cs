@@ -60,14 +60,18 @@ public class EnemyLaser : MonoBehaviour
     {
         audioSource.PlayOneShot(chargingSound);
         yield return new WaitForSeconds(chargingDuration);
+        
         animator.SetTrigger(LockOnTrigger);
         _trackingTarget = trackAfterLockOn;
         yield return new WaitForSeconds(lockOnDuration);
+        
         animator.SetTrigger(FireTrigger);
         audioSource.PlayOneShot(firingSound);
         yield return new WaitForSeconds(firingDuration);
+        
         animator.SetTrigger(FinishTrigger);
         yield return new WaitForSeconds(0.4f);
+        
         gameObject.SetActive(false);
     }
 
