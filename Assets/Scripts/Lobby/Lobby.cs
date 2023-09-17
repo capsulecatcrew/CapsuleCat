@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class RestArea : MonoBehaviour
+public class Lobby : MonoBehaviour
 {
     public Avatar p1Avatar, p2Avatar;
     public TMP_Text p1Status, p2Status;

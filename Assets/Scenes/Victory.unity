@@ -879,7 +879,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Rest Area
+            m_StringArgument: Lobby
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1774595298
@@ -1137,4 +1137,3 @@ MonoBehaviour:
   scoreText: {fileID: 2022680834}
   textBefore: 'Stage '
   textAfter: ' Complete'
-  offset: 0
