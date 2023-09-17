@@ -99,20 +99,22 @@ public class PilotInput : MonoBehaviour
         
     }
 
-    public void OnSpecial(InputAction.CallbackContext context)
+    public void OnSpecial(InputAction.CallbackContext ignored)
     {
-        if (controlMode == ControlMode.Shooting) OnSpecialAttack(context);
-        if (controlMode == ControlMode.Movement) OnSpecialMove(context);
+        if (controlMode == ControlMode.Shooting) OnSpecialAttack();
+        if (controlMode == ControlMode.Movement) OnSpecialMove();
     }
 
-    public void OnSpecialAttack(InputAction.CallbackContext context)
+    public void OnSpecialAttack()
     {
-        
+        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Shooting) return;
+        weaponController.UseSpecialMove();
     }
 
-    public void OnSpecialMove(InputAction.CallbackContext context)
+    public void OnSpecialMove()
     {
-        
+        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Movement) return;
+        movementController.UseSpecialMove(player);
     }
 
     public void OnSwitch(InputAction.CallbackContext context)

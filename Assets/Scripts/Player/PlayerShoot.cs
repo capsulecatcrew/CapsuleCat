@@ -1,9 +1,11 @@
 using System;
 using Battle;
+using Player.Special;
+using Player.Special.Move;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
+public class PlayerShoot : MonoBehaviour
 {
     [Header("Trackers")]
     [SerializeField] [Range(1, 2)] private int playerNum;
@@ -36,17 +38,14 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
     [SerializeField] private float heavySpeedMultiplier = 0.2f;
     [SerializeField] private float heavyCooldownMultiplier = 0.5f;
     [SerializeField] private float heavyEnergyCostMultiplier = 3.0f;
-    [SerializeField] private float heavyScreenShakeMultiplier = 2f;
-    [SerializeField] private int heavyScreenShakeMaxAmount = 4;
+    [SerializeField] private float heavyScreenShakeMultiplier = 1;
+    [SerializeField] private int heavyScreenShakeMaxAmount = 1;
     [SerializeField] private float heavySizeMultiplier = 0.35f;
     private bool _isHeavyCharging;
     private float _heavyChargeTime;
     private GameObject _heavyObject;
     private Bullet _heavyBullet;
     [SerializeField] private ObjectPool heavyBulletPool;
-
-    [Header("Special")]
-    private PlayerSpecialMove _specialMove;
 
     [Header("Aiming")]
     [SerializeField] private float aimSpeed = 20;
@@ -354,21 +353,9 @@ public class PlayerShoot : MonoBehaviour, IPlayerSpecialUser
         playerMovement.resetMaxSpeed();
     }
 
-    /// <summary>
-    /// Sets player's current special move.
-    /// </summary>
-    /// <param name="specialMove">Special move to give player.</param>
-    public void SetSpecialMove(PlayerSpecialMove specialMove)
+    public void UseSpecialMove()
     {
-        _specialMove = specialMove;
-    }
-
-    /// <summary>
-    /// Removes player's current special move.
-    /// </summary>
-    public void RemoveSpecialMove()
-    {
-        _specialMove = null;
+        PlayerStats.UseSpecialMove(playerNum);
     }
 
     void Update()

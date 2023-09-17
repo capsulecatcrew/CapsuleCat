@@ -23,7 +23,6 @@ public class ShopItemButton : MonoBehaviour
         Cost.text = stringCost;
         _usable = usable;
         _cost = cost;
-        print("what");
     }
 
     /// <summary>

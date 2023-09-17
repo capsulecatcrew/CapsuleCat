@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
+public class PlayerMovement : MonoBehaviour
 {
     public static PlayerControls PlayerController;
 
@@ -213,6 +213,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerSpecialUser
                 _playerTwoCanJump = true;
             }
         }
-
+    }
+    
+    public void UseSpecialMove(int playerNum)
+    {
+        PlayerStats.UseSpecialMove(playerNum);
     }
 }

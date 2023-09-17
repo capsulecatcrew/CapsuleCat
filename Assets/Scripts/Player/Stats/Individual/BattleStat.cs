@@ -7,7 +7,7 @@ namespace Player.Stats.Persistent
     {
         private float _changeCooldown;
         private float _maxChangeCooldown;
-        
+
         public delegate void StatChange(float value);
         public event StatChange OnStatChange;
 
@@ -38,31 +38,34 @@ namespace Player.Stats.Persistent
             _changeCooldown -= deltaTime;
         }
 
-        public void AddValue(float value, bool ignoreIFrames)
+        public bool AddValue(float value, bool ignoreIFrames)
         {
-            if (!ignoreIFrames && _changeCooldown > 0) return;
+            if (!ignoreIFrames && _changeCooldown > 0) return false;
             Value += value;
             if (Value > BaseValue) Value = BaseValue;
             ResetCooldown();
             OnStatChange?.Invoke(Value);
+            return true;
         }
-        
-        public void MinusValue(float value, bool ignoreIFrames)
+
+        public bool MinusValue(float value, bool ignoreIFrames)
         {
-            if (!ignoreIFrames && _changeCooldown > 0) return;
+            if (!ignoreIFrames && _changeCooldown > 0) return false;
             Value -= value;
             if (Value < 0)
             {
                 Value = 0;
                 OnStatChange?.Invoke(Value);
                 OnStatDeplete?.Invoke();
-                GameObject tempKill = _toKill;
+                var tempKill = _toKill;
                 _toKill = null;
-                if(tempKill) tempKill.SetActive(false);
-                return;
+                if (tempKill) tempKill.SetActive(false);
+                return true;
             }
+
             ResetCooldown();
             OnStatChange?.Invoke(Value);
+            return true;
         }
 
         public bool CanMinusValue(float value)

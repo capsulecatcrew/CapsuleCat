@@ -58,7 +58,6 @@ public class Bullet : MonoBehaviour
         _transform.position = position;
         _transform.localScale = scale;
         trailRenderer.widthMultiplier = scale.magnitude + 0.1f;
-        
     }
 
     public void Fire(Vector3 direction, int damage, float speed)

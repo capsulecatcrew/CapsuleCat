@@ -107,11 +107,12 @@ public class EnemyShieldController : MonoBehaviour
         return shields.Contains(hitObject);
     }
 
-    public void HitEnemyShield(GameObject hitObject, float damage, bool ignoreIFrames)
+    public bool HitEnemyShield(GameObject hitObject, float damage, bool ignoreIFrames)
     {
         var shieldHealth = _shieldHealths[hitObject];
-        shieldHealth.MinusValue(damage, ignoreIFrames);
+        bool hit = shieldHealth.MinusValue(damage, ignoreIFrames);
         hitObject.GetComponent<Renderer>().material.color = GetDamageColor(shieldHealth.GetStatPercentage());
+        return hit;
     }
 
     private Color GetDamageColor(float percentage)

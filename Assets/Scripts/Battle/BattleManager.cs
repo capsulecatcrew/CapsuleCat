@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private const float DamageCooldown = 3;
+    private const float DamageCooldown = 0.5f;
     
     [SerializeField] private LevelLoader levelLoader;
     [SerializeField] private GameObject enemyBody;
@@ -36,10 +36,25 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private EnemyShieldController enemyShieldController;
 
     public delegate void PlayerWin();
-    public delegate void PlayerLose();
-    
     public event PlayerWin OnPlayerWin;
+    
+    public delegate void PlayerLose();
     public event PlayerLose OnPlayerLose;
+
+    public delegate void EnemyHit(float damage);
+    public event EnemyHit OnEnemyHit;
+    
+    public delegate void EnemyShieldHit(float damage);
+    public event EnemyShieldHit OnEnemyShieldHit;
+
+    public delegate void PlayerHit(float damage);
+    public event PlayerHit OnPlayerHit;
+
+    public delegate void PlayerAbsorberHit(float damage, int playerNum);
+    public event PlayerAbsorberHit OnPlayerAbsorberHit;
+
+    public delegate void TimeChanged(float deltaTime);
+    public event TimeChanged OnTimeChanged;
     
     public void Start()
     {
@@ -81,6 +96,7 @@ public class BattleManager : MonoBehaviour
         _player2Energy.UpdateCooldown(deltaTime);
         _player1Special.UpdateCooldown(deltaTime);
         _player2Special.UpdateCooldown(deltaTime);
+        OnTimeChanged?.Invoke(deltaTime);
     }
 
     private void SetEnemyColor()
@@ -96,35 +112,41 @@ public class BattleManager : MonoBehaviour
         switch (firer)
         {
             case Firer.Player1 when hitObject == enemyBody:
-                _enemyHealth.MinusValue(damage, ignoreIFrames);
+                if (_enemyHealth.MinusValue(damage, ignoreIFrames)) OnEnemyHit?.Invoke(damage);
                 _player1Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(1, damage), false);
                 return true;
             case Firer.Player2 when hitObject == enemyBody:
-                _enemyHealth.MinusValue(damage, ignoreIFrames);
+                if (_enemyHealth.MinusValue(damage, ignoreIFrames)) OnEnemyHit?.Invoke(damage);
                 _player2Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(2, damage), false);
                 return true;
             case Firer.Player1 when enemyShieldController.IsEnemyShield(hitObject):
-                enemyShieldController.HitEnemyShield(hitObject, damage, ignoreIFrames);
+                if (enemyShieldController.HitEnemyShield(hitObject, damage, ignoreIFrames)) OnEnemyShieldHit?.Invoke(damage);
                 return true;
             case Firer.Player2 when enemyShieldController.IsEnemyShield(hitObject):
-                enemyShieldController.HitEnemyShield(hitObject, damage, ignoreIFrames);
+                if (enemyShieldController.HitEnemyShield(hitObject, damage, ignoreIFrames)) OnEnemyShieldHit?.Invoke(damage);
                 return true;
             case Firer.Enemy when hitObject == playerBody:
-                _playerHealth.MinusValue(damage, ignoreIFrames);
+                if (_playerHealth.MinusValue(damage, ignoreIFrames)) OnPlayerHit?.Invoke(damage);
                 _player1Special.AddValue(PlayerStats.ApplySpecialDamagedMultipler(1, damage), false);
                 _player2Special.AddValue(PlayerStats.ApplySpecialDamagedMultipler(2, damage), false);
                 return true;
             case Firer.Enemy when player1Absorbers.Contains(hitObject):
                 var absorbedEnergy1 = PlayerStats.ApplyEnergyAbsorbMultiplier(1, damage);
-                _player1Energy.AddValue(absorbedEnergy1, false);
+                if (_player1Energy.AddValue(absorbedEnergy1, false))
+                {
+                    OnPlayerAbsorberHit?.Invoke(damage, 1);
+                    player1WingGlow.TurnOnGlow(0);
+                }
                 _player1Special.AddValue(PlayerStats.ApplySpecialAbsorbMultipler(1, absorbedEnergy1), false);
-                player1WingGlow.TurnOnGlow(0);
                 return true;
             case Firer.Enemy when player2Absorbers.Contains(hitObject):
                 var absorbedEnergy2 = PlayerStats.ApplyEnergyAbsorbMultiplier(2, damage);
-                _player2Energy.AddValue(absorbedEnergy2, false);
+                if (_player2Energy.AddValue(absorbedEnergy2, false))
+                {
+                    OnPlayerAbsorberHit?.Invoke(damage, 2);
+                    player2WingGlow.TurnOnGlow(0);
+                }
                 _player2Special.AddValue(PlayerStats.ApplySpecialAbsorbMultipler(2, absorbedEnergy2), false);
-                player2WingGlow.TurnOnGlow(0);
                 return true;
             default:
                 return false;
@@ -174,5 +196,35 @@ public class BattleManager : MonoBehaviour
                 _player2Energy.MinusValue(amount, false);
                 break;
         }
+    }
+
+    public bool HasSpecial(int playerNum, float amount)
+    {
+        return playerNum switch
+        {
+            1 => _player1Special.CanMinusValue(amount),
+            2 => _player2Special.CanMinusValue(amount),
+            _ => false
+        };
+    }
+
+    public void UseSpecial(int playerNum, float amount)
+    {
+        switch (playerNum)
+        {
+            case 1:
+                _player1Special.MinusValue(amount, false);
+                PlayerStats.UseSpecialMove(1);
+                break;
+            case 2:
+                _player2Special.MinusValue(amount, false);
+                PlayerStats.UseSpecialMove(2);
+                break;
+        }
+    }
+
+    public void HealPlayer(float amount)
+    {
+        _playerHealth.AddValue(amount, true);
     }
 }

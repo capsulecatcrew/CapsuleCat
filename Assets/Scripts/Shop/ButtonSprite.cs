@@ -29,20 +29,13 @@ public class ButtonSprite : MonoBehaviour
     {
         if (!useable) return;
 
-        switch (state)
+        _spriteRenderer.sprite = state switch
         {
-            case 0:
-                _spriteRenderer.sprite = normalSprite;
-                break;
-            case 1:
-                _spriteRenderer.sprite = highlightedSprite;
-                break;
-            case 2:
-                _spriteRenderer.sprite = disabledSprite;
-                break;
-            default:
-                break;
-        }
+            0 => normalSprite,
+            1 => highlightedSprite,
+            2 => disabledSprite,
+            _ => _spriteRenderer.sprite
+        };
     }
 
     public void SetColor(Color color)
