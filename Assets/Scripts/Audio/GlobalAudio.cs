@@ -44,6 +44,7 @@ public class GlobalAudio : MonoBehaviour
     }
 
     // Used for 'global-scale' sound effects that are not localised
+    // eg. ui button sfx
     public void PlaySound(string soundName)
     {
         Sound sound = FindSound(sounds, soundName);
