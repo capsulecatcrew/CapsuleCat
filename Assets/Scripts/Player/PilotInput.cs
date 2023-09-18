@@ -101,7 +101,7 @@ public class PilotInput : MonoBehaviour
 
     public void OnSpecial(InputAction.CallbackContext context)
     {
-        if (context.performed) return;
+        if (!context.action.triggered) return;
         if (controlMode == ControlMode.Shooting) OnSpecialAttack();
         if (controlMode == ControlMode.Movement) OnSpecialMove();
     }

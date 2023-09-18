@@ -282,6 +282,7 @@ public static class PlayerStats
                     case SpecialMoveEnum.MoveShield:
                         return;
                     case SpecialMoveEnum.ShootVampiric:
+                        _specialMove1 = new Vampire(playerNum);
                         return;
                     default:
                         return;
@@ -293,6 +294,7 @@ public static class PlayerStats
                         _specialMove2 = new Heal(playerNum);
                         return;
                     case SpecialMoveEnum.MoveShield:
+                        _specialMove2 = new Vampire(playerNum);
                         return;
                     case SpecialMoveEnum.ShootVampiric:
                         return;

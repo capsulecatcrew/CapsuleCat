@@ -2,9 +2,10 @@ namespace Player.Special.Move
 {
     public class Heal : SpecialMove
     {
-        private const int Amount = 10;
+        private const string Name = "Flash Heal";
+        private const int Amount = 3;
 
-        public Heal(int playerNum) : base(playerNum, 20) { }
+        public Heal(int playerNum) : base(Name, playerNum, 10) { }
         
         public override void Start()
         {
