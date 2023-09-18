@@ -16,7 +16,7 @@ public class ShopItemButton : MonoBehaviour
     
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource; // TODO: replace with globalAudio, currently on Main Camera
-    [SerializeField] private AudioClip bought;
+    [SerializeField] private AudioClip bought; // move to global audio
     [SerializeField] private AudioClip broke;
     [SerializeField] private AudioClip disabled; // TODO: remove when UI button sound interface is made
     // TODO: disable 'pressed' sound when UI button sound interface is made
@@ -42,23 +42,23 @@ public class ShopItemButton : MonoBehaviour
     {
         if (!_usable)
         {
-            audioSource.PlayOneShot(disabled);
+            audioSource.PlayOneShot(disabled); // TODO: move to global audio, replace with global audio after adding 
             return;
         }
         
         if (purchaserNum != playerNum)
         {
-            audioSource.PlayOneShot(disabled);
+            audioSource.PlayOneShot(disabled); // TODO: move to global audio
             return;
         }
         if (!PlayerStats.RemoveMoney(playerNum, _cost))
         {
-            audioSource.PlayOneShot(broke);
+            audioSource.PlayOneShot(broke); // TODO: move to global audio
             return;
         }
         
         _stat.UpgradeLevel();
-        audioSource.PlayOneShot(bought);
+        audioSource.PlayOneShot(bought); // TODO: move to global audio
         Disable();
     }
 

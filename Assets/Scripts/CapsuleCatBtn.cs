@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -18,7 +19,7 @@ public class CcButton : Button, ISelectHandler
     public UnityEvent OnCustomPressed;
     public UnityEvent OnDisabledTriggered;
 
-    [SerializeField] private bool customEnabled = true;
+    [SerializeField] private bool useable = true;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class CcButton : Button, ISelectHandler
     }
     private void HandleClick()
     {
-        if (customEnabled)
+        if (useable)
         {
             GlobalAudio.Singleton.PlaySound(""); // pressed sound
             OnCustomPressed.Invoke();
