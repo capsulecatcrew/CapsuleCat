@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -12,7 +11,7 @@ using UnityEngine.UI;
 ///
 /// Replaces default Unity Button
 /// </summary>
-public class CcButton : Button, ISelectHandler
+public class CapsuleCatBtn : Button, ISelectHandler
 {
     [Header("Events")]
     public UnityEvent OnHighlighted;
@@ -26,21 +25,22 @@ public class CcButton : Button, ISelectHandler
         onClick.AddListener(HandleClick);
     }
 
-    public void OnSelect(BaseEventData eventData)
+    public new void OnSelect(BaseEventData eventData)
     {
-        GlobalAudio.Singleton.PlaySound(""); // highlighted sound
+        base.OnSelect(eventData);
+        GlobalAudio.Singleton.PlaySound("Healing"); // highlighted sound
         OnHighlighted.Invoke();
     }
     private void HandleClick()
     {
         if (useable)
         {
-            GlobalAudio.Singleton.PlaySound(""); // pressed sound
+            GlobalAudio.Singleton.PlaySound("Healing"); // pressed sound
             OnCustomPressed.Invoke();
         }
         else
         {
-            GlobalAudio.Singleton.PlaySound(""); // disabled sound
+            GlobalAudio.Singleton.PlaySound("Healing"); // disabled sound
             OnDisabledTriggered.Invoke();
         }
     }

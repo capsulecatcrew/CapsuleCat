@@ -15,13 +15,13 @@ public class SmashbroButton : Interactable
     /// <summary>
     /// Called by Hitbox Trigger 2D Trigger Enter Event
     /// </summary>
-    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("");
-    public void PlayPressedSound() => GlobalAudio.Singleton.PlaySound("");
+    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("Healing");
+    public void PlayPressedSound() => GlobalAudio.Singleton.PlaySound("Healing");
     
     /// <summary>
     /// note: currently can't be played, disabling the button hasn't been implemented
     /// to implement, must hide the base InteractEvent
     /// </summary>
-    public void PlayDisabledSound() => GlobalAudio.Singleton.PlaySound("");
+    public void PlayDisabledSound() => GlobalAudio.Singleton.PlaySound("Healing");
     
 }

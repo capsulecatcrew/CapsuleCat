@@ -42,23 +42,23 @@ public class ShopItemButton : MonoBehaviour
     {
         if (!_usable)
         {
-            audioSource.PlayOneShot(disabled); // TODO: move to global audio, replace with global audio after adding 
+            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: disabled
             return;
         }
         
         if (purchaserNum != playerNum)
         {
-            audioSource.PlayOneShot(disabled); // TODO: move to global audio
+            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: disabled
             return;
         }
         if (!PlayerStats.RemoveMoney(playerNum, _cost))
         {
-            audioSource.PlayOneShot(broke); // TODO: move to global audio
+            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: broke
             return;
         }
         
         _stat.UpgradeLevel();
-        audioSource.PlayOneShot(bought); // TODO: move to global audio
+        GlobalAudio.Singleton.PlaySound("Healing"); // TODO: bought
         Disable();
     }
 
@@ -70,4 +70,9 @@ public class ShopItemButton : MonoBehaviour
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
     }
+    
+    /// <summary>
+    /// Called by Hitbox Trigger 2D Trigger Enter Event
+    /// </summary>
+    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("Healing");
 }
