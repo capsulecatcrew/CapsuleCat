@@ -16,7 +16,7 @@ public class ShopItemButton : MonoBehaviour
     
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource; // TODO: replace with globalAudio, currently on Main Camera
-    [SerializeField] private AudioClip bought;
+    [SerializeField] private AudioClip bought; // move to global audio
     [SerializeField] private AudioClip broke;
     [SerializeField] private AudioClip disabled; // TODO: remove when UI button sound interface is made
     // TODO: disable 'pressed' sound when UI button sound interface is made
@@ -42,23 +42,23 @@ public class ShopItemButton : MonoBehaviour
     {
         if (!_usable)
         {
-            audioSource.PlayOneShot(disabled);
+            GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             return;
         }
         
         if (purchaserNum != playerNum)
         {
-            audioSource.PlayOneShot(disabled);
+            GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             return;
         }
         if (!PlayerStats.RemoveMoney(playerNum, _cost))
         {
-            audioSource.PlayOneShot(broke);
+            GlobalAudio.Singleton.PlaySound("UI_SHOP_BROKE");
             return;
         }
         
         _stat.UpgradeLevel();
-        audioSource.PlayOneShot(bought);
+        GlobalAudio.Singleton.PlaySound("UI_SHOP_BOUGHT");
         Disable();
     }
 
@@ -70,4 +70,9 @@ public class ShopItemButton : MonoBehaviour
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
     }
+    
+    /// <summary>
+    /// Called by Hitbox Trigger 2D Trigger Enter Event
+    /// </summary>
+    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("UI_BTN_HIGHLIGHTED");
 }
