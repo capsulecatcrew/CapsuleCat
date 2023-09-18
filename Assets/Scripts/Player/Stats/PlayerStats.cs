@@ -34,7 +34,7 @@ public static class PlayerStats
 
     // p1 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.04f, 0.005f, 50, 75);
+        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75);
 
     private static readonly Stat Special1 = new("Special", SpecialMax);
     private static SpecialMove _specialMove1;
@@ -62,7 +62,7 @@ public static class PlayerStats
 
     // p2 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.04f, 0.005f, 50, 75);
+        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75);
 
     private static readonly Stat Special2 = new("Special", SpecialMax);
     private static SpecialMove _specialMove2;
@@ -71,7 +71,7 @@ public static class PlayerStats
         { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2 };
 
     // both - Stat 5
-    public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 40, 10, 50, 25);
+    public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25);
     private static readonly Stat Health = new("Health", MaxHealth);
 
     static PlayerStats()
@@ -294,9 +294,9 @@ public static class PlayerStats
                         _specialMove2 = new Heal(playerNum);
                         return;
                     case SpecialMoveEnum.MoveShield:
+                        _specialMove2 = new Vampire(playerNum);
                         return;
                     case SpecialMoveEnum.ShootVampiric:
-                        _specialMove2 = new Vampire(playerNum);
                         return;
                     default:
                         return;
