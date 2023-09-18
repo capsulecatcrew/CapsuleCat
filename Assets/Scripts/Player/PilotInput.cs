@@ -99,8 +99,9 @@ public class PilotInput : MonoBehaviour
         
     }
 
-    public void OnSpecial(InputAction.CallbackContext ignored)
+    public void OnSpecial(InputAction.CallbackContext context)
     {
+        if (!context.action.triggered) return;
         if (controlMode == ControlMode.Shooting) OnSpecialAttack();
         if (controlMode == ControlMode.Movement) OnSpecialMove();
     }

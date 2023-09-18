@@ -202,6 +202,8 @@ public class PlayerShoot : MonoBehaviour
         battleManager.UseEnergy(playerNum, energyCost);
         
         _cooldownTime = basicCooldownTime + clampedTime / heavyCooldownMultiplier;
+        
+        battleManager.UpdatePlayerShotFired();
 
         PlayHeavyBulletAudio();
     }
@@ -218,6 +220,8 @@ public class PlayerShoot : MonoBehaviour
         battleManager.UseEnergy(playerNum, EnergyCost);
 
         _cooldownTime = basicCooldownTime;
+        
+        battleManager.UpdatePlayerShotFired();
 
         PlayBulletAudio();
     }
@@ -237,6 +241,8 @@ public class PlayerShoot : MonoBehaviour
         TransformBullets(lowBulletPool, damage, speed);
 
         _cooldownTime = basicCooldownTime * weakCooldownMultiplier;
+        
+        battleManager.UpdatePlayerShotFired();
 
         PlayBulletAudio();
     }

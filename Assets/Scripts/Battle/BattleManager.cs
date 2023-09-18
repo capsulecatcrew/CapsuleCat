@@ -56,6 +56,10 @@ public class BattleManager : MonoBehaviour
     public delegate void TimeChanged(float deltaTime);
     public event TimeChanged OnTimeChanged;
     
+    //Is this best practice? Probably not. Does it make life easier because events are centralised? Absolutely.
+    public delegate void PlayerShotFired();
+    public event PlayerShotFired OnPlayerShotFired;
+
     public void Start()
     {
         GlobalAudio.Singleton.StopMusic();
@@ -213,12 +217,10 @@ public class BattleManager : MonoBehaviour
         switch (playerNum)
         {
             case 1:
-                _player1Special.MinusValue(amount, false);
-                PlayerStats.UseSpecialMove(1);
+                _player1Special.MinusValue(amount, true);
                 break;
             case 2:
-                _player2Special.MinusValue(amount, false);
-                PlayerStats.UseSpecialMove(2);
+                _player2Special.MinusValue(amount, true);
                 break;
         }
     }
@@ -226,5 +228,10 @@ public class BattleManager : MonoBehaviour
     public void HealPlayer(float amount)
     {
         _playerHealth.AddValue(amount, true);
+    }
+
+    public void UpdatePlayerShotFired()
+    {
+        OnPlayerShotFired?.Invoke();
     }
 }

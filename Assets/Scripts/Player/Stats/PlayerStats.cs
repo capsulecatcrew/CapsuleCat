@@ -27,19 +27,17 @@ public static class PlayerStats
     private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
 
     // p1 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.1f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.05f, 0.01f, 50, 75);
 
     // p1 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75);
 
     // p1 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.1f, 0.02f, 50, 75);
+        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75);
 
     private static readonly Stat Special1 = new("Special", SpecialMax);
-
-    // private static SpecialMove _specialMove1;
-    private static SpecialMove _specialMove1 = new Heal(1);
+    private static SpecialMove _specialMove1;
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
         { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1 };
@@ -57,14 +55,14 @@ public static class PlayerStats
     private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
 
     // p2 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.1f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.05f, 0.01f, 50, 75);
 
     // p2 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.15f, 0.02f, 50, 75);
+    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75);
 
     // p2 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.1f, 0.02f, 50, 75);
+        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75);
 
     private static readonly Stat Special2 = new("Special", SpecialMax);
     private static SpecialMove _specialMove2;
@@ -284,6 +282,7 @@ public static class PlayerStats
                     case SpecialMoveEnum.MoveShield:
                         return;
                     case SpecialMoveEnum.ShootVampiric:
+                        _specialMove1 = new Vampire(playerNum);
                         return;
                     default:
                         return;
@@ -295,6 +294,7 @@ public static class PlayerStats
                         _specialMove2 = new Heal(playerNum);
                         return;
                     case SpecialMoveEnum.MoveShield:
+                        _specialMove2 = new Vampire(playerNum);
                         return;
                     case SpecialMoveEnum.ShootVampiric:
                         return;
