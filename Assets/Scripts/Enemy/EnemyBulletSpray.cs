@@ -78,7 +78,7 @@ public class EnemyBulletSpray : MonoBehaviour
                 _bullet.GetComponent<Bullet>().Init(_damage, bulletSpeed, dir, Firer.Enemy);
                 _bullet.SetActive(true);
             }
-            GlobalAudio.Singleton.PlaySound("Pulsing");
+            GlobalAudio.Singleton.PlaySound("ENEMY_BULLET_WAVE_PULSE");
             _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
             _timeSinceLastAttack = 0.0f;
         }

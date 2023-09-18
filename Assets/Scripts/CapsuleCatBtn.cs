@@ -28,19 +28,19 @@ public class CapsuleCatBtn : Button, ISelectHandler
     public new void OnSelect(BaseEventData eventData)
     {
         base.OnSelect(eventData);
-        GlobalAudio.Singleton.PlaySound("Healing"); // highlighted sound
+        GlobalAudio.Singleton.PlaySound("UI_BTN_HIGHLIGHTED");
         OnHighlighted.Invoke();
     }
     private void HandleClick()
     {
         if (useable)
         {
-            GlobalAudio.Singleton.PlaySound("Healing"); // pressed sound
+            GlobalAudio.Singleton.PlaySound("UI_BTN_PRESSED");
             OnCustomPressed.Invoke();
         }
         else
         {
-            GlobalAudio.Singleton.PlaySound("Healing"); // disabled sound
+            GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             OnDisabledTriggered.Invoke();
         }
     }

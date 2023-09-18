@@ -164,7 +164,7 @@ public class BattleManager : MonoBehaviour
 
     private void Win()
     {
-        GlobalAudio.Singleton.PlaySound("Explode");
+        GlobalAudio.Singleton.PlaySound("ENEMY_DEATH");
         GlobalAudio.Singleton.StopMusic();
         GlobalAudio.Singleton.PlayMusic("Victory");
         levelLoader.LoadLevel("Victory");

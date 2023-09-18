@@ -42,23 +42,23 @@ public class ShopItemButton : MonoBehaviour
     {
         if (!_usable)
         {
-            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: disabled
+            GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             return;
         }
         
         if (purchaserNum != playerNum)
         {
-            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: disabled
+            GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             return;
         }
         if (!PlayerStats.RemoveMoney(playerNum, _cost))
         {
-            GlobalAudio.Singleton.PlaySound("Healing"); // TODO: broke
+            GlobalAudio.Singleton.PlaySound("UI_SHOP_BROKE");
             return;
         }
         
         _stat.UpgradeLevel();
-        GlobalAudio.Singleton.PlaySound("Healing"); // TODO: bought
+        GlobalAudio.Singleton.PlaySound("UI_SHOP_BOUGHT");
         Disable();
     }
 
@@ -74,5 +74,5 @@ public class ShopItemButton : MonoBehaviour
     /// <summary>
     /// Called by Hitbox Trigger 2D Trigger Enter Event
     /// </summary>
-    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("Healing");
+    public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("UI_BTN_HIGHLIGHTED");
 }
