@@ -338,6 +338,10 @@ MonoBehaviour:
   buttonSpriteManager: {fileID: 5201478510264246997}
   Name: {fileID: 3073361160155843767}
   Cost: {fileID: 3073361161631856771}
+  audioSource: {fileID: 0}
+  bought: {fileID: 8300000, guid: 5ebcf4dc8093e4915a2ca8a345693dac, type: 3}
+  broke: {fileID: 8300000, guid: 0c4eeebe4fbbc46689b29010c1d40d75, type: 3}
+  disabled: {fileID: 8300000, guid: 48465c48b8dff4fa8ad37421fe5c815c, type: 3}
 --- !u!114 &3073361160947701025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +399,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ButtonSprite, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

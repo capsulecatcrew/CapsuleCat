@@ -16443,8 +16443,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
-  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 5.0980454e-19, y: 0.99981654, z: -0.01915611, w: 2.6608266e-17}
+  m_LocalPosition: {x: -1.0637444e-15, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16752,8 +16752,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
-  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 5.0980454e-19, y: 0.99981654, z: -0.01915611, w: 2.6608266e-17}
+  m_LocalPosition: {x: -1.0637444e-15, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24654,7 +24654,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 1876447376}
   bulletPool: {fileID: 1876447378}
-  firingSound: {fileID: 8300000, guid: 63f93e6cebded4c01be05225e5825aa7, type: 3}
   bulletDespawnDist: 50
   startingMinTimeBetweenShots: 3
   startingMaxTimeBetweenShots: 10
@@ -30660,6 +30659,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 2555683072279803697, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2891293514146088485, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
       propertyPath: m_TagString
       value: Untagged

@@ -10,8 +10,17 @@ public class ShopItemButton : MonoBehaviour
 
     private UpgradeableStat _stat;
     
+    [Header("UI Refs")]
     [SerializeField] private TMP_Text Name;
     [SerializeField] private TMP_Text Cost;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource; // TODO: replace with globalAudio, currently on Main Camera
+    [SerializeField] private AudioClip bought;
+    [SerializeField] private AudioClip broke;
+    [SerializeField] private AudioClip disabled; // TODO: remove when UI button sound interface is made
+    // TODO: disable 'pressed' sound when UI button sound interface is made
+    // TODO: highlighted sound played by hitbox trigger 2D at the moment, remove on complete
     
     private bool _usable;
     private int _cost;
@@ -31,11 +40,25 @@ public class ShopItemButton : MonoBehaviour
     /// <param name="purchaserNum">Number of player attempting to purchase item.</param>
     public void AttemptPurchase(int purchaserNum)
     {
-        if (!_usable) return;
-        if (purchaserNum != playerNum) return;
-        if (!PlayerStats.RemoveMoney(playerNum, _cost)) return;
+        if (!_usable)
+        {
+            audioSource.PlayOneShot(disabled);
+            return;
+        }
+        
+        if (purchaserNum != playerNum)
+        {
+            audioSource.PlayOneShot(disabled);
+            return;
+        }
+        if (!PlayerStats.RemoveMoney(playerNum, _cost))
+        {
+            audioSource.PlayOneShot(broke);
+            return;
+        }
         
         _stat.UpgradeLevel();
+        audioSource.PlayOneShot(bought);
         Disable();
     }
 

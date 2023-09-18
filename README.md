@@ -19,7 +19,7 @@ The game features the following states/scenes:
 - Start Screen
 - Battle State
 - Victory Screen
-- Rest Area
+- Lobby (rest area)
 - Shop
 - Game Over Screen
 

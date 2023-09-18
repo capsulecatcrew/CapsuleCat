@@ -62,6 +62,11 @@ public class GlobalAudio : MonoBehaviour
         sound.source.Play();
     }
     
+    public void StopMusic()
+    {
+        _currentMusic?.source.Stop();
+    }
+    
     /// <summary>
     /// For use if there are 2 songs playing and you want to
     /// stop a specific one.
@@ -73,11 +78,6 @@ public class GlobalAudio : MonoBehaviour
         sound.source.Stop();
     }
     
-    public void StopMusic()
-    {
-        _currentMusic?.source.Stop();
-    }
-
     private Sound FindSound(Sound[] arr, string name)
     {
         Sound sound = Array.Find(arr, s => s.name == name);
