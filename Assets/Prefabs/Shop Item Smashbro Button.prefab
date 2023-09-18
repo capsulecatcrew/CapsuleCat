@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 3073361160947701025}
   - component: {fileID: 3073361160947701054}
   m_Layer: 0
-  m_Name: Shop Item Button
+  m_Name: Shop Item Smashbro Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

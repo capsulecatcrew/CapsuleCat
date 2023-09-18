@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 5033660092504102557}
   - component: {fileID: 5033660092504102531}
   m_Layer: 0
-  m_Name: Generic Button
+  m_Name: Smashbro Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
