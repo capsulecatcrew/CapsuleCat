@@ -17,7 +17,7 @@ public class PilotInput : MonoBehaviour
     public PlayerMovement movementController;
     public GameObject weapons;
     public PlayerShoot weaponController;
-
+    public ModeIcon modeIcon;
     private float _movement;
     private Vector2 _weaponMovement = Vector2.zero;
 
@@ -25,6 +25,7 @@ public class PilotInput : MonoBehaviour
     void Start()
     {
         ActivateParts();
+        modeIcon?.SetSprite(controlMode);
     }
 
     // Update is called once per frame
@@ -133,6 +134,7 @@ public class PilotInput : MonoBehaviour
             }
 
             ActivateParts();
+            modeIcon?.SetSprite(controlMode);
         }
     }
 
