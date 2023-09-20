@@ -2,6 +2,7 @@ using System.Linq;
 using Battle;
 using Player.Stats.Persistent;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
@@ -24,12 +25,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ProgressBar player1EnergyBar;
     [SerializeField] private ProgressBar player2EnergyBar;
     [SerializeField] private WingGlow player1WingGlow;
-    [SerializeField] private WingGlow player2WingGlow;
-    
+
     private BattleStat _player1Special;
     private BattleStat _player2Special;
     [SerializeField] private ProgressBar player1SpecialBar;
     [SerializeField] private ProgressBar player2SpecialBar;
+    [SerializeField] private WingGlow player2WingGlow;
 
     private static readonly UpgradeableLinearStat EnemyMaxHealth =
         new ("Enemy Max Health", int.MaxValue, 100, 20, 0, 0, true);
