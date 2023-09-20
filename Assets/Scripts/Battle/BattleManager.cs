@@ -29,7 +29,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ProgressBar player1SpecialBar;
     [SerializeField] private ProgressBar player2SpecialBar;
 
-    private static readonly UpgradeableLinearStat EnemyMaxHealth = new ("Enemy Max Health", int.MaxValue, 50, 20, 0, 0);
+    private static readonly UpgradeableLinearStat EnemyMaxHealth =
+        new ("Enemy Max Health", int.MaxValue, 50, 20, 0, 0, true);
     private BattleStat _enemyHealth;
     [SerializeField] private ProgressBar enemyHealthBar;
 
@@ -64,7 +65,7 @@ public class BattleManager : MonoBehaviour
     {
         GlobalAudio.Singleton.StopMusic();
         GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
-        if (PlayerStats.GetCurrentStage() != 1) EnemyMaxHealth.UpgradeLevel();
+        EnemyMaxHealth.SetLevel(PlayerStats.GetCurrentStage());
 
         _playerHealth = PlayerStats.CreateBattleHealthStat(playerHealthBar);
         _playerHealth.SetMaxChangeCooldown(DamageCooldown);

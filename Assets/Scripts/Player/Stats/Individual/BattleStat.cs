@@ -7,6 +7,7 @@ namespace Player.Stats.Persistent
     {
         private float _changeCooldown;
         private float _maxChangeCooldown;
+        private bool _hasDepleted;
 
         public delegate void StatChange(float value);
         public event StatChange OnStatChange;
@@ -16,7 +17,8 @@ namespace Player.Stats.Persistent
 
         private GameObject _toKill;
 
-        public BattleStat(string name, float maxValue, Stat persistentStat, float currValue) : base(name, maxValue)
+        public BattleStat(string name, float maxValue, Stat persistentStat, float currValue, bool isHealthStat) :
+            base(name, maxValue, isHealthStat)
         {
             Value = currValue;
             OnStatChange += persistentStat.SetValue;
@@ -56,7 +58,9 @@ namespace Player.Stats.Persistent
             {
                 Value = 0;
                 OnStatChange?.Invoke(Value);
+                if (IsHealthStat && _hasDepleted) return false;
                 OnStatDeplete?.Invoke();
+                _hasDepleted = true;
                 var tempKill = _toKill;
                 _toKill = null;
                 if (tempKill) tempKill.SetActive(false);

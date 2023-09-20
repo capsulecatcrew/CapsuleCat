@@ -13,14 +13,15 @@ public class EnemyShieldController : MonoBehaviour
     }
 
     private RotateDirection _rotateDirection;
-    private static readonly UpgradeableExponentialStat RotateSpeed = new("Rotate", int.MaxValue, 20, 1.2f, 0, 0);
+    private static readonly UpgradeableExponentialStat RotateSpeed = new("Rotate", int.MaxValue, 20, 1.2f, 0, 0, false);
 
     private const int MaxShieldCount = 12;
     private int _activeShieldCount;
     [SerializeField] private GameObject[] shields;
+    private Vector3 _rotatePos;
 
-    private readonly UpgradeableLinearStat _maxHealth = new("Health", int.MaxValue, 5, 2, 0, 0);
-    private readonly Dictionary<GameObject, BattleStat> _shieldHealths = new();
+    private readonly UpgradeableLinearStat _maxHealth = new("Health", int.MaxValue, 5, 2, 0, 0, true);
+    private readonly Dictionary<GameObject, BattleStat> _activeShieldHealths = new();
 
     [SerializeField] private Color maxHpColor;
     [SerializeField] private Color minHpColor;
@@ -28,20 +29,20 @@ public class EnemyShieldController : MonoBehaviour
     private float _pause = 5;
 
     private static readonly ClampedExponentialStat MinPauseTime =
-        new("Min Pause", int.MaxValue, 2, 0.8f, 0, 0, 0.5f, float.MaxValue);
+        new("Min Pause", int.MaxValue, 2, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
 
     private static readonly ClampedExponentialStat MaxPauseTime =
-        new("Max Pause", int.MaxValue, 60, 0.8f, 0, 0, 0.6f, float.MaxValue);
+        new("Max Pause", int.MaxValue, 60, 0.8f, 0, 0, 0.6f, float.MaxValue, false);
 
     private RandomStat _pauseRandom;
 
     private float _pauseCooldown;
 
     private static readonly ClampedExponentialStat MinCooldownTime =
-        new("Min Cooldown", int.MaxValue, 3, 0.8f, 0, 0, 0.5f, float.MaxValue);
+        new("Min Cooldown", int.MaxValue, 3, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
 
     private static readonly ClampedExponentialStat MaxCooldownTime =
-        new("Max Cooldown", int.MaxValue, 10, 0.8f, 0, 0, 0.5f, float.MaxValue);
+        new("Max Cooldown", int.MaxValue, 10, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
 
     private RandomStat _pauseCooldownRandom;
 
@@ -60,6 +61,8 @@ public class EnemyShieldController : MonoBehaviour
 
         _pauseRandom = new RandomStat(MinPauseTime, MaxPauseTime);
         _pauseCooldownRandom = new RandomStat(MinCooldownTime, MaxCooldownTime);
+
+        _rotatePos = gameObject.transform.position;
     }
 
     public void Start()
@@ -70,7 +73,7 @@ public class EnemyShieldController : MonoBehaviour
     public void Update()
     {
         _pause -= Time.deltaTime;
-        if (_pause > 0) return;
+        if (_pause > float.Epsilon) return;
         RotateShields();
         _pauseCooldown = _pauseCooldownRandom.GenerateRandomValue();
     }
@@ -95,7 +98,7 @@ public class EnemyShieldController : MonoBehaviour
             {
                 var shield = shields[i + j];
                 BattleStat shieldHealth = _maxHealth.CreateBattleStat();
-                _shieldHealths.Add(shield, shieldHealth);
+                _activeShieldHealths.Add(shield, shieldHealth);
                 shieldHealth.SetGameObjectToKill(shield);
                 shield.SetActive(true);
             }
@@ -109,7 +112,7 @@ public class EnemyShieldController : MonoBehaviour
 
     public bool HitEnemyShield(GameObject hitObject, float damage, bool ignoreIFrames)
     {
-        var shieldHealth = _shieldHealths[hitObject];
+        var shieldHealth = _activeShieldHealths[hitObject];
         bool hit = shieldHealth.MinusValue(damage, ignoreIFrames);
         hitObject.GetComponent<Renderer>().material.color = GetDamageColor(shieldHealth.GetStatPercentage());
         return hit;
@@ -141,7 +144,7 @@ public class EnemyShieldController : MonoBehaviour
     private void RotateShields()
     {
         var deltaTime = Time.deltaTime;
-        foreach (var shield in _shieldHealths.Keys)
+        foreach (var shield in _activeShieldHealths.Keys)
         {
             RotateShield(shield, deltaTime);
         }
@@ -158,10 +161,10 @@ public class EnemyShieldController : MonoBehaviour
         switch (_rotateDirection)
         {
             case RotateDirection.Clockwise:
-                shield.transform.Rotate(0, RotateSpeed.GetValue() * deltaTime, 0);
+                shield.transform.RotateAround(_rotatePos, new Vector3(0, 1, 0), RotateSpeed.GetValue() * deltaTime);
                 break;
             case RotateDirection.Anticlockwise:
-                shield.transform.Rotate(0, -RotateSpeed.GetValue() * deltaTime, 0);
+                shield.transform.RotateAround(_rotatePos, new Vector3(0, 1, 0), -RotateSpeed.GetValue() * deltaTime);
                 break;
             default:
                 return;

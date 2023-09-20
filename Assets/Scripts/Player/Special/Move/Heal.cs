@@ -3,7 +3,7 @@ namespace Player.Special.Move
     public class Heal : SpecialMove
     {
         private const string Name = "Flash Heal";
-        private const int Amount = 3;
+        private const int Amount = 2;
 
         public Heal(int playerNum) : base(Name, playerNum, 10) { }
         

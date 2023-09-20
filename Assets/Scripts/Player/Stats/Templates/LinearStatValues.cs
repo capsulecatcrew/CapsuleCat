@@ -4,7 +4,8 @@ namespace Stats.Templates
     {
         public static float GetNextLevelValue(float current, float changeValue)
         {
-            return current += changeValue;
+            current += changeValue;
+            return current;
         }
 
         public static float GetSetLevelValue(int level, int maxLevel, float baseValue, float changeValue)

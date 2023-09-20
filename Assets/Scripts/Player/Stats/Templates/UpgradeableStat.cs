@@ -18,8 +18,8 @@ namespace Player.Stats.Templates
         public event StatUpdate OnStatUpdate;
         
         protected UpgradeableStat(
-            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost) :
-            base (name, baseValue)
+            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost, bool isHealthStat) :
+            base (name, baseValue, isHealthStat)
         {
             MaxLevel = maxLevel;
             ChangeValue = changeValue;

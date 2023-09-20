@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shields: []
+  rotateThis: {fileID: 0}
   maxHpColor: {r: 0.2856582, g: 0.060590927, b: 0.8679245, a: 0}
   minHpColor: {r: 0.6886792, g: 0.12782258, b: 0, a: 0}
 --- !u!1 &5438440902820541463
