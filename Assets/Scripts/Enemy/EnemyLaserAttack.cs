@@ -12,7 +12,7 @@ public class EnemyLaserAttack : MonoBehaviour
     private EnemyLaser _laserLogic;
 
     [Header("Laser Damage")]
-    public int startingDamage = 2;
+    [SerializeField] private int startingDamage = 4;
     private int _damage;
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;

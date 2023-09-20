@@ -38,11 +38,18 @@ namespace Player.Stats.Templates
             Name = name;
             BaseValue = maxStat.Value;
             Value = BaseValue;
+            maxStat.OnStatUpdate += SetValue;
             maxStat.OnStatReset += OnMaxStatReset;
         }
 
         public void SetValue(float value)
         {
+            Value = value;
+        }
+
+        private void SetValue(int ignored1, float value, int ignored2)
+        {
+            BaseValue = value;
             Value = value;
         }
 

@@ -11,30 +11,31 @@ public static class PlayerStats
 {
     private static int _currentStage = 1;
     private const int CompletionMoney = 50;
+    private const int CompletionMoneyIncr = 25;
     private const float SpecialMax = 50;
     private static readonly Random Random = new();
 
     private static int _money1;
 
     // p1 - Stat 1
-    private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 1, 50, 25, false);
+    private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
     // p1 - Stat 2
-    private static readonly UpgradeableLinearStat MaxEnergy1 = new("Max Energy", 10, 25, 10, 50, 25, false);
+    private static readonly UpgradeableLinearStat MaxEnergy1 = new("Max Energy", 10, 25, 10, 50, 25);
 
     // p1 - Stat 3
-    private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1, 0.1f, 50, 25, false);
+    private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 0.015f, 0.002f, 50, 25);
     private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
 
     // p1 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.03f, 0.005f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
 
     // p1 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
 
     // p1 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
+        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75);
 
     // p1 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
@@ -50,24 +51,24 @@ public static class PlayerStats
     private static int _money2;
 
     // p2 - Stat 1
-    private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 1, 50, 25, false);
+    private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
     // p2 - Stat 2
-    private static readonly UpgradeableLinearStat MaxEnergy2 = new("Max Energy", 10, 25, 10, 50, 25, false);
+    private static readonly UpgradeableLinearStat MaxEnergy2 = new("Max Energy", 10, 25, 10, 50, 25);
 
     // p2 - Stat 3
-    private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1, 0.1f, 50, 25, false);
+    private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 0.015f, 0.002f, 50, 25);
     private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
 
     // p2 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.03f, 0.005f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
 
     // p2 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
 
     // p2 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
+        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75);
 
     // p2 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
@@ -128,8 +129,8 @@ public static class PlayerStats
     public static void Win()
     {
         _currentStage++;
-        _money1 += GetCurrentStage() * CompletionMoney;
-        _money2 += GetCurrentStage() * CompletionMoney;
+        _money1 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
+        _money2 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
     }
 
     public static void Lose()
@@ -139,7 +140,7 @@ public static class PlayerStats
 
     public static BattleStat CreateBattleHealthStat(ProgressBar healthBar)
     {
-        MaxHealth.LinkProgressBar(healthBar);
+        MaxHealth.InitProgressBar(healthBar);
         var battleHealthStat = Health.CreateBattleStat();
         healthBar.SetValue(battleHealthStat.Value);
         battleHealthStat.OnStatChange += healthBar.SetValue;
@@ -151,14 +152,14 @@ public static class PlayerStats
         switch (playerNum)
         {
             case 1:
-                MaxEnergy1.LinkProgressBar(energyBar);
+                MaxEnergy1.InitProgressBar(energyBar);
                 Energy1.Reset();
                 var battleEnergyStat1 = Energy1.CreateBattleStat();
                 energyBar.SetValue(battleEnergyStat1.Value);
                 battleEnergyStat1.OnStatChange += energyBar.SetValue;
                 return battleEnergyStat1;
             case 2:
-                MaxEnergy2.LinkProgressBar(energyBar);
+                MaxEnergy2.InitProgressBar(energyBar);
                 Energy2.Reset();
                 var battleEnergyStat2 = Energy2.CreateBattleStat();
                 energyBar.SetValue(battleEnergyStat2.Value);
@@ -341,6 +342,12 @@ public static class PlayerStats
                 _specialMove2 = null;
                 return;
         }
+    }
+
+    public static void UpdateSpecialMoveBattleManagers(BattleManager battleManager)
+    {
+        _specialMove1.UpdateBattleManager(battleManager);
+        _specialMove2.UpdateBattleManager(battleManager);
     }
 
     public static void UseSpecialMove(int playerNum)

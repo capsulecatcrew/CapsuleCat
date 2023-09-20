@@ -47,7 +47,7 @@ namespace Player.Stats.Templates
         /// <p> Does not upgrade if stat is at max level.</p>
         /// <p>Invokes OnStatUpdate event if not at max level.</p>
         /// </summary>
-        public void UpgradeLevel()
+        public virtual void UpgradeLevel()
         {
             if (IsMaxLevel()) return;
             Level++;
@@ -60,7 +60,7 @@ namespace Player.Stats.Templates
         /// <p>Clamps the values to max level.</p>
         /// <p>Invokes OnStatUpdate event.</p>
         /// </summary>
-        protected void SetLevel(int level)
+        public virtual void SetLevel(int level)
         {
             Level = level;
             if (IsMaxLevel()) Level = MaxLevel;
@@ -98,10 +98,9 @@ namespace Player.Stats.Templates
             return IsMaxLevel() ? "MAX LEVEL" : "$" + _cost;
         }
 
-        public void LinkProgressBar(ProgressBar progressBar)
+        public void InitProgressBar(ProgressBar progressBar)
         {
             progressBar.SetMaxValue(0, Value, 0);
-            OnStatUpdate += progressBar.SetMaxValue;
         }
     }
 }

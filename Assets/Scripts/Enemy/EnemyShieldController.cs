@@ -20,7 +20,7 @@ public class EnemyShieldController : MonoBehaviour
     [SerializeField] private GameObject[] shields;
     private Vector3 _rotatePos;
 
-    private readonly UpgradeableLinearStat _maxHealth = new("Health", int.MaxValue, 5, 2, 0, 0, true);
+    private readonly UpgradeableLinearStat _maxHealth = new("Health", int.MaxValue, 20, 4, 0, 0, true);
     private readonly Dictionary<GameObject, BattleStat> _activeShieldHealths = new();
 
     [SerializeField] private Color maxHpColor;
@@ -29,27 +29,27 @@ public class EnemyShieldController : MonoBehaviour
     private float _pause = 5;
 
     private static readonly ClampedExponentialStat MinPauseTime =
-        new("Min Pause", int.MaxValue, 2, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
+        new("Min Pause", int.MaxValue, 3, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
 
     private static readonly ClampedExponentialStat MaxPauseTime =
-        new("Max Pause", int.MaxValue, 60, 0.8f, 0, 0, 0.6f, float.MaxValue, false);
+        new("Max Pause", int.MaxValue, 20, 0.8f, 0, 0, 0.6f, float.MaxValue, false);
 
     private RandomStat _pauseRandom;
 
-    private float _pauseCooldown;
+    private float _pauseCooldown = 5;
 
     private static readonly ClampedExponentialStat MinCooldownTime =
-        new("Min Cooldown", int.MaxValue, 3, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
+        new("Min Cooldown", int.MaxValue, 5, 1.2f, 0, 0, 0.5f, float.MaxValue, false);
 
     private static readonly ClampedExponentialStat MaxCooldownTime =
-        new("Max Cooldown", int.MaxValue, 10, 0.8f, 0, 0, 0.5f, float.MaxValue, false);
+        new("Max Cooldown", int.MaxValue, 15, 1.2f, 0, 0, 0.5f, float.MaxValue, false);
 
     private RandomStat _pauseCooldownRandom;
 
     public void Awake()
     {
         var currentStage = PlayerStats.GetCurrentStage();
-        _activeShieldCount = Random.Range(currentStage / 4, currentStage);
+        _activeShieldCount = Random.Range(currentStage / 3, currentStage);
         if (_activeShieldCount > MaxShieldCount) _activeShieldCount = MaxShieldCount;
 
         _maxHealth.SetLevel(currentStage);
@@ -75,6 +75,7 @@ public class EnemyShieldController : MonoBehaviour
         _pause -= Time.deltaTime;
         if (_pause > float.Epsilon) return;
         RotateShields();
+        if (_pauseCooldown > float.Epsilon) return;
         _pauseCooldown = _pauseCooldownRandom.GenerateRandomValue();
     }
 
