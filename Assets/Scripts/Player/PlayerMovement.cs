@@ -1,17 +1,24 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerControls PlayerController;
+    [SerializeField] private BattleManager battleManager;
 
     public Transform pivot;
     public Transform mainBody;
     
     [Header("Movement")]
     private float _speed = 35;
-
     public float maxSpeed = 35;
+
+
+    [SerializeField] private float dashMultiplier = 3.0f;
+    private float _dashDuration = 0.15f;
+    private float[] _dashEnergyCost = new float[2] {10f, 10f};
+
     [Range(0, 360)]
     public int movementRange = 360;
     
@@ -31,18 +38,23 @@ public class PlayerMovement : MonoBehaviour
 
     private float _currentVelocity;
     
-    private float _playerOneMovement;
-    private float _playerTwoMovement;
-    private bool _playerOneCanJump = true;
-    private bool _playerTwoCanJump = true;
-
-    // Start is called before the first frame update
+    private float[] _playerMovement = new float[2] {0.0f, 0.0f};
+    private float[] _playerLastMovement = new float[2] {1.0f, 1.0f};
+    private bool[] _playerCanJump = new bool[2] {true, true};
+    private bool[] _pausePlayerInput = new bool[2] {false, false};
     void Awake()
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleManager>();
         PlayerController = new PlayerControls();
         _groundYPos = mainBody.position.y;
         _isGrounded = true;
+    }
+
+    void Start()
+    {
+        _dashEnergyCost[0] = PlayerStats.GetDashEnergyCost(1);
+        _dashEnergyCost[1] = PlayerStats.GetDashEnergyCost(2);
+        Debug.Log(_dashEnergyCost[0] + "" + _dashEnergyCost[1]);
     }
 
     public void slowSpeed(float multiplier)
@@ -90,13 +102,11 @@ public class PlayerMovement : MonoBehaviour
      */
     public void SetPlayerMovement(int player, float value)
     {
-        if (player == 1)
+        int p = player - 1;
+        if (!_pausePlayerInput[p])
         {
-            _playerOneMovement = value;
-        }
-        else if (player == 2)
-        {
-            _playerTwoMovement = value;
+            _playerMovement[p] = value;
+            if (Math.Abs(value) > float.Epsilon) _playerLastMovement[p] = value;
         }
     }
 
@@ -112,15 +122,10 @@ public class PlayerMovement : MonoBehaviour
     public bool RequestPlayerJump(int player)
     {
         var success = false;
-
-        if (player == 1 && _playerOneCanJump)
+        int p = player - 1;
+        if (_playerCanJump[p])
         {
-            _playerOneCanJump = false;
-            success = true;
-        }
-        else if (player == 2 && _playerTwoCanJump)
-        {
-            _playerTwoCanJump = false;
+            _playerCanJump[p] = false;
             success = true;
         }
 
@@ -145,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Rotational Movement
          */
-        var movement = _playerOneMovement + _playerTwoMovement;
+        var movement = _playerMovement[0] + _playerMovement[1];
 
         if (movement != 0)
         {
@@ -210,8 +215,8 @@ public class PlayerMovement : MonoBehaviour
                 mainBody.position = position;
                 _yVelocity = 0.0f;
                 _isGrounded = true;
-                _playerOneCanJump = true;
-                _playerTwoCanJump = true;
+                _playerCanJump[0] = true;
+                _playerCanJump[1] = true;
             }
         }
     }
@@ -219,5 +224,25 @@ public class PlayerMovement : MonoBehaviour
     public void UseSpecialMove(int playerNum)
     {
         PlayerStats.UseSpecialMove(playerNum);
+    }
+
+    public void PerformDash(int playerNo)
+    {
+        int p = playerNo - 1;
+        if (_pausePlayerInput[p]) return;
+        if (!battleManager.HasEnergy(playerNo, _dashEnergyCost[p])) return;
+
+        battleManager.UseEnergy(playerNo, _dashEnergyCost[p]);
+        StartCoroutine(DashCoroutine(playerNo));
+    }
+
+    public IEnumerator DashCoroutine(int playerNo)
+    {
+        int p = playerNo - 1;
+        _pausePlayerInput[p] = true;
+        _playerMovement[p] = _playerLastMovement[p] > 0 ? dashMultiplier : -dashMultiplier;
+        yield return new WaitForSeconds(_dashDuration);
+        _playerMovement[p] = 0;
+        _pausePlayerInput[p] = false;
     }
 }

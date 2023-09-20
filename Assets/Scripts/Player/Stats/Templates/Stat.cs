@@ -46,6 +46,11 @@ namespace Player.Stats.Templates
             Value = value;
         }
 
+        public float GetValue()
+        {
+            return Value;
+        }
+
         private void OnMaxStatReset(float value)
         {
             BaseValue = value;

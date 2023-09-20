@@ -10,7 +10,10 @@ public class ShopManager : MonoBehaviour
     public TMP_Text moneyCount1, moneyCount2;
 
     [SerializeField] private List<ShopItemButton> player1Buttons;
+    private static List<bool> _buttons1Usable = new List<bool>();
     [SerializeField] private List<ShopItemButton> player2Buttons;
+    private static List<bool> _buttons2Usable = new List<bool>();
+
     
     private static List<UpgradeableStat> _chosenStats1;
     private static List<UpgradeableStat> _chosenStats2;
@@ -22,9 +25,11 @@ public class ShopManager : MonoBehaviour
         {
             _currentShopLevel = PlayerStats.GetCurrentStage();
             RandomiseStats();
+            ResetButtonsUsability();
         }
         UpdateMoneyCounter();
         InitShopButtons();
+        InitButtonsUsability();
     }
     
     /// <summary>
@@ -38,8 +43,8 @@ public class ShopManager : MonoBehaviour
         _chosenStats2 = PlayerStats.GetStatsToUpgrade(2);
         var includeHealth = Random.Range(1, 10) < 4;
         if (!includeHealth) return;
-        var slot = Random.Range(1, 6);
-        if (slot < 4)
+        var slot = Random.Range(0, 6);
+        if (slot < 3)
         {
             _chosenStats1[slot] = PlayerStats.MaxHealth;
         }
@@ -57,6 +62,45 @@ public class ShopManager : MonoBehaviour
             _chosenStats1[i].InitShopItemButton(player1Buttons[i]);
             _chosenStats2[i].InitShopItemButton(player2Buttons[i]);
         }
+    }
+
+    /// <summary>
+    /// Sets saved state of all buttons to usable.
+    /// </summary>
+    private void ResetButtonsUsability()
+    {
+        _buttons1Usable.Clear();
+        _buttons2Usable.Clear();
+        for (var i = 0; i < player1Buttons.Count; i++)
+        {
+            _buttons1Usable.Add(true);
+        }
+        for (var i = 0; i < player2Buttons.Count; i++)
+        {
+            _buttons2Usable.Add(true);
+        }
+    }
+
+    private void InitButtonsUsability()
+    {
+        for (var i = 0; i < player1Buttons.Count; i++)
+        {
+            if (!_buttons1Usable[i]) player1Buttons[i].Disable();
+        }
+        for (var i = 0; i < player2Buttons.Count; i++)
+        {
+            if (!_buttons2Usable[i]) player2Buttons[i].Disable();
+        }
+    }
+
+    public void SavePlayer1ButtonAsUnusable(int index)
+    {
+        _buttons1Usable[index] = false;
+    }
+
+    public void SavePlayer2ButtonAsUnusable(int index)
+    {
+        _buttons2Usable[index] = false;
     }
 
     /// <summary>

@@ -36,13 +36,16 @@ public static class PlayerStats
     private static readonly UpgradeableLinearStat
         SpecialDamaged1 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
+    // p1 - Stat 7
+    private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+    
     private static readonly Stat Special1 = new("Special", SpecialMax, false);
     // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // private static SpecialMove _specialMove1;
     private static SpecialMove _specialMove1 = new Heal(1);
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
-        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1 };
+        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1, DashEnergyCost1 };
 
     private static int _money2;
 
@@ -66,13 +69,16 @@ public static class PlayerStats
     private static readonly UpgradeableLinearStat
         SpecialDamaged2 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
+    // p2 - Stat 7
+    private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+    
     private static readonly Stat Special2 = new("Special", SpecialMax, false);
     // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // private static SpecialMove _specialMove2;
     private static SpecialMove _specialMove2 = new Vampire(2);
     
     private static readonly List<UpgradeableStat> Player2Stats = new()
-        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2 };
+        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2, DashEnergyCost2 };
 
     // both - Stat 5
     public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
@@ -99,6 +105,7 @@ public static class PlayerStats
         SpecialAbsorb1.Reset();
         SpecialDamage1.Reset();
         SpecialDamaged1.Reset();
+        DashEnergyCost1.Reset();
         RemoveSpecialMove(1);
         _money2 = 0;
         Damage2.Reset();
@@ -107,6 +114,7 @@ public static class PlayerStats
         SpecialAbsorb2.Reset();
         SpecialDamage2.Reset();
         SpecialDamaged2.Reset();
+        DashEnergyCost2.Reset();
         MaxHealth.Reset();
         RemoveSpecialMove(2);
         OnEnable();
@@ -256,6 +264,17 @@ public static class PlayerStats
             2 => Damage2.Value,
             _ => 1.5f
         };
+    }
+
+    public static float GetDashEnergyCost(int playerNum)
+    {
+        return playerNum switch
+        {
+            1 => DashEnergyCost1.GetValue(),
+            2 => DashEnergyCost2.GetValue(),
+            _ => 0f
+        };
+
     }
 
     public static List<UpgradeableStat> GetStatsToUpgrade(int playerNum)

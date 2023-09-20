@@ -78,7 +78,7 @@ namespace Player.Stats.Templates
         /// </summary>
         public void InitShopItemButton(ShopItemButton shopItemButton)
         {
-            shopItemButton.Init(this, GetShopItemName(), GetCostString(), IsMaxLevel(), _cost);
+            shopItemButton.Init(this, GetShopItemName(), GetCostString(), !IsMaxLevel(), _cost);
         }
         
         private string GetShopItemName()
