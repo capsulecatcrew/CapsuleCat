@@ -13,6 +13,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject playerBody;
     [SerializeField] private GameObject[] player1Absorbers;
     [SerializeField] private GameObject[] player2Absorbers;
+    [SerializeField] private GameObject player1ManaShield;
+    [SerializeField] private GameObject player2ManaShield;
 
     private BattleStat _playerHealth;
     [SerializeField] private ProgressBar playerHealthBar;
@@ -30,7 +32,13 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ProgressBar player2SpecialBar;
 
     private static readonly UpgradeableLinearStat EnemyMaxHealth =
-        new ("Enemy Max Health", int.MaxValue, 50, 20, 0, 0, true);
+        new ("Enemy Max Health", int.MaxValue, 100, 20, 0, 0, true);
+    // TODO Implement ramping using this in EnemyBulletSpray
+    private static readonly UpgradeableLinearStat EnemyBulletDamage =
+        new ("Enemy Max Health", int.MaxValue, 2, 20, 0, 0, true);
+    // TODO Implement ramping using this in EnemyLaser
+    private static readonly UpgradeableLinearStat EnemyLaserDamage =
+        new ("Enemy Max Health", int.MaxValue, 2, 20, 0, 0, true);
     private BattleStat _enemyHealth;
     [SerializeField] private ProgressBar enemyHealthBar;
 
@@ -75,6 +83,8 @@ public class BattleManager : MonoBehaviour
 
         _player2Energy = PlayerStats.CreateBattleEnergyStat(2, player2EnergyBar);
         _player2Special = PlayerStats.CreateBattleSpecialStat(2, player2SpecialBar);
+        
+        PlayerStats.UpdateSpecialMoveBattleManagers(this);
         
         _enemyHealth = EnemyMaxHealth.CreateBattleStat();
         _enemyHealth.SetMaxChangeCooldown(DamageCooldown);

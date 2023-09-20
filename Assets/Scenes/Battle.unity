@@ -330,9 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5985b77a49d7e4720ac57874d65f71ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 203013226}
   pivot: {fileID: 241017968}
   mainBody: {fileID: 725430198}
   maxSpeed: 35
+  dashMultiplier: 3
   movementRange: 360
   jumpTime: 0.2
   jumpSpeed: 15
@@ -5448,6 +5450,8 @@ MonoBehaviour:
   player2Absorbers:
   - {fileID: 1231861942}
   - {fileID: 294055272}
+  player1ManaShield: {fileID: 0}
+  player2ManaShield: {fileID: 0}
   playerHealthBar: {fileID: 216514131}
   player1EnergyBar: {fileID: 9057981174006448553}
   player2EnergyBar: {fileID: 2104714799}
@@ -14838,7 +14842,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34496
+  m_Name: pb_Mesh111606
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16463,8 +16467,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
-  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
+  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16772,8 +16776,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
-  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
+  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23360,7 +23364,7 @@ MonoBehaviour:
   laserPool: {fileID: 1588538305}
   bigAttacks:
   - {fileID: 1588538306}
-  startingDamage: 1
+  startingDamage: 2
   dmgIncreaseLvlInterval: 5
   dmgIncrease: 1
   startingMinTimeBetweenShots: 6
@@ -24689,7 +24693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 1876447376}
   bulletPool: {fileID: 1876447378}
-  bulletDespawnDist: 50
   startingMinTimeBetweenShots: 3
   startingMaxTimeBetweenShots: 10
   absoluteMinTimeBetweenShots: 0.5

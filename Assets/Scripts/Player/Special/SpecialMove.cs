@@ -32,4 +32,9 @@ public abstract class SpecialMove
     {
         return "$" + ShopCost;
     }
+
+    public void UpdateBattleManager(BattleManager battleManager)
+    {
+        BattleManager = battleManager;
+    }
 }

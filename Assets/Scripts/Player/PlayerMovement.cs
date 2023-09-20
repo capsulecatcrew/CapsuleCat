@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _dashEnergyCost[0] = PlayerStats.GetDashEnergyCost(1);
         _dashEnergyCost[1] = PlayerStats.GetDashEnergyCost(2);
-        Debug.Log(_dashEnergyCost[0] + "" + _dashEnergyCost[1]);
     }
 
     public void slowSpeed(float multiplier)
