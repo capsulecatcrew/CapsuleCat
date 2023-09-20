@@ -27,17 +27,19 @@ public static class PlayerStats
     private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
 
     // p1 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.05f, 0.01f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
     // p1 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75, false);
 
     // p1 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75, false);
+        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
     private static readonly Stat Special1 = new("Special", SpecialMax, false);
-    private static SpecialMove _specialMove1;
+    // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // private static SpecialMove _specialMove1;
+    private static SpecialMove _specialMove1 = new Heal(1);
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
         { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1 };
@@ -55,18 +57,20 @@ public static class PlayerStats
     private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
 
     // p2 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.05f, 0.01f, 50, 75, false);
+    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
     // p2 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.1f, 0.01f, 50, 75, false);
 
     // p2 - Stat 6
     private static readonly UpgradeableLinearStat
-        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.08f, 0.01f, 50, 75, false);
+        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75, false);
 
     private static readonly Stat Special2 = new("Special", SpecialMax, false);
-    private static SpecialMove _specialMove2;
-
+    // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // private static SpecialMove _specialMove2;
+    private static SpecialMove _specialMove2 = new Vampire(2);
+    
     private static readonly List<UpgradeableStat> Player2Stats = new()
         { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2 };
 

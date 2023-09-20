@@ -4,7 +4,7 @@ namespace Player.Special.Shoot
     {
         private const string Name = "Vampiric";
 
-        private const float Multiplier = 0.3f;
+        private const float Multiplier = 0.15f;
 
         private new const float Cost = 5;
         private bool _isEnabled;

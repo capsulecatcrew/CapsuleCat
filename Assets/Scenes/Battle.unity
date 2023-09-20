@@ -5620,6 +5620,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8424715645523209798, guid: 11e4244e6506a4da2b56c85d8f81ab21, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8424715645947899927, guid: 11e4244e6506a4da2b56c85d8f81ab21, type: 3}
       propertyPath: m_Color.b
       value: 0.6745098
@@ -16459,8 +16463,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -1.48459e-25, y: 0.99981654, z: -0.01915611, w: -7.748533e-24}
-  m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
+  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16768,8 +16772,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
-  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
+  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23493,6 +23497,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424715645523209795, guid: aeea60823b6b9ff44b19bd54a40f0970, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424715645523209798, guid: aeea60823b6b9ff44b19bd54a40f0970, type: 3}
+      propertyPath: m_WholeNumbers
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424715645947899929, guid: aeea60823b6b9ff44b19bd54a40f0970, type: 3}
