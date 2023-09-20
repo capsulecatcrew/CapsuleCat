@@ -13,8 +13,8 @@ namespace Player.Stats.Persistent
 
         public ClampedExponentialStat(
             string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost,
-            float minClamp, float maxClamp) :
-            base(name, maxLevel, baseValue, changeValue, baseCost, changeCost)
+            float minClamp, float maxClamp, bool isHealthStat) :
+            base(name, maxLevel, baseValue, changeValue, baseCost, changeCost, isHealthStat)
         {
             _minClamp = minClamp;
             _maxClamp = maxClamp;

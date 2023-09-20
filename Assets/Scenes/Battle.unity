@@ -526,6 +526,11 @@ MonoBehaviour:
   amountToPool: 10
   parentTransform: {fileID: 1961851102}
   pooledObjects: []
+--- !u!1 &137705985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5336160480522472628, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+  m_PrefabInstance: {fileID: 5336160479257657131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &168262743 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5710235105384513798, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -14829,7 +14834,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39672
+  m_Name: pb_Mesh34496
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16454,8 +16459,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
-  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: -1.48459e-25, y: 0.99981654, z: -0.01915611, w: -7.748533e-24}
+  m_LocalPosition: {x: 6.5871254e-22, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16763,8 +16768,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -1.8702493e-11, y: 0.99981654, z: -0.01915611, w: -9.76141e-10}
-  m_LocalPosition: {x: 0.00000003902414, y: 5.5161037, z: 49.985332}
+  m_LocalRotation: {x: 1.870248e-11, y: 0.99981654, z: -0.01915611, w: 9.761403e-10}
+  m_LocalPosition: {x: -0.000000039024112, y: 5.5161037, z: 49.985332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30510,6 +30515,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 518911314}
     m_Modifications:
     - target: {fileID: -4767179778141335660, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
+      propertyPath: rotateThis
+      value: 
+      objectReference: {fileID: 137705985}
+    - target: {fileID: -4767179778141335660, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
       propertyPath: maxHpColor.b
       value: 0.8490566
       objectReference: {fileID: 0}
@@ -30808,7 +30817,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -4767179778141335660, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
   m_PrefabInstance: {fileID: 5336160479257657131}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 137705985}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6469fb8cad0c4b238273142a5c4e040b, type: 3}
