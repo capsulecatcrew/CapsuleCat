@@ -150,6 +150,7 @@ public class BattleManager : MonoBehaviour
                 var absorbedEnergy1 = PlayerStats.ApplyEnergyAbsorbMultiplier(1, damage);
                 if (_player1Energy.AddValue(absorbedEnergy1, false))
                 {
+                    _player2Energy.AddValue(absorbedEnergy1 * PlayerStats.GetEnergyShare(2), false);
                     OnPlayerAbsorberHit?.Invoke(damage, 1);
                     player1WingGlow.TurnOnGlow(0);
                 }
@@ -159,6 +160,7 @@ public class BattleManager : MonoBehaviour
                 var absorbedEnergy2 = PlayerStats.ApplyEnergyAbsorbMultiplier(2, damage);
                 if (_player2Energy.AddValue(absorbedEnergy2, false))
                 {
+                    _player1Energy.AddValue(absorbedEnergy2 * PlayerStats.GetEnergyShare(1), false);
                     OnPlayerAbsorberHit?.Invoke(damage, 2);
                     player2WingGlow.TurnOnGlow(0);
                 }
