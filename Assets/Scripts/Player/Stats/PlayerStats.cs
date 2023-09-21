@@ -40,13 +40,16 @@ public static class PlayerStats
     // p1 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
+    // p1 - Stat 8
+    private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
+
     private static readonly Stat Special1 = new("Special", SpecialMax, false);
     // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // private static SpecialMove _specialMove1;
     private static SpecialMove _specialMove1 = new Heal(1);
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
-        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1, DashEnergyCost1 };
+        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1, DashEnergyCost1, EnergyShare1 };
 
     private static int _money2;
 
@@ -73,13 +76,16 @@ public static class PlayerStats
     // p2 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
+    // p2 - Stat 8
+    private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
+
     private static readonly Stat Special2 = new("Special", SpecialMax, false);
     // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // private static SpecialMove _specialMove2;
     private static SpecialMove _specialMove2 = new Vampire(2);
     
     private static readonly List<UpgradeableStat> Player2Stats = new()
-        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2, DashEnergyCost2 };
+        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2, DashEnergyCost2, EnergyShare2 };
 
     // both - Stat 5
     public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
@@ -275,6 +281,17 @@ public static class PlayerStats
         {
             1 => DashEnergyCost1.GetValue(),
             2 => DashEnergyCost2.GetValue(),
+            _ => 0f
+        };
+
+    }
+
+    public static float GetEnergyShare(int playerNum)
+    {
+        return playerNum switch
+        {
+            1 => EnergyShare1.GetValue(),
+            2 => EnergyShare2.GetValue(),
             _ => 0f
         };
 
