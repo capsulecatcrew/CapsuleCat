@@ -107,7 +107,8 @@ public static class PlayerStats
         SpecialDamage1.Reset();
         SpecialDamaged1.Reset();
         DashEnergyCost1.Reset();
-        RemoveSpecialMove(1);
+        // !!!!!!!!!!!!!!!!!!!!!!!! PLAYTEST CODE UNCOMMENT AFTER DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // RemoveSpecialMove(1);
         _money2 = 0;
         Damage2.Reset();
         MaxEnergy2.Reset();
@@ -117,7 +118,8 @@ public static class PlayerStats
         SpecialDamaged2.Reset();
         DashEnergyCost2.Reset();
         MaxHealth.Reset();
-        RemoveSpecialMove(2);
+        // !!!!!!!!!!!!!!!!!!!!!!!! PLAYTEST CODE UNCOMMENT AFTER DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // RemoveSpecialMove(2);
         OnEnable();
     }
 
@@ -346,8 +348,8 @@ public static class PlayerStats
 
     public static void UpdateSpecialMoveBattleManagers(BattleManager battleManager)
     {
-        _specialMove1.UpdateBattleManager(battleManager);
-        _specialMove2.UpdateBattleManager(battleManager);
+        _specialMove1?.UpdateBattleManager(battleManager);
+        _specialMove2?.UpdateBattleManager(battleManager);
     }
 
     public static void UseSpecialMove(int playerNum)
