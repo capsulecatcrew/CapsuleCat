@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Player.Special;
@@ -6,6 +5,7 @@ using Player.Special.Move;
 using Player.Special.Shoot;
 using Player.Stats.Persistent;
 using Player.Stats.Templates;
+using Random = System.Random;
 
 public static class PlayerStats
 {
@@ -19,24 +19,17 @@ public static class PlayerStats
 
     // p1 - Stat 1
     private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
-
     // p1 - Stat 2
     private static readonly UpgradeableLinearStat MaxEnergy1 = new("Max Energy", 10, 25, 10, 50, 25);
-
     // p1 - Stat 3
-    private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 0.015f, 0.002f, 50, 25);
+    private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
     private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
-
     // p1 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
-
+    private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 1f, 0.1f, 50, 75);
     // p1 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
-
     // p1 - Stat 6
-    private static readonly UpgradeableLinearStat
-        SpecialDamaged1 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75);
-
+    private static readonly UpgradeableLinearStat SpecialDamaged1 = new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
     // p1 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
@@ -44,9 +37,7 @@ public static class PlayerStats
     private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
 
     private static readonly Stat Special1 = new("Special", SpecialMax, false);
-    // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // private static SpecialMove _specialMove1;
-    private static SpecialMove _specialMove1 = new Heal(1);
+    private static SpecialMove _specialMove1;
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
         { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1, DashEnergyCost1, EnergyShare1 };
@@ -55,24 +46,17 @@ public static class PlayerStats
 
     // p2 - Stat 1
     private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
-
     // p2 - Stat 2
     private static readonly UpgradeableLinearStat MaxEnergy2 = new("Max Energy", 10, 25, 10, 50, 25);
-
     // p2 - Stat 3
-    private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 0.015f, 0.002f, 50, 25);
+    private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
     private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
-
     // p2 - Stat 4
-    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
-
+    private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 1f, 0.1f, 50, 75);
     // p2 - Stat 5
     private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
-
     // p2 - Stat 6
-    private static readonly UpgradeableLinearStat
-        SpecialDamaged2 = new("Special Damaged Rate", 10, 0.03f, 0.005f, 50, 75);
-
+    private static readonly UpgradeableLinearStat SpecialDamaged2 = new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
     // p2 - Stat 7
     private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
@@ -80,16 +64,16 @@ public static class PlayerStats
     private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
 
     private static readonly Stat Special2 = new("Special", SpecialMax, false);
-    // !!!!!!!!!!!!!!!!!!!DEBUG CODE BELOW. REPLACE ONCE PLAYTEST DONE. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // private static SpecialMove _specialMove2;
-    private static SpecialMove _specialMove2 = new Vampire(2);
-    
+    private static SpecialMove _specialMove2;
+
     private static readonly List<UpgradeableStat> Player2Stats = new()
         { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2, DashEnergyCost2, EnergyShare2 };
 
-    // both - Stat 5
+    // both - Stat 8
     public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
     private static readonly Stat Health = new("Health", MaxHealth);
+
+    private static int _prevStage;
 
     static PlayerStats()
     {
@@ -109,23 +93,25 @@ public static class PlayerStats
         Damage1.Reset();
         MaxEnergy1.Reset();
         EnergyAbsorb1.Reset();
+        Energy1.Reset();
         SpecialAbsorb1.Reset();
         SpecialDamage1.Reset();
         SpecialDamaged1.Reset();
         DashEnergyCost1.Reset();
-        // !!!!!!!!!!!!!!!!!!!!!!!! PLAYTEST CODE UNCOMMENT AFTER DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // RemoveSpecialMove(1);
+        RemoveSpecialMove(1);
+        
         _money2 = 0;
         Damage2.Reset();
         MaxEnergy2.Reset();
         EnergyAbsorb2.Reset();
+        Energy2.Reset();
         SpecialAbsorb2.Reset();
         SpecialDamage2.Reset();
         SpecialDamaged2.Reset();
         DashEnergyCost2.Reset();
+        RemoveSpecialMove(2);
+        
         MaxHealth.Reset();
-        // !!!!!!!!!!!!!!!!!!!!!!!! PLAYTEST CODE UNCOMMENT AFTER DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // RemoveSpecialMove(2);
         OnEnable();
     }
 
@@ -134,8 +120,14 @@ public static class PlayerStats
         return _currentStage;
     }
 
+    public static int GetPrevStage()
+    {
+        return _prevStage;
+    }
+
     public static void Win()
     {
+        _prevStage = _currentStage;
         _currentStage++;
         _money1 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
         _money2 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
@@ -143,6 +135,7 @@ public static class PlayerStats
 
     public static void Lose()
     {
+        _prevStage = _currentStage;
         Reset();
     }
 

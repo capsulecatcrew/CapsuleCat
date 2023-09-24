@@ -19,14 +19,4 @@ public class ProgressBar : MonoBehaviour
     {
         slider.value = value;
     }
-
-    public void AddValue(float value)
-    {
-        slider.value += value;
-    }
-
-    public void MinusValue(float value)
-    {
-        slider.value -= value;
-    }
 }

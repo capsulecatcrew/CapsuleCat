@@ -8,9 +8,16 @@ namespace Player.Stats.Persistent
         private float _changeCooldown;
         private float _maxChangeCooldown;
         private bool _hasDepleted;
+        private readonly Stat _persistentStat;
 
         public delegate void StatChange(float value);
         public event StatChange OnStatChange;
+
+        public delegate void StatIncrease();
+        public event StatIncrease OnStatIncrease;
+
+        public delegate void StatDecrease();
+        public event StatDecrease OnStatDecrease;
 
         public delegate void StatDeplete();
         public event StatDeplete OnStatDeplete;
@@ -21,7 +28,13 @@ namespace Player.Stats.Persistent
             base(name, maxValue, isHealthStat)
         {
             Value = currValue;
+            _persistentStat = persistentStat;
             OnStatChange += persistentStat.SetValue;
+        }
+
+        public void DecouplePersistentStat()
+        {
+            OnStatChange -= _persistentStat.SetValue;
         }
 
         public void SetMaxChangeCooldown(float maxChangeCooldown)
@@ -47,6 +60,7 @@ namespace Player.Stats.Persistent
             if (Value > BaseValue) Value = BaseValue;
             ResetCooldown();
             OnStatChange?.Invoke(Value);
+            OnStatIncrease?.Invoke();
             return true;
         }
 
@@ -58,6 +72,7 @@ namespace Player.Stats.Persistent
             {
                 Value = 0;
                 OnStatChange?.Invoke(Value);
+                OnStatDecrease?.Invoke();
                 if (IsHealthStat && _hasDepleted) return false;
                 OnStatDeplete?.Invoke();
                 _hasDepleted = true;
@@ -66,9 +81,9 @@ namespace Player.Stats.Persistent
                 if (tempKill) tempKill.SetActive(false);
                 return true;
             }
-
             ResetCooldown();
             OnStatChange?.Invoke(Value);
+            OnStatDecrease?.Invoke();
             return true;
         }
 
