@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -290,8 +290,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.size
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: music.Array.data[2].name
       value: Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[19].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e08d8116dbcea4632b4f15c57567afce, type: 3}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[19].name
+      value: ENEMY_SHIELD_HIT
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[19].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[5].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[6].volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[19].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[19].priority
+      value: 89
       objectReference: {fileID: 0}
     - target: {fileID: 4265839613740073818, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: m_RootOrder

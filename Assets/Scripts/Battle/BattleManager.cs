@@ -2,12 +2,11 @@ using System.Linq;
 using Battle;
 using Player.Stats.Persistent;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
-    private const float DamageCooldown = 0.5f;
+    private const float StatChangeCooldown = 0.5f;
     
     [SerializeField] private LevelLoader levelLoader;
     [SerializeField] private GameObject enemyBody;
@@ -34,16 +33,18 @@ public class BattleManager : MonoBehaviour
 
     private static readonly UpgradeableLinearStat EnemyMaxHealth =
         new ("Enemy Max Health", int.MaxValue, 100, 20, 0, 0, true);
+    private BattleStat _enemyHealth;
     // TODO Implement ramping using this in EnemyBulletSpray
     private static readonly UpgradeableLinearStat EnemyBulletDamage =
         new ("Enemy Max Health", int.MaxValue, 2, 20, 0, 0, true);
     // TODO Implement ramping using this in EnemyLaser
     private static readonly UpgradeableLinearStat EnemyLaserDamage =
         new ("Enemy Max Health", int.MaxValue, 2, 20, 0, 0, true);
-    private BattleStat _enemyHealth;
-    [SerializeField] private ProgressBar enemyHealthBar;
 
+    [SerializeField] private ProgressBar enemyHealthBar;
     [SerializeField] private EnemyShieldController enemyShieldController;
+
+    private bool _hasLost;
 
     public delegate void PlayerWin();
     public event PlayerWin OnPlayerWin;
@@ -70,28 +71,34 @@ public class BattleManager : MonoBehaviour
     public delegate void PlayerShotFired();
     public event PlayerShotFired OnPlayerShotFired;
 
-    public void Start()
+    public void Awake()
     {
-        GlobalAudio.Singleton.StopMusic();
-        GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
         EnemyMaxHealth.SetLevel(PlayerStats.GetCurrentStage());
 
         _playerHealth = PlayerStats.CreateBattleHealthStat(playerHealthBar);
-        _playerHealth.SetMaxChangeCooldown(DamageCooldown);
+        _playerHealth.OnStatDecrease += PlayPlayerHurtSound;
+        _playerHealth.SetMaxChangeCooldown(StatChangeCooldown);
         
         _player1Energy = PlayerStats.CreateBattleEnergyStat(1, player1EnergyBar);
+        _player1Energy.SetMaxChangeCooldown(StatChangeCooldown);
+        _player1Energy.OnStatIncrease += PlayEnergyAbsorbSound;
         _player1Special = PlayerStats.CreateBattleSpecialStat(1, player1SpecialBar);
+        _player1Special.SetMaxChangeCooldown(StatChangeCooldown);
 
         _player2Energy = PlayerStats.CreateBattleEnergyStat(2, player2EnergyBar);
+        _player2Energy.SetMaxChangeCooldown(StatChangeCooldown);
+        _player2Energy.OnStatIncrease += PlayEnergyAbsorbSound;
         _player2Special = PlayerStats.CreateBattleSpecialStat(2, player2SpecialBar);
+        _player2Special.SetMaxChangeCooldown(StatChangeCooldown);
         
         PlayerStats.UpdateSpecialMoveBattleManagers(this);
         
         _enemyHealth = EnemyMaxHealth.CreateBattleStat();
-        _enemyHealth.SetMaxChangeCooldown(DamageCooldown);
+        _enemyHealth.SetMaxChangeCooldown(StatChangeCooldown);
         
         enemyHealthBar.SetMaxValue(0, EnemyMaxHealth.Value, 0);
         _enemyHealth.OnStatChange += enemyHealthBar.SetValue;
+        _enemyHealth.OnStatDecrease += PlayEnemyHurtSound;
         enemyHealthBar.SetValue(_enemyHealth.Value);
 
         SetEnemyColor();
@@ -101,6 +108,12 @@ public class BattleManager : MonoBehaviour
 
         OnPlayerWin += PlayerStats.Win;
         OnPlayerLose += PlayerStats.Lose;
+    }
+
+    public void Start()
+    {
+        GlobalAudio.Singleton.StopMusic();
+        GlobalAudio.Singleton.PlayMusic("Battle " + Random.Range(1, 8));
     }
 
     public void Update()
@@ -187,10 +200,21 @@ public class BattleManager : MonoBehaviour
 
     private void Lose()
     {
+        if (_hasLost) return;
+        _hasLost = true;
         GlobalAudio.Singleton.StopMusic();
-        levelLoader.LoadLevel("Game Over");
         EnemyMaxHealth.Reset();
+        _playerHealth.DecouplePersistentStat();
+        _player1Energy.DecouplePersistentStat();
+        _player2Energy.DecouplePersistentStat();
+        _player1Special.DecouplePersistentStat();
+        _player2Special.DecouplePersistentStat();
+        _playerHealth.OnStatDecrease -= PlayPlayerHurtSound;
+        _player1Energy.OnStatIncrease -= PlayEnergyAbsorbSound;
+        _player2Energy.OnStatIncrease -= PlayEnergyAbsorbSound;
+        _enemyHealth.OnStatDecrease -= PlayEnemyHurtSound;
         OnPlayerLose?.Invoke();
+        levelLoader.LoadLevel("Game Over");
     }
 
     public bool HasEnergy(int playerNum, float amount)
@@ -247,5 +271,20 @@ public class BattleManager : MonoBehaviour
     public void UpdatePlayerShotFired()
     {
         OnPlayerShotFired?.Invoke();
+    }
+    
+    private void PlayEnergyAbsorbSound()
+    {
+        GlobalAudio.Singleton.PlaySound("PLAYER_ENERGY_ABSORB");
+    }
+
+    private void PlayPlayerHurtSound()
+    {
+        GlobalAudio.Singleton.PlaySound("PLAYER_HURT");
+    }
+
+    private void PlayEnemyHurtSound()
+    {
+        GlobalAudio.Singleton.PlaySound("ENEMY_HURT");
     }
 }

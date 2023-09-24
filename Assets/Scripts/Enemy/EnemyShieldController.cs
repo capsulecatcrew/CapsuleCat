@@ -99,6 +99,7 @@ public class EnemyShieldController : MonoBehaviour
             {
                 var shield = shields[i + j];
                 BattleStat shieldHealth = _maxHealth.CreateBattleStat();
+                shieldHealth.OnStatDecrease += PlayEnemyShieldHitSound;
                 _activeShieldHealths.Add(shield, shieldHealth);
                 shieldHealth.SetGameObjectToKill(shield);
                 shield.SetActive(true);
@@ -176,5 +177,10 @@ public class EnemyShieldController : MonoBehaviour
     {
         _pause = _pauseRandom.GenerateRandomValue();
         if (Random.Range(0, 3) > 0) PickRandomDirection();
+    }
+    
+    private void PlayEnemyShieldHitSound()
+    {
+        GlobalAudio.Singleton.PlaySound("ENEMY_SHIELD_HIT");
     }
 }
