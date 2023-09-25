@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerControls PlayerController;
+    private static PlayerControls _playerController;
     [SerializeField] private BattleManager battleManager;
 
     public Transform pivot;
@@ -16,8 +16,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] private float dashMultiplier = 3.0f;
-    private float _dashDuration = 0.15f;
-    private float[] _dashEnergyCost = new float[2] {10f, 10f};
+    private const float DashDuration = 0.15f;
+    private readonly float[] _dashEnergyCost = new float[2] {10f, 10f};
+    private const float DashCooldown = 0.25f;
+    private float _dashCooldownTimer;
 
     [Range(0, 360)]
     public int movementRange = 360;
@@ -34,46 +36,54 @@ public class PlayerMovement : MonoBehaviour
     private float _yVelocity;
     private float _airTime;
     private float _jumpTime;
-    private bool _isHoldingJump;
 
     private float _currentVelocity;
     
-    private float[] _playerMovement = new float[2] {0.0f, 0.0f};
-    private float[] _playerLastMovement = new float[2] {1.0f, 1.0f};
-    private bool[] _playerCanJump = new bool[2] {true, true};
-    private bool[] _pausePlayerInput = new bool[2] {false, false};
-    void Awake()
+    private readonly float[] _playerMovement = {0.0f, 0.0f};
+    private readonly float[] _playerLastMovement = {1.0f, 1.0f};
+    private readonly bool[] _playerCanJump = {true, true};
+    private readonly bool[] _pausePlayerInput = {false, false};
+
+    [SerializeField] private ParticleSystem[] dashParticleSystems;
+
+    public void Awake()
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleManager>();
-        PlayerController = new PlayerControls();
+        _playerController = new PlayerControls();
         _groundYPos = mainBody.position.y;
         _isGrounded = true;
     }
 
-    void Start()
+    public void Start()
     {
         _dashEnergyCost[0] = PlayerStats.GetDashEnergyCost(1);
         _dashEnergyCost[1] = PlayerStats.GetDashEnergyCost(2);
     }
 
-    public void slowSpeed(float multiplier)
+    public void Update()
+    {
+        if (_dashCooldownTimer <= 0) return;
+        _dashCooldownTimer -= Time.deltaTime;
+    }
+
+    public void SlowSpeed(float multiplier)
     {
         _speed = maxSpeed * multiplier;
     }
 
-    public void resetMaxSpeed()
+    public void ResetMaxSpeed()
     {
         _speed = maxSpeed;
     }
 
     private void OnEnable()
     {
-        PlayerController.Enable();
+        _playerController.Enable();
     }
     
     private void OnDisable()
     {
-        PlayerController.Disable();
+        _playerController.Disable();
     }
 
     /**
@@ -109,42 +119,36 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /**
-     * =================
-     * RequestPlayerJump
-     * =================
-     * For players to request a jump, results determined if player is able to jump
-     *
-     * @param player    which player is sending the jump command
-     * @return          true if jump is successful; false otherwise.
-     */
-    public bool RequestPlayerJump(int player)
+    /// <summary>
+    /// Requests for specified player to jump.
+    /// </summary>
+    /// <param name="playerNum">Number of player sending the jump command.</param>
+    /// <returns>true if jump is successful; false otherwise.</returns>
+    public bool RequestPlayerJump(int playerNum)
     {
         var success = false;
-        int p = player - 1;
+        var p = playerNum - 1;
         if (_playerCanJump[p])
         {
             _playerCanJump[p] = false;
             success = true;
+            GlobalAudio.Singleton.PlaySound("JUMP_P" + playerNum);
         }
 
-        if (success)
+        if (!success) return false;
+        if (_isGrounded)
         {
-            if (_isGrounded)
-            {
-                _isGrounded = false;
-            }
-            _yVelocity = jumpSpeed;
-            _airTime = 0;
-            _jumpTime = jumpTime;
-            _isHoldingJump = true;
+            _isGrounded = false;
         }
+        _yVelocity = jumpSpeed;
+        _airTime = 0;
+        _jumpTime = jumpTime;
 
-        return success;
+        return true;
     }
 
     // LateUpdate is called once per frame, after all Update calls
-    void LateUpdate()
+    public void LateUpdate()
     {
         /*
          * Rotational Movement
@@ -156,12 +160,6 @@ public class PlayerMovement : MonoBehaviour
             _currentVelocity = _speed * movement;
             pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
         }
-        // else if (Math.Abs(_currentVelocity) > float.Epsilon) // Slowdown before stopping after button is released
-        // {
-        //     _currentVelocity =  _currentVelocity > 0 ? Math.Max(_currentVelocity - stoppingSpeed * Time.deltaTime, 0) 
-        //                                              : Math.Min(_currentVelocity + stoppingSpeed * Time.deltaTime, 0);
-        //     pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
-        // }
         else
         {
             _currentVelocity = 0.0f;
@@ -183,41 +181,30 @@ public class PlayerMovement : MonoBehaviour
         /*
          * Jumping
          */
-        if (!_isGrounded)
-        {   
-            // Short hop, implementation unfinished
-            // if (_airTime < shortJumpTime && _isHoldingJump && !PlayerController.Player1.Jump.IsPressed()) 
-            // {
-            //     _isHoldingJump = false;
-            //     _jumpTime = shortJumpTime;
-            // }
-
-            _airTime += Time.deltaTime;
-            if (_airTime > _jumpTime)
+        if (_isGrounded) return;
+        _airTime += Time.deltaTime;
+        if (_airTime > _jumpTime)
+        {
+            if (_yVelocity > 0.0f)
             {
-                if (_yVelocity > 0.0f)
-                {
-                    _yVelocity += -jumpDecel * weight * Time.deltaTime;
-                    if (_yVelocity < 0.0f) _yVelocity = 0.0f;
-                }
-                else
-                {
-                    _yVelocity += GravityConstant * weight * Time.deltaTime;
-                }
+                _yVelocity += -jumpDecel * weight * Time.deltaTime;
+                if (_yVelocity < 0.0f) _yVelocity = 0.0f;
             }
-            
-            mainBody.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
-            if (mainBody.position.y <= _groundYPos)
+            else
             {
-                var position = mainBody.position;
-                position = new Vector3(position.x, _groundYPos, position.z);
-                mainBody.position = position;
-                _yVelocity = 0.0f;
-                _isGrounded = true;
-                _playerCanJump[0] = true;
-                _playerCanJump[1] = true;
+                _yVelocity += GravityConstant * weight * Time.deltaTime;
             }
         }
+            
+        mainBody.position += new Vector3(0, _yVelocity, 0) * Time.deltaTime;
+        if (mainBody.position.y > _groundYPos) return;
+        var position = mainBody.position;
+        position = new Vector3(position.x, _groundYPos, position.z);
+        mainBody.position = position;
+        _yVelocity = 0.0f;
+        _isGrounded = true;
+        _playerCanJump[0] = true;
+        _playerCanJump[1] = true;
     }
     
     public void UseSpecialMove(int playerNum)
@@ -225,23 +212,29 @@ public class PlayerMovement : MonoBehaviour
         PlayerStats.UseSpecialMove(playerNum);
     }
 
-    public void PerformDash(int playerNo)
+    public void PerformDash(int playerNum)
     {
-        int p = playerNo - 1;
+        if (_dashCooldownTimer > 0) return;
+        var p = playerNum - 1;
         if (_pausePlayerInput[p]) return;
-        if (!battleManager.HasEnergy(playerNo, _dashEnergyCost[p])) return;
+        if (!battleManager.HasEnergy(playerNum, _dashEnergyCost[p])) return;
 
-        battleManager.UseEnergy(playerNo, _dashEnergyCost[p]);
-        StartCoroutine(DashCoroutine(playerNo));
+        battleManager.UseEnergy(playerNum, _dashEnergyCost[p]);
+        StartCoroutine(DashCoroutine(playerNum));
+        
     }
 
-    public IEnumerator DashCoroutine(int playerNo)
+    private IEnumerator DashCoroutine(int playerNum)
     {
-        int p = playerNo - 1;
+        var p = playerNum - 1;
         _pausePlayerInput[p] = true;
         _playerMovement[p] = _playerLastMovement[p] > 0 ? dashMultiplier : -dashMultiplier;
-        yield return new WaitForSeconds(_dashDuration);
+        yield return new WaitForSeconds(DashDuration);
         _playerMovement[p] = 0;
         _pausePlayerInput[p] = false;
+        dashParticleSystems[p].transform.forward = _playerLastMovement[p] > 0 ? mainBody.right : -mainBody.right;
+        _dashCooldownTimer = DashCooldown;
+        dashParticleSystems[p].Play();
+        GlobalAudio.Singleton.PlaySound("DASH");
     }
 }

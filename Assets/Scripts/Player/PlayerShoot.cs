@@ -345,7 +345,7 @@ public class PlayerShoot : MonoBehaviour
         _heavyBullet.HoldHeavy(scale, CalculateHeavyPosition());
 
         var slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
-        playerMovement.slowSpeed(slowMultiplier);
+        playerMovement.SlowSpeed(slowMultiplier);
 
         var chargePercent = clampedTime / heavyMaxCharge;
         var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
@@ -356,7 +356,7 @@ public class PlayerShoot : MonoBehaviour
     {
         _isHeavyCharging = false;
         _heavyChargeTime = 0;
-        playerMovement.resetMaxSpeed();
+        playerMovement.ResetMaxSpeed();
     }
 
     public void UseSpecialMove()
