@@ -15,6 +15,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
     public int startingNumOfLasers = 3;
     public int maxNumOfLasers = 7;
     public int lasersIncreaseLvlInterval = 5;
+    public int lowerLaserHeight, upperLaserHeight;
     private int _numOfLasers;
 
     public float rotationSpeed = 0;
@@ -61,10 +62,10 @@ public class EnemyRadialLaserAttack : EnemyAttack
 
         float startingAngle = Random.Range(0.0f, theta);
         float distToPlayer = 30;
-        float targetHeight = 1;
         // another time.
         for (int i = 0; i < numOfLasers; i++)
         {
+            float targetHeight = Random.Range(1, 4) % 2 == 0 && i != 0 ? upperLaserHeight : lowerLaserHeight;
             Vector3 dir = new Vector3(distToPlayer * Mathf.Sin(startingAngle + theta * i), targetHeight, distToPlayer * Mathf.Cos(startingAngle + theta * i));
             _currLaser = _laserPool.GetPooledObject();
             _laserLogic = _currLaser.GetComponent<EnemyLaser>();

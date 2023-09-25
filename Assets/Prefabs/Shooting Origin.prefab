@@ -145,3 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 5892277863245916160}
+  layersToAimFor:
+    serializedVersion: 2
+    m_Bits: 64
