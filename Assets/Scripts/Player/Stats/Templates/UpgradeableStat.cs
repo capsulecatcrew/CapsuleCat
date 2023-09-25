@@ -5,7 +5,7 @@ namespace Player.Stats.Templates
     public class UpgradeableStat : Stat
     {
         protected int Level = 1;
-        protected readonly int MaxLevel;
+        protected internal readonly int MaxLevel;
         
         protected readonly float ChangeValue;
 
@@ -14,7 +14,6 @@ namespace Player.Stats.Templates
         private readonly int _changeCost;
 
         public delegate void StatUpdate(int level, float value, int cost);
-
         public event StatUpdate OnStatUpdate;
         
         protected UpgradeableStat(
@@ -34,7 +33,7 @@ namespace Player.Stats.Templates
         /// <p>Resets the stat's cost to base cost.</p>
         /// <p>Invokes OnStatReset, OnStatUpdate events.</p>
         /// </summary>
-        public new void Reset()
+        public override void Reset()
         {
             Level = 1;
             _cost = _baseCost;
@@ -85,11 +84,9 @@ namespace Player.Stats.Templates
         {
             var shopItemNameBuilder = new StringBuilder();
             shopItemNameBuilder.Append(Name);
-            if (!IsMaxLevel())
-            {
-                shopItemNameBuilder.Append(" ");
-                shopItemNameBuilder.Append(Level);
-            }
+            if (IsMaxLevel()) return shopItemNameBuilder.ToString();
+            shopItemNameBuilder.Append(" ");
+            shopItemNameBuilder.Append(Level);
             return shopItemNameBuilder.ToString();
         }
         

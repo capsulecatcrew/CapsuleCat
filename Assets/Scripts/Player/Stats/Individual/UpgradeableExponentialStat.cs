@@ -22,7 +22,7 @@ namespace Player.Stats.Persistent
             base.SetLevel(level);
         }
 
-        public float GetValue()
+        public override float GetValue()
         {
             return Value;
         }
