@@ -49,8 +49,8 @@ namespace Player.Stats.Templates
 
         private void SetValue(int ignored1, float value, int ignored2)
         {
+            Value = Value/BaseValue * value;
             BaseValue = value;
-            Value = value;
         }
 
         public float GetValue()
