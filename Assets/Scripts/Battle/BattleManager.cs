@@ -142,11 +142,11 @@ public class BattleManager : MonoBehaviour
         {
             case Firer.Player1 when hitObject == enemyBody:
                 if (_enemyHealth.MinusValue(damage, ignoreIFrames)) OnEnemyHit?.Invoke(damage);
-                _player1Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(1, damage), false);
+                _player1Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(1, damage), true);
                 return true;
             case Firer.Player2 when hitObject == enemyBody:
                 if (_enemyHealth.MinusValue(damage, ignoreIFrames)) OnEnemyHit?.Invoke(damage);
-                _player2Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(2, damage), false);
+                _player2Special.AddValue(PlayerStats.ApplySpecialDamageMultipler(2, damage), true);
                 return true;
             case Firer.Player1 when enemyShieldController.IsEnemyShield(hitObject):
                 if (enemyShieldController.HitEnemyShield(hitObject, damage, ignoreIFrames)) OnEnemyShieldHit?.Invoke(damage);

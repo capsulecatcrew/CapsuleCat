@@ -26,23 +26,25 @@ public static class PlayerStats
     // p1 - Stat 3
     private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
     private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
-    // p1 - Stat 4
+
     private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 1f, 0.1f, 50, 75);
-    // p1 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
-    // p1 - Stat 6
+    private static readonly UpgradeableLinearStat SpecialDamage1 = new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
     private static readonly UpgradeableLinearStat SpecialDamaged1 = new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
-    // p1 - Stat 7
+    // p1 - Stat 4
+    private static readonly GroupedUpgradeableStat SpecialGain1 =
+        new("Special Gain", 10, 150, 150, false, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1);
+    
+    // p1 - Stat 5
     private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
-    // p1 - Stat 8
+    // p1 - Stat 6
     private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
 
     private static readonly Stat Special1 = new("Special", SpecialMax, false);
     private static SpecialMove _specialMove1;
 
     private static readonly List<UpgradeableStat> Player1Stats = new()
-        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1, DashEnergyCost1, EnergyShare1 };
+        { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialGain1, DashEnergyCost1, EnergyShare1 };
 
     private static int _money2;
 
@@ -55,25 +57,27 @@ public static class PlayerStats
     // p2 - Stat 3
     private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
     private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
-    // p2 - Stat 4
+    
     private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 1f, 0.1f, 50, 75);
-    // p2 - Stat 5
-    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.03f, 0.005f, 50, 75);
-    // p2 - Stat 6
+    private static readonly UpgradeableLinearStat SpecialDamage2 = new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
     private static readonly UpgradeableLinearStat SpecialDamaged2 = new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
-    // p2 - Stat 7
+    // p2 - Stat 4
+    private static readonly GroupedUpgradeableStat SpecialGain2 =
+        new("Special Gain", 10, 150, 150, false, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2);
+    
+    // p2 - Stat 5
     private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
     
-    // p2 - Stat 8
+    // p2 - Stat 6
     private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
 
     private static readonly Stat Special2 = new("Special", SpecialMax, false);
     private static SpecialMove _specialMove2;
 
     private static readonly List<UpgradeableStat> Player2Stats = new()
-        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2, DashEnergyCost2, EnergyShare2 };
+        { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialGain2, DashEnergyCost2, EnergyShare2 };
 
-    // both - Stat 8
+    // both - Stat 7
     public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
     private static readonly Stat Health = new("Health", MaxHealth);
 

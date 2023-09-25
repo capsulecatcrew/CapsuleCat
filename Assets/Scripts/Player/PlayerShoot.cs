@@ -243,7 +243,7 @@ public class PlayerShoot : MonoBehaviour
             return;
         }
 
-        var damage = (int)Math.Round(this._damage * weakDamageMultiplier);
+        var damage = (int)Math.Round(_damage * weakDamageMultiplier);
         var speed = Speed * weakSpeedMultiplier;
         TransformBullets(lowBulletPool, damage, speed);
 

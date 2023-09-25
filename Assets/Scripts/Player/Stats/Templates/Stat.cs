@@ -49,11 +49,11 @@ namespace Player.Stats.Templates
 
         private void SetValue(int ignored1, float value, int ignored2)
         {
+            Value = Value/BaseValue * value;
             BaseValue = value;
-            Value = value;
         }
 
-        public float GetValue()
+        public virtual float GetValue()
         {
             return Value;
         }
@@ -68,7 +68,7 @@ namespace Player.Stats.Templates
         /// Resets the stat's value to its base value.
         /// <p>Invokes OnStatReset event.</p>
         /// </summary>
-        public void Reset()
+        public virtual void Reset()
         {
             Value = BaseValue;
             OnStatReset?.Invoke(Value);
