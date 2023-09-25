@@ -268,6 +268,7 @@ public class BattleManager : MonoBehaviour
         _playerHealth.AddValue(amount, true);
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void UpdatePlayerShotFired()
     {
         OnPlayerShotFired?.Invoke();
