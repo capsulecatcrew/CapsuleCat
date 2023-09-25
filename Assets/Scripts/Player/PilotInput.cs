@@ -24,6 +24,7 @@ public class PilotInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controlMode = PlayerStats.GetLastPlayerControlMode(player);
         ActivateParts();
         modeIcon?.SetSprite(controlMode);
     }
@@ -134,6 +135,7 @@ public class PilotInput : MonoBehaviour
             }
 
             ActivateParts();
+            PlayerStats.SavePlayerControlMode(player, controlMode);
             modeIcon?.SetSprite(controlMode);
         }
     }

@@ -17,6 +17,8 @@ public static class PlayerStats
 
     private static int _money1;
 
+    // p1 - Control Mode
+    private static ControlMode p1ControlMode = ControlMode.Movement;
     // p1 - Stat 1
     private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
     // p1 - Stat 2
@@ -44,6 +46,8 @@ public static class PlayerStats
 
     private static int _money2;
 
+    // p2 - Control Mode
+    private static ControlMode p2ControlMode = ControlMode.Shooting;
     // p2 - Stat 1
     private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
     // p2 - Stat 2
@@ -390,4 +394,28 @@ public static class PlayerStats
         }
         return ControlMode.Movement;
     }
+
+    public static void SavePlayerControlMode(int playerNum, ControlMode controlMode)
+    {
+        switch (playerNum)
+        {
+            case 1:
+                p1ControlMode = controlMode;
+                break;
+            case 2:
+                p2ControlMode = controlMode;
+                break;
+        }
+    }
+
+    public static ControlMode GetLastPlayerControlMode(int playerNum)
+    {
+        return (playerNum) switch
+        {
+            1 => p1ControlMode,
+            2 => p2ControlMode,
+            _ => ControlMode.Movement
+        };
+    }
+
 }
