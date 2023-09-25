@@ -1,7 +1,5 @@
 using System;
 using Battle;
-using Player.Special;
-using Player.Special.Move;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -54,7 +52,15 @@ public class PlayerShoot : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shootingAudio;
+    [SerializeField] private AudioClip cantShootSound;
+    [SerializeField] private AudioClip basicShotSound;
+    [SerializeField] private AudioClip weakShotSound;
+    [SerializeField] private AudioClip heavyShotChargingSound;
+    [SerializeField] private AudioClip heavyShotReadySound;
+    [SerializeField] private AudioClip heavyShotSound;
+    private float _heavySoundCooldown;
+    private const float HeavyShotChargingSoundLength = 0.05f;
+    private bool _hasPlayedReadySound;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem particlesL;
@@ -183,6 +189,7 @@ public class PlayerShoot : MonoBehaviour
         if (!_isHeavyCharging)
         {
             PlayCantShootParticles(true);
+            PlayCantShootSound();
             return;
         }
         ResetHeavyCharge();
@@ -205,7 +212,8 @@ public class PlayerShoot : MonoBehaviour
         
         battleManager.UpdatePlayerShotFired();
 
-        PlayHeavyBulletAudio();
+        _hasPlayedReadySound = false;
+        PlayHeavyBulletShotSound();
     }
 
     public void ShootBasicBullets()
@@ -223,16 +231,15 @@ public class PlayerShoot : MonoBehaviour
         
         battleManager.UpdatePlayerShotFired();
 
-        PlayBulletAudio();
+        PlayBasicBulletShotSound();
     }
 
     private void ShootWeakBullets()
     {
-        // TODO: Add more feedback to player that they can't fire.
-        // A sound perhaps?
         if (!CanShootWeak())
         {
             PlayCantShootParticles();
+            PlayCantShootSound();
             return;
         }
 
@@ -244,7 +251,7 @@ public class PlayerShoot : MonoBehaviour
         
         battleManager.UpdatePlayerShotFired();
 
-        PlayBulletAudio();
+        PlayWeakBulletShotSound();
     }
 
     private void PlayCantShootParticles(bool ignoreMinCooldown = false)
@@ -308,16 +315,49 @@ public class PlayerShoot : MonoBehaviour
         _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);
     }
 
-    private void PlayBulletAudio()
+    private void PlayCantShootSound()
     {
         audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(shootingAudio);
+        audioSource.PlayOneShot(cantShootSound);
     }
 
-    private void PlayHeavyBulletAudio()
+    private void PlayBasicBulletShotSound()
     {
-        audioSource.pitch = Random.Range(0.3f, 0.5f);
-        audioSource.PlayOneShot(shootingAudio);
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(basicShotSound);
+    }
+
+    private void PlayWeakBulletShotSound()
+    {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(weakShotSound);
+    }
+    
+    private void PlayHeavyBulletShotSound()
+    {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(heavyShotSound);
+    }
+
+    private void PlayHeavyBulletChargingSound(float chargePercent)
+    {
+        if (_heavySoundCooldown > 0) return;
+        audioSource.pitch = chargePercent;
+        audioSource.volume = chargePercent;
+        audioSource.PlayOneShot(heavyShotChargingSound);
+        _heavySoundCooldown = HeavyShotChargingSoundLength;
+    }
+
+    private void PlayHeavyBulletReadySound()
+    {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(heavyShotReadySound);
+    }
+
+    private void UpdateHeavySoundCooldown(float deltaTime)
+    {
+        if (_heavySoundCooldown <= 0) return;
+        _heavySoundCooldown -= deltaTime;
     }
 
     private void UpdateCooldown(float deltaTime)
@@ -326,6 +366,7 @@ public class PlayerShoot : MonoBehaviour
         _cooldownTime -= deltaTime;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     /// <summary>
     /// <p>Update values for charging heavy weapon.</p>
     /// <p>1. Update charged time</p>
@@ -345,18 +386,29 @@ public class PlayerShoot : MonoBehaviour
         _heavyBullet.HoldHeavy(scale, CalculateHeavyPosition());
 
         var slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
-        playerMovement.slowSpeed(slowMultiplier);
+        playerMovement.SlowSpeed(slowMultiplier);
 
         var chargePercent = clampedTime / heavyMaxCharge;
         var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
         if (!battleManager.HasEnergy(playerNum, energyCost)) ShootHeavyBullet(clampedTime);
+
+        if (chargePercent >= 1)
+        {
+            if (_hasPlayedReadySound) return;
+            PlayHeavyBulletReadySound();
+            _hasPlayedReadySound = true;
+        }
+        else
+        {
+            PlayHeavyBulletChargingSound(chargePercent);
+        }
     }
 
     private void ResetHeavyCharge()
     {
         _isHeavyCharging = false;
         _heavyChargeTime = 0;
-        playerMovement.resetMaxSpeed();
+        playerMovement.ResetMaxSpeed();
     }
 
     public void UseSpecialMove()
@@ -368,5 +420,6 @@ public class PlayerShoot : MonoBehaviour
     {
         UpdateCooldown(Time.deltaTime);
         UpdateHeavyCharge(Time.deltaTime);
+        UpdateHeavySoundCooldown(Time.deltaTime);
     }
 }
