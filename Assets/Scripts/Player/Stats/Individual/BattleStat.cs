@@ -5,8 +5,8 @@ namespace Player.Stats.Persistent
 {
     public class BattleStat : Stat
     {
+        private const float MaxChangeCooldown = 0.5f;
         private float _changeCooldown;
-        private float _maxChangeCooldown;
         private bool _hasDepleted;
         private readonly Stat _persistentStat;
 
@@ -37,14 +37,9 @@ namespace Player.Stats.Persistent
             OnStatChange -= _persistentStat.SetValue;
         }
 
-        public void SetMaxChangeCooldown(float maxChangeCooldown)
-        {
-            _maxChangeCooldown = maxChangeCooldown;
-        }
-
         private void ResetCooldown()
         {
-            _changeCooldown = _maxChangeCooldown;
+            _changeCooldown = MaxChangeCooldown;
         }
 
         public void UpdateCooldown(float deltaTime)

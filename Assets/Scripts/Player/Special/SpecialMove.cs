@@ -1,3 +1,5 @@
+using Battle.Controllers.Player;
+using Enemy;
 using UnityEngine;
 
 public abstract class SpecialMove
@@ -7,14 +9,15 @@ public abstract class SpecialMove
     
     protected int PlayerNum;
     protected float Cost;
-    protected BattleManager BattleManager;
+
+    protected EnemyController EnemyController;
+    protected PlayerController PlayerController;
 
     public SpecialMove(string name, int playerNum, float cost)
     {
         _name = name;
         PlayerNum = playerNum;
         Cost = cost;
-        BattleManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleManager>();
     }
 
     public abstract void Start();
@@ -33,8 +36,9 @@ public abstract class SpecialMove
         return "$" + ShopCost;
     }
 
-    public void UpdateBattleManager(BattleManager battleManager)
+    public void UpdateBattleControllers(PlayerController playerController, EnemyController enemyController)
     {
-        BattleManager = battleManager;
+        PlayerController = playerController;
+        EnemyController = enemyController;
     }
 }

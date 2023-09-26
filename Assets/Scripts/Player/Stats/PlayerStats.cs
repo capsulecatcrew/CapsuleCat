@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Battle;
+using Battle.Controllers.Player;
+using Battle.Hitboxes;
+using Enemy;
 using Player.Special;
 using Player.Special.Move;
 using Player.Special.Shoot;
@@ -147,13 +151,9 @@ public static class PlayerStats
         Reset();
     }
 
-    public static BattleStat CreateBattleHealthStat(ProgressBar healthBar)
+    public static void InitHealthKillable(HealthKillable healthKillable)
     {
-        MaxHealth.InitProgressBar(healthBar);
-        var battleHealthStat = Health.CreateBattleStat();
-        healthBar.SetValue(battleHealthStat.Value);
-        battleHealthStat.OnStatChange += healthBar.SetValue;
-        return battleHealthStat;
+        healthKillable.Init(MaxHealth, Firer.Enemy);
     }
 
     public static BattleStat CreateBattleEnergyStat(int playerNum, ProgressBar energyBar)
@@ -364,10 +364,10 @@ public static class PlayerStats
         }
     }
 
-    public static void UpdateSpecialMoveBattleManagers(BattleManager battleManager)
+    public static void UpdateSpecialMoveBattleManagers(PlayerController playerController, EnemyController enemyController)
     {
-        _specialMove1?.UpdateBattleManager(battleManager);
-        _specialMove2?.UpdateBattleManager(battleManager);
+        _specialMove1?.UpdateBattleControllers(playerController, enemyController);
+        _specialMove2?.UpdateBattleControllers(playerController, enemyController);
     }
 
     public static void UseSpecialMove(int playerNum)

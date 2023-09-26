@@ -32,7 +32,7 @@ public class EnemyLaserAttack : MonoBehaviour
     private int _bigAttackIndex;
     private bool _doingBigAttack;
 
-    [SerializeField] private BattleManager battleManager;
+    [SerializeField] private BattleController battleController;
 
     private void Awake()
     {

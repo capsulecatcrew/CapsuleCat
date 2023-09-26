@@ -1,3 +1,6 @@
+using Enemy;
+using UnityEngine;
+
 namespace Player.Special.Shoot
 {
     public class Vampire : SpecialMove
@@ -9,21 +12,24 @@ namespace Player.Special.Shoot
         private new const float Cost = 5;
         private bool _isEnabled;
         private int _charges;
+        
+        
 
         public Vampire(int playerNum) : base(Name, playerNum, Cost)
         {
-            BattleManager.OnEnemyHit += ApplyEffect;
+
+            EnemyController.OnEnemyMainDamaged += ApplyEffect;
         }
 
         private void AddCharge()
         {
             if (!_isEnabled) return;
-            if (!BattleManager.HasSpecial(PlayerNum, Cost))
+            if (!PlayerController.HasSpecial(PlayerNum, Cost))
             {
                 Stop();
                 return;
             }
-            BattleManager.UseSpecial(PlayerNum, Cost);
+            PlayerController.UseSpecial(PlayerNum, Cost);
             ++_charges;
         }
 
@@ -34,22 +40,22 @@ namespace Player.Special.Shoot
                 Stop();
                 return;
             }
-            if (!BattleManager.HasSpecial(PlayerNum, Cost)) return;
+            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             _isEnabled = true;
-            BattleManager.OnPlayerShotFired += AddCharge;
-            BattleManager.OnEnemyHit += ApplyEffect;
+            PlayerController.OnPlayerShotFired += AddCharge;
+            PlayerController.OnEnemyHit += ApplyEffect;
         }
 
         public override void Stop()
         {
             _isEnabled = false;
-            BattleManager.OnPlayerShotFired -= AddCharge;
+            PlayerController.OnPlayerShotFired -= AddCharge;
         }
 
         protected override void ApplyEffect(float amount)
         {
             if (_charges == 0) return;
-            BattleManager.HealPlayer(amount * Multiplier);
+            PlayerController.HealPlayer(amount * Multiplier);
             --_charges;
         }
     }
