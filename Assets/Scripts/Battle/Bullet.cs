@@ -18,16 +18,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private bool ignoreIFrames;
     [SerializeField] private TrailRenderer trailRenderer;
 
-    private BattleManager _battleManager;
-
-    private bool _isPlayer;
-
-    public void Awake()
-    {
-        var gameController = GameObject.FindGameObjectWithTag("GameController");
-        _battleManager = gameController.GetComponent<BattleManager>();
-    }
-
     public void OnEnable()
     {
         _transform = transform;
@@ -72,8 +62,7 @@ public class Bullet : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-    // Update is called once per frame
+    
     public void Update()
     {
         transform.position += _speed * Time.deltaTime * _direction;
@@ -90,6 +79,8 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (_battleManager.HitTarget(_firer, other.gameObject, _damage, ignoreIFrames)) Delete();
+        var hitbox = other.gameObject.GetComponent<Hitbox>();
+        if (hitbox == null) return;
+        if (hitbox.Hit(_firer, _damage, ignoreIFrames)) Delete();
     }
 }

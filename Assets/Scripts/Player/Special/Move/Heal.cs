@@ -9,8 +9,8 @@ namespace Player.Special.Move
         
         public override void Start()
         {
-            if (!BattleManager.HasSpecial(PlayerNum, Cost)) return;
-            BattleManager.UseSpecial(PlayerNum, Cost);
+            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
+            PlayerController.UseSpecial(PlayerNum, Cost);
             ApplyEffect(Amount);
         }
 
@@ -18,7 +18,7 @@ namespace Player.Special.Move
 
         protected override void ApplyEffect(float amount)
         {
-            BattleManager.HealPlayer(amount);
+            PlayerController.HealPlayer(amount);
         }
     }
 }
