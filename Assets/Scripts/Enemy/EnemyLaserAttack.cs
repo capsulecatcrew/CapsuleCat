@@ -5,6 +5,7 @@ public class EnemyLaserAttack : MonoBehaviour
 {
     public GameObject target;
     public ObjectPool laserPool;
+    public ObjectPool specialLaserPool;
 
     public EnemyAttack[] bigAttacks;
 
@@ -76,7 +77,14 @@ public class EnemyLaserAttack : MonoBehaviour
 
     void SingleAimedLaser()
     {
-        _currLaser = laserPool.GetPooledObject();
+        if (Random.Range(1, 11) > 9) // 10% chance of special laser
+        {
+            _currLaser = specialLaserPool.GetPooledObject();
+        }
+        else
+        {
+            _currLaser = laserPool.GetPooledObject();
+        }
         _laserLogic = _currLaser.GetComponent<EnemyLaser>();
         _laserLogic.SetDamage(_damage);
         _laserLogic.SetTargetTracking(target.transform);

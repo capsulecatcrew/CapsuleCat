@@ -97,7 +97,7 @@ namespace Player.Stats.Templates
 
         public void InitProgressBar(ProgressBar progressBar)
         {
-            progressBar.SetMaxValue(0, Value, 0);
+            progressBar.SetMaxValue(Value);
         }
     }
 }

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6871544596492064287}
   - component: {fileID: 6871544596492064286}
   - component: {fileID: 5078083984037796972}
+  - component: {fileID: 4256071546030220250}
+  - component: {fileID: 4498328954832990611}
   m_Layer: 0
   m_Name: Enemy Shield Piece
   m_TagString: Enemy
@@ -194,3 +196,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &4256071546030220250
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871544596492064280}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9d1beaa9887a4f52b0f2b57e47f4aac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4498328954832990611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871544596492064280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: 0000000001000000
+  invincibilityTime: 0.1
+  audioSource: {fileID: 5078083984037796972}
+  damageSound: {fileID: 0}
+  colorRenderer: {fileID: 6871544596492064287}
+  maxHpColor: {r: 0.38251352, g: 0, b: 1, a: 0.78431374}
+  minHpColor: {r: 1, g: 0, b: 0, a: 0.19607843}

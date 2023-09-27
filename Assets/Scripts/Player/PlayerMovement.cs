@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
+using Battle;
 using Battle.Controllers.Player;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private static PlayerControls _playerController;
+    private static PlayerControls _playerControls;
     
-    // TODO
-    // Consider having PlayerMovement be a part of PlayerController instead.
-    // I'll work on having EnemyController hooked with the individual enemy attack controllers too.
     [SerializeField] private PlayerController playerController;
 
     public Transform pivot;
@@ -54,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     public void Awake()
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleController>();
-        _playerController = new PlayerControls();
+        _playerControls = new PlayerControls();
         _groundYPos = mainBody.position.y;
         _isGrounded = true;
     }
@@ -83,12 +81,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerController.Enable();
+        _playerControls.Enable();
     }
     
     private void OnDisable()
     {
-        _playerController.Disable();
+        _playerControls.Disable();
     }
 
     /**
@@ -222,9 +220,9 @@ public class PlayerMovement : MonoBehaviour
         if (_dashCooldownTimer > 0) return;
         var p = playerNum - 1;
         if (_pausePlayerInput[p]) return;
-        if (!playerController.HasEnergy(playerNum, _dashEnergyCost[p])) return;
+        if (!playerController.GetPlayerEnergy(playerNum).HasEnergy(_dashEnergyCost[p])) return;
 
-        playerController.UseEnergy(playerNum, _dashEnergyCost[p]);
+        playerController.GetPlayerEnergy(playerNum).UseEnergy(_dashEnergyCost[p]);
         StartCoroutine(DashCoroutine(playerNum));
         
     }

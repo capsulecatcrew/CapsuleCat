@@ -24,12 +24,12 @@ namespace Player.Special.Shoot
         private void AddCharge()
         {
             if (!_isEnabled) return;
-            if (!PlayerController.HasSpecial(PlayerNum, Cost))
+            if (!PlayerController.GetPlayerSpecialEnergy(PlayerNum).HasSpecialEnergy(Cost))
             {
                 Stop();
                 return;
             }
-            PlayerController.UseSpecial(PlayerNum, Cost);
+            PlayerController.GetPlayerSpecialEnergy(PlayerNum).UseSpecialEnergy(Cost);
             ++_charges;
         }
 
@@ -40,16 +40,16 @@ namespace Player.Special.Shoot
                 Stop();
                 return;
             }
-            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
+            if (!PlayerController.GetPlayerSpecialEnergy(PlayerNum).HasSpecialEnergy(Cost)) return;
             _isEnabled = true;
-            PlayerController.OnPlayerShotFired += AddCharge;
-            PlayerController.OnEnemyHit += ApplyEffect;
+            // PlayerController.OnPlayerShotFired += AddCharge;
+            // PlayerController.OnEnemyHit += ApplyEffect;
         }
 
         public override void Stop()
         {
             _isEnabled = false;
-            PlayerController.OnPlayerShotFired -= AddCharge;
+            // PlayerController.OnPlayerShotFired -= AddCharge;
         }
 
         protected override void ApplyEffect(float amount)

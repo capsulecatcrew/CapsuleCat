@@ -9,8 +9,8 @@ namespace Player.Special.Move
         
         public override void Start()
         {
-            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
-            PlayerController.UseSpecial(PlayerNum, Cost);
+            if (!PlayerController.GetPlayerSpecialEnergy(PlayerNum).HasSpecialEnergy(Cost)) return;
+            PlayerController.GetPlayerSpecialEnergy(PlayerNum).UseSpecialEnergy(Cost);
             ApplyEffect(Amount);
         }
 

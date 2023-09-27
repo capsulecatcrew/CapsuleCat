@@ -9,9 +9,9 @@ namespace Battle.Hitboxes
         public delegate void Death();
         public event Death OnDeath;
 
-        public virtual void Awake()
+        public virtual void OnEnable()
         {
-            BattleStat.OnStatDeplete += Die;
+            // BattleStat.OnStatDeplete += Die;
         }
 
         public virtual void Init(UpgradeableLinearStat maxStat, params Firer[] enemies)
@@ -19,11 +19,12 @@ namespace Battle.Hitboxes
             base.Init(enemies);
             maxStat.SetLevel(PlayerStats.GetCurrentStage());
             BattleStat = maxStat.CreateBattleStat();
+            BattleStat.OnStatDeplete += Die;
         }
 
-        public override bool Hit(Firer firer, float damage, bool ignoreIFrames)
+        public override bool Hit(Firer firer, float damage, bool ignoreIFrames = false, DamageType damageType = DamageType.Normal)
         {
-            return base.Hit(firer, damage, ignoreIFrames) && BattleStat.MinusValue(damage, ignoreIFrames);
+            return base.Hit(firer, damage, ignoreIFrames, damageType) && BattleStat.MinusValue(damage);
         }
 
         private void Die()

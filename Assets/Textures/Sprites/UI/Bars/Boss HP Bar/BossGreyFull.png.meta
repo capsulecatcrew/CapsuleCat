@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b8af006cfe005489fb888ac7f08983da
+guid: cb4a32e2eb72f476cb58a1492d00e892
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -139,106 +139,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: boss_hp_bg
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 256
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 663ce0d9b321b477e98d54024c19024f
-      internalID: -1870061689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_hp_fill
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 145
-        width: 240
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fd1e761a502dd4746a7871deff1c5590
-      internalID: 2036114407
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_hp_bg
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 159
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aaf9afc8db20341df8a70e90edd625e6
-      internalID: -1644284366
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_hp_fill
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 17
-        width: 127
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1cbb2c21efcd47ddaf4d6966bb29b45
-      internalID: 48127656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6373a6eaf822c4eb18c2c67ef83a3aaf
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      player_hp_bg: -1644284366
-      player_hp_fill: 48127656
-      boss_hp_fill: 2036114407
-      boss_hp_bg: -1870061689
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

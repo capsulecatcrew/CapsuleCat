@@ -113,9 +113,22 @@ namespace Enemy
         private void RotateShields()
         {
             var deltaTime = Time.deltaTime;
-            foreach (var shield in shields)
+            // foreach (var shield in shields)
+            // {
+            //     RotateShield(shield.gameObject, deltaTime);
+            // }
+
+            switch (_rotateDirection)
             {
-                RotateShield(shield.gameObject, deltaTime);
+                case RotateDirection.Clockwise:
+                    transform.RotateAround(_rotatePos, new Vector3(0, 1, 0), RotateSpeed.GetValue() * deltaTime);
+                    break;
+                case RotateDirection.Anticlockwise:
+                    transform.RotateAround(_rotatePos, new Vector3(0, 1, 0),
+                        -RotateSpeed.GetValue() * deltaTime);
+                    break;
+                default:
+                    return;
             }
 
             _pauseCooldown -= deltaTime;

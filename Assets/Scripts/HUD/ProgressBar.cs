@@ -10,11 +10,27 @@ public class ProgressBar : MonoBehaviour
         Canvas.ForceUpdateCanvases();
     }
 
-    public void SetMaxValue(int ignored1, float maxValue, int ignored2)
+    public void SetMaxValue(float maxValue)
     {
         slider.maxValue = maxValue;
     }
     
+    public void ChangeValueBy(float change)
+    {
+        if (slider.value + change > slider.maxValue)
+        {
+            slider.value = slider.maxValue;
+        }
+        else if (slider.value + change < 0)
+        {
+            slider.value = 0;
+        }
+        else
+        {
+            slider.value += change;
+        }
+    }
+
     public void SetValue(float value)
     {
         slider.value = value;

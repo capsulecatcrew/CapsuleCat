@@ -66,7 +66,7 @@ public class WingGlow : MonoBehaviour
         }
     }
 
-    public void TurnOnGlow(float unused)
+    public void TurnOnGlow(float unused = 0)
     {
         if (_glowState != GlowState.On)
         {
