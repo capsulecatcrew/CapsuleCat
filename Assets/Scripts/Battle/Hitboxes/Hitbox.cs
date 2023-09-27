@@ -1,13 +1,15 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Battle
+namespace Battle.Hitboxes
 {
-    public abstract class Hitbox : MonoBehaviour
+    public class Hitbox : MonoBehaviour
     {
-        private Firer[] _enemies;
-
-        public delegate void Damaged(float damage);
+        [FormerlySerializedAs("enemies")] [SerializeField] private Firer[] takeDamageFrom;
+        [SerializeField] protected float invincibilityTime = 0.5f;
+        private float _timeFromLastHit = 0;
+        public delegate void Damaged(float damage, DamageType damageType);
         public event Damaged OnDamaged;
         
         [SerializeField] private AudioSource audioSource;
@@ -15,13 +17,32 @@ namespace Battle
 
         public void Init(Firer[] enemies)
         {
-            _enemies = enemies;
+            takeDamageFrom = enemies;
         }
 
-        public virtual bool Hit(Firer firer, float damage, bool ignoreIFrames)
+        private void Update()
         {
-            if (!_enemies.Contains(firer)) return false;
-            OnDamaged?.Invoke(damage);
+            IncrementHitTimer();
+        }
+
+        private void IncrementHitTimer()
+        {
+            if (_timeFromLastHit < invincibilityTime) _timeFromLastHit += Time.deltaTime;
+        }
+
+        private void ResetHitTimer()
+        {
+            _timeFromLastHit = 0.0f;
+        }
+
+        public virtual bool Hit(Firer firer, float damage, bool ignoreIFrames = false, DamageType damageType = DamageType.Normal)
+        {
+            if (!takeDamageFrom.Contains(firer)) return false;
+            if (ignoreIFrames || _timeFromLastHit >= invincibilityTime)
+            {
+                OnDamaged?.Invoke(damage, damageType);
+                ResetHitTimer();
+            }
             audioSource.PlayOneShot(damageSound);
             return true;
         }

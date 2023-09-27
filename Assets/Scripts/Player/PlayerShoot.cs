@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
     // TODO
     // Consider having PlayerShoot be a part of PlayerController instead.
     // I'll work on having EnemyController hooked with the individual enemy attack controllers too.
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerEnergyController playerEnergy;
 
     // General bullet info
     private float _cooldownTime;
@@ -161,7 +161,7 @@ public class PlayerShoot : MonoBehaviour
     /// </summary>
     private bool CanShootBasic()
     {
-        return IsCooldownOver() && !_isHeavyCharging && playerController.HasEnergy(playerNum, EnergyCost);
+        return IsCooldownOver() && !_isHeavyCharging && playerEnergy.HasEnergy(EnergyCost);
     }
 
     /// <summary>
@@ -171,7 +171,7 @@ public class PlayerShoot : MonoBehaviour
     /// <param name="energyCost">Fired heavy bullet's energy cost.</param>
     private bool CanShootHeavy(double chargeTime, float energyCost)
     {
-        return IsCooldownOver() && chargeTime >= heavyMinCharge && playerController.HasEnergy(playerNum, energyCost);
+        return IsCooldownOver() && chargeTime >= heavyMinCharge && playerEnergy.HasEnergy(energyCost);
     }
 
     /// <summary>
@@ -211,11 +211,11 @@ public class PlayerShoot : MonoBehaviour
         }
 
         ReleaseHeavyBullet(chargePercent);
-        playerController.UseEnergy(playerNum, energyCost);
+        playerEnergy.UseEnergy(energyCost);
         
         _cooldownTime = basicCooldownTime + clampedTime / heavyCooldownMultiplier;
         
-        playerController.UpdatePlayerShotFired();
+        // playerController.UpdatePlayerShotFired();
 
         _hasPlayedReadySound = false;
         PlayHeavyBulletShotSound();
@@ -230,11 +230,11 @@ public class PlayerShoot : MonoBehaviour
         }
 
         TransformBullets(basicBulletPool, _damage, Speed);
-        playerController.UseEnergy(playerNum, EnergyCost);
+        playerEnergy.UseEnergy(EnergyCost);
 
         _cooldownTime = basicCooldownTime;
         
-        playerController.UpdatePlayerShotFired();
+        // playerController.UpdatePlayerShotFired();
 
         PlayBasicBulletShotSound();
     }
@@ -254,7 +254,7 @@ public class PlayerShoot : MonoBehaviour
 
         _cooldownTime = basicCooldownTime * weakCooldownMultiplier;
         
-        playerController.UpdatePlayerShotFired();
+        // playerController.UpdatePlayerShotFired();
 
         PlayWeakBulletShotSound();
     }
@@ -395,7 +395,7 @@ public class PlayerShoot : MonoBehaviour
 
         var chargePercent = clampedTime / heavyMaxCharge;
         var energyCost = EnergyCost * heavyEnergyCostMultiplier * chargePercent;
-        if (!playerController.HasEnergy(playerNum, energyCost)) ShootHeavyBullet(clampedTime);
+        if (!playerEnergy.HasEnergy(energyCost)) ShootHeavyBullet(clampedTime);
 
         if (chargePercent >= 1)
         {

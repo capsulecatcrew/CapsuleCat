@@ -156,43 +156,43 @@ public static class PlayerStats
         healthKillable.Init(MaxHealth, Firer.Enemy);
     }
 
-    public static BattleStat CreateBattleEnergyStat(int playerNum, ProgressBar energyBar)
+    public static BattleStat CreateBattleHealthStat()
+    {
+        return Health.CreateBattleStat();
+    }
+
+    public static BattleStat CreateBattleEnergyStat(int playerNum)
     {
         switch (playerNum)
         {
             case 1:
-                MaxEnergy1.InitProgressBar(energyBar);
+                // MaxEnergy1.InitProgressBar(energyBar);
                 Energy1.Reset();
                 var battleEnergyStat1 = Energy1.CreateBattleStat();
-                energyBar.SetValue(battleEnergyStat1.Value);
-                battleEnergyStat1.OnStatChange += energyBar.SetValue;
+                // energyBar.SetValue(battleEnergyStat1.Value);
+                // battleEnergyStat1.OnStatChange += energyBar.SetValue;
                 return battleEnergyStat1;
             case 2:
-                MaxEnergy2.InitProgressBar(energyBar);
+                // MaxEnergy2.InitProgressBar(energyBar);
                 Energy2.Reset();
                 var battleEnergyStat2 = Energy2.CreateBattleStat();
-                energyBar.SetValue(battleEnergyStat2.Value);
-                battleEnergyStat2.OnStatChange += energyBar.SetValue;
+                // energyBar.SetValue(battleEnergyStat2.Value);
+                // battleEnergyStat2.OnStatChange += energyBar.SetValue;
                 return battleEnergyStat2;
         }
 
         return null;
     }
 
-    public static BattleStat CreateBattleSpecialStat(int playerNum, ProgressBar specialBar)
+    public static BattleStat CreateBattleSpecialStat(int playerNum)
     {
-        specialBar.SetMaxValue(0, SpecialMax, 0);
         switch (playerNum)
         {
             case 1:
                 var battleSpecialStat1 = Special1.CreateBattleStat();
-                specialBar.SetValue(battleSpecialStat1.Value);
-                battleSpecialStat1.OnStatChange += specialBar.SetValue;
                 return battleSpecialStat1;
             case 2:
                 var battleSpecialStat2 = Special2.CreateBattleStat();
-                specialBar.SetValue(battleSpecialStat2.Value);
-                battleSpecialStat2.OnStatChange += specialBar.SetValue;
                 return battleSpecialStat2;
         }
 
@@ -295,9 +295,22 @@ public static class PlayerStats
             2 => EnergyShare2.GetValue(),
             _ => 0f
         };
-
     }
 
+    public static float GetMaxEnergy(int playerNum)
+    {
+        return playerNum switch
+        {
+            1 => MaxEnergy1.GetValue(),
+            2 => MaxEnergy2.GetValue(),
+            _ => 0f
+        };
+    }
+    
+    public static float GetMaxHealth()
+    {
+        return MaxHealth.GetValue();
+    }
     public static List<UpgradeableStat> GetStatsToUpgrade(int playerNum)
     {
         return playerNum switch

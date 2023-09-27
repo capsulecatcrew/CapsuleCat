@@ -10,12 +10,17 @@ namespace Battle.Hitboxes
         public override void Init(UpgradeableLinearStat maxStat, params Firer[] enemies)
         {
             base.Init(maxStat, enemies);
-            OnDamaged += healthBar.SetValue;
+            OnDamaged += HandleDamageBarUpdate;
         }
 
         public override void OnDisable()
         {
-            OnDamaged -= healthBar.SetValue;
+            OnDamaged -= HandleDamageBarUpdate;
+        }
+
+        private void HandleDamageBarUpdate(float amount, DamageType unused)
+        {
+            healthBar.ChangeValueBy(-amount);
         }
     }
 }

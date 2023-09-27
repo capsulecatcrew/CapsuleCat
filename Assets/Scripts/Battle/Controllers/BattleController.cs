@@ -1,5 +1,6 @@
 using Battle.Controllers.Player;
 using Enemy;
+using Player.Special;
 using Player.Stats.Persistent;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,7 +17,7 @@ public class BattleController : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private EnemyShieldsController enemyShieldsController;
-    
+
     [SerializeField] private LevelLoader levelLoader;
 
     private bool _hasLost;
@@ -47,7 +48,8 @@ public class BattleController : MonoBehaviour
 
         // OnPlayerWin += PlayerStats.Win;
         // OnPlayerLose += PlayerStats.Lose;
-        
+        PlayerStats.SetSpecialMove(1, SpecialMoveEnum.MoveHeal);
+        PlayerStats.SetSpecialMove(2, SpecialMoveEnum.ShootVampiric);
         PlayerStats.UpdateSpecialMoveBattleManagers(playerController, enemyController);
     }
 
@@ -110,8 +112,16 @@ public class BattleController : MonoBehaviour
     //     }
     // }
 
+    private void OnEnable()
+    {
+        enemyController.OnEnemyDefeated += Win;
+        playerController.OnPlayerDeath += Lose;
+    }
+
     private void OnDisable()
     {
+        enemyController.OnEnemyDefeated -= Win;
+        playerController.OnPlayerDeath -= Lose;
         GlobalAudio.Singleton.StopMusic();
     }
 
@@ -129,11 +139,6 @@ public class BattleController : MonoBehaviour
         if (_hasLost) return;
         _hasLost = true;
         GlobalAudio.Singleton.StopMusic();
-        // _playerHealth.DecouplePersistentStat();
-        // _player1Energy.DecouplePersistentStat();
-        // _player2Energy.DecouplePersistentStat();
-        // _player1Special.DecouplePersistentStat();
-        // _player2Special.DecouplePersistentStat();
         // _playerHealth.OnStatDecrease -= PlayPlayerHurtSound;
         // _player1Energy.OnStatIncrease -= PlayEnergyAbsorbSound;
         // _player2Energy.OnStatIncrease -= PlayEnergyAbsorbSound;
@@ -142,39 +147,6 @@ public class BattleController : MonoBehaviour
         levelLoader.LoadLevel("Game Over");
     }
 
-    // public bool HasEnergy(int playerNum, float amount)
-    // {
-    //     return playerNum switch
-    //     {
-    //         1 => _player1Energy.CanMinusValue(amount),
-    //         2 => _player2Energy.CanMinusValue(amount),
-    //         _ => false
-    //     };
-    // }
-    //
-    // public void UseEnergy(int playerNum, float amount)
-    // {
-    //     switch (playerNum)
-    //     {
-    //         case 1:
-    //             _player1Energy.MinusValue(amount, false);
-    //             break;
-    //         case 2:
-    //             _player2Energy.MinusValue(amount, false);
-    //             break;
-    //     }
-    // }
-    //
-    // public bool HasSpecial(int playerNum, float amount)
-    // {
-    //     return playerNum switch
-    //     {
-    //         1 => _player1Special.CanMinusValue(amount),
-    //         2 => _player2Special.CanMinusValue(amount),
-    //         _ => false
-    //     };
-    // }
-    //
     // public void UseSpecial(int playerNum, float amount)
     // {
     //     switch (playerNum)

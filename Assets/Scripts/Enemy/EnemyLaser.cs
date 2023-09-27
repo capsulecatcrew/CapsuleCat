@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using Battle;
+using Battle.Hitboxes;
 using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
     public HitboxTrigger hitbox;
+    [SerializeField] private DamageType _damageType = DamageType.Normal;
     [SerializeField] private Transform target;
     
     public Animator animator;
@@ -97,6 +99,6 @@ public class EnemyLaser : MonoBehaviour
     {
         var otherHitbox = other.gameObject.GetComponent<Hitbox>();
         if (otherHitbox == null) return;
-        otherHitbox.Hit(Firer.Enemy, _damage, false);
+        otherHitbox.Hit(Firer.Enemy, _damage, false, _damageType);
     }
 }
