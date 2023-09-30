@@ -5,7 +5,7 @@ namespace Player.Stats.Templates
     public class UpgradeableStat : Stat
     {
         protected int Level = 1;
-        protected internal readonly int MaxLevel;
+        protected readonly int MaxLevel;
         
         protected readonly float ChangeValue;
 
@@ -73,13 +73,26 @@ namespace Player.Stats.Templates
         }
 
         /// <summary>
-        /// Initialised a ShopItemButton in the shop.
+        /// Initialise a ShopItemButton in the shop.
         /// </summary>
         public void InitShopItemButton(ShopItemButton shopItemButton)
         {
-            shopItemButton.Init(this, GetShopItemName(), GetCostString(), !IsMaxLevel(), _cost);
+            shopItemButton.Init(GetShopItemName(), GetCostString(), !IsMaxLevel(), _cost);
+            shopItemButton.OnButtonPressed += HandleShopItemButtonPressed;
+            shopItemButton.OnButtonDisable += HandleShopItemButtonDisable;
         }
         
+        private void HandleShopItemButtonPressed(int ignored)
+        {
+            UpgradeLevel();
+        }
+
+        private void HandleShopItemButtonDisable(ShopItemButton shopItemButton)
+        {
+            shopItemButton.OnButtonPressed -= HandleShopItemButtonPressed;
+            shopItemButton.OnButtonDisable -= HandleShopItemButtonDisable;
+        }
+
         private string GetShopItemName()
         {
             var shopItemNameBuilder = new StringBuilder();
@@ -93,11 +106,6 @@ namespace Player.Stats.Templates
         private string GetCostString()
         {
             return IsMaxLevel() ? "MAX LEVEL" : "$" + _cost;
-        }
-
-        public void InitProgressBar(ProgressBar progressBar)
-        {
-            progressBar.SetMaxValue(Value);
         }
     }
 }

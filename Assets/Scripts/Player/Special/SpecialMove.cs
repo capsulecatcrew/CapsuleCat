@@ -4,20 +4,22 @@ namespace Player.Special
 {
     public abstract class SpecialMove
     {
-        private const int ShopCost = 100;
-        private string _name;
+        protected const int ShopCost = 150;
 
         protected readonly int PlayerNum;
         protected readonly float Cost;
 
         protected PlayerController PlayerController;
 
-        protected SpecialMove(string name, int playerNum, float cost)
+        protected SpecialMove(int playerNum, float cost)
         {
-            _name = name;
             PlayerNum = playerNum;
             Cost = cost;
         }
+
+        public abstract void Enable();
+
+        public abstract void Disable();
 
         public abstract void Start();
 
@@ -25,12 +27,7 @@ namespace Player.Special
 
         protected abstract void ApplyEffect(float amount);
 
-        public void InitShopItemButton(ShopItemButton shopItemButton)
-        {
-            // shopItemButton.Init();
-        }
-
-        private string GetCostString()
+        protected static string GetCostString()
         {
             return "$" + ShopCost;
         }
