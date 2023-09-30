@@ -1,23 +1,30 @@
+using Player.Stats;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class Lobby : MonoBehaviour
+public class LobbyController : MonoBehaviour
 {
     public Avatar p1Avatar, p2Avatar;
     public TMP_Text p1Status, p2Status;
     private bool _p1Ready, _p2Ready;
     private bool _startingNextLevel;
     public UnityEvent m_OnBothPlayersReady;
+    
+    [SerializeField] private ProgressBar healthBar;
 
-    void Update()
+    public void OnEnable()
+    {
+        PlayerStats.InitPlayerHealthBarMax(healthBar);
+        PlayerStats.InitPlayerHealthBarValue(healthBar);
+    }
+
+    public void Update()
     {
         // Trigger code when both players are ready
-        if (!_startingNextLevel && _p1Ready && _p2Ready)
-        {
-            _startingNextLevel = true;
-            m_OnBothPlayersReady.Invoke();
-        }
+        if (_startingNextLevel || !_p1Ready || !_p2Ready) return;
+        _startingNextLevel = true;
+        m_OnBothPlayersReady.Invoke();
     }
 
     /// <summary>

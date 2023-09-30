@@ -20,7 +20,7 @@ public class CapsuleCatBtn : Button, ISelectHandler
 
     [SerializeField] private bool useable = true;
 
-    private void Awake()
+    protected override void Awake()
     {
         onClick.AddListener(HandleClick);
     }

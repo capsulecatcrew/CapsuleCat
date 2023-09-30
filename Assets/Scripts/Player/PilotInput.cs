@@ -117,7 +117,7 @@ public class PilotInput : MonoBehaviour
     private void OnSpecialMove()
     {
         if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Movement) return;
-        movementController.UseSpecialMove(player);
+        PlayerMovement.UseSpecialMove(player);
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
