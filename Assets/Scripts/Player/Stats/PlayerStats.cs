@@ -178,6 +178,11 @@ namespace Player.Stats
             healthBar.SetMaxValue(MaxHealth.Value);
         }
 
+        public static void InitPlayerHealthBarValue(ProgressBar healthBar)
+        {
+            healthBar.SetValue(Health.Value);
+        }
+
         public static BattleStat CreateBattleEnergyStat(int playerNum)
         {
             switch (playerNum)

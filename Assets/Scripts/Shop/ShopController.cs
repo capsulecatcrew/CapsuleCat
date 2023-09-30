@@ -4,18 +4,17 @@ using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopController : MonoBehaviour
 {
     private static int _currentShopLevel = 1;
 
     public TMP_Text moneyCount1, moneyCount2;
 
     [SerializeField] private List<ShopItemButton> player1Buttons;
-    private static List<bool> _buttons1Usable = new List<bool>();
+    private static readonly List<bool> Buttons1Usable = new ();
     [SerializeField] private List<ShopItemButton> player2Buttons;
-    private static List<bool> _buttons2Usable = new List<bool>();
+    private static readonly List<bool> Buttons2Usable = new ();
 
-    
     private static List<UpgradeableStat> _chosenStats1;
     private static List<UpgradeableStat> _chosenStats2;
 
@@ -70,15 +69,15 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     private void ResetButtonsUsability()
     {
-        _buttons1Usable.Clear();
-        _buttons2Usable.Clear();
+        Buttons1Usable.Clear();
+        Buttons2Usable.Clear();
         for (var i = 0; i < player1Buttons.Count; i++)
         {
-            _buttons1Usable.Add(true);
+            Buttons1Usable.Add(true);
         }
         for (var i = 0; i < player2Buttons.Count; i++)
         {
-            _buttons2Usable.Add(true);
+            Buttons2Usable.Add(true);
         }
     }
 
@@ -86,22 +85,22 @@ public class ShopManager : MonoBehaviour
     {
         for (var i = 0; i < player1Buttons.Count; i++)
         {
-            if (!_buttons1Usable[i]) player1Buttons[i].Disable();
+            if (!Buttons1Usable[i]) player1Buttons[i].Disable();
         }
         for (var i = 0; i < player2Buttons.Count; i++)
         {
-            if (!_buttons2Usable[i]) player2Buttons[i].Disable();
+            if (!Buttons2Usable[i]) player2Buttons[i].Disable();
         }
     }
 
     public void SavePlayer1ButtonAsUnusable(int index)
     {
-        _buttons1Usable[index] = false;
+        Buttons1Usable[index] = false;
     }
 
     public void SavePlayer2ButtonAsUnusable(int index)
     {
-        _buttons2Usable[index] = false;
+        Buttons2Usable[index] = false;
     }
 
     /// <summary>

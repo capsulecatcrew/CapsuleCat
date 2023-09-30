@@ -3,8 +3,6 @@ using Battle;
 using Battle.Controllers.Player;
 using Player.Stats;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private ScreenShaker screenShaker;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerSoundController playerSoundController;
 
     // General bullet info
     private float _cooldownTime;
@@ -54,18 +53,6 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float aimXLimit = 35;
     [SerializeField] private float aimYLimit = 45;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip cantShootSound;
-    [SerializeField] private AudioClip basicShotSound;
-    [SerializeField] private AudioClip weakShotSound;
-    [SerializeField] private AudioClip heavyShotChargingSound;
-    [SerializeField] private AudioClip heavyShotReadySound;
-    [SerializeField] private AudioClip heavyShotSound;
-    private float _heavySoundCooldown;
-    private const float HeavyShotChargingSoundLength = 0.05f;
-    private bool _hasPlayedReadySound;
-
     [Header("Particles")]
     [SerializeField] private ParticleSystem particlesL;
     [SerializeField] private ParticleSystem particlesR;
@@ -76,7 +63,6 @@ public class PlayerShoot : MonoBehaviour
     public void Start()
     {
         _damage = PlayerStats.GetDamage(playerNum);
-        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -196,7 +182,7 @@ public class PlayerShoot : MonoBehaviour
         if (!_isHeavyCharging)
         {
             PlayCantShootParticles(true);
-            PlayCantShootSound();
+            playerSoundController.PlayCantShootSound();
             return;
         }
         ResetHeavyCharge();
@@ -219,8 +205,8 @@ public class PlayerShoot : MonoBehaviour
         
         OnBulletShoot?.Invoke(_heavyBullet);
 
-        _hasPlayedReadySound = false;
-        PlayHeavyBulletShotSound();
+        playerSoundController.ResetHeavyBulletReadySound(playerNum);
+        playerSoundController.PlayHeavyBulletReleaseSound();
     }
 
     public void ShootBasicBullets()
@@ -238,7 +224,7 @@ public class PlayerShoot : MonoBehaviour
         
         OnBulletShoot?.Invoke(_bullet);
 
-        PlayBasicBulletShotSound();
+        playerSoundController.PlayBasicBulletShotSound();
     }
 
     private void ShootWeakBullets()
@@ -246,7 +232,7 @@ public class PlayerShoot : MonoBehaviour
         if (!CanShootWeak())
         {
             PlayCantShootParticles();
-            PlayCantShootSound();
+            playerSoundController.PlayCantShootSound();
             return;
         }
 
@@ -258,7 +244,7 @@ public class PlayerShoot : MonoBehaviour
         
         OnBulletShoot?.Invoke(_bullet);
 
-        PlayWeakBulletShotSound();
+        playerSoundController.PlayWeakBulletShotSound();
     }
 
     private void PlayCantShootParticles(bool ignoreMinCooldown = false)
@@ -324,51 +310,6 @@ public class PlayerShoot : MonoBehaviour
         _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);
     }
 
-    private void PlayCantShootSound()
-    {
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(cantShootSound);
-    }
-
-    private void PlayBasicBulletShotSound()
-    {
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(basicShotSound);
-    }
-
-    private void PlayWeakBulletShotSound()
-    {
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(weakShotSound);
-    }
-    
-    private void PlayHeavyBulletShotSound()
-    {
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(heavyShotSound);
-    }
-
-    private void PlayHeavyBulletChargingSound(float chargePercent)
-    {
-        if (_heavySoundCooldown > 0) return;
-        audioSource.pitch = chargePercent;
-        audioSource.volume = chargePercent;
-        audioSource.PlayOneShot(heavyShotChargingSound);
-        _heavySoundCooldown = HeavyShotChargingSoundLength;
-    }
-
-    private void PlayHeavyBulletReadySound()
-    {
-        audioSource.pitch = Random.Range(0.8f, 1.2f);
-        audioSource.PlayOneShot(heavyShotReadySound);
-    }
-
-    private void UpdateHeavySoundCooldown(float deltaTime)
-    {
-        if (_heavySoundCooldown <= 0) return;
-        _heavySoundCooldown -= deltaTime;
-    }
-
     private void UpdateCooldown(float deltaTime)
     {
         if (IsCooldownOver()) return;
@@ -403,13 +344,11 @@ public class PlayerShoot : MonoBehaviour
 
         if (chargePercent >= 1)
         {
-            if (_hasPlayedReadySound) return;
-            PlayHeavyBulletReadySound();
-            _hasPlayedReadySound = true;
+            playerSoundController.PlayHeavyBulletReadySound(playerNum);
         }
         else
         {
-            PlayHeavyBulletChargingSound(chargePercent);
+            playerSoundController.PlayHeavyBulletChargingSound(chargePercent);
         }
     }
 
@@ -425,10 +364,9 @@ public class PlayerShoot : MonoBehaviour
         PlayerStats.UseSpecialMove(playerNum);
     }
 
-    void Update()
+    public void Update()
     {
         UpdateCooldown(Time.deltaTime);
         UpdateHeavyCharge(Time.deltaTime);
-        UpdateHeavySoundCooldown(Time.deltaTime);
     }
 }

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private static PlayerControls _playerControls;
     
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerSoundController playerSoundController;
 
     public Transform pivot;
     public Transform mainBody;
@@ -16,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     private float _speed = 35;
     public float maxSpeed = 35;
-
 
     [SerializeField] private float dashMultiplier = 3.0f;
     private const float DashDuration = 0.15f;
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerCanJump[p] = false;
             success = true;
-            GlobalAudio.Singleton.PlaySound("JUMP_P" + playerNum);
+            playerSoundController.PlayJumpSound(playerNum);
         }
 
         if (!success) return false;
@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
         _playerCanJump[1] = true;
     }
     
-    public void UseSpecialMove(int playerNum)
+    public static void UseSpecialMove(int playerNum)
     {
         PlayerStats.UseSpecialMove(playerNum);
     }
@@ -237,6 +237,6 @@ public class PlayerMovement : MonoBehaviour
         dashParticleSystems[p].transform.forward = _playerLastMovement[p] > 0 ? mainBody.right : -mainBody.right;
         _dashCooldownTimer = DashCooldown;
         dashParticleSystems[p].Play();
-        GlobalAudio.Singleton.PlaySound("DASH");
+        playerSoundController.PlayDashSound();
     }
 }
