@@ -129,7 +129,7 @@ namespace Battle.Controllers.Player
 
         public void PlayDashSound()
         {
-            audioSource.PlayOneShot(dashSound);
+            audioSource.PlayOneShot(dashSound, dashVolume);
         }
     }
 }
