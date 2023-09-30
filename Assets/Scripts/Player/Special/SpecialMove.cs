@@ -1,44 +1,43 @@
 using Battle.Controllers.Player;
-using Enemy;
-using UnityEngine;
 
-public abstract class SpecialMove
+namespace Player.Special
 {
-    private const int ShopCost = 100;
-    private string _name;
-    
-    protected int PlayerNum;
-    protected float Cost;
-
-    protected EnemyController EnemyController;
-    protected PlayerController PlayerController;
-
-    public SpecialMove(string name, int playerNum, float cost)
+    public abstract class SpecialMove
     {
-        _name = name;
-        PlayerNum = playerNum;
-        Cost = cost;
-    }
+        private const int ShopCost = 100;
+        private string _name;
 
-    public abstract void Start();
+        protected readonly int PlayerNum;
+        protected readonly float Cost;
 
-    public abstract void Stop();
+        protected PlayerController PlayerController;
 
-    protected abstract void ApplyEffect(float amount);
+        protected SpecialMove(string name, int playerNum, float cost)
+        {
+            _name = name;
+            PlayerNum = playerNum;
+            Cost = cost;
+        }
 
-    public void InitShopItemButton(ShopItemButton shopItemButton)
-    {
-        // shopItemButton.Init();
-    }
+        public abstract void Start();
 
-    private string GetCostString()
-    {
-        return "$" + ShopCost;
-    }
+        public abstract void Stop();
 
-    public void UpdateBattleControllers(PlayerController playerController, EnemyController enemyController)
-    {
-        PlayerController = playerController;
-        EnemyController = enemyController;
+        protected abstract void ApplyEffect(float amount);
+
+        public void InitShopItemButton(ShopItemButton shopItemButton)
+        {
+            // shopItemButton.Init();
+        }
+
+        private string GetCostString()
+        {
+            return "$" + ShopCost;
+        }
+
+        public void UpdatePlayerController(PlayerController playerController)
+        {
+            PlayerController = playerController;
+        }
     }
 }

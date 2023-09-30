@@ -147,10 +147,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 89983465}
+  - component: {fileID: 89983475}
   - component: {fileID: 89983467}
   - component: {fileID: 89983470}
   - component: {fileID: 89983472}
-  - component: {fileID: 89983475}
   - component: {fileID: 89983474}
   - component: {fileID: 89983469}
   m_Layer: 0
@@ -174,7 +174,7 @@ Transform:
   m_Children:
   - {fileID: 241017968}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &89983467
 MonoBehaviour:
@@ -357,11 +357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35b3a2ed322412bb1dfe06254b8d2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBody: {fileID: 1676904526}
+  playerBody: {fileID: 7711659574321420072}
   p1Energy: {fileID: 1822170222}
   p2Energy: {fileID: 1361610038}
-  p1SpecialEnergy: {fileID: 1822170223}
-  p2SpecialEnergy: {fileID: 1361610037}
+  p1Special: {fileID: 1822170223}
+  p2Special: {fileID: 1361610037}
+  p1Shoot: {fileID: 435951170}
+  p2Shoot: {fileID: 1511992172}
   p1ManaShield: {fileID: 0}
   p2ManaShield: {fileID: 0}
 --- !u!1 &137705985 stripped
@@ -5269,7 +5271,6 @@ GameObject:
   - component: {fileID: 203013227}
   - component: {fileID: 203013226}
   - component: {fileID: 203013228}
-  - component: {fileID: 203013229}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -5291,7 +5292,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 89983475}
   enemyController: {fileID: 1755626512}
-  enemyShieldsController: {fileID: 5336160479257657132}
   levelLoader: {fileID: 301510219}
 --- !u!4 &203013227
 Transform:
@@ -5306,7 +5306,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &203013228
 MonoBehaviour:
@@ -5352,26 +5352,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &203013229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203013225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4489b0c0081474e48876e220802659fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 89983475}
-  enemyController: {fileID: 1755626512}
-  enemyHpBar: {fileID: 1611281975}
-  playerHpBar: {fileID: 216514131}
-  p1EnergyBar: {fileID: 9057981174006448553}
-  p2EnergyBar: {fileID: 2104714799}
-  p1SpecialBar: {fileID: 1734205483}
-  p2SpecialBar: {fileID: 813567068}
 --- !u!1 &205300874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1053287424301608022, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -5672,9 +5652,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 02000000
-  invincibilityTime: 1
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 89983469}
+  damageSound: {fileID: 8300000, guid: 11e3ef13ad672465aa87a420c504a034, type: 3}
 --- !u!1 &241017967
 GameObject:
   m_ObjectHideFlags: 0
@@ -14536,7 +14519,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294055272
 GameObject:
@@ -14650,9 +14633,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 02000000
-  invincibilityTime: 1
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 89983469}
+  damageSound: {fileID: 8300000, guid: 11e3ef13ad672465aa87a420c504a034, type: 3}
 --- !u!114 &301510219 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5373058597069017571, guid: 23e35baea538842428eddd2755210129, type: 3}
@@ -14999,13 +14985,13 @@ MonoBehaviour:
   - {fileID: 1556381166}
   screenShaker: {fileID: 1106076139}
   playerMovement: {fileID: 89983467}
-  playerEnergy: {fileID: 1822170222}
+  playerController: {fileID: 89983475}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
   weakSpeedMultiplier: 0.5
   weakCooldownMultiplier: 3
-  lowBulletPool: {fileID: 89983472}
+  weakBulletPool: {fileID: 89983472}
   heavyMinCharge: 1.5
   heavyMaxCharge: 3
   heavyDamageMultiplier: 6
@@ -20221,7 +20207,7 @@ Transform:
   - {fileID: 1755626510}
   - {fileID: 1420063648}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &525289088
 PrefabInstance:
@@ -20232,7 +20218,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4111553387954196777, guid: 23e35baea538842428eddd2755210129, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4111553387954196777, guid: 23e35baea538842428eddd2755210129, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20376,7 +20362,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &719363350
 GameObject:
@@ -20659,7 +20645,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &813567066
 PrefabInstance:
@@ -21133,8 +21119,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 8.5111164e-26, y: 0.9998876, z: -0.014994942, w: 5.6753537e-24}
-  m_LocalPosition: {x: -2.269376e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
+  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21383,8 +21369,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 8.5111164e-26, y: 0.9998876, z: -0.014994942, w: 5.6753537e-24}
-  m_LocalPosition: {x: -2.269376e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
+  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21567,7 +21553,7 @@ RectTransform:
   - {fileID: 1364088755}
   - {fileID: 1136786445}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22117,13 +22103,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 13.07, z: 14.875}
---- !u!1 &1216838902 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7711659573846253419, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
-  m_PrefabInstance: {fileID: 7711659574321420066}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1231861942
 GameObject:
   m_ObjectHideFlags: 0
@@ -22236,9 +22217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 02000000
-  invincibilityTime: 1
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 89983469}
+  damageSound: {fileID: 8300000, guid: 11e3ef13ad672465aa87a420c504a034, type: 3}
 --- !u!1 &1243696959
 GameObject:
   m_ObjectHideFlags: 0
@@ -22751,7 +22735,7 @@ MonoBehaviour:
   energyAbsorbers:
   - {fileID: 1231861948}
   - {fileID: 294055278}
-  playerBody: {fileID: 1676904526}
+  playerBody: {fileID: 7711659574321420072}
 --- !u!114 &1361610038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22878,7 +22862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 363636727752967114, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 363636727752967114, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23298,9 +23282,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 02000000
-  invincibilityTime: 1
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 89983469}
+  damageSound: {fileID: 8300000, guid: 11e3ef13ad672465aa87a420c504a034, type: 3}
 --- !u!1 &1508056305
 GameObject:
   m_ObjectHideFlags: 0
@@ -28229,13 +28216,13 @@ MonoBehaviour:
   - {fileID: 1317460920}
   screenShaker: {fileID: 1106076140}
   playerMovement: {fileID: 89983467}
-  playerEnergy: {fileID: 1361610038}
+  playerController: {fileID: 89983475}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
   weakSpeedMultiplier: 0.5
   weakCooldownMultiplier: 3
-  lowBulletPool: {fileID: 89983472}
+  weakBulletPool: {fileID: 89983472}
   heavyMinCharge: 1.5
   heavyMaxCharge: 3
   heavyDamageMultiplier: 6
@@ -28678,7 +28665,7 @@ MonoBehaviour:
   minTimeLowerLimit: 1.5
   maxTimeLowerLimit: 3
   timerDecreaseByLevel: 3
-  battleController: {fileID: 0}
+  specialLaserChance: 90
 --- !u!114 &1588538305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29383,29 +29370,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -13.07, z: -14.875}
 --- !u!4 &1676904525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7711659573846253423, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
   m_PrefabInstance: {fileID: 7711659574321420066}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1676904526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216838902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c58281c7c2de4e5ebca50d0d49c8734b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  takeDamageFrom: 02000000
-  invincibilityTime: 0.5
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
 --- !u!1 &1720567259
 GameObject:
   m_ObjectHideFlags: 0
@@ -34595,7 +34566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryParts:
   - hitbox: {fileID: 1755626513}
-    hpWeight: 1
+    baseHealth: 100
+    healthIncrement: 20
   secondaryParts: []
 --- !u!114 &1755626513
 MonoBehaviour:
@@ -34610,9 +34582,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 0000000001000000
-  invincibilityTime: 0.1
-  audioSource: {fileID: 0}
-  damageSound: {fileID: 0}
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 963194231}
+  damageSound: {fileID: 8300000, guid: bf31a6a9556eb494081b1f2cf7d300e7, type: 3}
+  deathSound: {fileID: 8300000, guid: 9c47d184eb57743118ab203f06371b15, type: 3}
 --- !u!1 &1764507594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6587570758951894059, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -34641,6 +34617,7 @@ GameObject:
   - component: {fileID: 1771190945}
   - component: {fileID: 1771190944}
   - component: {fileID: 1771190943}
+  - component: {fileID: 1771190946}
   m_Layer: 5
   m_Name: HUD Canvas
   m_TagString: Untagged
@@ -34665,7 +34642,7 @@ RectTransform:
   - {fileID: 1243696960}
   - {fileID: 493061176}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -34733,6 +34710,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1771190946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771190941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4489b0c0081474e48876e220802659fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 89983475}
+  enemyController: {fileID: 1755626512}
+  enemyHpBar: {fileID: 1611281975}
+  playerHpBar: {fileID: 216514131}
+  p1EnergyBar: {fileID: 9057981174006448553}
+  p2EnergyBar: {fileID: 2104714799}
+  p1SpecialBar: {fileID: 1734205483}
+  p2SpecialBar: {fileID: 813567068}
 --- !u!1 &1781557280
 GameObject:
   m_ObjectHideFlags: 0
@@ -35032,7 +35029,7 @@ MonoBehaviour:
   energyAbsorbers:
   - {fileID: 1474533820}
   - {fileID: 226640015}
-  playerBody: {fileID: 1676904526}
+  playerBody: {fileID: 7711659574321420072}
 --- !u!1 &1876447375
 GameObject:
   m_ObjectHideFlags: 0
@@ -40260,7 +40257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &2052422102
 LightingSettings:
@@ -40822,7 +40819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265839613740073818, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4265839613740073818, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41175,17 +41172,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
---- !u!114 &5336160479257657132 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -4767179778141335660, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
-  m_PrefabInstance: {fileID: 5336160479257657131}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137705985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6469fb8cad0c4b238273142a5c4e040b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7711659574321420066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41257,9 +41243,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7994578074860471581, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f8659bcd0ed594532829890c2a94a202, type: 3}
+    - target: {fileID: 7994578074860471581, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 89983469}
+    - target: {fileID: 7994578074860471581, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ae321aa1fe8c4562ad529f98d8e10e2, type: 3}
     m_RemovedComponents:
     - {fileID: 1007592168202198191, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
+--- !u!1 &7711659574321420067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7711659573846253419, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
+  m_PrefabInstance: {fileID: 7711659574321420066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7711659574321420072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711659574321420067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832619409a624a228313ed1d6c9b37d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeDamageFrom: 02000000
+  weaknesses: 01000000
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
+  audioSource: {fileID: 89983469}
+  damageSound: {fileID: 8300000, guid: 7ae321aa1fe8c4562ad529f98d8e10e2, type: 3}
+  deathSound: {fileID: 8300000, guid: f8659bcd0ed594532829890c2a94a202, type: 3}
 --- !u!1001 &9057981174006448552
 PrefabInstance:
   m_ObjectHideFlags: 0

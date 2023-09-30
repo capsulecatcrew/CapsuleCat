@@ -377,10 +377,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6469fb8cad0c4b238273142a5c4e040b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shields: []
-  rotateThis: {fileID: 0}
-  maxHpColor: {r: 0.2856582, g: 0.060590927, b: 0.8679245, a: 0}
-  minHpColor: {r: 0.6886792, g: 0.12782258, b: 0, a: 0}
+  shields:
+  - {fileID: 3318928271335122573}
+  - {fileID: 7298214699692460397}
+  - {fileID: 8344948662938364049}
+  - {fileID: 4888693505786039366}
+  - {fileID: 8301256331380569416}
+  - {fileID: 6839164130803091526}
+  - {fileID: 7755436890967576306}
+  - {fileID: 8047897806421396445}
+  - {fileID: 6167679494640818185}
+  - {fileID: 3611801180165486264}
+  - {fileID: 1992296901243634300}
+  - {fileID: 4204716689915730848}
+  rotatePos: {x: 0, y: -2, z: 0}
 --- !u!1 &5438440902820541463
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +566,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -606,6 +644,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+--- !u!114 &4204716689915730848 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 303819065719908915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6587570758951894058 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
@@ -626,6 +675,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -676,6 +753,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+--- !u!114 &3611801180165486264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 897047902058514219}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5993821849335566642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
@@ -696,6 +784,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -746,6 +862,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+--- !u!114 &3318928271335122573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 1180635744436410142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5710235105384513799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
@@ -766,6 +893,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -816,6 +971,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+--- !u!114 &1992296901243634300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 2723350802370507759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8833784587801568758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
@@ -836,6 +1002,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -891,6 +1085,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 5575098993895671003}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8301256331380569416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 5575098993895671003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5594157663943612674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,6 +1111,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -961,6 +1194,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 5594157663943612674}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8344948662938364049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 5594157663943612674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5891454003745143374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,6 +1220,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1031,6 +1303,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 5891454003745143374}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8047897806421396445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 5891454003745143374}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6182772251196768097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1046,6 +1329,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1101,6 +1412,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 6182772251196768097}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7755436890967576306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 6182772251196768097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6567710349038500094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1116,6 +1438,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1171,6 +1521,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 6567710349038500094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7298214699692460397 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 6567710349038500094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6954914429988256213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1186,6 +1547,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1241,6 +1630,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 6954914429988256213}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6839164130803091526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 6954914429988256213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7780735314987477402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1256,6 +1656,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1311,6 +1739,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 7780735314987477402}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6167679494640818185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 7780735314987477402}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9058258987737054677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1326,6 +1765,34 @@ PrefabInstance:
       propertyPath: damageSoundSource
       value: 
       objectReference: {fileID: 2555683072279803697}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: takeDamageFrom.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078083984037796972, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6871544596492064280, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
       propertyPath: m_Name
       value: Enemy Shield Piece
@@ -1381,3 +1848,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6871544596492064281, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
   m_PrefabInstance: {fileID: 9058258987737054677}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4888693505786039366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4498328954832990611, guid: c9b0271c864874e2b8f8f8d328618dd2, type: 3}
+  m_PrefabInstance: {fileID: 9058258987737054677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

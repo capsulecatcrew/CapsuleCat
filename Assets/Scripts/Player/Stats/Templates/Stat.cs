@@ -1,4 +1,3 @@
-using System;
 using Player.Stats.Persistent;
 
 namespace Player.Stats.Templates
@@ -20,6 +19,7 @@ namespace Player.Stats.Templates
         /// </summary>
         /// <param name="name">Name of stat created.</param>
         /// <param name="baseValue">Value to reset stat to.</param>
+        /// <param name="isHealthStat">Whether stat is a health stat.</param>
         public Stat(string name, float baseValue, bool isHealthStat)
         {
             Name = name;
@@ -33,7 +33,7 @@ namespace Player.Stats.Templates
         /// </summary>
         /// <param name="name">Name of stat created.</param>
         /// <param name="maxStat">Value to reset stat to.</param>
-        public Stat(String name, UpgradeableStat maxStat)
+        public Stat(string name, UpgradeableStat maxStat)
         {
             Name = name;
             BaseValue = maxStat.Value;
@@ -53,7 +53,7 @@ namespace Player.Stats.Templates
             BaseValue = value;
         }
 
-        public virtual float GetValue()
+        public float GetValue()
         {
             return Value;
         }
@@ -72,11 +72,6 @@ namespace Player.Stats.Templates
         {
             Value = BaseValue;
             OnStatReset?.Invoke(Value);
-        }
-
-        public bool IsWithinBounds(float value)
-        {
-            return value <= Value;
         }
 
         /// <summary>

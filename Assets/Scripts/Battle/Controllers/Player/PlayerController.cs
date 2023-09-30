@@ -1,157 +1,169 @@
-using Player.Stats.Persistent;
 using UnityEngine;
 using Battle.Hitboxes;
-using UnityEngine.Serialization;
+using Player.Stats;
 
 namespace Battle.Controllers.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private Hitbox playerBody;
+        [SerializeField] private Killable playerBody;
         [SerializeField] private PlayerEnergyController p1Energy, p2Energy;
-        [SerializeField] private PlayerSpecialController p1SpecialEnergy, p2SpecialEnergy;
-        [SerializeField] private Hitbox p1ManaShield;
-        [SerializeField] private Hitbox p2ManaShield;
+        [SerializeField] private PlayerSpecialController p1Special, p2Special;
+        [SerializeField] private PlayerShoot p1Shoot, p2Shoot;
+        [SerializeField] private Hitbox p1ManaShield, p2ManaShield;
 
-        private BattleStat _playerHealth;
         public delegate void StatChange(float change);
+
         public event StatChange OnHealthChange;
         public event StatChange OnP1EnergyChange, OnP2EnergyChange;
         public event StatChange OnP1SpecialChange, OnP2SpecialChange;
-        
-        public delegate void NoParams();
-        public event NoParams OnPlayerDeath;
 
-        void Awake()
+        public delegate void PlayerBulletShoot(Bullet bullet);
+        public event PlayerBulletShoot OnP1BulletShoot, OnP2BulletShoot;
+
+        public delegate void PlayerDeath();
+        public event PlayerDeath OnPlayerDeath;
+
+        public void Awake()
         {
-            InitializeBattleStats();
+            PlayerStats.InitPlayerHealthKillable(playerBody);
         }
 
-        void OnEnable()
+        public void OnEnable()
         {
             SubscribeToAllEvents();
         }
 
-        void OnDisable()
+        public void OnDisable()
         {
             UnsubscribeFromAllEvents();
         }
 
-        private void InitializeBattleStats()
+        public void InitBars(
+            ProgressBar healthBar,
+            ProgressBar p1EnergyBar, ProgressBar p2EnergyBar,
+            ProgressBar p1SpecialBar, ProgressBar p2SpecialBar)
         {
-            _playerHealth = PlayerStats.CreateBattleHealthStat();
+            playerBody.InitHealthBar(healthBar);
+            p1Energy.InitBar(p1EnergyBar);
+            p2Energy.InitBar(p2EnergyBar);
+            p1Special.InitBar(p1SpecialBar);
+            p2Special.InitBar(p2SpecialBar);
         }
 
         private void SubscribeToAllEvents()
         {
-            playerBody.OnDamaged += HandlePlayerDamaged;
-            p1Energy.OnEnergyUpdate += HandleP1EnergyChange;
-            p2Energy.OnEnergyUpdate += HandleP2EnergyChange;
-            p1SpecialEnergy.OnSpecialChange += HandleP1SpecialChange;
-            p2SpecialEnergy.OnSpecialChange += HandleP2SpecialChange;
+            playerBody.OnHealthChanged += HandlePlayerHealthChanged;
+            playerBody.OnDeath += HandlePlayerDeath;
+            p1Energy.OnEnergyChange += HandleP1EnergyChange;
+            p2Energy.OnEnergyChange += HandleP2EnergyChange;
+            p1Special.OnSpecialChange += HandleP1SpecialChange;
+            p2Special.OnSpecialChange += HandleP2SpecialChange;
+            p1Shoot.OnBulletShoot += HandleP1BulletShoot;
+            p2Shoot.OnBulletShoot += HandleP2BulletShoot;
         }
 
         private void UnsubscribeFromAllEvents()
         {
-            playerBody.OnDamaged -= HandlePlayerDamaged;
-            p1Energy.OnEnergyUpdate -= HandleP1EnergyChange;
-            p2Energy.OnEnergyUpdate -= HandleP2EnergyChange;
-            p1SpecialEnergy.OnSpecialChange -= HandleP1SpecialChange;
-            p2SpecialEnergy.OnSpecialChange -= HandleP2SpecialChange;
+            playerBody.OnHealthChanged -= HandlePlayerHealthChanged;
+            playerBody.OnDeath -= HandlePlayerDeath;
+            p1Energy.OnEnergyChange -= HandleP1EnergyChange;
+            p2Energy.OnEnergyChange -= HandleP2EnergyChange;
+            p1Special.OnSpecialChange -= HandleP1SpecialChange;
+            p2Special.OnSpecialChange -= HandleP2SpecialChange;
+            p1Shoot.OnBulletShoot -= HandleP1BulletShoot;
+            p2Shoot.OnBulletShoot -= HandleP2BulletShoot;
         }
 
-        private void HandlePlayerDamaged(float dmg, DamageType damageType)
+        private void HandlePlayerHealthChanged(float amount)
         {
-            // special type attacks do 2x damage
-            float netDmg = damageType == DamageType.Normal ? dmg : dmg * 2;
-            _playerHealth.MinusValue(netDmg);
-            OnHealthChange?.Invoke(-netDmg);
-            CheckForPlayerDeath();
-        }
-
-        public void HealPlayer(float amount)
-        {
-            _playerHealth.AddValue(amount);
             OnHealthChange?.Invoke(amount);
         }
-
-        private void HandleEnergyChange(int playerNum, float amount)
-        {
-            switch(playerNum)
-            {
-                case 1:
-                    OnP1EnergyChange?.Invoke(amount);
-                    break;
-                case 2:
-                    OnP2EnergyChange?.Invoke(amount);
-                    break;
-            }
-        }
-
-        private void HandleP1EnergyChange(float amount)
-        {
-            HandleEnergyChange(1, amount);
-        }
-
-        private void HandleP2EnergyChange(float amount)
-        {
-            HandleEnergyChange(2, amount);
-        }
-
-        private void HandleSpecialChange(int playerNum, float amount)
-        {
-            switch(playerNum)
-            {
-                case 1:
-                    OnP1SpecialChange?.Invoke(amount);
-                    break;
-                case 2:
-                    OnP2SpecialChange?.Invoke(amount);
-                    break;
-            }
-        }
-
-        private void HandleP1SpecialChange(float amount)
-        {
-            HandleSpecialChange(1, amount);
-        }
-        private void HandleP2SpecialChange(float amount)
-        {
-            HandleSpecialChange(2, amount);
-        }
-
-        private void CheckForPlayerDeath()
-        {
-            if (_playerHealth.GetValue() <= 0) HandlePlayerDeath();
-        }
-
+        
         private void HandlePlayerDeath()
         {
             OnPlayerDeath?.Invoke();
         }
 
-        public float GetCurrentHealth()
+        private void HandleP1EnergyChange(float amount)
         {
-            return _playerHealth.GetValue();
+            OnP1EnergyChange?.Invoke(amount);
         }
 
-        public PlayerEnergyController GetPlayerEnergy(int playerNum)
+        private void HandleP2EnergyChange(float amount)
+        {
+            OnP2EnergyChange?.Invoke(amount);
+        }
+
+        private void HandleP1SpecialChange(float amount)
+        {
+            OnP1SpecialChange?.Invoke(amount);
+        }
+
+        private void HandleP2SpecialChange(float amount)
+        {
+            OnP2SpecialChange?.Invoke(amount);
+        }
+
+        private void HandleP1BulletShoot(Bullet bullet)
+        {
+            OnP1BulletShoot?.Invoke(bullet);
+        }
+        
+        private void HandleP2BulletShoot(Bullet bullet)
+        {
+            OnP2BulletShoot?.Invoke(bullet);
+        }
+
+        public bool HasEnergy(int playerNum, float amount)
         {
             return playerNum switch
             {
-                1 => p1Energy,
-                2 => p2Energy,
-                _ => p2Energy
+                1 => p1Energy.HasEnergy(amount),
+                2 => p2Energy.HasEnergy(amount),
+                _ => false
             };
         }
-        public PlayerSpecialController GetPlayerSpecialEnergy(int playerNum)
+        
+        public void UseEnergy(int playerNum, float amount)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    p1Energy.UseEnergy(amount);
+                    return;
+                case 2:
+                    p2Energy.UseEnergy(amount);
+                    return;
+            }
+        }
+
+        public bool HasSpecial(int playerNum, float amount)
         {
             return playerNum switch
             {
-                1 => p1SpecialEnergy,
-                2 => p2SpecialEnergy,
-                _ => p2SpecialEnergy
+                1 => p1Special.HasSpecial(amount),
+                2 => p2Special.HasSpecial(amount),
+                _ => false
             };
+        }
+
+        public void UseSpecial(int playerNum, float amount)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    p1Special.UseSpecial(amount);
+                    return;
+                case 2:
+                    p2Special.UseSpecial(amount);
+                    return;
+            }
+        }
+
+        public void Heal(float amount)
+        {
+            playerBody.Heal(amount);
         }
     }
 }

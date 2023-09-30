@@ -11,16 +11,8 @@ namespace Player.Stats.Persistent
         public delegate void StatChange(float value);
         public event StatChange OnStatChange;
 
-        public delegate void StatIncrease();
-        public event StatIncrease OnStatIncrease;
-
-        public delegate void StatDecrease();
-        public event StatDecrease OnStatDecrease;
-
         public delegate void StatDeplete();
         public event StatDeplete OnStatDeplete;
-
-        private GameObject _toKill;
 
         public BattleStat(string name, float maxValue, Stat persistentStat, float currValue, bool isHealthStat) :
             base(name, maxValue, isHealthStat)
@@ -29,47 +21,37 @@ namespace Player.Stats.Persistent
             _persistentStat = persistentStat;
         }
 
-        public bool AddValue(float value)
+        public void AddValue(float value)
         {
+            var oldValue = Value;
             Value += value;
             if (Value > BaseValue) Value = BaseValue;
-            OnStatChange?.Invoke(Value);
+            OnStatChange?.Invoke(Value - oldValue);
             _persistentStat.SetValue(Value);
-            OnStatIncrease?.Invoke();
-            return true;
         }
 
         public bool MinusValue(float value)
         {
+            var oldValue = Value;
             Value -= value;
             if (Value < 0)
             {
                 Value = 0;
-                OnStatChange?.Invoke(Value);
+                OnStatChange?.Invoke(-oldValue);
                 _persistentStat.SetValue(Value);
-                OnStatDecrease?.Invoke();
                 if (IsHealthStat && _hasDepleted) return false;
                 OnStatDeplete?.Invoke();
                 _hasDepleted = true;
-                var tempKill = _toKill;
-                _toKill = null;
-                if (tempKill) tempKill.SetActive(false);
                 return true;
             }
-            OnStatChange?.Invoke(Value);
+            OnStatChange?.Invoke(-value);
             _persistentStat.SetValue(Value);
-            OnStatDecrease?.Invoke();
             return true;
         }
 
         public bool CanMinusValue(float value)
         {
             return Value >= value;
-        }
-
-        public void SetGameObjectToKill(GameObject gameObject)
-        {
-            _toKill = gameObject;
         }
 
         public float GetStatPercentage()

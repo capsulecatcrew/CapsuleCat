@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Battle;
 using Battle.Hitboxes;
+using Player.Stats;
 using Player.Stats.Persistent;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -94,7 +94,7 @@ namespace Enemy
                 for (var j = 0; j < shieldsPerGroup; j++)
                 {
                     var shield = shields[i + j];
-                    shield.Init(_maxHealth, Firer.Player1, Firer.Player2);
+                    shield.Init(_maxHealth);
                     shield.gameObject.SetActive(true);
                 }
             }
@@ -136,22 +136,6 @@ namespace Enemy
             if (_pauseCooldown < float.Epsilon)
             {
                 PauseRotateShields();
-            }
-        }
-
-        private void RotateShield(GameObject shield, float deltaTime)
-        {
-            switch (_rotateDirection)
-            {
-                case RotateDirection.Clockwise:
-                    shield.transform.RotateAround(_rotatePos, new Vector3(0, 1, 0), RotateSpeed.GetValue() * deltaTime);
-                    break;
-                case RotateDirection.Anticlockwise:
-                    shield.transform.RotateAround(_rotatePos, new Vector3(0, 1, 0),
-                        -RotateSpeed.GetValue() * deltaTime);
-                    break;
-                default:
-                    return;
             }
         }
 

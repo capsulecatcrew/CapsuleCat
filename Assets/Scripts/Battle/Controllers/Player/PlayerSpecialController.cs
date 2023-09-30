@@ -1,4 +1,5 @@
 using Battle.Hitboxes;
+using Player.Stats;
 using Player.Stats.Persistent;
 using UnityEngine;
 
@@ -9,22 +10,27 @@ namespace Battle.Controllers.Player
         [SerializeField][Range(1, 2)] private int playerNum = 1;
         [SerializeField] private Hitbox[] energyAbsorbers;
         [SerializeField] private Hitbox playerBody;
-        private BattleStat _specialEnergy;
+        private BattleStat _special;
 
         public delegate void SpecialChange(float change);
         public event SpecialChange OnSpecialChange;
         
-        void Awake()
+        public void InitBar(ProgressBar specialBar)
         {
-            _specialEnergy = PlayerStats.CreateBattleSpecialStat(playerNum);
+            specialBar.SetValue(_special.GetValue());
         }
         
-        private void OnEnable() 
+        public void Awake()
+        {
+            _special = PlayerStats.CreateBattleSpecialStat(playerNum);
+        }
+        
+        public void OnEnable() 
         {
             SubscribeToEvents();
         }
 
-        private void OnDisable() 
+        public void OnDisable() 
         {
             UnsubscribeFromEvents();
         }
@@ -33,68 +39,50 @@ namespace Battle.Controllers.Player
         {
             foreach (var absorber in energyAbsorbers)
             {
-                absorber.OnDamaged += AbsorbEnergy;
+                absorber.OnHitBox += GainAbsorbed;
             }
-
-            playerBody.OnDamaged += GetEnergyFromTakingDamage;
+            _special.OnStatChange += HandleStatChange;
+            playerBody.OnHitBox += GainDamaged;
         }
 
         private void UnsubscribeFromEvents()
         {
             foreach (var absorber in energyAbsorbers)
             {
-                absorber.OnDamaged -= AbsorbEnergy;
+                absorber.OnHitBox -= GainAbsorbed;
             }
-            
-            playerBody.OnDamaged += GetEnergyFromTakingDamage;
+            _special.OnStatChange -= HandleStatChange;
+            playerBody.OnHitBox -= GainDamaged;
         }
 
-        private void AbsorbEnergy(float amount, DamageType damageType)
+        private void GainAbsorbed(float amount)
         {
-            if (damageType == DamageType.Special)
-            {
-                AddSpecialEnergy(PlayerStats.ApplySpecialAbsorbMultipler(playerNum, amount));
-            }
+            AddSpecial(PlayerStats.ApplySpecialAbsorbMultipler(playerNum, amount));
         }
 
-        private void GetEnergyFromTakingDamage(float amount, DamageType damageType)
+        private void GainDamaged(float amount)
         {
-            AddSpecialEnergy(PlayerStats.ApplySpecialDamagedMultipler(playerNum, amount));
+            AddSpecial(PlayerStats.ApplySpecialDamagedMultipler(playerNum, amount));
         }
 
-        private void AddSpecialEnergy(float amount)
+        private void AddSpecial(float amount)
         {
-            _specialEnergy.AddValue(amount);
+            _special.AddValue(amount);
+        }
+
+        internal bool HasSpecial(float amount)
+        {
+            return _special.CanMinusValue(amount);
+        }
+        
+        internal void UseSpecial(float amount)
+        {
+            _special.MinusValue(amount);
+        }
+
+        private void HandleStatChange(float amount)
+        {
             OnSpecialChange?.Invoke(amount);
-        }
-
-        public bool HasSpecialEnergy(float amount)
-        {
-            return _specialEnergy.CanMinusValue(amount);
-        }
-
-        /// <summary>
-        /// Uses specified special energy amount.
-        /// If amount is more than energy remaining, will use whatever energy is remaining.
-        /// </summary>
-        /// <param name="amount">amount of energy to be used</param>
-        public void UseSpecialEnergy(float amount)
-        {
-            if (_specialEnergy.CanMinusValue(amount))
-            {
-                OnSpecialChange?.Invoke(-amount);
-                _specialEnergy.MinusValue(amount);
-            }
-            else
-            {
-                OnSpecialChange?.Invoke(-_specialEnergy.GetValue());
-                _specialEnergy.MinusValue(_specialEnergy.GetValue());
-            }
-        }
-
-        public float GetSpecialEnergyAmount()
-        {
-            return _specialEnergy.GetValue();
         }
     }
 }

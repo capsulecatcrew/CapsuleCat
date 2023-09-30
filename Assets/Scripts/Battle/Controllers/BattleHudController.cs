@@ -1,5 +1,6 @@
 using Battle.Controllers.Player;
 using Enemy;
+using Player.Stats;
 using UnityEngine;
 
 public class BattleHudController : MonoBehaviour
@@ -14,87 +15,56 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private ProgressBar p1EnergyBar, p2EnergyBar;
     [SerializeField] private ProgressBar p1SpecialBar, p2SpecialBar;
 
-    void Start()
-    {
-        InitializeBars();
-    }
-
-    void InitializeBars()
-    {
-        playerHpBar.SetMaxValue(PlayerStats.GetMaxHealth());
-        playerHpBar.SetValue(playerController.GetCurrentHealth());
-        
-        p1EnergyBar.SetMaxValue(PlayerStats.GetMaxEnergy(1));
-        p1EnergyBar.SetValue(playerController.GetPlayerEnergy(1).GetEnergyAmount());
-        p2EnergyBar.SetMaxValue(PlayerStats.GetMaxEnergy(2));
-        p2EnergyBar.SetValue(playerController.GetPlayerEnergy(2).GetEnergyAmount());
-        
-        enemyHpBar.SetMaxValue(enemyController.GetMaxHealth());
-        enemyHpBar.SetValue(enemyController.GetMaxHealth());
-    }
-
-    void OnEnable()
+    public void OnEnable()
     {
         SubscribeToAllControllerEvents();
     }
+    
+    public void Start()
+    {
+        InitBars();
+    }
 
-    void OnDisable()
+    public void OnDisable()
     {
         UnsubscribeFromAllControllerEvents();
+    }
+    
+    private void InitBars()
+    {
+        PlayerStats.InitPlayerHealthBarMax(playerHpBar);
+        PlayerStats.InitPlayerEnergyBarMax(1, p1EnergyBar);
+        PlayerStats.InitPlayerEnergyBarMax(2, p2EnergyBar);
+        PlayerStats.InitPlayerSpecialBarMax(1, p1SpecialBar);
+        PlayerStats.InitPlayerSpecialBarMax(2, p2SpecialBar);
+        playerController.InitBars(playerHpBar, p1EnergyBar, p2EnergyBar, p1SpecialBar, p2SpecialBar);
+
+        EnemyController.InitEnemyHealthBar(enemyHpBar);
     }
 
     private void SubscribeToAllControllerEvents()
     {
         // from player manager
-        playerController.OnHealthChange += UpdatePlayerHealthBar;
-        playerController.OnP1EnergyChange += UpdateP1EnergyBar;
-        playerController.OnP2EnergyChange += UpdateP2EnergyBar;
-        playerController.OnP1SpecialChange += UpdateP1SpecialBar;
-        playerController.OnP2SpecialChange += UpdateP2SpecialBar;
+        playerController.OnHealthChange += playerHpBar.HandleStatChange;
+        playerController.OnP1EnergyChange += p1EnergyBar.HandleStatChange;
+        playerController.OnP2EnergyChange += p2EnergyBar.HandleStatChange;
+        playerController.OnP1SpecialChange += p1SpecialBar.HandleStatChange;
+        playerController.OnP2SpecialChange += p2SpecialBar.HandleStatChange;
 
         // from enemy manager
-        enemyController.OnEnemyMainDamaged += UpdateEnemyHpBar;
+        enemyController.OnEnemyPrimaryHealthChanged += enemyHpBar.HandleStatChange;
     }
 
     private void UnsubscribeFromAllControllerEvents()
     {
         // from player manager
-        playerController.OnHealthChange -= UpdatePlayerHealthBar;
-        playerController.OnP1EnergyChange -= UpdateP1EnergyBar;
-        playerController.OnP2EnergyChange -= UpdateP2EnergyBar;
-        playerController.OnP1SpecialChange -= UpdateP1SpecialBar;
-        playerController.OnP2SpecialChange -= UpdateP2SpecialBar;
+        playerController.OnHealthChange -= playerHpBar.HandleStatChange;
+        playerController.OnP1EnergyChange -= p1EnergyBar.HandleStatChange;
+        playerController.OnP2EnergyChange -= p2EnergyBar.HandleStatChange;
+        playerController.OnP1SpecialChange -= p1SpecialBar.HandleStatChange;
+        playerController.OnP2SpecialChange -= p2SpecialBar.HandleStatChange;
 
         // from enemy manager
-        enemyController.OnEnemyMainDamaged += UpdateEnemyHpBar;
-    }
-    private void UpdatePlayerHealthBar(float change)
-    {
-        playerHpBar.ChangeValueBy(change);
-    }
-
-    private void UpdateP1EnergyBar(float change)
-    {
-        p1EnergyBar.ChangeValueBy(change);
-    }
-
-    private void UpdateP2EnergyBar(float change)
-    {
-        p2EnergyBar.ChangeValueBy(change);
-    }
-
-    private void UpdateP1SpecialBar(float change)
-    {
-        p1SpecialBar.ChangeValueBy(change);
-    }
-
-    private void UpdateP2SpecialBar(float change)
-    {
-        p2SpecialBar.ChangeValueBy(change);
-    }
-
-    private void UpdateEnemyHpBar(float change)
-    {
-        enemyHpBar.ChangeValueBy(change);
+        enemyController.OnEnemyPrimaryHealthChanged -= enemyHpBar.HandleStatChange;
     }
 }
