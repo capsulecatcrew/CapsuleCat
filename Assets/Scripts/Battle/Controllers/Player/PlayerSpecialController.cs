@@ -27,11 +27,13 @@ namespace Battle.Controllers.Player
         
         public void OnEnable() 
         {
+            PlayerStats.EnableSpecialMoves();
             SubscribeToEvents();
         }
 
         public void OnDisable() 
         {
+            PlayerStats.DisableSpecialMoves();
             UnsubscribeFromEvents();
         }
 

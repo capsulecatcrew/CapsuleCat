@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12729394, g: 0.1341429, b: 0.121147014, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -281,6 +281,10 @@ PrefabInstance:
       propertyPath: m_InteractWithInt.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: forPlayer
       value: 2
@@ -776,6 +780,10 @@ PrefabInstance:
       propertyPath: m_InteractWithInt.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: audioSource
       value: 
@@ -1705,6 +1713,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: forPlayer
       value: 2
       objectReference: {fileID: 0}
@@ -2014,6 +2026,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: playerNum
       value: 1
       objectReference: {fileID: 0}
@@ -2296,6 +2312,10 @@ PrefabInstance:
       propertyPath: m_InteractWithInt.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: forPlayer
       value: 2
@@ -2587,6 +2607,10 @@ PrefabInstance:
       propertyPath: m_InteractWithInt.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
+      propertyPath: bought
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
     - target: {fileID: 3073361160947701052, guid: 39a035a35a0a94a848424c9f0cf252a6, type: 3}
       propertyPath: audioSource
       value: 

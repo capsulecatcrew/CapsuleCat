@@ -22,6 +22,7 @@ namespace Enemy
 
             public static void Init(IEnumerable<PrimaryPart> primaryParts)
             {
+                TotalHealth = 0;
                 foreach (var part in primaryParts)
                 {
                     part.InitPrimaryPartMaxHealth();

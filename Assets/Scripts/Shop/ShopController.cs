@@ -1,8 +1,13 @@
+using System;
 using System.Collections.Generic;
+using Player.Special;
+using Player.Special.Move;
+using Player.Special.Shoot;
 using Player.Stats;
 using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ShopController : MonoBehaviour
 {
@@ -17,6 +22,8 @@ public class ShopController : MonoBehaviour
 
     private static List<UpgradeableStat> _chosenStats1;
     private static List<UpgradeableStat> _chosenStats2;
+    private const int HpChance = 35;
+    private const int SpecialChance = 10;
 
     // Start is called before the first frame update
     public void Start()
@@ -29,6 +36,7 @@ public class ShopController : MonoBehaviour
         }
         UpdateMoneyCounter();
         InitShopButtons();
+        InitShopSpecialButtons();
         InitButtonsUsability();
     }
     
@@ -41,7 +49,7 @@ public class ShopController : MonoBehaviour
     {
         _chosenStats1 = PlayerStats.GetStatsToUpgrade(1);
         _chosenStats2 = PlayerStats.GetStatsToUpgrade(2);
-        var includeHealth = Random.Range(1, 10) < 4;
+        var includeHealth = Random.Range(1, 101) < HpChance;
         if (!includeHealth) return;
         var slot = Random.Range(0, 6);
         if (slot < 3)
@@ -61,6 +69,46 @@ public class ShopController : MonoBehaviour
         {
             _chosenStats1[i].InitShopItemButton(player1Buttons[i]);
             _chosenStats2[i].InitShopItemButton(player2Buttons[i]);
+        }
+    }
+
+    private void InitShopSpecialButtons()
+    {
+        var p1Special = Random.Range(1, 101) < SpecialChance;
+        if (p1Special)
+        {
+            var chosen1 = PlayerStats.GetRandomSpecialMove(1);
+            switch (chosen1)
+            {
+                case SpecialMoveEnum.MoveHeal:
+                    Heal.InitShopItemButton(player1Buttons[0]);
+                    break;
+                case SpecialMoveEnum.MoveShield:
+                    break;
+                case SpecialMoveEnum.ShootVampire:
+                    Vampire.InitShopItemButton(player1Buttons[0]);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        var p2Special = Random.Range(1, 101) < SpecialChance;
+        if (p2Special)
+        {
+            var chosen2 = PlayerStats.GetRandomSpecialMove(2);
+            switch (chosen2)
+            {
+                case SpecialMoveEnum.MoveHeal:
+                    Heal.InitShopItemButton(player2Buttons[0]);
+                    break;
+                case SpecialMoveEnum.MoveShield:
+                    break;
+                case SpecialMoveEnum.ShootVampire:
+                    Vampire.InitShopItemButton(player2Buttons[0]);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 

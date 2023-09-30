@@ -1,3 +1,6 @@
+using System.Text;
+using Player.Stats;
+
 namespace Player.Special.Shoot
 {
     public class Vampire : SpecialMove
@@ -9,15 +12,30 @@ namespace Player.Special.Shoot
         private new const float Cost = 5;
         private bool _isEnabled;
 
-        public Vampire(int playerNum) : base(Name, playerNum, Cost)
+        public Vampire(int playerNum) : base(playerNum, Cost) { }
+
+        public override void Enable()
         {
-            switch (playerNum)
+            switch (PlayerNum)
             {
                 case 1:
                     PlayerController.OnP1BulletShoot += HandleBulletShoot;
                     return;
                 case 2:
                     PlayerController.OnP2BulletShoot += HandleBulletShoot;
+                    return;
+            }
+        }
+        
+        public override void Disable()
+        {
+            switch (PlayerNum)
+            {
+                case 1:
+                    PlayerController.OnP1BulletShoot -= HandleBulletShoot;
+                    return;
+                case 2:
+                    PlayerController.OnP2BulletShoot -= HandleBulletShoot;
                     return;
             }
         }
@@ -42,11 +60,35 @@ namespace Player.Special.Shoot
         {
             PlayerController.Heal(amount * Multiplier);
         }
-
+        
         private void HandleBulletShoot(Bullet bullet)
         {
             if (!_isEnabled) return;
+            PlayerController.UseSpecial(PlayerNum, Cost);
             bullet.OnBulletHitUpdate += ApplyEffect;
+        }
+
+        public static void InitShopItemButton(ShopItemButton shopItemButton)
+        {
+            shopItemButton.Init(GetShopItemName(), GetCostString(), true, ShopCost);
+            shopItemButton.OnButtonDisable += HandleShopItemButtonDisable;
+            shopItemButton.OnButtonPressed += HandleShopItemButtonPressed;
+        }
+        
+        private static void HandleShopItemButtonPressed(int playerNum)
+        {
+            PlayerStats.SetSpecialMove(playerNum, SpecialMoveEnum.ShootVampire);
+        }
+
+        private static void HandleShopItemButtonDisable(ShopItemButton shopItemButton)
+        {
+            shopItemButton.OnButtonPressed -= HandleShopItemButtonPressed;
+            shopItemButton.OnButtonDisable -= HandleShopItemButtonDisable;
+        }
+        
+        private static string GetShopItemName()
+        {
+            return Name;
         }
     }
 }

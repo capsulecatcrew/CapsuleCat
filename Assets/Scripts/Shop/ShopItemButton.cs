@@ -1,7 +1,7 @@
 using Player.Stats;
-using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ShopItemButton : MonoBehaviour
 {
@@ -9,11 +9,15 @@ public class ShopItemButton : MonoBehaviour
 
     public ButtonSprite buttonSpriteManager;
 
-    private UpgradeableStat _stat;
+    public delegate void ButtonPressed(int playerNum);
+    public event ButtonPressed OnButtonPressed;
+    
+    public delegate void ButtonDisable(ShopItemButton shopItemButton);
+    public event ButtonDisable OnButtonDisable;
     
     [Header("UI Refs")]
-    [SerializeField] private TMP_Text Name;
-    [SerializeField] private TMP_Text Cost;
+    [FormerlySerializedAs("Name")] [SerializeField] private TMP_Text nameText;
+    [FormerlySerializedAs("Cost")] [SerializeField] private TMP_Text costText;
     
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource; // TODO: replace with globalAudio, currently on Main Camera
@@ -23,15 +27,14 @@ public class ShopItemButton : MonoBehaviour
     // TODO: disable 'pressed' sound when UI button sound interface is made
     // TODO: highlighted sound played by hitbox trigger 2D at the moment, remove on complete
     
-    [SerializeField] private bool _usable;
+    [FormerlySerializedAs("_usable")] [SerializeField] private bool usable;
     private int _cost;
 
-    public void Init(UpgradeableStat stat, string name, string stringCost, bool usable, int cost)
+    public void Init(string name, string stringCost, bool usable, int cost)
     {
-        _stat = stat;
-        Name.text = name;
-        Cost.text = stringCost;
-        _usable = usable;
+        nameText.text = name;
+        costText.text = stringCost;
+        this.usable = usable;
         _cost = cost;
     }
 
@@ -41,12 +44,11 @@ public class ShopItemButton : MonoBehaviour
     /// <param name="purchaserNum">Number of player attempting to purchase item.</param>
     public void AttemptPurchase(int purchaserNum)
     {
-        if (!_usable)
+        if (!usable)
         {
             GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
             return;
         }
-        
         if (purchaserNum != playerNum)
         {
             GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
@@ -57,20 +59,24 @@ public class ShopItemButton : MonoBehaviour
             GlobalAudio.Singleton.PlaySound("UI_SHOP_BROKE");
             return;
         }
-        
-        _stat.UpgradeLevel();
+        OnButtonPressed?.Invoke(playerNum);
         GlobalAudio.Singleton.PlaySound("UI_SHOP_BOUGHT");
         Disable();
     }
 
     public void Disable()
     {
-        Name.text = "PURCHASED";
-        Cost.text = "";
-        _usable = false;
+        nameText.text = "PURCHASED";
+        costText.text = "";
+        usable = false;
         
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
+    }
+
+    public void OnDisable()
+    {
+        OnButtonDisable?.Invoke(this);
     }
     
     /// <summary>

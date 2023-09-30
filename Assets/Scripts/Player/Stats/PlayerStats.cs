@@ -54,6 +54,7 @@ namespace Player.Stats
 
         private static readonly Stat Special1 = new("Special", SpecialMax, false);
         private static SpecialMove _specialMove1;
+        private static List<SpecialMoveEnum> _specialPool1 = SpecialMoveEnumController.CopyAllSpecialMoves();
 
         private static readonly List<UpgradeableStat> Player1Stats = new()
             { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialGain1, DashEnergyCost1, EnergyShare1 };
@@ -93,6 +94,7 @@ namespace Player.Stats
 
         private static readonly Stat Special2 = new("Special", SpecialMax, false);
         private static SpecialMove _specialMove2;
+        private static List<SpecialMoveEnum> _specialPool2 = SpecialMoveEnumController.CopyAllSpecialMoves();
 
         private static readonly List<UpgradeableStat> Player2Stats = new()
             { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialGain2, DashEnergyCost2, EnergyShare2 };
@@ -348,6 +350,25 @@ namespace Player.Stats
             };
         }
 
+        public static SpecialMoveEnum GetRandomSpecialMove(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    var chosen1 = _specialPool1[Random.Next(_specialPool1.Count)];
+                    _specialPool1 = SpecialMoveEnumController.CopyAllSpecialMoves();
+                    _specialPool1.Remove(chosen1);
+                    return chosen1;
+                case 2:
+                    var chosen2 = _specialPool2[Random.Next(_specialPool2.Count)];
+                    _specialPool2 = SpecialMoveEnumController.CopyAllSpecialMoves();
+                    _specialPool2.Remove(chosen2);
+                    return chosen2;
+            }
+
+            return SpecialMoveEnum.MoveHeal;
+        }
+
         /// <summary>
         /// Sets player's current special move.
         /// </summary>
@@ -391,7 +412,7 @@ namespace Player.Stats
         /// <summary>
         /// Removes specified player's current special move.
         /// </summary>
-        public static void RemoveSpecialMove(int playerNum)
+        private static void RemoveSpecialMove(int playerNum)
         {
             switch (playerNum)
             {
@@ -402,6 +423,18 @@ namespace Player.Stats
                     _specialMove2 = null;
                     return;
             }
+        }
+
+        public static void EnableSpecialMoves()
+        {
+            _specialMove1?.Enable();
+            _specialMove2?.Enable();
+        }
+
+        public static void DisableSpecialMoves()
+        {
+            _specialMove1?.Disable();
+            _specialMove2?.Disable();
         }
 
         public static void UpdatePlayerController(PlayerController playerController)
