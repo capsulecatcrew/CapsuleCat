@@ -8,13 +8,12 @@ namespace Battle.Hitboxes
         [SerializeField] private Color maxHpColor;
         [SerializeField] private Color minHpColor;
         
-        public override void OnEnable()
+        public void OnEnable()
         {
-            base.OnEnable();
-            OnDamaged += UpdateShieldColor;
+            OnHitBox += UpdateShieldColor;
         }
         
-        private void UpdateShieldColor(float unused, DamageType unused2)
+        private void UpdateShieldColor(float ignored1)
         {
             colorRenderer.material.color = GetDamageColor();
         }
@@ -26,7 +25,7 @@ namespace Battle.Hitboxes
         
         public override void OnDisable()
         {
-            OnDamaged -= UpdateShieldColor;
+            OnHitBox -= UpdateShieldColor;
         }
     }
 }

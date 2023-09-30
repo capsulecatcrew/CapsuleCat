@@ -1,3 +1,4 @@
+using Player.Stats;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,7 +34,10 @@ public class EnemyLaserAttack : MonoBehaviour
     private int _bigAttackIndex;
     private bool _doingBigAttack;
 
-    [SerializeField] private BattleController battleController;
+    /// <summary>
+    /// Chance of firing a special laser out of 100.
+    /// </summary>
+    [SerializeField] private int specialLaserChance;
 
     private void Awake()
     {
@@ -75,16 +79,11 @@ public class EnemyLaserAttack : MonoBehaviour
         }
     }
 
-    void SingleAimedLaser()
+    private void SingleAimedLaser()
     {
-        if (Random.Range(1, 11) > 9) // 10% chance of special laser
-        {
-            _currLaser = specialLaserPool.GetPooledObject();
-        }
-        else
-        {
-            _currLaser = laserPool.GetPooledObject();
-        }
+        _currLaser = Random.Range(1, 101) > specialLaserChance
+            ? specialLaserPool.GetPooledObject()
+            : laserPool.GetPooledObject();
         _laserLogic = _currLaser.GetComponent<EnemyLaser>();
         _laserLogic.SetDamage(_damage);
         _laserLogic.SetTargetTracking(target.transform);

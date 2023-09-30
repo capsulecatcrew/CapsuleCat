@@ -21,10 +21,5 @@ namespace Player.Stats.Persistent
             Value = ExponentialStatValues.GetSetLevelValue(Level, MaxLevel, BaseValue, ChangeValue);
             base.SetLevel(level);
         }
-
-        public override float GetValue()
-        {
-            return Value;
-        }
     }
 }

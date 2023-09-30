@@ -4,6 +4,6 @@ namespace Player.Special
     {
         MoveHeal,
         MoveShield,
-        ShootVampiric,
+        ShootVampire,
     }
 }

@@ -1,10 +1,11 @@
+using System;
 using Battle;
+using Player.Stats;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyBulletSpray : MonoBehaviour
 {
-    private static float PI = 3.1415926535f;
-    
     public Transform origin;
 
     public ObjectPool bulletPool;
@@ -31,10 +32,9 @@ public class EnemyBulletSpray : MonoBehaviour
     public float bulletSpeed;
 
     private float _timeSinceLastAttack;
-
     private float _timeTillNextAttack;
 
-    void Start()
+    public void Start()
     {
         if (origin == null)
         {
@@ -54,31 +54,29 @@ public class EnemyBulletSpray : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        if (_timeSinceLastAttack <= _timeTillNextAttack) return;
         _timeSinceLastAttack += Time.deltaTime;
-        if (_timeSinceLastAttack > _timeTillNextAttack)
+        // Attack
+        var height = bulletHeights[Random.Range(0, _heightsCount)];
+        var amount = bulletAmounts[Random.Range(0, _amountsCount)];
+        var theta = 2 * (float) Math.PI / amount;
+        // random starting angle so the "empty spots"
+        // without bullets aren't the same when the bullet count is the same
+        var startingAngle = Random.Range(0.0f, theta);
+        var position = origin.position;
+        position = new Vector3(position.x, height, position.z);
+        for (var i = 0; i < amount; i++)
         {
-            // Attack
-            float height = bulletHeights[Random.Range(0, _heightsCount)];
-            float amount = bulletAmounts[Random.Range(0, _amountsCount)];
-            float theta = 2 * PI / amount;
-            // random starting angle so the "empty spots"
-            // without bullets aren't the same when the bullet count is the same
-            float startingAngle = Random.Range(0.0f, theta);
-            Vector3 position = origin.position;
-            position = new Vector3(position.x, height, position.z);
-            for (int i = 0; i < amount; i++)
-            {
-                Vector3 dir = new Vector3(Mathf.Sin(startingAngle + theta * i), 0, Mathf.Cos(startingAngle + theta * i));
-                _bullet = bulletPool.GetPooledObject();
-                _bullet.transform.position = position;
-                _bullet.GetComponent<Bullet>().Init(_damage, bulletSpeed, dir, Firer.Enemy);
-                _bullet.SetActive(true);
-            }
-            GlobalAudio.Singleton.PlaySound("ENEMY_BULLET_WAVE_PULSE");
-            _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
-            _timeSinceLastAttack = 0.0f;
+            var dir = new Vector3(Mathf.Sin(startingAngle + theta * i), 0, Mathf.Cos(startingAngle + theta * i));
+            _bullet = bulletPool.GetPooledObject();
+            _bullet.transform.position = position;
+            _bullet.GetComponent<Bullet>().Init(_damage, bulletSpeed, dir, Firer.Enemy);
+            _bullet.SetActive(true);
         }
+        GlobalAudio.Singleton.PlaySound("ENEMY_BULLET_WAVE_PULSE");
+        _timeTillNextAttack = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
+        _timeSinceLastAttack = 0.0f;
     }
 }

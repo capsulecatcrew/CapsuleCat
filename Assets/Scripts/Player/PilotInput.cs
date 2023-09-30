@@ -1,3 +1,5 @@
+using System;
+using Player.Stats;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,17 +22,15 @@ public class PilotInput : MonoBehaviour
     public ModeIcon modeIcon;
     private float _movement;
     private Vector2 _weaponMovement = Vector2.zero;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public void Start()
     {
         controlMode = PlayerStats.GetLastPlayerControlMode(player);
         ActivateParts();
         modeIcon?.SetSprite(controlMode);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void Update()
     {
         if (controlMode == ControlMode.Movement)
         {
@@ -108,13 +108,13 @@ public class PilotInput : MonoBehaviour
         if (controlMode == ControlMode.Movement) OnSpecialMove();
     }
 
-    public void OnSpecialAttack()
+    private void OnSpecialAttack()
     {
         if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Shooting) return;
         weaponController.UseSpecialMove();
     }
 
-    public void OnSpecialMove()
+    private void OnSpecialMove()
     {
         if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Movement) return;
         movementController.UseSpecialMove(player);
@@ -122,22 +122,24 @@ public class PilotInput : MonoBehaviour
 
     public void OnSwitch(InputAction.CallbackContext context)
     {
-        if (context.action.triggered)
+        if (!context.action.triggered) return;
+        switch (controlMode)
         {
-            if (controlMode == ControlMode.Movement)
-            {
+            case ControlMode.Movement:
                 controlMode = ControlMode.Shooting;
-            }
-            else if (controlMode == ControlMode.Shooting)
-            {
-                if (weaponController.CanSwitchControlMode()) return;
+                break;
+            case ControlMode.Shooting when weaponController.CanSwitchControlMode():
+                return;
+            case ControlMode.Shooting:
                 controlMode = ControlMode.Movement;
-            }
-
-            ActivateParts();
-            PlayerStats.SavePlayerControlMode(player, controlMode);
-            modeIcon?.SetSprite(controlMode);
+                break;
+            default:
+                return;
         }
+
+        ActivateParts();
+        PlayerStats.SavePlayerControlMode(player, controlMode);
+        modeIcon?.SetSprite(controlMode);
     }
 
     /**

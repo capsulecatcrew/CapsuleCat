@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using Battle;
 using Battle.Controllers.Player;
+using Player.Stats;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float dashMultiplier = 3.0f;
     private const float DashDuration = 0.15f;
-    private readonly float[] _dashEnergyCost = new float[2] {10f, 10f};
+    private readonly float[] _dashEnergyCost = {10f, 10f};
     private const float DashCooldown = 0.25f;
     private float _dashCooldownTimer;
 
@@ -99,8 +99,9 @@ public class PlayerMovement : MonoBehaviour
         var halfAngle = movementRange * 0.5f * Mathf.Deg2Rad;
         var endX = length * Mathf.Sin(halfAngle);
         var endZ = length * Mathf.Cos(halfAngle);
-        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x + endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
-        Debug.DrawLine(pivot.position, new Vector3(pivot.position.x - endX, pivot.position.y, pivot.position.z + endZ), Color.cyan);
+        var position = pivot.position;
+        Debug.DrawLine(position, new Vector3(position.x + endX, position.y, position.z + endZ), Color.cyan);
+        Debug.DrawLine(position, new Vector3(position.x - endX, position.y, position.z + endZ), Color.cyan);
     }
 
     /**
@@ -114,12 +115,10 @@ public class PlayerMovement : MonoBehaviour
      */
     public void SetPlayerMovement(int player, float value)
     {
-        int p = player - 1;
-        if (!_pausePlayerInput[p])
-        {
-            _playerMovement[p] = value;
-            if (Math.Abs(value) > float.Epsilon) _playerLastMovement[p] = value;
-        }
+        var p = player - 1;
+        if (_pausePlayerInput[p]) return;
+        _playerMovement[p] = value;
+        if (Math.Abs(value) > float.Epsilon) _playerLastMovement[p] = value;
     }
 
     /// <summary>
@@ -169,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (movementRange < 360) {
-            var halfAngle = (float) movementRange * 0.5f;
+            var halfAngle = movementRange * 0.5f;
             var rot = pivot.rotation.eulerAngles.y;
             if (rot > halfAngle && rot <= 180)
             {
@@ -220,9 +219,9 @@ public class PlayerMovement : MonoBehaviour
         if (_dashCooldownTimer > 0) return;
         var p = playerNum - 1;
         if (_pausePlayerInput[p]) return;
-        if (!playerController.GetPlayerEnergy(playerNum).HasEnergy(_dashEnergyCost[p])) return;
+        if (!playerController.HasEnergy(playerNum, _dashEnergyCost[p])) return;
 
-        playerController.GetPlayerEnergy(playerNum).UseEnergy(_dashEnergyCost[p]);
+        playerController.UseEnergy(playerNum, _dashEnergyCost[p]);
         StartCoroutine(DashCoroutine(playerNum));
         
     }

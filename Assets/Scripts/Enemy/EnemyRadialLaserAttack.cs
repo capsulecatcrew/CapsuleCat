@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Player.Stats;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(EnemyLaserAttack))]
 public class EnemyRadialLaserAttack : EnemyAttack
 {
-    [Header("Laser Damage")]
-    public int startingDamage = 2;
+    [Header("Laser Damage")] public int startingDamage = 2;
     private int _damage;
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;
 
-    [Header("Attack Parameters")]
-    public int startingNumOfLasers = 3;
+    [Header("Attack Parameters")] public int startingNumOfLasers = 3;
     public int maxNumOfLasers = 7;
     public int lasersIncreaseLvlInterval = 5;
     public int lowerLaserHeight, upperLaserHeight;
@@ -28,7 +28,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
     private ArrayList _lasersInUse;
 
     // other private variables
-    private bool _isSpinning = false;
+    private bool _isSpinning;
     private int _spinDir = 1;
 
     void Start()
@@ -37,7 +37,8 @@ public class EnemyRadialLaserAttack : EnemyAttack
         _laserPool = GetComponent<EnemyLaserAttack>().laserPool;
         _specialLaserPool = GetComponent<EnemyLaserAttack>().specialLaserPool;
         _damage = startingDamage + dmgIncrease * PlayerStats.GetCurrentStage() / dmgIncreaseLvlInterval;
-        _numOfLasers = startingNumOfLasers + PlayerStats.GetCurrentStage() / lasersIncreaseLvlInterval;
+        _numOfLasers = Math.Clamp(startingNumOfLasers + PlayerStats.GetCurrentStage() / lasersIncreaseLvlInterval, 0,
+            maxNumOfLasers);
     }
 
     public override void StartAttack()
@@ -68,7 +69,8 @@ public class EnemyRadialLaserAttack : EnemyAttack
         for (int i = 0; i < numOfLasers; i++)
         {
             float targetHeight = Random.Range(1, 4) % 2 == 0 && i != 0 ? upperLaserHeight : lowerLaserHeight;
-            Vector3 dir = new Vector3(distToPlayer * Mathf.Sin(startingAngle + theta * i), targetHeight, distToPlayer * Mathf.Cos(startingAngle + theta * i));
+            Vector3 dir = new Vector3(distToPlayer * Mathf.Sin(startingAngle + theta * i), targetHeight,
+                distToPlayer * Mathf.Cos(startingAngle + theta * i));
             if (Random.Range(1, 11) > 9) // 10% chance of special laser
             {
                 _currLaser = _specialLaserPool.GetPooledObject();
@@ -77,6 +79,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
             {
                 _currLaser = _laserPool.GetPooledObject();
             }
+
             _laserLogic = _currLaser.GetComponent<EnemyLaser>();
             _laserLogic.SetDamage(damage);
             _laserLogic.DisableTargetTracking();
@@ -111,7 +114,6 @@ public class EnemyRadialLaserAttack : EnemyAttack
             foreach (GameObject laser in _lasersInUse)
             {
                 laser.transform.Rotate(new Vector3(0, 1, 0) * rotationSpeed * _spinDir * Time.deltaTime, Space.World);
-                // laser.transform.rotation *= Quaternion.AngleAxis(rotationSpeed * _spinDir * Time.deltaTime, Vector3.up);
             }
         }
     }

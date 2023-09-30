@@ -1,3 +1,4 @@
+using Player.Stats;
 using Player.Stats.Templates;
 using TMPro;
 using UnityEngine;

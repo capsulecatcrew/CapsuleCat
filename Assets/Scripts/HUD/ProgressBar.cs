@@ -15,7 +15,7 @@ public class ProgressBar : MonoBehaviour
         slider.maxValue = maxValue;
     }
     
-    public void ChangeValueBy(float change)
+    public void HandleStatChange(float change)
     {
         if (slider.value + change > slider.maxValue)
         {

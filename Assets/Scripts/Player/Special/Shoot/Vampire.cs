@@ -1,6 +1,3 @@
-using Enemy;
-using UnityEngine;
-
 namespace Player.Special.Shoot
 {
     public class Vampire : SpecialMove
@@ -11,26 +8,18 @@ namespace Player.Special.Shoot
 
         private new const float Cost = 5;
         private bool _isEnabled;
-        private int _charges;
-        
-        
 
         public Vampire(int playerNum) : base(Name, playerNum, Cost)
         {
-
-            EnemyController.OnEnemyMainDamaged += ApplyEffect;
-        }
-
-        private void AddCharge()
-        {
-            if (!_isEnabled) return;
-            if (!PlayerController.GetPlayerSpecialEnergy(PlayerNum).HasSpecialEnergy(Cost))
+            switch (playerNum)
             {
-                Stop();
-                return;
+                case 1:
+                    PlayerController.OnP1BulletShoot += HandleBulletShoot;
+                    return;
+                case 2:
+                    PlayerController.OnP2BulletShoot += HandleBulletShoot;
+                    return;
             }
-            PlayerController.GetPlayerSpecialEnergy(PlayerNum).UseSpecialEnergy(Cost);
-            ++_charges;
         }
 
         public override void Start()
@@ -40,23 +29,24 @@ namespace Player.Special.Shoot
                 Stop();
                 return;
             }
-            if (!PlayerController.GetPlayerSpecialEnergy(PlayerNum).HasSpecialEnergy(Cost)) return;
+            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             _isEnabled = true;
-            // PlayerController.OnPlayerShotFired += AddCharge;
-            // PlayerController.OnEnemyHit += ApplyEffect;
         }
 
         public override void Stop()
         {
             _isEnabled = false;
-            // PlayerController.OnPlayerShotFired -= AddCharge;
         }
 
         protected override void ApplyEffect(float amount)
         {
-            if (_charges == 0) return;
-            PlayerController.HealPlayer(amount * Multiplier);
-            --_charges;
+            PlayerController.Heal(amount * Multiplier);
+        }
+
+        private void HandleBulletShoot(Bullet bullet)
+        {
+            if (!_isEnabled) return;
+            bullet.OnBulletHitUpdate += ApplyEffect;
         }
     }
 }

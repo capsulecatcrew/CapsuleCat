@@ -1,4 +1,6 @@
 using Player.Stats.Persistent;
+using Player.Stats.Templates;
+using UnityEngine;
 
 namespace Battle.Hitboxes
 {
@@ -6,36 +8,59 @@ namespace Battle.Hitboxes
     {
         protected BattleStat BattleStat;
 
+        [SerializeField] protected AudioClip deathSound;
+
+        public delegate void HealthChanged(float damage);
+        /// <summary>
+        /// Provides received instead of incoming damage.
+        /// <p> Useful for when damage reduces HP to below 0. </p>
+        /// </summary>
+        public event HealthChanged OnHealthChanged;
+
         public delegate void Death();
         public event Death OnDeath;
 
-        public virtual void OnEnable()
+        public void Init(Stat stat)
         {
-            // BattleStat.OnStatDeplete += Die;
-        }
-
-        public virtual void Init(UpgradeableLinearStat maxStat, params Firer[] enemies)
-        {
-            base.Init(enemies);
-            maxStat.SetLevel(PlayerStats.GetCurrentStage());
-            BattleStat = maxStat.CreateBattleStat();
+            BattleStat = stat.CreateBattleStat();
+            BattleStat.OnStatChange += HandleStatChange;
             BattleStat.OnStatDeplete += Die;
         }
-
-        public override bool Hit(Firer firer, float damage, bool ignoreIFrames = false, DamageType damageType = DamageType.Normal)
+        
+        public void InitHealthBar(ProgressBar healthBar)
         {
-            return base.Hit(firer, damage, ignoreIFrames, damageType) && BattleStat.MinusValue(damage);
+            healthBar.SetValue(BattleStat.GetValue());
+        }
+
+        public override bool Hit(Firer firer, float damage, DamageType damageType = DamageType.Normal, bool ignoreIFrames = false)
+        {
+            if (!base.Hit(firer, damage, damageType, ignoreIFrames)) return false;
+            if (!OnCooldown) return BattleStat.MinusValue(damage);
+            OnCooldown = false;
+            return true;
         }
 
         private void Die()
         {
+            audioSource.PlayOneShot(deathSound);
             OnDeath?.Invoke();
             gameObject.SetActive(false);
         }
 
         public virtual void OnDisable()
         {
+            BattleStat.OnStatChange -= HandleStatChange;
             BattleStat.OnStatDeplete -= Die;
+        }
+
+        private void HandleStatChange(float change)
+        {
+            OnHealthChanged?.Invoke(change);
+        }
+        
+        public void Heal(float amount)
+        {
+            BattleStat.AddValue(amount);
         }
     }
 }

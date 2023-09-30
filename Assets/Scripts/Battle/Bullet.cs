@@ -13,18 +13,22 @@ public class Bullet : MonoBehaviour
     private const float MaxDistance = 50;
 
     private Firer _firer;
+    private DamageType _damageType;
 
     private Transform _transform;
     
     [SerializeField] private bool ignoreIFrames;
     [SerializeField] private TrailRenderer trailRenderer;
+    
+    public delegate void BulletHitUpdate(float damage);
+    public event BulletHitUpdate OnBulletHitUpdate;
 
     public void OnEnable()
     {
         _transform = transform;
     }
 
-    public void Init(float damage, float speed, Vector3 direction, Firer firer)
+    public void Init(float damage, float speed, Vector3 direction, Firer firer, DamageType damageType = DamageType.Normal)
     {
         _damage = Math.Clamp(damage, 1, float.MaxValue);
         _speed = speed;
@@ -33,6 +37,7 @@ public class Bullet : MonoBehaviour
         _direction = direction.normalized;
 
         _firer = firer;
+        _damageType = damageType;
     }
 
     public void InitHeavy(Vector3 direction, Firer firer)
@@ -82,6 +87,8 @@ public class Bullet : MonoBehaviour
     {
         var hitbox = other.gameObject.GetComponent<Hitbox>();
         if (hitbox == null) return;
-        if (hitbox.Hit(_firer, _damage, ignoreIFrames)) Delete();
+        if (!hitbox.Hit(_firer, _damage, _damageType, ignoreIFrames)) return;
+        Delete();
+        OnBulletHitUpdate?.Invoke(_damage);
     }
 }

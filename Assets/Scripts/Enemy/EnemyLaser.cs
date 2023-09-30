@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Battle;
 using Battle.Hitboxes;
@@ -6,29 +5,29 @@ using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
-    public HitboxTrigger hitbox;
-    [SerializeField] private DamageType _damageType = DamageType.Normal;
+    [Header("Stats")]
+    [SerializeField] private int damage = 1;
+    [SerializeField] private HitboxTrigger hitbox;
+    [SerializeField] private DamageType damageType;
     [SerializeField] private Transform target;
-    
-    public Animator animator;
+
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
     private static readonly int LockOnTrigger = Animator.StringToHash("Lock On");
     private static readonly int FireTrigger = Animator.StringToHash("Fire");
     private static readonly int FinishTrigger = Animator.StringToHash("Finish");
 
-    public AudioSource audioSource;
-    
-    public AudioClip chargingSound;
-    public AudioClip firingSound;
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip chargingSound;
+    [SerializeField] private AudioClip firingSound;
 
     private float _chargingDuration = 2.5f;
     private float _lockOnDuration = 0.5f;
     private float _firingDuration = 2.0f;
 
-    private int _damage = 1;
-
     private bool _trackingTarget;
-    private bool _nonStopTracking = false;
-    
+
     public void Update()
     {
         if (_trackingTarget)
@@ -48,7 +47,7 @@ public class EnemyLaser : MonoBehaviour
         hitbox.HitboxStay -= OnHitBoxStay;
     }
 
-    IEnumerator FireLaser(bool trackAfterLockOn = false)
+    private IEnumerator FireLaser(bool trackAfterLockOn = false)
     {
         audioSource.PlayOneShot(chargingSound);
         yield return new WaitForSeconds(_chargingDuration);
@@ -69,7 +68,7 @@ public class EnemyLaser : MonoBehaviour
 
     public void SetDamage(int damage)
     {
-        _damage = damage;
+        this.damage = damage;
     }
     
     public void SetTargetTracking(Transform target)
@@ -85,9 +84,9 @@ public class EnemyLaser : MonoBehaviour
 
     public void SetFiringTiming(float chargingDuration = 0, float lockOnDuration = 0, float firingDuration = 0)
     {
-        if (chargingDuration > 0) this._chargingDuration = chargingDuration;
-        if (lockOnDuration > 0) this._lockOnDuration = lockOnDuration;
-        if (firingDuration > 0) this._firingDuration = firingDuration;
+        if (chargingDuration > 0) _chargingDuration = chargingDuration;
+        if (lockOnDuration > 0) _lockOnDuration = lockOnDuration;
+        if (firingDuration > 0) _firingDuration = firingDuration;
     }
 
     public void DisableTargetTracking()
@@ -99,6 +98,6 @@ public class EnemyLaser : MonoBehaviour
     {
         var otherHitbox = other.gameObject.GetComponent<Hitbox>();
         if (otherHitbox == null) return;
-        otherHitbox.Hit(Firer.Enemy, _damage, false, _damageType);
+        otherHitbox.Hit(Firer.Enemy, damage, damageType);
     }
 }
