@@ -1,7 +1,8 @@
-using System;
+using Battle.Controllers.Player;
 using Player.Stats;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public enum ControlMode
 {
@@ -12,20 +13,20 @@ public enum ControlMode
 [RequireComponent(typeof(PlayerInput))]
 public class PilotInput : MonoBehaviour
 {
-    [Range(1, 2)] public int player; // player 1 or 2
-    public ControlMode controlMode;
-
-    public GameObject wings;
-    public PlayerMovement movementController;
-    public GameObject weapons;
-    public PlayerShoot weaponController;
-    public ModeIcon modeIcon;
+    [FormerlySerializedAs("player")] [Range(1, 2)] public int playerNum; // player 1 or 2
+    [SerializeField] private ControlMode controlMode;
+    
+    [SerializeField] private GameObject wings;
+    [SerializeField] private PlayerMovement movementController;
+    [SerializeField] private GameObject weapons;
+    [SerializeField] private PlayerShoot weaponController;
+    [SerializeField] private ModeIcon modeIcon;
     private float _movement;
     private Vector2 _weaponMovement = Vector2.zero;
     
     public void Start()
     {
-        controlMode = PlayerStats.GetPlayerControlMode(player);
+        controlMode = PlayerStats.GetPlayerControlMode(playerNum);
         ActivateParts();
         modeIcon?.SetSprite(controlMode);
     }
@@ -34,12 +35,12 @@ public class PilotInput : MonoBehaviour
     {
         if (controlMode == ControlMode.Movement)
         {
-            movementController.SetPlayerMovement(player, _movement);
+            movementController.SetPlayerMovement(playerNum, _movement);
             _weaponMovement = Vector2.zero;
         }
         else if (controlMode == ControlMode.Shooting)
         {
-            movementController.SetPlayerMovement(player, 0.0f);
+            movementController.SetPlayerMovement(playerNum, 0.0f);
             _movement = 0;
             weaponController.MoveGunsBy(_weaponMovement);
         }
@@ -76,7 +77,7 @@ public class PilotInput : MonoBehaviour
 
     private void OnPrimaryJump()
     {
-        movementController.RequestPlayerJump(player);
+        movementController.RequestPlayerJump(playerNum);
     }
 
     public void OnSecondary(InputAction.CallbackContext context)
@@ -98,7 +99,7 @@ public class PilotInput : MonoBehaviour
 
     private void OnSecondaryMove(InputAction.CallbackContext context)
     {
-        if (context.started) movementController.PerformDash(player);
+        if (context.started) movementController.PerformDash(playerNum);
     }
 
     public void OnSpecial(InputAction.CallbackContext context)
@@ -110,19 +111,20 @@ public class PilotInput : MonoBehaviour
 
     private void OnSpecialAttack()
     {
-        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Shooting) return;
+        if (PlayerStats.GetSpecialControlMode(playerNum) != ControlMode.Shooting) return;
         weaponController.UseSpecialMove();
     }
 
     private void OnSpecialMove()
     {
-        if (PlayerStats.GetSpecialControlMode(player) != ControlMode.Movement) return;
-        PlayerMovement.UseSpecialMove(player);
+        if (PlayerStats.GetSpecialControlMode(playerNum) != ControlMode.Movement) return;
+        PlayerMovement.UseSpecialMove(playerNum);
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
     {
         if (!context.action.triggered) return;
+        PlayerController.StopSpecialMove(playerNum);
         switch (controlMode)
         {
             case ControlMode.Movement:
@@ -138,7 +140,7 @@ public class PilotInput : MonoBehaviour
         }
 
         ActivateParts();
-        PlayerStats.SavePlayerControlMode(player, controlMode);
+        PlayerStats.SavePlayerControlMode(playerNum, controlMode);
         modeIcon?.SetSprite(controlMode);
     }
 
