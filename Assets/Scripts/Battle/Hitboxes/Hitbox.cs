@@ -22,7 +22,7 @@ namespace Battle.Hitboxes
         /// Provides incoming damage value.
         /// <p> Do not use for health bars. </p>
         /// </summary>
-        public delegate void HitBox(float damage);
+        public delegate void HitBox(float damage, DamageType damageType);
         public event HitBox OnHitBox;
         
         [SerializeField] protected AudioSource audioSource;
@@ -68,7 +68,7 @@ namespace Battle.Hitboxes
             }
             if (weaknesses.Contains(damageType)) damage *= weaknessMult;
             if (resistances.Contains(damageType)) damage *= resistanceMult;
-            OnHitBox?.Invoke(damage);
+            OnHitBox?.Invoke(damage, damageType);
             ResetHitTimer();
             audioSource.PlayOneShot(damageSound);
             return true;

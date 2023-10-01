@@ -57,12 +57,13 @@ namespace Battle.Controllers.Player
             playerBody.OnHitBox -= GainDamaged;
         }
 
-        private void GainAbsorbed(float amount)
+        private void GainAbsorbed(float amount, DamageType damageType)
         {
+            if (damageType == DamageType.Normal) return;
             AddSpecial(PlayerStats.ApplySpecialAbsorbMultipler(playerNum, amount));
         }
 
-        private void GainDamaged(float amount)
+        private void GainDamaged(float amount, DamageType unused)
         {
             AddSpecial(PlayerStats.ApplySpecialDamagedMultipler(playerNum, amount));
         }

@@ -15,6 +15,9 @@ public class BattleHudController : MonoBehaviour
     [SerializeField] private ProgressBar p1EnergyBar, p2EnergyBar;
     [SerializeField] private ProgressBar p1SpecialBar, p2SpecialBar;
 
+    [Header("Player Avatars")] 
+    [SerializeField] private Avatar p1Avatar;
+    [SerializeField] private Avatar p2Avatar;
     public void OnEnable()
     {
         SubscribeToAllControllerEvents();
@@ -46,6 +49,7 @@ public class BattleHudController : MonoBehaviour
     {
         // from player manager
         playerController.OnHealthChange += playerHpBar.HandleStatChange;
+        playerController.OnHealthChange += AvatarsTakeDmg;
         playerController.OnP1EnergyChange += p1EnergyBar.HandleStatChange;
         playerController.OnP2EnergyChange += p2EnergyBar.HandleStatChange;
         playerController.OnP1SpecialChange += p1SpecialBar.HandleStatChange;
@@ -59,6 +63,7 @@ public class BattleHudController : MonoBehaviour
     {
         // from player manager
         playerController.OnHealthChange -= playerHpBar.HandleStatChange;
+        playerController.OnHealthChange -= AvatarsTakeDmg;
         playerController.OnP1EnergyChange -= p1EnergyBar.HandleStatChange;
         playerController.OnP2EnergyChange -= p2EnergyBar.HandleStatChange;
         playerController.OnP1SpecialChange -= p1SpecialBar.HandleStatChange;
@@ -66,5 +71,12 @@ public class BattleHudController : MonoBehaviour
 
         // from enemy manager
         enemyController.OnEnemyPrimaryHealthChanged -= enemyHpBar.HandleStatChange;
+    }
+
+    private void AvatarsTakeDmg(float dmg)
+    {
+        if (dmg >= 0) return;
+        p1Avatar.TempSwitchSprites(1, 0.5f);
+        p2Avatar.TempSwitchSprites(1, 0.5f);
     }
 }

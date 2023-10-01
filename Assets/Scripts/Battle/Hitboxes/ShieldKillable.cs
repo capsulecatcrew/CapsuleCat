@@ -13,7 +13,7 @@ namespace Battle.Hitboxes
             OnHitBox += UpdateShieldColor;
         }
         
-        private void UpdateShieldColor(float ignored1)
+        private void UpdateShieldColor(float ignored1, DamageType ignored2)
         {
             colorRenderer.material.color = GetDamageColor();
         }

@@ -116,12 +116,12 @@ namespace Battle.Controllers.Player
             OnP2SpecialChange?.Invoke(amount);
         }
         
-        private void HandleP1ShieldHit(float amount)
+        private void HandleP1ShieldHit(float amount, DamageType unused)
         {
             OnP1ShieldHit?.Invoke(amount);
         }
         
-        private void HandleP2ShieldHit(float amount)
+        private void HandleP2ShieldHit(float amount, DamageType unused)
         {
             OnP2ShieldHit?.Invoke(amount);
         }

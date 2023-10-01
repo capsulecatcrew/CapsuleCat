@@ -54,8 +54,9 @@ namespace Battle.Controllers.Player
             _energy.OnStatChange -= HandleStatChange;
         }
 
-        private void GainEnergy(float amount)
+        private void GainEnergy(float amount, DamageType damageType)
         {
+            if (damageType == DamageType.Special) return;
             var absorbedAmount = PlayerStats.ApplyEnergyAbsorbMultiplier(playerNum, amount);
             AddEnergy(absorbedAmount);
             wingGlow.TurnOnGlow();
