@@ -10,7 +10,7 @@ namespace Battle.Controllers.Player
         [SerializeField] private PlayerEnergyController p1Energy, p2Energy;
         [SerializeField] private PlayerSpecialController p1Special, p2Special;
         [SerializeField] private PlayerShoot p1Shoot, p2Shoot;
-        [SerializeField] private Hitbox p1ManaShield, p2ManaShield;
+        [SerializeField] private Hitbox p1Shield, p2Shield;
 
         public delegate void StatChange(float change);
 
@@ -20,18 +20,29 @@ namespace Battle.Controllers.Player
 
         public delegate void PlayerBulletShoot(Bullet bullet);
         public event PlayerBulletShoot OnP1BulletShoot, OnP2BulletShoot;
+        
+        public delegate void ShieldHit(float damage);
+        public event ShieldHit OnP1ShieldHit, OnP2ShieldHit;
 
         public delegate void PlayerDeath();
         public event PlayerDeath OnPlayerDeath;
 
+        public delegate void DeltaTimeUpdate(float deltaTime);
+        public event DeltaTimeUpdate OnDeltaTimeUpdate;
+
         public void Awake()
         {
-            PlayerStats.InitPlayerHealthKillable(playerBody);
+            PlayerStats.InitPlayerKillable(playerBody);
         }
 
         public void OnEnable()
         {
             SubscribeToAllEvents();
+        }
+        
+        public void Update()
+        {
+            OnDeltaTimeUpdate?.Invoke(Time.deltaTime);
         }
 
         public void OnDisable()
@@ -104,6 +115,16 @@ namespace Battle.Controllers.Player
         {
             OnP2SpecialChange?.Invoke(amount);
         }
+        
+        private void HandleP1ShieldHit(float amount)
+        {
+            OnP1ShieldHit?.Invoke(amount);
+        }
+        
+        private void HandleP2ShieldHit(float amount)
+        {
+            OnP2ShieldHit?.Invoke(amount);
+        }
 
         private void HandleP1BulletShoot(Bullet bullet)
         {
@@ -134,6 +155,49 @@ namespace Battle.Controllers.Player
                     return;
                 case 2:
                     p2Energy.UseEnergy(amount);
+                    return;
+            }
+        }
+
+        public void AddEnergy(int playerNum, float amount)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    p1Energy.AddEnergy(amount);
+                    return;
+                case 2:
+                    p2Energy.AddEnergy(amount);
+                    return;
+            }
+        }
+
+        public void EnableShield(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    p1Shield.gameObject.SetActive(true);
+                    p1Shield.OnHitBox += HandleP1ShieldHit;
+                    return;
+                case 2:
+                    p2Shield.gameObject.SetActive(true);
+                    p2Shield.OnHitBox += HandleP2ShieldHit;
+                    return;
+            }
+        }
+
+        public void DisableShield(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    p1Shield.gameObject.SetActive(false);
+                    p1Shield.OnHitBox -= HandleP1ShieldHit;
+                    return;
+                case 2:
+                    p2Shield.gameObject.SetActive(false);
+                    p2Shield.OnHitBox -= HandleP2ShieldHit;
                     return;
             }
         }

@@ -63,7 +63,7 @@ namespace Battle.Controllers.Player
             otherPlayerEnergy.AddEnergy(sharedAmount);
         }
 
-        private void AddEnergy(float amount)
+        public void AddEnergy(float amount)
         {
             _energy.AddValue(amount);
         }

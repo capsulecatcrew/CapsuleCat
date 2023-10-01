@@ -7,7 +7,7 @@ namespace Player.Special
         private static readonly List<SpecialMoveEnum> AllSpecialMoves = new ()
         {
             SpecialMoveEnum.MoveHeal,
-            SpecialMoveEnum.MoveShield,
+            SpecialMoveEnum.MoveAbsorbShield,
             SpecialMoveEnum.ShootVampire
         };
 
@@ -19,7 +19,7 @@ namespace Player.Special
     public enum SpecialMoveEnum
     {
         MoveHeal,
-        MoveShield,
+        MoveAbsorbShield,
         ShootVampire,
     }
 }
