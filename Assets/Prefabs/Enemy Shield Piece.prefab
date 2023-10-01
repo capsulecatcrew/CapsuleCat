@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 5078083984037796972}
   - component: {fileID: 4256071546030220250}
   - component: {fileID: 4498328954832990611}
-  m_Layer: 0
+  - component: {fileID: 4126253044231391156}
+  - component: {fileID: 5635514822498876764}
+  m_Layer: 6
   m_Name: Enemy Shield Piece
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -228,10 +230,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fcdfe3759d4b1c887ec4c4ba75d5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: 0000000001000000
-  invincibilityTime: 0.1
+  takeDamageFrom: 0000000001000000
+  weaknesses: 
+  resistances: 
+  weaknessMult: 2
+  resistanceMult: 0.5
   audioSource: {fileID: 5078083984037796972}
   damageSound: {fileID: 0}
+  deathSound: {fileID: 0}
   colorRenderer: {fileID: 6871544596492064287}
   maxHpColor: {r: 0.38251352, g: 0, b: 1, a: 0.78431374}
   minHpColor: {r: 1, g: 0, b: 0, a: 0.19607843}
+--- !u!114 &4126253044231391156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871544596492064280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c8b428b65034663ab643889e0499e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5635514822498876764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871544596492064280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitbox: {fileID: 4498328954832990611}
+  renderers:
+  - {fileID: 6871544596492064287}
+  flashSeconds: 0.2
+  flashColor: {r: 0.5294118, g: 0.14901961, b: 0.14901961, a: 1}
