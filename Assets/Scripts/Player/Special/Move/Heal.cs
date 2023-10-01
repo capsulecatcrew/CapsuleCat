@@ -5,7 +5,8 @@ namespace Player.Special.Move
     public class Heal : SpecialMove
     {
         private const string Name = "Flash Heal";
-        private const int Amount = 2;
+        private const float Amount = 2;
+        private const string Description = "";
 
         public Heal(int playerNum) : base(playerNum, 10) { }
 

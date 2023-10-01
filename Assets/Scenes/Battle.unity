@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 89983472}
   - component: {fileID: 89983474}
   - component: {fileID: 89983469}
+  - component: {fileID: 89983476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -189,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 89983475}
+  playerSoundController: {fileID: 89983476}
   pivot: {fileID: 241017968}
   mainBody: {fileID: 725430198}
   maxSpeed: 35
@@ -366,6 +368,37 @@ MonoBehaviour:
   p2Shoot: {fileID: 1511992172}
   p1ManaShield: {fileID: 0}
   p2ManaShield: {fileID: 0}
+--- !u!114 &89983476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89983463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8afff2828354770a40936c9316a2e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 89983469}
+  cantShootSound: {fileID: 8300000, guid: 14f0470290fef4832b14f716d012a6bc, type: 3}
+  cantShootVolume: 0.5
+  basicShotSound: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
+  basicShotVolume: 0.8
+  weakShotSound: {fileID: 8300000, guid: d894b3af6722d4ed182d3b0c95be7553, type: 3}
+  weakShotVolume: 0.8
+  heavyShotChargingSound: {fileID: 8300000, guid: 5dc4b0d5934ac82458c87f3f5fa296c3, type: 3}
+  heavyShotChargingVolume: 0.3
+  heavyShotReadySound: {fileID: 8300000, guid: 353937823aa414897ab7e777a1fa79a4, type: 3}
+  heavyShotReadyVolume: 0.4
+  heavyShotReleaseSound: {fileID: 8300000, guid: 1d5c43ba3030e49aab98499cf2ffddc3, type: 3}
+  heavyShotReleaseVolume: 0.6
+  p1JumpSound: {fileID: 8300000, guid: dd1a0f5ac05d64fbfa839e89fe36ef53, type: 3}
+  p1JumpVolume: 1
+  p2JumpSound: {fileID: 8300000, guid: 70e107f4bbf1742e28fe352b16459ced, type: 3}
+  p2JumpVolume: 1
+  dashSound: {fileID: 8300000, guid: fd98d4306ca4bc44e8e2934b97b3546d, type: 3}
+  dashVolume: 1
 --- !u!1 &137705985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5336160480522472628, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -14772,7 +14805,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29042
+  m_Name: pb_Mesh51878
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14986,6 +15019,7 @@ MonoBehaviour:
   screenShaker: {fileID: 1106076139}
   playerMovement: {fileID: 89983467}
   playerController: {fileID: 89983475}
+  playerSoundController: {fileID: 89983476}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
@@ -15005,13 +15039,6 @@ MonoBehaviour:
   aimSpeed: 20
   aimXLimit: 35
   aimYLimit: 45
-  audioSource: {fileID: 89983469}
-  cantShootSound: {fileID: 8300000, guid: 14f0470290fef4832b14f716d012a6bc, type: 3}
-  basicShotSound: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
-  weakShotSound: {fileID: 8300000, guid: d894b3af6722d4ed182d3b0c95be7553, type: 3}
-  heavyShotChargingSound: {fileID: 8300000, guid: 5dc4b0d5934ac82458c87f3f5fa296c3, type: 3}
-  heavyShotReadySound: {fileID: 8300000, guid: 353937823aa414897ab7e777a1fa79a4, type: 3}
-  heavyShotSound: {fileID: 8300000, guid: 1d5c43ba3030e49aab98499cf2ffddc3, type: 3}
   particlesL: {fileID: 1508056307}
   particlesR: {fileID: 241813205}
 --- !u!1 &462000697
@@ -21119,8 +21146,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
-  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21369,8 +21396,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
-  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28217,6 +28244,7 @@ MonoBehaviour:
   screenShaker: {fileID: 1106076140}
   playerMovement: {fileID: 89983467}
   playerController: {fileID: 89983475}
+  playerSoundController: {fileID: 89983476}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
@@ -28236,13 +28264,6 @@ MonoBehaviour:
   aimSpeed: 20
   aimXLimit: 35
   aimYLimit: 45
-  audioSource: {fileID: 89983469}
-  cantShootSound: {fileID: 8300000, guid: 14f0470290fef4832b14f716d012a6bc, type: 3}
-  basicShotSound: {fileID: 8300000, guid: 3cf82b43e118b430ebf7dee499043757, type: 3}
-  weakShotSound: {fileID: 8300000, guid: d894b3af6722d4ed182d3b0c95be7553, type: 3}
-  heavyShotChargingSound: {fileID: 8300000, guid: 5dc4b0d5934ac82458c87f3f5fa296c3, type: 3}
-  heavyShotReadySound: {fileID: 8300000, guid: 353937823aa414897ab7e777a1fa79a4, type: 3}
-  heavyShotSound: {fileID: 8300000, guid: 1d5c43ba3030e49aab98499cf2ffddc3, type: 3}
   particlesL: {fileID: 187998084}
   particlesR: {fileID: 1959113296}
 --- !u!1 &1512911806
@@ -40784,6 +40805,10 @@ PrefabInstance:
     - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: sounds.Array.data[22].pitch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
+      propertyPath: sounds.Array.data[6].volume
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 726937676748201933, guid: be19aac3d8a604168b652cd2902c6dce, type: 3}
       propertyPath: sounds.Array.data[19].volume

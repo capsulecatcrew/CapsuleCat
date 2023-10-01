@@ -25,7 +25,7 @@ public class PilotInput : MonoBehaviour
     
     public void Start()
     {
-        controlMode = PlayerStats.GetLastPlayerControlMode(player);
+        controlMode = PlayerStats.GetPlayerControlMode(player);
         ActivateParts();
         modeIcon?.SetSprite(controlMode);
     }

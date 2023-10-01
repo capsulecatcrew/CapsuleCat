@@ -47,8 +47,8 @@ public class ShopController : MonoBehaviour
     /// </summary>
     private static void RandomiseStats()
     {
-        _chosenStats1 = PlayerStats.GetStatsToUpgrade(1);
-        _chosenStats2 = PlayerStats.GetStatsToUpgrade(2);
+        _chosenStats1 = PlayerStats.GetShopStats(1);
+        _chosenStats2 = PlayerStats.GetShopStats(2);
         var includeHealth = Random.Range(1, 101) < HpChance;
         if (!includeHealth) return;
         var slot = Random.Range(0, 6);
@@ -77,13 +77,14 @@ public class ShopController : MonoBehaviour
         var p1Special = Random.Range(1, 101) < SpecialChance;
         if (p1Special)
         {
-            var chosen1 = PlayerStats.GetRandomSpecialMove(1);
+            var chosen1 = PlayerStats.GetShopSpecialMove(1);
             switch (chosen1)
             {
                 case SpecialMoveEnum.MoveHeal:
                     Heal.InitShopItemButton(player1Buttons[0]);
                     break;
-                case SpecialMoveEnum.MoveShield:
+                case SpecialMoveEnum.MoveAbsorbShield:
+                    AbsorbShield.InitShopItemButton(player1Buttons[0]);
                     break;
                 case SpecialMoveEnum.ShootVampire:
                     Vampire.InitShopItemButton(player1Buttons[0]);
@@ -95,13 +96,14 @@ public class ShopController : MonoBehaviour
         var p2Special = Random.Range(1, 101) < SpecialChance;
         if (p2Special)
         {
-            var chosen2 = PlayerStats.GetRandomSpecialMove(2);
+            var chosen2 = PlayerStats.GetShopSpecialMove(2);
             switch (chosen2)
             {
                 case SpecialMoveEnum.MoveHeal:
                     Heal.InitShopItemButton(player2Buttons[0]);
                     break;
-                case SpecialMoveEnum.MoveShield:
+                case SpecialMoveEnum.MoveAbsorbShield:
+                    AbsorbShield.InitShopItemButton(player2Buttons[0]);
                     break;
                 case SpecialMoveEnum.ShootVampire:
                     Vampire.InitShopItemButton(player2Buttons[0]);

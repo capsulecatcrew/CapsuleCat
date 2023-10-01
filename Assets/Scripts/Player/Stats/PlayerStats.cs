@@ -28,26 +28,26 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
         // p1 - Stat 2
-        private static readonly UpgradeableLinearStat MaxEnergy1 = new("Max Energy", 10, 50, 10, 50, 25);
+        private static readonly UpgradeableLinearStat EnergyMax1 = new("Max Energy", 10, 50, 10, 50, 25);
 
         // p1 - Stat 3
         private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
-        private static readonly Stat Energy1 = new("Energy", MaxEnergy1);
+        private static readonly Stat Energy1 = new("Energy", EnergyMax1);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
+        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.2f, 0.02f, 50, 75);
 
         private static readonly UpgradeableLinearStat SpecialDamage1 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
 
         private static readonly UpgradeableLinearStat SpecialDamaged1 =
-            new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
+            new("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75);
 
         // p1 - Stat 4
         private static readonly GroupedUpgradeableStat SpecialGain1 =
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1);
 
         // p1 - Stat 5
-        private static readonly UpgradeableLinearStat DashEnergyCost1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
 
         // p1 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
@@ -57,7 +57,7 @@ namespace Player.Stats
         private static List<SpecialMoveEnum> _specialPool1 = SpecialMoveEnumController.CopyAllSpecialMoves();
 
         private static readonly List<UpgradeableStat> Player1Stats = new()
-            { Damage1, MaxEnergy1, EnergyAbsorb1, SpecialGain1, DashEnergyCost1, EnergyShare1 };
+            { Damage1, EnergyMax1, EnergyAbsorb1, SpecialGain1, EnergyCostDash1, EnergyShare1 };
 
         private static int _money2;
 
@@ -68,26 +68,22 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
         // p2 - Stat 2
-        private static readonly UpgradeableLinearStat MaxEnergy2 = new("Max Energy", 10, 50, 10, 50, 25);
-
+        private static readonly UpgradeableLinearStat EnergyMax2 = new("Max Energy", 10, 50, 10, 50, 25);
         // p2 - Stat 3
         private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
-        private static readonly Stat Energy2 = new("Energy", MaxEnergy2);
+        private static readonly Stat Energy2 = new("Energy", EnergyMax2);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.5f, 0.05f, 50, 75);
-
+        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.2f, 0.02f, 50, 75);
         private static readonly UpgradeableLinearStat SpecialDamage2 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
-
         private static readonly UpgradeableLinearStat SpecialDamaged2 =
-            new("Special Damaged Rate", 10, 1f, 0.1f, 50, 75);
-
+            new("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75);
         // p2 - Stat 4
         private static readonly GroupedUpgradeableStat SpecialGain2 =
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2);
 
         // p2 - Stat 5
-        private static readonly UpgradeableLinearStat DashEnergyCost2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
 
         // p2 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
@@ -97,7 +93,7 @@ namespace Player.Stats
         private static List<SpecialMoveEnum> _specialPool2 = SpecialMoveEnumController.CopyAllSpecialMoves();
 
         private static readonly List<UpgradeableStat> Player2Stats = new()
-            { Damage2, MaxEnergy2, EnergyAbsorb2, SpecialGain2, DashEnergyCost2, EnergyShare2 };
+            { Damage2, EnergyMax2, EnergyAbsorb2, SpecialGain2, EnergyCostDash2, EnergyShare2 };
 
         // both - Stat 7
         public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
@@ -107,84 +103,137 @@ namespace Player.Stats
 
         static PlayerStats()
         {
-            OnEnable();
-        }
-
-        private static void OnEnable()
-        {
             Special1.SetValue(0);
             Special2.SetValue(0);
         }
-
-        private static void Reset()
+        
+        /**========================================== Scene Change Methods ==========================================*/
+        /// <summary>
+        /// On loss reset method. Do not call, simply subscribe from loss event.
+        /// </summary>
+        public static void Lose()
         {
+            StorePreviousStage();
             _currentStage = 1;
+            MaxHealth.Reset();
+            Health.Reset();
+            
             _money1 = 0;
             Damage1.Reset();
-            MaxEnergy1.Reset();
+            EnergyMax1.Reset();
             EnergyAbsorb1.Reset();
             Energy1.Reset();
+            EnergyCostDash1.Reset();
             SpecialAbsorb1.Reset();
             SpecialDamage1.Reset();
             SpecialDamaged1.Reset();
-            DashEnergyCost1.Reset();
-            RemoveSpecialMove(1);
+            Special1.SetValue(0);
+            _specialMove1 = null;
 
             _money2 = 0;
             Damage2.Reset();
-            MaxEnergy2.Reset();
+            EnergyMax2.Reset();
             EnergyAbsorb2.Reset();
             Energy2.Reset();
+            EnergyCostDash2.Reset();
             SpecialAbsorb2.Reset();
             SpecialDamage2.Reset();
             SpecialDamaged2.Reset();
-            DashEnergyCost2.Reset();
-            RemoveSpecialMove(2);
-
-            MaxHealth.Reset();
-            Health.Reset();
-            OnEnable();
+            Special2.SetValue(0);
+            _specialMove2 = null;
         }
-
-        public static int GetCurrentStage()
-        {
-            return _currentStage;
-        }
-
-        public static int GetPrevStage()
-        {
-            return _prevStage;
-        }
-
+        
+        /// <summary>
+        /// On win progression method. Do not call, simply subscribe from win event.
+        /// </summary>
         public static void Win()
         {
-            _prevStage = _currentStage;
+            StorePreviousStage();
             _currentStage++;
             _money1 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
             _money2 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
         }
 
-        public static void Lose()
+        /// <summary>
+        /// Stores previous stage for stage completion/loss scene.
+        /// </summary>
+        private static void StorePreviousStage()
         {
             _prevStage = _currentStage;
-            Reset();
+        }
+        
+        /// <summary>
+        /// Enables special moves for both players.
+        /// </summary>
+        public static void EnableSpecialMoves()
+        {
+            _specialMove1?.Enable();
+            _specialMove2?.Enable();
         }
 
-        public static void InitPlayerHealthKillable(Killable killable)
+        /// <summary>
+        /// Disables special moves for both players.
+        /// </summary>
+        public static void DisableSpecialMoves()
+        {
+            _specialMove1?.Disable();
+            _specialMove2?.Disable();
+        }
+
+        /// <summary>
+        /// Updates PlayerController class instance to specified instance when loading battle scene.
+        /// </summary>
+        public static void UpdatePlayerController(PlayerController playerController)
+        {
+            _specialMove1?.UpdatePlayerController(playerController);
+            _specialMove2?.UpdatePlayerController(playerController);
+        }
+        
+        /**=========================================== Stage Info Methods ===========================================*/
+        /// <summary>
+        /// Gets current stage.
+        /// </summary>
+        public static int GetCurrentStage()
+        {
+            return _currentStage;
+        }
+
+        /// <summary>
+        /// Gets previously loaded stage.
+        /// </summary>
+        public static int GetPrevStage()
+        {
+            return _prevStage;
+        }
+        
+        /**======================================= Battle Scene Setup Methods =======================================*/
+        /// <summary>
+        /// Initialises player Killable instance.
+        /// </summary>
+        public static void InitPlayerKillable(Killable killable)
         {
             killable.Init(Health);
         }
 
+        /// <summary>
+        /// Initialises player health bar max value.
+        /// </summary>
         public static void InitPlayerHealthBarMax(ProgressBar healthBar)
         {
             healthBar.SetMaxValue(MaxHealth.Value);
         }
 
+        /// <summary>
+        /// Initialises player health bar remaining value.
+        /// </summary>
         public static void InitPlayerHealthBarValue(ProgressBar healthBar)
         {
             healthBar.SetValue(Health.Value);
         }
 
+        /// <summary>
+        /// Creates battle energy stat for specified player.
+        /// </summary>
         public static BattleStat CreateBattleEnergyStat(int playerNum)
         {
             switch (playerNum)
@@ -202,19 +251,25 @@ namespace Player.Stats
             return null;
         }
 
+        /// <summary>
+        /// Initialises player energy bar max value for specified player.
+        /// </summary>
         public static void InitPlayerEnergyBarMax(int playerNum, ProgressBar energyBar)
         {
             switch (playerNum)
             {
                 case 1:
-                    energyBar.SetMaxValue(MaxEnergy1.Value);
+                    energyBar.SetMaxValue(EnergyMax1.Value);
                     return;
                 case 2:
-                    energyBar.SetMaxValue(MaxEnergy2.Value);
+                    energyBar.SetMaxValue(EnergyMax2.Value);
                     return;
             }
         }
 
+        /// <summary>
+        /// Creates battle special stat for specified player.
+        /// </summary>
         public static BattleStat CreateBattleSpecialStat(int playerNum)
         {
             switch (playerNum)
@@ -230,6 +285,9 @@ namespace Player.Stats
             return null;
         }
 
+        /// <summary>
+        /// Initialises player special bar max value for specified player.
+        /// </summary>
         public static void InitPlayerSpecialBarMax(int playerNum, ProgressBar specialBar)
         {
             switch (playerNum)
@@ -242,7 +300,122 @@ namespace Player.Stats
                     return;
             }
         }
+        
+        /// <summary>
+        /// Gets basic bullet shot damage for specified player.
+        /// </summary>
+        public static float GetDamage(int playerNum)
+        {
+            return playerNum switch
+            {
+                1 => Damage1.Value,
+                2 => Damage2.Value,
+                _ => 0f
+            };
+        }
 
+        /// <summary>
+        /// Gets dash energy cost for specified player.
+        /// </summary>
+        public static float GetDashEnergyCost(int playerNum)
+        {
+            return playerNum switch
+            {
+                1 => EnergyCostDash1.GetValue(),
+                2 => EnergyCostDash2.GetValue(),
+                _ => 0f
+            };
+        }
+        
+        /// <summary>
+        /// Saves the specified player's control modes.
+        /// TODO consider making this a one off in the disable method in the battle scene. Less processing :)
+        /// </summary>
+        public static void SavePlayerControlMode(int playerNum, ControlMode controlMode)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    _p1ControlMode = controlMode;
+                    break;
+                case 2:
+                    _p2ControlMode = controlMode;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified player's last saved control mode.
+        /// </summary>
+        /// <param name="playerNum"></param>
+        /// <returns></returns>
+        public static ControlMode GetPlayerControlMode(int playerNum)
+        {
+            return (playerNum) switch
+            {
+                1 => _p1ControlMode,
+                2 => _p2ControlMode,
+                _ => ControlMode.Movement
+            };
+        }
+        
+        /**====================================== Battle Scene Special Methods ======================================*/
+        /// <summary>
+        /// Uses the special move for the specified player.
+        /// </summary>
+        public static void UseSpecialMove(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    _specialMove1?.Start();
+                    return;
+                case 2:
+                    _specialMove2?.Start();
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// Gets the control mode of the special attack of the specified player.
+        /// </summary>
+        public static ControlMode GetSpecialControlMode(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    switch (_specialMove1)
+                    {
+                        case Heal:
+                            return ControlMode.Movement;
+                        case AbsorbShield:
+                            return ControlMode.Movement;
+                        case Vampire:
+                            return ControlMode.Shooting;
+                    }
+
+                    break;
+                case 2:
+                    switch (_specialMove2)
+                    {
+                        case Heal:
+                            return ControlMode.Movement;
+                        case AbsorbShield:
+                            return ControlMode.Movement;
+                        case Vampire:
+                            return ControlMode.Shooting;
+                    }
+
+                    break;
+            }
+
+            return ControlMode.Movement;
+        }
+        
+        /**======================================== Battle Stat Apply Methods ========================================*/
+        /// <summary>
+        /// Applies energy absorption multiplier to damage amount for specified player.
+        /// </summary>
         public static float ApplyEnergyAbsorbMultiplier(int playerNum, float amount)
         {
             return playerNum switch
@@ -253,6 +426,9 @@ namespace Player.Stats
             };
         }
 
+        /// <summary>
+        /// Applies energy sharing multiplier to absorbed amount for specified player.
+        /// </summary>
         public static float ApplyEnergyShareMultiplier(int playerNum, float amount)
         {
             return playerNum switch
@@ -263,6 +439,9 @@ namespace Player.Stats
             };
         }
 
+        /// <summary>
+        /// Applies special absorption multiplier to damage amount for specified player.
+        /// </summary>
         public static float ApplySpecialAbsorbMultipler(int playerNum, float amount)
         {
             return playerNum switch
@@ -273,6 +452,9 @@ namespace Player.Stats
             };
         }
 
+        /// <summary>
+        /// Applies special shoot damage multiplier to damage amount for specified player.
+        /// </summary>
         public static float ApplySpecialDamageMultipler(int playerNum, float amount)
         {
             return playerNum switch
@@ -283,6 +465,9 @@ namespace Player.Stats
             };
         }
 
+        /// <summary>
+        /// Applies special player damaged multiplier to damage amount for specified player.
+        /// </summary>
         public static float ApplySpecialDamagedMultipler(int playerNum, float amount)
         {
             return playerNum switch
@@ -292,7 +477,12 @@ namespace Player.Stats
                 _ => amount
             };
         }
-
+        
+        /**=========================================== Shop Scene Methods ===========================================*/
+        /// <summary>
+        /// Removes specified amount of money from specified player.
+        /// </summary>
+        /// <returns>Whether true if money is successfully removed, false otherwise.</returns>
         public static bool RemoveMoney(int playerNum, int amount)
         {
             switch (playerNum)
@@ -310,6 +500,10 @@ namespace Player.Stats
             return false;
         }
 
+        /// <summary>
+        /// Gets amount of money specified player has as a string.
+        /// Appends $ sign to the start of the string.
+        /// </summary>
         public static string GetMoneyString(int playerNum)
         {
             return playerNum switch
@@ -320,27 +514,10 @@ namespace Player.Stats
             };
         }
 
-        public static float GetDamage(int playerNum)
-        {
-            return playerNum switch
-            {
-                1 => Damage1.Value,
-                2 => Damage2.Value,
-                _ => 1.5f
-            };
-        }
-
-        public static float GetDashEnergyCost(int playerNum)
-        {
-            return playerNum switch
-            {
-                1 => DashEnergyCost1.GetValue(),
-                2 => DashEnergyCost2.GetValue(),
-                _ => 0f
-            };
-        }
-
-        public static List<UpgradeableStat> GetStatsToUpgrade(int playerNum)
+        /// <summary>
+        /// Gets list of random stats to sell in the shop for the specified player.
+        /// </summary>
+        public static List<UpgradeableStat> GetShopStats(int playerNum)
         {
             return playerNum switch
             {
@@ -350,7 +527,10 @@ namespace Player.Stats
             };
         }
 
-        public static SpecialMoveEnum GetRandomSpecialMove(int playerNum)
+        /// <summary>
+        /// Gets random special move to sell in the shop for the specified player.
+        /// </summary>
+        public static SpecialMoveEnum GetShopSpecialMove(int playerNum)
         {
             switch (playerNum)
             {
@@ -370,7 +550,7 @@ namespace Player.Stats
         }
 
         /// <summary>
-        /// Sets player's current special move.
+        /// Sets specified player's current special move.
         /// </summary>
         /// <param name="playerNum">Player to set special move for.</param>
         /// <param name="specialMove">Special move to set for player.</param>
@@ -384,7 +564,7 @@ namespace Player.Stats
                         case SpecialMoveEnum.MoveHeal:
                             _specialMove1 = new Heal(playerNum);
                             return;
-                        case SpecialMoveEnum.MoveShield:
+                        case SpecialMoveEnum.MoveAbsorbShield:
                             return;
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove1 = new Vampire(playerNum);
@@ -398,7 +578,7 @@ namespace Player.Stats
                         case SpecialMoveEnum.MoveHeal:
                             _specialMove2 = new Heal(playerNum);
                             return;
-                        case SpecialMoveEnum.MoveShield:
+                        case SpecialMoveEnum.MoveAbsorbShield:
                             return;
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove2 = new Vampire(playerNum);
@@ -407,93 +587,6 @@ namespace Player.Stats
                             return;
                     }
             }
-        }
-
-        /// <summary>
-        /// Removes specified player's current special move.
-        /// </summary>
-        private static void RemoveSpecialMove(int playerNum)
-        {
-            switch (playerNum)
-            {
-                case 1:
-                    _specialMove1 = null;
-                    return;
-                case 2:
-                    _specialMove2 = null;
-                    return;
-            }
-        }
-
-        public static void EnableSpecialMoves()
-        {
-            _specialMove1?.Enable();
-            _specialMove2?.Enable();
-        }
-
-        public static void DisableSpecialMoves()
-        {
-            _specialMove1?.Disable();
-            _specialMove2?.Disable();
-        }
-
-        public static void UpdatePlayerController(PlayerController playerController)
-        {
-            _specialMove1?.UpdatePlayerController(playerController);
-            _specialMove2?.UpdatePlayerController(playerController);
-        }
-
-        public static void UseSpecialMove(int playerNum)
-        {
-            switch (playerNum)
-            {
-                case 1:
-                    _specialMove1?.Start();
-                    return;
-                case 2:
-                    _specialMove2?.Start();
-                    return;
-            }
-        }
-
-        public static ControlMode GetSpecialControlMode(int playerNum)
-        {
-            switch (playerNum)
-            {
-                case 1:
-                    if (_specialMove1 is Heal) return ControlMode.Movement;
-                    if (_specialMove1 is Vampire) return ControlMode.Shooting;
-                    break;
-                case 2:
-                    if (_specialMove2 is Heal) return ControlMode.Movement;
-                    if (_specialMove2 is Vampire) return ControlMode.Shooting;
-                    break;
-            }
-
-            return ControlMode.Movement;
-        }
-
-        public static void SavePlayerControlMode(int playerNum, ControlMode controlMode)
-        {
-            switch (playerNum)
-            {
-                case 1:
-                    _p1ControlMode = controlMode;
-                    break;
-                case 2:
-                    _p2ControlMode = controlMode;
-                    break;
-            }
-        }
-
-        public static ControlMode GetLastPlayerControlMode(int playerNum)
-        {
-            return (playerNum) switch
-            {
-                1 => _p1ControlMode,
-                2 => _p2ControlMode,
-                _ => ControlMode.Movement
-            };
         }
     }
 }
