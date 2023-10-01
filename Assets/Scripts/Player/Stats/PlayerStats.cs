@@ -375,6 +375,22 @@ namespace Player.Stats
                     return;
             }
         }
+        
+        /// <summary>
+        /// Stops the special move for the specified player.
+        /// </summary>
+        public static void StopSpecialMove(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    _specialMove1?.Stop();
+                    return;
+                case 2:
+                    _specialMove2?.Stop();
+                    return;
+            }
+        }
 
         /// <summary>
         /// Gets the control mode of the special attack of the specified player.
@@ -565,6 +581,7 @@ namespace Player.Stats
                             _specialMove1 = new Heal(playerNum);
                             return;
                         case SpecialMoveEnum.MoveAbsorbShield:
+                            _specialMove1 = new AbsorbShield(playerNum);
                             return;
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove1 = new Vampire(playerNum);
@@ -579,6 +596,7 @@ namespace Player.Stats
                             _specialMove2 = new Heal(playerNum);
                             return;
                         case SpecialMoveEnum.MoveAbsorbShield:
+                            _specialMove2 = new AbsorbShield(playerNum);
                             return;
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove2 = new Vampire(playerNum);

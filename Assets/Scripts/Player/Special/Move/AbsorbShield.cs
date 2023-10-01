@@ -5,7 +5,7 @@ namespace Player.Special.Move
     public class AbsorbShield : SpecialMove
     {
         private const string Name = "Energy Shield";
-        private const float Amount = 1f;
+        private const float Amount = 0.5f;
         private const string Description = "";
         
         private bool _isEnabled;
@@ -47,8 +47,8 @@ namespace Player.Special.Move
                 return;
             }
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
+            if (!PlayerController.EnableShield(PlayerNum)) return;
             _timer = 0;
-            PlayerController.EnableShield(PlayerNum);
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
         }

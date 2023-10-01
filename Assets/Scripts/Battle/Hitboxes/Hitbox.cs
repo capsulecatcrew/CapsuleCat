@@ -14,8 +14,9 @@ namespace Battle.Hitboxes
         
         private const float HitIFrameTime = 1;
         private float _hitIFrameTimer;
-
         protected bool OnCooldown;
+        
+        private bool _isShielded;
         
         /// <summary>
         /// Provides incoming damage value.
@@ -58,6 +59,7 @@ namespace Battle.Hitboxes
         /// <returns>Whether hitbox has been hit.</returns>
         public virtual bool Hit(Firer firer, float damage, DamageType damageType = DamageType.Normal, bool ignoreIFrames = false)
         {
+            if (_isShielded) return false;
             if (!takeDamageFrom.Contains(firer)) return false;
             if (!ignoreIFrames && _hitIFrameTimer > 0)
             {
@@ -70,6 +72,16 @@ namespace Battle.Hitboxes
             ResetHitTimer();
             audioSource.PlayOneShot(damageSound);
             return true;
+        }
+
+        public void EnableShield()
+        {
+            _isShielded = true;
+        }
+
+        public void DisableShield()
+        {
+            _isShielded = false;
         }
     }
 }

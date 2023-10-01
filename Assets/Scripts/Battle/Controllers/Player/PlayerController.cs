@@ -172,19 +172,25 @@ namespace Battle.Controllers.Player
             }
         }
 
-        public void EnableShield(int playerNum)
+        public bool EnableShield(int playerNum)
         {
             switch (playerNum)
             {
                 case 1:
+                    if (p2Shield.gameObject.activeSelf) return false;
                     p1Shield.gameObject.SetActive(true);
+                    playerBody.EnableShield();
                     p1Shield.OnHitBox += HandleP1ShieldHit;
-                    return;
+                    return true;
                 case 2:
+                    if (p1Shield.gameObject.activeSelf) return false;
                     p2Shield.gameObject.SetActive(true);
+                    playerBody.EnableShield();
                     p2Shield.OnHitBox += HandleP2ShieldHit;
-                    return;
+                    return true;
             }
+
+            return false;
         }
 
         public void DisableShield(int playerNum)
@@ -200,6 +206,7 @@ namespace Battle.Controllers.Player
                     p2Shield.OnHitBox -= HandleP2ShieldHit;
                     return;
             }
+            playerBody.DisableShield();
         }
 
         public bool HasSpecial(int playerNum, float amount)
@@ -223,6 +230,11 @@ namespace Battle.Controllers.Player
                     p2Special.UseSpecial(amount);
                     return;
             }
+        }
+        
+        public static void StopSpecialMove(int playerNum)
+        {
+            PlayerStats.StopSpecialMove(playerNum);
         }
 
         public void Heal(float amount)
