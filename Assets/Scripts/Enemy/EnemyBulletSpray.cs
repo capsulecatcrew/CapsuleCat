@@ -56,8 +56,8 @@ public class EnemyBulletSpray : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (_timeSinceLastAttack <= _timeTillNextAttack) return;
         _timeSinceLastAttack += Time.deltaTime;
+        if (_timeSinceLastAttack <= _timeTillNextAttack) return;
         // Attack
         var height = bulletHeights[Random.Range(0, _heightsCount)];
         var amount = bulletAmounts[Random.Range(0, _amountsCount)];
