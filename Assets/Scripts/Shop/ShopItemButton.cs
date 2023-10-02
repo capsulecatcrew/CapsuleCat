@@ -27,7 +27,7 @@ public class ShopItemButton : MonoBehaviour
     // TODO: disable 'pressed' sound when UI button sound interface is made
     // TODO: highlighted sound played by hitbox trigger 2D at the moment, remove on complete
     
-    [FormerlySerializedAs("_usable")] [SerializeField] private bool usable;
+    [SerializeField] private bool usable;
     private int _cost;
 
     public void Init(string name, string stringCost, bool usable, int cost)
@@ -61,10 +61,10 @@ public class ShopItemButton : MonoBehaviour
         }
         OnButtonPressed?.Invoke(playerNum);
         GlobalAudio.Singleton.PlaySound("UI_SHOP_BOUGHT");
-        Disable();
+        DisableButton();
     }
 
-    public void Disable()
+    public void DisableButton()
     {
         nameText.text = "PURCHASED";
         costText.text = "";
@@ -73,10 +73,15 @@ public class ShopItemButton : MonoBehaviour
         buttonSpriteManager.SetToSpriteState(2);
         buttonSpriteManager.useable = false;
     }
-
+    
     public void OnDisable()
     {
         OnButtonDisable?.Invoke(this);
+    }
+
+    public bool IsUsable()
+    {
+        return usable;
     }
     
     /// <summary>
