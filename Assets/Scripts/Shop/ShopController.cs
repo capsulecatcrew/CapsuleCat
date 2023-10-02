@@ -39,7 +39,12 @@ public class ShopController : MonoBehaviour
         InitShopSpecialButtons();
         InitButtonsUsability();
     }
-    
+
+    private void OnDestroy()
+    {
+        SaveButtonsUsability();
+    }
+
     /// <summary>
     /// Randomise stats to be upgraded by the player.
     /// <p>Each player can get any one of their player stats as an option.</p>
@@ -135,24 +140,26 @@ public class ShopController : MonoBehaviour
     {
         for (var i = 0; i < player1Buttons.Count; i++)
         {
-            if (!Buttons1Usable[i]) player1Buttons[i].Disable();
+            if (!Buttons1Usable[i]) player1Buttons[i].DisableButton();
         }
         for (var i = 0; i < player2Buttons.Count; i++)
         {
-            if (!Buttons2Usable[i]) player2Buttons[i].Disable();
+            if (!Buttons2Usable[i]) player2Buttons[i].DisableButton();
         }
     }
-
-    public void SavePlayer1ButtonAsUnusable(int index)
+    
+    private void SaveButtonsUsability()
     {
-        Buttons1Usable[index] = false;
+        for (var i = 0; i < player1Buttons.Count; i++)
+        {
+            if (!player1Buttons[i].IsUsable()) Buttons1Usable[i] = false;
+        }
+        for (var i = 0; i < player2Buttons.Count; i++)
+        {
+            if (!player2Buttons[i].IsUsable()) Buttons2Usable[i] = false;
+        }
     }
-
-    public void SavePlayer2ButtonAsUnusable(int index)
-    {
-        Buttons2Usable[index] = false;
-    }
-
+    
     /// <summary>
     /// Update the money counter UI elements.
     /// </summary>
