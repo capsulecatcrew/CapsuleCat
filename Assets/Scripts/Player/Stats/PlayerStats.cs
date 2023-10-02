@@ -34,7 +34,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
         private static readonly Stat Energy1 = new("Energy", EnergyMax1);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 0.4f, 0.05f, 50, 75);
+        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 10, 2, 50, 75);
 
         private static readonly UpgradeableLinearStat SpecialDamage1 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
@@ -73,7 +73,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
         private static readonly Stat Energy2 = new("Energy", EnergyMax2);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 0.4f, 0.05f, 50, 75);
+        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 10, 2, 50, 75);
         private static readonly UpgradeableLinearStat SpecialDamage2 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
         private static readonly UpgradeableLinearStat SpecialDamaged2 =
