@@ -1,12 +1,13 @@
 using System.Collections;
 using Battle;
 using Battle.Hitboxes;
+using Enemy;
 using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private int damage = 1;
+    [SerializeField] private float damage = 1;
     [SerializeField] private HitboxTrigger hitbox;
     [SerializeField] private DamageType damageType;
     [SerializeField] private Transform target;
@@ -17,10 +18,9 @@ public class EnemyLaser : MonoBehaviour
     private static readonly int FireTrigger = Animator.StringToHash("Fire");
     private static readonly int FinishTrigger = Animator.StringToHash("Finish");
 
-    [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip chargingSound;
-    [SerializeField] private AudioClip firingSound;
+    
+    private static EnemySoundController _enemySoundController;
 
     private float _chargingDuration = 2.5f;
     private float _lockOnDuration = 0.5f;
@@ -49,7 +49,7 @@ public class EnemyLaser : MonoBehaviour
 
     private IEnumerator FireLaser(bool trackAfterLockOn = false)
     {
-        audioSource.PlayOneShot(chargingSound);
+        _enemySoundController.PlayLaserChargingSound(audioSource);
         yield return new WaitForSeconds(_chargingDuration);
         
         animator.SetTrigger(LockOnTrigger);
@@ -57,7 +57,7 @@ public class EnemyLaser : MonoBehaviour
         yield return new WaitForSeconds(_lockOnDuration);
         
         animator.SetTrigger(FireTrigger);
-        audioSource.PlayOneShot(firingSound);
+        _enemySoundController.PlayLaserFiringSound(audioSource);
         yield return new WaitForSeconds(_firingDuration);
         
         animator.SetTrigger(FinishTrigger);
@@ -66,7 +66,7 @@ public class EnemyLaser : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetDamage(int damage)
+    public void SetDamage(float damage)
     {
         this.damage = damage;
     }
@@ -87,6 +87,11 @@ public class EnemyLaser : MonoBehaviour
         if (chargingDuration > 0) _chargingDuration = chargingDuration;
         if (lockOnDuration > 0) _lockOnDuration = lockOnDuration;
         if (firingDuration > 0) _firingDuration = firingDuration;
+    }
+
+    public static void SetEnemySoundController(EnemySoundController enemySoundController)
+    {
+        _enemySoundController = enemySoundController;
     }
 
     public void DisableTargetTracking()

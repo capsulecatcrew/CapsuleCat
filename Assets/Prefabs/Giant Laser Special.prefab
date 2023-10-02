@@ -8489,7 +8489,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 74
+  m_VersionIndex: 89
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8619,7 +8619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5607062548565506656
 Transform:
   m_ObjectHideFlags: 0
@@ -8676,8 +8676,6 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 5607062548565506663}
   audioSource: {fileID: 654724575176689747}
-  chargingSound: {fileID: 8300000, guid: 878ca5afeedeb49d29ef015e93becb69, type: 3}
-  firingSound: {fileID: 8300000, guid: c4f00f3ac77534bae9bae16ce9053df6, type: 3}
 --- !u!1 &5607062548697066182
 GameObject:
   m_ObjectHideFlags: 0

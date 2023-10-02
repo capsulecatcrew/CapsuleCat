@@ -14805,7 +14805,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh61064
+  m_Name: pb_Mesh42188
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20211,6 +20211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 518911314}
+  - component: {fileID: 518911315}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -20236,6 +20237,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &518911315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518911313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a93252c8ea443b93047291a2916394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 963194231}
+  bulletSound: {fileID: 8300000, guid: 63f93e6cebded4c01be05225e5825aa7, type: 3}
+  bulletVolume: 1
+  laserChargingSound: {fileID: 8300000, guid: 878ca5afeedeb49d29ef015e93becb69, type: 3}
+  laserChargingVolume: 1
+  laserFiringSound: {fileID: 8300000, guid: c4f00f3ac77534bae9bae16ce9053df6, type: 3}
+  laserFiringVolume: 1
 --- !u!1001 &525289088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20619,21 +20639,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 7711659574321420072}
+  hitboxes:
+  - {fileID: 7711659574321420072}
+  flashTime: 0.4
+  flashColor: {r: 0.5294118, g: 0.14901961, b: 0.14901961, a: 1}
   renderers:
   - {fileID: 7711659574321420075}
-  - {fileID: 1474533818}
-  - {fileID: 226640013}
   - {fileID: 874803466}
   - {fileID: 1466390966}
-  - {fileID: 1231861946}
-  - {fileID: 294055276}
   - {fileID: 719363353}
   - {fileID: 918730074}
   - {fileID: 1927680664}
   - {fileID: 923948075}
-  flashSeconds: 0.4
-  flashColor: {r: 0.5294118, g: 0.14901961, b: 0.14901961, a: 1}
 --- !u!1 &777491464
 GameObject:
   m_ObjectHideFlags: 0
@@ -21179,8 +21196,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
-  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21429,8 +21446,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
-  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22899,7 +22916,6 @@ MonoBehaviour:
   energyAbsorbers:
   - {fileID: 1231861948}
   - {fileID: 294055278}
-  wingGlow: {fileID: 2131668982}
 --- !u!1 &1364088754
 GameObject:
   m_ObjectHideFlags: 0
@@ -23306,16 +23322,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1471213440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c46b9e78c2544dbe936d575a76780b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNum: 1
-  glowingParts:
+  hitboxes:
+  - {fileID: 1474533820}
+  - {fileID: 226640015}
+  flashTime: 0.2
+  flashColor: {r: 0, g: 0.86666673, b: 1, a: 0}
+  renderers:
   - {fileID: 1474533818}
   - {fileID: 226640013}
-  glowColor: {r: 0, g: 0.8666667, b: 1, a: 0}
-  timeTillFade: 0.5
-  glowFadeTime: 0.5
 --- !u!1 &1474533814
 GameObject:
   m_ObjectHideFlags: 0
@@ -28805,6 +28822,7 @@ MonoBehaviour:
   minTimeLowerLimit: 1.5
   maxTimeLowerLimit: 3
   timerDecreaseByLevel: 3
+  enemySoundController: {fileID: 518911315}
   specialLaserChance: 90
 --- !u!114 &1588538305
 MonoBehaviour:
@@ -34827,11 +34845,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 1755626513}
+  hitboxes:
+  - {fileID: 1755626513}
+  flashTime: 0.2
+  flashColor: {r: 0.5283019, g: 0.14702742, b: 0.14702742, a: 1}
   renderers:
   - {fileID: 1755626508}
-  flashSeconds: 0.2
-  flashColor: {r: 0.5283019, g: 0.14702742, b: 0.14702742, a: 1}
 --- !u!1 &1764507594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6587570758951894059, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -35258,7 +35277,6 @@ MonoBehaviour:
   energyAbsorbers:
   - {fileID: 1474533820}
   - {fileID: 226640015}
-  wingGlow: {fileID: 1471213442}
 --- !u!114 &1822170223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35323,18 +35341,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin: {fileID: 1876447376}
   bulletPool: {fileID: 1876447378}
-  startingMinTimeBetweenShots: 3
-  startingMaxTimeBetweenShots: 10
-  absoluteMinTimeBetweenShots: 0.5
-  timerDecreaseByLevel: 0.5
-  startingDamage: 1
-  dmgIncreaseLvlInterval: 5
-  dmgIncrease: 1
+  bulletSpeed: 20
   bulletAmounts: 240000001e0000001800000012000000
   bulletHeights:
   - 1
   - 4
-  bulletSpeed: 20
+  baseMinCooldown: 3
+  minCooldownReduction: 0.3
+  baseMaxCooldown: 10
+  maxCooldownReduction: 0.5
+  absoluteMinCooldown: 0.5
+  baseDamage: 1
+  damageIncrease: 1
+  damageUpgradeInterval: 5
+  enemySoundController: {fileID: 518911315}
 --- !u!114 &1876447378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40967,16 +40987,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2131668980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c46b9e78c2544dbe936d575a76780b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNum: 2
-  glowingParts:
+  hitboxes:
+  - {fileID: 1231861948}
+  - {fileID: 294055278}
+  flashTime: 0.2
+  flashColor: {r: 0, g: 0.8666667, b: 1, a: 0}
+  renderers:
   - {fileID: 1231861946}
   - {fileID: 294055276}
-  glowColor: {r: 0, g: 0.8666667, b: 1, a: 0}
-  timeTillFade: 0.5
-  glowFadeTime: 0.5
 --- !u!1001 &3643065692073007959
 PrefabInstance:
   m_ObjectHideFlags: 0

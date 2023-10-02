@@ -82,7 +82,6 @@ namespace Battle.Controllers.Player
                     if (_hasP2PlayedReadySound) return;
                     break;
             }
-            audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(heavyShotReadySound, heavyShotReadyVolume);
             switch (playerNum)
             {
