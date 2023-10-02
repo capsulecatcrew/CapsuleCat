@@ -236,8 +236,8 @@ MonoBehaviour:
   weaknessMult: 2
   resistanceMult: 0.5
   audioSource: {fileID: 5078083984037796972}
-  damageSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+  deathSound: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
   colorRenderer: {fileID: 6871544596492064287}
   maxHpColor: {r: 0.38251352, g: 0, b: 1, a: 0.78431374}
   minHpColor: {r: 1, g: 0, b: 0, a: 0.19607843}
@@ -265,8 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058c161b06d97406a9ba87218515c800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 4498328954832990611}
+  hitboxes:
+  - {fileID: 4498328954832990611}
+  flashTime: 0.2
+  flashColor: {r: 0.5294118, g: 0.14901961, b: 0.14901961, a: 1}
   renderers:
   - {fileID: 6871544596492064287}
-  flashSeconds: 0.2
-  flashColor: {r: 0.5294118, g: 0.14901961, b: 0.14901961, a: 1}

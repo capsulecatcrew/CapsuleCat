@@ -1,24 +1,27 @@
 using System;
 using System.Collections;
+using Enemy;
 using Player.Stats;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(EnemyLaserAttack))]
+[RequireComponent(typeof(EnemyLaserController))]
 public class EnemyRadialLaserAttack : EnemyAttack
 {
-    [Header("Laser Damage")] public int startingDamage = 2;
+    [Header("Laser Damage")]
+    public int startingDamage = 2;
     private int _damage;
     public int dmgIncreaseLvlInterval = 5;
     public int dmgIncrease = 1;
 
-    [Header("Attack Parameters")] public int startingNumOfLasers = 3;
+    [Header("Attack Parameters")]
+    public int startingNumOfLasers = 3;
     public int maxNumOfLasers = 7;
     public int lasersIncreaseLvlInterval = 5;
     public int lowerLaserHeight, upperLaserHeight;
     private int _numOfLasers;
 
-    public float rotationSpeed = 0;
+    public float rotationSpeed;
 
     // private references
     private ObjectPool _laserPool;
@@ -31,11 +34,11 @@ public class EnemyRadialLaserAttack : EnemyAttack
     private bool _isSpinning;
     private int _spinDir = 1;
 
-    void Start()
+    public void Start()
     {
         _lasersInUse = new ArrayList();
-        _laserPool = GetComponent<EnemyLaserAttack>().laserPool;
-        _specialLaserPool = GetComponent<EnemyLaserAttack>().specialLaserPool;
+        _laserPool = GetComponent<EnemyLaserController>().laserPool;
+        _specialLaserPool = GetComponent<EnemyLaserController>().specialLaserPool;
         _damage = startingDamage + dmgIncrease * PlayerStats.GetCurrentStage() / dmgIncreaseLvlInterval;
         _numOfLasers = Math.Clamp(startingNumOfLasers + PlayerStats.GetCurrentStage() / lasersIncreaseLvlInterval, 0,
             maxNumOfLasers);
@@ -49,7 +52,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
         StartCoroutine(FinishAttack());
     }
 
-    void RadialLasers(int damage, int numOfLasers, float arcAngle = 360)
+    private void RadialLasers(int damage, int numOfLasers, float arcAngle = 360)
     {
         if (arcAngle > 360 || arcAngle < 0) arcAngle = 360;
 
@@ -90,14 +93,14 @@ public class EnemyRadialLaserAttack : EnemyAttack
         }
     }
 
-    IEnumerator StartSpinning()
+    private IEnumerator StartSpinning()
     {
         yield return new WaitForSeconds(0.5f);
         _isSpinning = true;
         yield return null;
     }
 
-    IEnumerator FinishAttack()
+    private IEnumerator FinishAttack()
     {
         yield return new WaitForSeconds(8.5f);
         _isSpinning = false;
@@ -107,14 +110,12 @@ public class EnemyRadialLaserAttack : EnemyAttack
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        if (_isSpinning)
+        if (!_isSpinning) return;
+        foreach (GameObject laser in _lasersInUse)
         {
-            foreach (GameObject laser in _lasersInUse)
-            {
-                laser.transform.Rotate(new Vector3(0, 1, 0) * rotationSpeed * _spinDir * Time.deltaTime, Space.World);
-            }
+            laser.transform.Rotate(new Vector3(0, 1, 0) * rotationSpeed * _spinDir * Time.deltaTime, Space.World);
         }
     }
 }

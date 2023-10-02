@@ -1,8 +1,9 @@
+using Enemy;
 using Player.Stats;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemyLaserAttack : MonoBehaviour
+public class EnemyLaserController : MonoBehaviour
 {
     public GameObject target;
     public ObjectPool laserPool;
@@ -33,13 +34,16 @@ public class EnemyLaserAttack : MonoBehaviour
 
     private int _bigAttackIndex;
     private bool _doingBigAttack;
+    
+    [Header("Audio")]
+    [SerializeField] private EnemySoundController enemySoundController;
 
     /// <summary>
     /// Chance of firing a special laser out of 100.
     /// </summary>
     [SerializeField] private int specialLaserChance;
 
-    private void Awake()
+    public void Awake()
     {
         _damage = startingDamage + dmgIncrease * PlayerStats.GetCurrentStage() / dmgIncreaseLvlInterval;
 
@@ -47,17 +51,19 @@ public class EnemyLaserAttack : MonoBehaviour
         if (_minTimeBetweenShots < minTimeLowerLimit) _minTimeBetweenShots = minTimeLowerLimit;
         _maxTimeBetweenShots = startingMaxTimeBetweenShots - timerDecreaseByLevel * PlayerStats.GetCurrentStage();
         if (_maxTimeBetweenShots < maxTimeLowerLimit) _maxTimeBetweenShots = maxTimeLowerLimit;
+        
+        EnemyLaser.SetEnemySoundController(enemySoundController);
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         _timeSinceLastLaser = 0.0f;
         _timeTillNextLaser = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         _timeSinceLastLaser += Time.deltaTime;
         if (!_doingBigAttack && _timeSinceLastLaser > _timeTillNextLaser)
@@ -92,13 +98,13 @@ public class EnemyLaserAttack : MonoBehaviour
         _currLaser.SetActive(true);
     }
 
-    void FinishedBigAttack()
+    private void FinishedBigAttack()
     {
         _doingBigAttack = false;
         bigAttacks[_bigAttackIndex].OnFinish -= FinishedBigAttack;
     }
-    
-    void ResetTimer()
+
+    private void ResetTimer()
     {
         _timeSinceLastLaser = 0.0f;
         _timeTillNextLaser = Random.Range(_minTimeBetweenShots, _maxTimeBetweenShots);

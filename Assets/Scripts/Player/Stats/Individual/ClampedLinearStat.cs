@@ -2,7 +2,7 @@ using System;
 
 namespace Player.Stats.Persistent
 {
-    public class ClampedExponentialStat : UpgradeableExponentialStat
+    public class ClampedLinearStat : UpgradeableLinearStat
     {
         private readonly float _minClamp;
         private readonly float _maxClamp;
@@ -10,7 +10,7 @@ namespace Player.Stats.Persistent
         public delegate void ClampedStatUpdate(float value);
         public event ClampedStatUpdate OnClampedStatUpdate;
 
-        public ClampedExponentialStat(
+        public ClampedLinearStat(
             string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost,
             float minClamp, float maxClamp, bool isHealthStat) :
             base(name, maxLevel, baseValue, changeValue, baseCost, changeCost, isHealthStat)

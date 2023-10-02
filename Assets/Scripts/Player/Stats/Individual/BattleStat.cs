@@ -1,5 +1,4 @@
 using Player.Stats.Templates;
-using UnityEngine;
 
 namespace Player.Stats.Persistent
 {

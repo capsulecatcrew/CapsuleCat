@@ -13,24 +13,24 @@ public class EnemyShieldAnimation : MonoBehaviour
     private static readonly int Shake = Animator.StringToHash("Shake");
 
     // Start is called before the first frame update
-    void Awake()
+    public void Awake()
     {
         _hitbox = GetComponent<ShieldKillable>();
         _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void OnEnable()
+    public void OnEnable()
     {
-        _hitbox.OnHitBox += TriggerHitAnim;
+        _hitbox.OnHitBox += StartAnimation;
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
-        _hitbox.OnHitBox -= TriggerHitAnim;
+        _hitbox.OnHitBox -= StartAnimation;
     }
 
-    private void TriggerHitAnim(float unused1, DamageType unused2)
+    private void StartAnimation(float unused1, DamageType unused2)
     {
         _animator.SetTrigger(Shake);
     }

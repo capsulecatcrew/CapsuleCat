@@ -34,7 +34,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
         private static readonly Stat Energy1 = new("Energy", EnergyMax1);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 10, 2, 50, 75);
+        private static readonly UpgradeableLinearStat SpecialAbsorb1 = new("Special Absorb Rate", 10, 2, 0.2f, 50, 75);
 
         private static readonly UpgradeableLinearStat SpecialDamage1 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
@@ -47,7 +47,7 @@ namespace Player.Stats
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1);
 
         // p1 - Stat 5
-        private static readonly UpgradeableLinearStat EnergyCostDash1 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash1 = new("Dash Energy Cost", 9, 20, -1.5f, 100, 75);
 
         // p1 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
@@ -73,7 +73,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
         private static readonly Stat Energy2 = new("Energy", EnergyMax2);
 
-        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 10, 2, 50, 75);
+        private static readonly UpgradeableLinearStat SpecialAbsorb2 = new("Special Absorb Rate", 10, 2, 0.2f, 50, 75);
         private static readonly UpgradeableLinearStat SpecialDamage2 =
             new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
         private static readonly UpgradeableLinearStat SpecialDamaged2 =
@@ -83,7 +83,7 @@ namespace Player.Stats
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2);
 
         // p2 - Stat 5
-        private static readonly UpgradeableLinearStat EnergyCostDash2 = new("Dash Energy Cost", 9, 10, -2, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash2 = new("Dash Energy Cost", 9, 20, -1.5f, 100, 75);
 
         // p2 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);

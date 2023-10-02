@@ -11,7 +11,6 @@ namespace Battle.Controllers.Player
         [SerializeField] private PlayerEnergyController otherPlayerEnergy;
         [SerializeField] private Hitbox[] energyAbsorbers;
         private BattleStat _energy;
-        [SerializeField] private WingGlow wingGlow;
 
         public delegate void EnergyChange(float amount);
         public event EnergyChange OnEnergyChange;
@@ -59,7 +58,6 @@ namespace Battle.Controllers.Player
             if (damageType == DamageType.Special) return;
             var absorbedAmount = PlayerStats.ApplyEnergyAbsorbMultiplier(playerNum, amount);
             AddEnergy(absorbedAmount);
-            wingGlow.TurnOnGlow();
             var sharedAmount = PlayerStats.ApplyEnergyShareMultiplier(playerNum, absorbedAmount);
             otherPlayerEnergy.AddEnergy(sharedAmount);
         }
