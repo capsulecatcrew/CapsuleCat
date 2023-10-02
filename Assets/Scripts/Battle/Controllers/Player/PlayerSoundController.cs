@@ -20,6 +20,10 @@ namespace Battle.Controllers.Player
         [SerializeField] private float heavyShotReadyVolume = 1;
         [SerializeField] private AudioClip heavyShotReleaseSound;
         [SerializeField] private float heavyShotReleaseVolume = 1;
+        [SerializeField] private AudioClip specialShotEnableSound;
+        [SerializeField] private float specialShotEnableVolume = 1;
+        [SerializeField] private AudioClip specialShotDisableSound;
+        [SerializeField] private float specialShotDisableVolume = 1;
         private float _heavySoundCooldown;
         private const float HeavyShotChargingSoundLength = 0.05f;
         private bool _hasP1PlayedReadySound;
@@ -111,6 +115,17 @@ namespace Battle.Controllers.Player
         {
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(heavyShotReleaseSound, heavyShotReleaseVolume);
+        }
+        
+        // TODO: @yukun please help me call these :pleading:
+        public void PlaySpecialEnabledSound()
+        {
+            audioSource.PlayOneShot(specialShotEnableSound, specialShotEnableVolume);
+        }
+        
+        public void PlaySpecialDisabledSound()
+        {
+            audioSource.PlayOneShot(specialShotDisableSound, specialShotDisableVolume);
         }
 
         public void PlayJumpSound(int playerNum)
