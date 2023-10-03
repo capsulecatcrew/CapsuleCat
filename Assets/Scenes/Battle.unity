@@ -393,6 +393,10 @@ MonoBehaviour:
   heavyShotReadyVolume: 0.4
   heavyShotReleaseSound: {fileID: 8300000, guid: 1d5c43ba3030e49aab98499cf2ffddc3, type: 3}
   heavyShotReleaseVolume: 0.6
+  specialShotEnableSound: {fileID: 8300000, guid: bd58403f589aa468ea734a3482996239, type: 3}
+  specialShotEnableVolume: 0.4
+  specialShotDisableSound: {fileID: 8300000, guid: 87ebd78378ba04ee0beb3e5f201c6a18, type: 3}
+  specialShotDisableVolume: 0.4
   p1JumpSound: {fileID: 8300000, guid: dd1a0f5ac05d64fbfa839e89fe36ef53, type: 3}
   p1JumpVolume: 1
   p2JumpSound: {fileID: 8300000, guid: 70e107f4bbf1742e28fe352b16459ced, type: 3}
@@ -21196,8 +21200,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
-  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
+  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21446,8 +21450,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
-  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
+  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
