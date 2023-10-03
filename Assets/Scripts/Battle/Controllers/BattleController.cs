@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class BattleController : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerSoundController playerSoundController;
     [SerializeField] private EnemyController enemyController;
 
     [SerializeField] private LevelLoader levelLoader;
@@ -22,7 +23,7 @@ public class BattleController : MonoBehaviour
 
     public void Awake()
     {
-        PlayerStats.UpdatePlayerController(playerController);
+        PlayerStats.UpdatePlayerController(playerController, playerSoundController);
     }
 
     public void Start()

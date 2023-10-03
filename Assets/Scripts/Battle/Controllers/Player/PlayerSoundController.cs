@@ -116,8 +116,7 @@ namespace Battle.Controllers.Player
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(heavyShotReleaseSound, heavyShotReleaseVolume);
         }
-        
-        // TODO: @yukun please help me call these :pleading:
+
         public void PlaySpecialEnabledSound()
         {
             audioSource.PlayOneShot(specialShotEnableSound, specialShotEnableVolume);

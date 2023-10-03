@@ -19,6 +19,7 @@ namespace Player.Special.Move
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             PlayerController.UseSpecial(PlayerNum, Cost);
             ApplyEffect(Amount);
+            PlayerSoundController.PlaySpecialEnabledSound();
         }
 
         public override void Stop() { }

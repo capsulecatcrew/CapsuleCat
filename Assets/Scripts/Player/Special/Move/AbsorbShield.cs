@@ -51,6 +51,7 @@ namespace Player.Special.Move
             _timer = 0;
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
+            PlayerSoundController.PlaySpecialEnabledSound();
         }
 
         public override void Stop()
@@ -58,6 +59,7 @@ namespace Player.Special.Move
             PlayerController.DisableShield(PlayerNum);
             PlayerController.OnDeltaTimeUpdate -= UpdateTimer;
             _isEnabled = false;
+            PlayerSoundController.PlaySpecialDisabledSound();
         }
 
         protected override void ApplyEffect(float amount)

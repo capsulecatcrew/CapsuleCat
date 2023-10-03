@@ -183,10 +183,10 @@ namespace Player.Stats
         /// <summary>
         /// Updates PlayerController class instance to specified instance when loading battle scene.
         /// </summary>
-        public static void UpdatePlayerController(PlayerController playerController)
+        public static void UpdatePlayerController(PlayerController playerController, PlayerSoundController playerSoundController)
         {
-            _specialMove1?.UpdatePlayerController(playerController);
-            _specialMove2?.UpdatePlayerController(playerController);
+            _specialMove1?.UpdateControllers(playerController, playerSoundController);
+            _specialMove2?.UpdateControllers(playerController, playerSoundController);
         }
         
         /**=========================================== Stage Info Methods ===========================================*/
