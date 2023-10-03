@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0555d58161a194dd08f86c8b3397eaeb, type: 3}
+  m_Name: BattleTutorial
+  m_EditorClassIdentifier: 
+  title: 'Tutorial: Battle'
+  pages:
+  - image: {fileID: 0}
+    text: In this game, both you and your partner are sharing a robot to fight big
+      monsters. Work together to defeat as many as possible to earn money for your
+      vacation!
+  - image: {fileID: 0}
+    text: Each player may choose to control either the <color="red">movement<color="white">
+      or the <color="red">weapons<color="white"> of the robot.
+  - image: {fileID: 0}
+    text: 'Switch your control scheme between moving and shooting mode. Controls:
+
+      Switch
+      - P1: [1] / P2: [0]'
+  - image: {fileID: 0}
+    text: "Use movement mode to avoid enemy attacks. Controls: \nMove - P1: [A/D]
+      / P2: [Left/Right]\nJump - P1: [2]   / P2: [-]\nDash  - P1: [3]   / P2: [=]"
+  - image: {fileID: 0}
+    text: "Use shooting mode to attack enemies. Controls: \nAim -           P1: [WASD]
+      / P2: [Arrow Keys]\nShoot -         P1: [2]     / P2: [-]\nCharge Shot - P1:
+      [3]     / P2: [=]"
+  - image: {fileID: 0}
+    text: Try out different combinations of moving/shooting roles for different situations!
+  - image: {fileID: 0}
+    text: 'Energy system:
+
+      - Shooting & dashing will use up some amount of
+      your player''s<color="red"> Energy<color="white">.
+
+      - If you don''t have
+      enough<color="red"> Energy<color="white">, your attacks will be weaker and
+      you won''t be able to dash.'
+  - image: {fileID: 0}
+    text: 'Energy system:
+
+      - Recover Energy by <color="red">touching attacks
+      with your wings<color="white"> while in movement mode.'
+  - image: {fileID: 0}
+    text: "Special Moves:\n- Fill up your<color=\"red\"> Special Energy Meter<color=\"white\">
+      by absorbing certain attacks from the enemy. You\u2019ll also gain a little
+      bit when taking damage.\n- If you have enough Special Energy, you'll be able
+      to use<color=\"red\"> Special Moves<color=\"white\">."
+  - image: {fileID: 0}
+    text: 'Special Move Controls:
+
+      Use Special Move - P1: [4] / P2: [backspace]'
+  - image: {fileID: 0}
+    text: For this playtest, Player 1 will have the special move<color="red"> [Heal]<color="white">
+      which restores a bit of health points of the robot. Player 2 has the special
+      move<color="red"> [Vampiric Bullets]<color="white">, which will make every
+      attack from Player 2 that hits the enemy restore some health points.
+  - image: {fileID: 0}
+    text: Ready? Go!
