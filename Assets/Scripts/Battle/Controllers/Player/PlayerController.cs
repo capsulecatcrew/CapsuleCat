@@ -200,11 +200,11 @@ namespace Battle.Controllers.Player
                 case 1:
                     p1Shield.gameObject.SetActive(false);
                     p1Shield.OnHitBox -= HandleP1ShieldHit;
-                    return;
+                    break;
                 case 2:
                     p2Shield.gameObject.SetActive(false);
                     p2Shield.OnHitBox -= HandleP2ShieldHit;
-                    return;
+                    break;
             }
             playerBody.DisableShield();
         }
