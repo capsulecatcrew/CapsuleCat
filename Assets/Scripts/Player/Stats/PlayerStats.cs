@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.Controllers.Player;
 using Battle.Hitboxes;
+using HUD;
 using Player.Special;
 using Player.Special.Move;
 using Player.Special.Shoot;
@@ -357,6 +358,22 @@ namespace Player.Stats
                 2 => _p2ControlMode,
                 _ => ControlMode.Movement
             };
+        }
+
+        /// <summary>
+        /// Initialises player special move icon to the currently owned special move.
+        /// </summary>
+        public static void InitPlayerSpecialIcon(int playerNum, SpecialIcon specialIcon)
+        {
+            switch (playerNum)
+            {
+                case 1:
+                    specialIcon.SetSprite(_specialMove1);
+                    return;
+                case 2:
+                    specialIcon.SetSprite(_specialMove2);
+                    return;
+            }
         }
         
         /**====================================== Battle Scene Special Methods ======================================*/

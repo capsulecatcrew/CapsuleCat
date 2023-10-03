@@ -14810,7 +14810,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42188
+  m_Name: pb_Mesh25672
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19928,6 +19928,7 @@ GameObject:
   - component: {fileID: 468670948}
   - component: {fileID: 468670950}
   - component: {fileID: 468670949}
+  - component: {fileID: 468670951}
   m_Layer: 5
   m_Name: P1 Special Skill
   m_TagString: Untagged
@@ -19952,8 +19953,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: -140}
-  m_SizeDelta: {x: 32, y: 32}
+  m_AnchoredPosition: {x: -184, y: -90}
+  m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &468670949
 MonoBehaviour:
@@ -19975,7 +19976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8080df5ee60fc8742b2e48373231f52a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19993,6 +19994,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468670947}
   m_CullTransparentMesh: 1
+--- !u!114 &468670951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468670947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d650aafcb16944c6b9b5dd8b86438a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 468670949}
+  healSprite: {fileID: 21300000, guid: 65387f106c6cf164891ca0676f55b71e, type: 3}
+  absorbShieldSprite: {fileID: 21300000, guid: 9c91d6ddb97105d47be9c48d1b60e843, type: 3}
+  vampireSprite: {fileID: 21300000, guid: 3fd061cad63643f4d9f929e7ad218053, type: 3}
 --- !u!1 &487346075
 GameObject:
   m_ObjectHideFlags: 0
@@ -22904,6 +22921,7 @@ MonoBehaviour:
   - {fileID: 1231861948}
   - {fileID: 294055278}
   playerBody: {fileID: 7711659574321420072}
+  specialIcon: {fileID: 1512911810}
 --- !u!114 &1361610038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28418,8 +28436,9 @@ GameObject:
   - component: {fileID: 1512911807}
   - component: {fileID: 1512911809}
   - component: {fileID: 1512911808}
+  - component: {fileID: 1512911810}
   m_Layer: 5
-  m_Name: P1 Special Skill
+  m_Name: P2 Special Skill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28442,8 +28461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160.0001, y: -140}
-  m_SizeDelta: {x: 32, y: 32}
+  m_AnchoredPosition: {x: 184, y: -90}
+  m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512911808
 MonoBehaviour:
@@ -28465,7 +28484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 368940f89c40adc409c926f92353e4de, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28483,6 +28502,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512911806}
   m_CullTransparentMesh: 1
+--- !u!114 &1512911810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512911806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d650aafcb16944c6b9b5dd8b86438a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1512911808}
+  healSprite: {fileID: 21300000, guid: 65387f106c6cf164891ca0676f55b71e, type: 3}
+  absorbShieldSprite: {fileID: 21300000, guid: 9c91d6ddb97105d47be9c48d1b60e843, type: 3}
+  vampireSprite: {fileID: 21300000, guid: 3fd061cad63643f4d9f929e7ad218053, type: 3}
 --- !u!1 &1520930456
 GameObject:
   m_ObjectHideFlags: 0
@@ -35299,6 +35334,7 @@ MonoBehaviour:
   - {fileID: 1474533820}
   - {fileID: 226640015}
   playerBody: {fileID: 7711659574321420072}
+  specialIcon: {fileID: 468670951}
 --- !u!1 &1876447375
 GameObject:
   m_ObjectHideFlags: 0
