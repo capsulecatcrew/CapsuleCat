@@ -10,6 +10,7 @@ namespace Player.Special
         protected readonly float Cost;
 
         protected PlayerController PlayerController;
+        protected PlayerSoundController PlayerSoundController;
 
         protected SpecialMove(int playerNum, float cost)
         {
@@ -32,9 +33,10 @@ namespace Player.Special
             return "$" + ShopCost;
         }
 
-        public void UpdatePlayerController(PlayerController playerController)
+        public void UpdateControllers(PlayerController playerController, PlayerSoundController playerSoundController)
         {
             PlayerController = playerController;
+            PlayerSoundController = playerSoundController;
         }
     }
 }

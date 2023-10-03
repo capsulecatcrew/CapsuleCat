@@ -47,10 +47,12 @@ namespace Player.Special.Shoot
             }
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             _isEnabled = true;
+            PlayerSoundController.PlaySpecialEnabledSound();
         }
 
         public override void Stop()
         {
+            PlayerSoundController.PlaySpecialDisabledSound();
             _isEnabled = false;
         }
 
