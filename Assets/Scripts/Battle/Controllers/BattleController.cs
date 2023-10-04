@@ -54,7 +54,14 @@ public class BattleController : MonoBehaviour
         GlobalAudio.Singleton.StopMusic();
         GlobalAudio.Singleton.PlaySound("ENEMY_DEATH");
         GlobalAudio.Singleton.PlayMusic("Victory");
-        levelLoader.LoadLevel("Victory");
+        if (PlayerStats.GetCurrentStage() == 1)
+        {
+            levelLoader.LoadLevel("Tutorial_Playtest_Shop");
+        }
+        else
+        {
+            levelLoader.LoadLevel("Victory");
+        }
         OnPlayerWin?.Invoke();
     }
 

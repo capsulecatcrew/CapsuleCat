@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0555d58161a194dd08f86c8b3397eaeb, type: 3}
+  m_Name: LobbyShopTutorial
+  m_EditorClassIdentifier: 
+  title: 'Tutorial: Lobby'
+  pages:
+  - image: {fileID: 21300000, guid: 0a98c3dd10977465a96dc90901651204, type: 3}
+    text: Well done on completing that stage!
+  - image: {fileID: 21300000, guid: 0a98c3dd10977465a96dc90901651204, type: 3}
+    text: 'After each stage, you two get to rest in the lobby.
+
+      Here, you can
+      go to the shop, or go to the door to declare yourself as ready for the next
+      stage.'
+  - image: {fileID: 21300000, guid: c7e5ad98a726245f5a6f31010ef1c59c, type: 3}
+    text: 'Lobby/Shop Controls:
+
+      Move - P1: [WASD] / P2: [Arrow Keys]
+
+      Select
+      - P1: [2] / P2: [-]'
+  - image: {fileID: 21300000, guid: e1f81c47b24c846609aeaa6a77cfdd11, type: 3}
+    text: "Shop:\n- Each player gets a random assortment of upgrades they can buy
+      after each stage. \n- Buy upgrades to increase your robot\u2019s abilities!"
+  - image: {fileID: 21300000, guid: 0ac0b0451ed4f4d4bbdf239c7b387c20, type: 3}
+    text: When both players are ready, the next stage will begin.
