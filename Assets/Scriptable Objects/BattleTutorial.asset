@@ -14,28 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 'Tutorial: Battle'
   pages:
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: f5d9d2f2c9a3747498424689335e6e79, type: 3}
     text: In this game, both you and your partner are sharing a robot to fight big
       monsters. Work together to defeat as many as possible to earn money for your
       vacation!
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 7b35ecfaa245f4540bf590c654b97d93, type: 3}
     text: Each player may choose to control either the <color="red">movement<color="white">
       or the <color="red">weapons<color="white"> of the robot.
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 5af23970efb78430ca03ef8d13550ed4, type: 3}
     text: 'Switch your control scheme between moving and shooting mode. Controls:
 
       Switch
-      - P1: [1] / P2: [0]'
-  - image: {fileID: 0}
-    text: "Use movement mode to avoid enemy attacks. Controls: \nMove - P1: [A/D]
-      / P2: [Left/Right]\nJump - P1: [2]   / P2: [-]\nDash  - P1: [3]   / P2: [=]"
-  - image: {fileID: 0}
-    text: "Use shooting mode to attack enemies. Controls: \nAim -           P1: [WASD]
-      / P2: [Arrow Keys]\nShoot -         P1: [2]     / P2: [-]\nCharge Shot - P1:
-      [3]     / P2: [=]"
-  - image: {fileID: 0}
+      - <color=#b6ffc4>P1: [1]<color="white"> / <color=#ffb5c0>P2: [0]<color="white">'
+  - image: {fileID: 21300000, guid: 85dcd160f00b347bc9706b1cd4c3c7f3, type: 3}
+    text: "Use movement mode to avoid enemy attacks. Controls: \nMove - <color=#b6ffc4>P1:
+      [A/D]<color=\"white\"> / <color=#ffb5c0>P2: [Left/Right]<color=\"white\">\nJump
+      - <color=#b6ffc4>P1: [2]<color=\"white\">   / <color=#ffb5c0>P2: [-]<color=\"white\">\nDash 
+      - <color=#b6ffc4>P1: [3]<color=\"white\">   / <color=#ffb5c0>P2: [=]<color=\"white\">"
+  - image: {fileID: 21300000, guid: 4cc442297e2ab489dba43c1feb806874, type: 3}
+    text: "Use shooting mode to attack enemies. Controls: \nAim -           <color=#b6ffc4>P1:
+      [WASD]<color=\"white\"> / <color=#ffb5c0>P2: [Arrow Keys]<color=\"white\">\nShoot
+      -         <color=#b6ffc4>P1: [2]<color=\"white\">     / <color=#ffb5c0>P2:
+      [-]<color=\"white\">\nCharge Shot - <color=#b6ffc4>P1: [3]<color=\"white\">    
+      / <color=#ffb5c0>P2: [=]<color=\"white\">"
+  - image: {fileID: 21300000, guid: e3ebe65046ea14c1f96cf704295ea52b, type: 3}
     text: Try out different combinations of moving/shooting roles for different situations!
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 8c1946d09b17a4d89af684dc9402b21b, type: 3}
     text: 'Energy system:
 
       - Shooting & dashing will use up some amount of
@@ -44,24 +48,20 @@ MonoBehaviour:
       - If you don''t have
       enough<color="red"> Energy<color="white">, your attacks will be weaker and
       you won''t be able to dash.'
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: e833301adc2d64b9fb4443a88eb8524b, type: 3}
     text: 'Energy system:
 
       - Recover Energy by <color="red">touching attacks
       with your wings<color="white"> while in movement mode.'
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: de37fc67f6c4d47d1a3e3f0cade2a868, type: 3}
     text: "Special Moves:\n- Fill up your<color=\"red\"> Special Energy Meter<color=\"white\">
-      by absorbing certain attacks from the enemy. You\u2019ll also gain a little
-      bit when taking damage.\n- If you have enough Special Energy, you'll be able
-      to use<color=\"red\"> Special Moves<color=\"white\">."
-  - image: {fileID: 0}
-    text: 'Special Move Controls:
+      by absorbing <color=#29f0f2>certain attacks<color=\"white\"> from the enemy.
+      You\u2019ll also gain a little bit when taking damage.\n- If you have enough
+      Special Energy, you'll be able to use<color=\"red\"> Special Moves<color=\"white\">."
+  - image: {fileID: 21300000, guid: 58c42d9f5c7c2415ba28e83492f926e0, type: 3}
+    text: 'Special Moves can be bought in the shop. Controls:
 
-      Use Special Move - P1: [4] / P2: [backspace]'
-  - image: {fileID: 0}
-    text: For this playtest, Player 1 will have the special move<color="red"> [Heal]<color="white">
-      which restores a bit of health points of the robot. Player 2 has the special
-      move<color="red"> [Vampiric Bullets]<color="white">, which will make every
-      attack from Player 2 that hits the enemy restore some health points.
-  - image: {fileID: 0}
+      Use Special
+      Move - <color=#b6ffc4>P1: [4]<color="white"> / <color=#ffb5c0>P2: [backspace]<color="white">'
+  - image: {fileID: 21300000, guid: 0fec1b82ba7c64d5aaa2e68823d5b183, type: 3}
     text: Ready? Go!
