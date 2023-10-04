@@ -45,6 +45,7 @@ namespace Battle.Controllers.Player
             foreach (var absorber in energyAbsorbers)
             {
                 absorber.OnHitBox += GainAbsorbed;
+                absorber.RegisterSpecialSoundScalarStat(_special);
             }
             _special.OnStatChange += HandleStatChange;
             playerBody.OnHitBox += GainDamaged;
