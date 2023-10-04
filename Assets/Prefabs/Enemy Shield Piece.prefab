@@ -236,7 +236,7 @@ MonoBehaviour:
   weaknessMult: 2
   resistanceMult: 0.5
   audioSource: {fileID: 5078083984037796972}
-  damageSound: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
+  hitSound: {fileID: 8300000, guid: 0c6d5d6a6c8ec4345b91a42f3140aac4, type: 3}
   deathSound: {fileID: 8300000, guid: d9a82b7cb1d4f455baca92003a0bc84a, type: 3}
   colorRenderer: {fileID: 6871544596492064287}
   maxHpColor: {r: 0.38251352, g: 0, b: 1, a: 0.78431374}
