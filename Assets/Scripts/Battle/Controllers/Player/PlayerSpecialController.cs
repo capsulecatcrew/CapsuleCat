@@ -1,4 +1,5 @@
 using Battle.Hitboxes;
+using HUD;
 using Player.Stats;
 using Player.Stats.Persistent;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Battle.Controllers.Player
         [SerializeField][Range(1, 2)] private int playerNum = 1;
         [SerializeField] private Hitbox[] energyAbsorbers;
         [SerializeField] private Hitbox playerBody;
+        [SerializeField] private SpecialIcon specialIcon;
         private BattleStat _special;
 
         public delegate void SpecialChange(float change);
@@ -23,6 +25,7 @@ namespace Battle.Controllers.Player
         public void Awake()
         {
             _special = PlayerStats.CreateBattleSpecialStat(playerNum);
+            PlayerStats.InitPlayerSpecialIcon(playerNum, specialIcon);
         }
         
         public void OnEnable() 
@@ -42,6 +45,7 @@ namespace Battle.Controllers.Player
             foreach (var absorber in energyAbsorbers)
             {
                 absorber.OnHitBox += GainAbsorbed;
+                absorber.RegisterSpecialSoundScalarStat(_special);
             }
             _special.OnStatChange += HandleStatChange;
             playerBody.OnHitBox += GainDamaged;

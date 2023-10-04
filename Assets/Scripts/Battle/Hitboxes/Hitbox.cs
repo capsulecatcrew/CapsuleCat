@@ -1,5 +1,7 @@
 using System.Linq;
+using Player.Stats.Persistent;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Hitboxes
 {
@@ -11,7 +13,7 @@ namespace Battle.Hitboxes
 
         [SerializeField] private float weaknessMult = 2;
         [SerializeField] private float resistanceMult = 0.5f;
-        
+
         private const float HitIFrameTime = 1;
         private float _hitIFrameTimer;
         protected bool OnCooldown;
@@ -26,7 +28,10 @@ namespace Battle.Hitboxes
         public event HitBox OnHitBox;
         
         [SerializeField] protected AudioSource audioSource;
-        [SerializeField] private AudioClip damageSound;
+        [SerializeField] protected AudioSource audioSource2;
+        [SerializeField] protected AudioClip hitSound;
+        private BattleStat _energySoundScalarStat;
+        private BattleStat _specialSoundScalarStat;
 
         private void Update()
         {
@@ -70,7 +75,23 @@ namespace Battle.Hitboxes
             if (resistances.Contains(damageType)) damage *= resistanceMult;
             OnHitBox?.Invoke(damage, damageType);
             ResetHitTimer();
-            audioSource.PlayOneShot(damageSound);
+            if (damageType == DamageType.Normal)
+            {
+                if (_energySoundScalarStat != null) audioSource.pitch = _energySoundScalarStat.GetStatPercentage() * 0.75f + 1;
+                audioSource.PlayOneShot(hitSound);
+            }
+            else
+            {
+                if (_specialSoundScalarStat != null) audioSource2.pitch = _specialSoundScalarStat.GetStatPercentage() * 0.75f + 1;
+                if (audioSource2 != null)
+                {
+                    audioSource2.PlayOneShot(hitSound);
+                }
+                else
+                {
+                    audioSource.PlayOneShot(hitSound);
+                }
+            }
             return true;
         }
 
@@ -82,6 +103,24 @@ namespace Battle.Hitboxes
         public void DisableShield()
         {
             _isShielded = false;
+        }
+
+        /// <summary>
+        /// Registers a battle stat to scale the energy absorber hit sound pitch by.
+        /// New value = GetStatPercentage() * 0.75f + 1
+        /// </summary>
+        public void RegisterEnergySoundScalarStat(BattleStat battleStat)
+        {
+            _energySoundScalarStat = battleStat;
+        }
+        
+        /// <summary>
+        /// Registers a battle stat to scale the special absorber hit sound pitch by.
+        /// New value = GetStatPercentage() * 0.75f + 1
+        /// </summary>
+        public void RegisterSpecialSoundScalarStat(BattleStat battleStat)
+        {
+            _specialSoundScalarStat = battleStat;
         }
     }
 }

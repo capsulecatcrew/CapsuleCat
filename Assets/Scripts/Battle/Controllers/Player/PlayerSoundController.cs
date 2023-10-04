@@ -50,20 +50,26 @@ namespace Battle.Controllers.Player
 
         public void PlayCantShootSound()
         {
+            var tempPitch = audioSource.pitch;
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(cantShootSound, cantShootVolume);
+            audioSource.pitch = tempPitch;
         }
 
         public void PlayBasicBulletShotSound()
         {
+            var tempPitch = audioSource.pitch;
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(basicShotSound, basicShotVolume);
+            audioSource.pitch = tempPitch;
         }
 
         public void PlayWeakBulletShotSound()
         {
+            var tempPitch = audioSource.pitch;
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(weakShotSound, weakShotVolume);
+            audioSource.pitch = tempPitch;
         }
 
         public void PlayHeavyBulletChargingSound(float chargePercent)
@@ -113,11 +119,12 @@ namespace Battle.Controllers.Player
         
         public void PlayHeavyBulletReleaseSound()
         {
+            var tempPitch = audioSource.pitch;
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(heavyShotReleaseSound, heavyShotReleaseVolume);
+            audioSource.pitch = tempPitch;
         }
-        
-        // TODO: @yukun please help me call these :pleading:
+
         public void PlaySpecialEnabledSound()
         {
             audioSource.PlayOneShot(specialShotEnableSound, specialShotEnableVolume);

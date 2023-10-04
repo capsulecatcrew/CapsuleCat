@@ -7,9 +7,8 @@ namespace Battle.Hitboxes
     public class Killable : Hitbox
     {
         protected BattleStat BattleStat;
-
         [SerializeField] protected AudioClip deathSound;
-
+        
         public delegate void HealthChanged(float damage);
         /// <summary>
         /// Provides received instead of incoming damage.

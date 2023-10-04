@@ -3,22 +3,16 @@ using UnityEngine.UI;
 
 public class ModeIcon : MonoBehaviour
 {
-    public Image spriteRenderer;
-    public Sprite movementSprite, shootingSprite;
+    [SerializeField] private Image spriteRenderer;
+    [SerializeField] private Sprite movementSprite, shootingSprite;
 
     public void SetSprite(ControlMode mode)
     {
-        switch (mode)
+        spriteRenderer.sprite = mode switch
         {
-            case ControlMode.Movement:
-                spriteRenderer.sprite = movementSprite;
-                break;
-            case ControlMode.Shooting:
-                spriteRenderer.sprite = shootingSprite;
-                break;
-            default:
-                break;
-        }
+            ControlMode.Movement => movementSprite,
+            ControlMode.Shooting => shootingSprite,
+            _ => spriteRenderer.sprite
+        };
     }
-
 }
