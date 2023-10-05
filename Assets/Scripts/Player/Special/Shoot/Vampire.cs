@@ -1,3 +1,4 @@
+using HUD;
 using Player.Stats;
 
 namespace Player.Special.Shoot
@@ -10,7 +11,7 @@ namespace Player.Special.Shoot
         
         private bool _isEnabled;
 
-        public Vampire(int playerNum) : base(playerNum, 5) { }
+        public Vampire(int playerNum) : base(playerNum, 5) { } // cost: 5
 
         public override void Enable()
         {
@@ -49,18 +50,31 @@ namespace Player.Special.Shoot
             Enable();
             _isEnabled = true;
             PlayerSoundController.PlaySpecialEnabledSound();
+            UpdateIcon();
         }
 
         public override void Stop()
         {
+            if (!_isEnabled) return;
             PlayerSoundController.PlaySpecialDisabledSound();
             Disable();
             _isEnabled = false;
+            UpdateIcon();
         }
 
-        protected override void ApplyEffect(float amount)
+        protected override void ApplyEffect(float amount) { }
+        
+        protected override void UpdateIcon()
         {
-            
+            switch (_isEnabled)
+            {
+                case true:
+                    SpecialIcon.StartSpecial(this);
+                    return;
+                case false:
+                    SpecialIcon.StopSpecial(this);
+                    return;
+            }
         }
 
         private void ApplyEffect(Bullet bullet, float amount)
@@ -68,7 +82,7 @@ namespace Player.Special.Shoot
             PlayerController.Heal(amount * Amount);
             bullet.OnBulletHitUpdate -= ApplyEffect;
         }
-        
+
         private void HandleBulletShoot(Bullet bullet)
         {
             if (!_isEnabled) return;

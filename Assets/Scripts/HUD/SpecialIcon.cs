@@ -10,6 +10,7 @@ namespace HUD
     {
         [SerializeField] private Image spriteRenderer;
         [SerializeField] private Sprite healSprite, absorbShieldSprite, vampireSprite;
+        [SerializeField] private Sprite healEnabled, absorbShieldEnabled, vampireEnabled;
 
         public void SetSprite(SpecialMove specialMove)
         {
@@ -29,6 +30,27 @@ namespace HUD
                     spriteRenderer.gameObject.SetActive(false);
                     return;
             }
+        }
+
+        public void StartSpecial(SpecialMove specialMove)
+        {
+            switch (specialMove)
+            {
+                case Heal:
+                    spriteRenderer.sprite = healEnabled;
+                    return;
+                case AbsorbShield:
+                    spriteRenderer.sprite = absorbShieldEnabled;
+                    return;
+                case Vampire:
+                    spriteRenderer.sprite = vampireEnabled;
+                    return;
+            }
+        }
+
+        public void StopSpecial(SpecialMove specialMove)
+        {
+            SetSprite(specialMove);
         }
     }
 }

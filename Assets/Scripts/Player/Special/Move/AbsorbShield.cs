@@ -1,3 +1,4 @@
+using HUD;
 using Player.Stats;
 
 namespace Player.Special.Move
@@ -11,7 +12,7 @@ namespace Player.Special.Move
         private bool _isEnabled;
         private float _timer;
         
-        public AbsorbShield(int playerNum) : base(playerNum, 3) { }
+        public AbsorbShield(int playerNum) : base(playerNum, 3) { } // cost: 3
 
         public override void Enable()
         {
@@ -53,15 +54,18 @@ namespace Player.Special.Move
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
             PlayerSoundController.PlaySpecialEnabledSound();
+            UpdateIcon();
         }
 
         public override void Stop()
         {
+            if (!_isEnabled) return;
             PlayerController.DisableShield(PlayerNum);
             PlayerController.OnDeltaTimeUpdate -= UpdateTimer;
             Disable();
             _isEnabled = false;
             PlayerSoundController.PlaySpecialDisabledSound();
+            UpdateIcon();
         }
 
         protected override void ApplyEffect(float amount)
@@ -71,6 +75,19 @@ namespace Player.Special.Move
             var absorbed = -amount;
             PlayerController.Heal(absorbed);
             PlayerController.AddEnergy(PlayerNum, absorbed * Amount);
+        }
+        
+        protected override void UpdateIcon()
+        {
+            switch (_isEnabled)
+            {
+                case true:
+                    SpecialIcon.StartSpecial(this);
+                    return;
+                case false:
+                    SpecialIcon.StopSpecial(this);
+                    return;
+            }
         }
 
         private void UpdateTimer(float deltaTime)
