@@ -37460,7 +37460,7 @@ MonoBehaviour:
   resistanceMult: 0.5
   audioSource: {fileID: 779243623}
   audioSource2: {fileID: 0}
-  hitSound: {fileID: 8300000, guid: bf31a6a9556eb494081b1f2cf7d300e7, type: 3}
+  hitSound: {fileID: 8300000, guid: 4fcbae30d600c4cedb9df7da69d8b608, type: 3}
   deathSound: {fileID: 8300000, guid: 9c47d184eb57743118ab203f06371b15, type: 3}
 --- !u!114 &1755626514
 MonoBehaviour:
