@@ -21126,8 +21126,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
-  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
+  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21376,8 +21376,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
-  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
+  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34891,7 +34891,7 @@ MonoBehaviour:
   resistanceMult: 0.5
   audioSource: {fileID: 1755626515}
   audioSource2: {fileID: 0}
-  hitSound: {fileID: 8300000, guid: bf31a6a9556eb494081b1f2cf7d300e7, type: 3}
+  hitSound: {fileID: 8300000, guid: 4fcbae30d600c4cedb9df7da69d8b608, type: 3}
   deathSound: {fileID: 8300000, guid: 9c47d184eb57743118ab203f06371b15, type: 3}
 --- !u!114 &1755626514
 MonoBehaviour:
