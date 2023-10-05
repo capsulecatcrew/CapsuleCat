@@ -36,7 +36,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float heavyMinCharge = 1.5f;
     [SerializeField] private float heavyMaxCharge = 3.0f;
     [SerializeField] private float heavyDamageMultiplier = 6.0f;
-    [SerializeField] private float heavySpeedMultiplier = 0.2f;
+    [SerializeField] private float heavySpeedMultiplier = 3f;
     [SerializeField] private float heavyCooldownMultiplier = 0.5f;
     [SerializeField] private float heavyEnergyCostMultiplier = 3.0f;
     [SerializeField] private float heavyScreenShakeMultiplier = 1;
@@ -305,8 +305,7 @@ public class PlayerShoot : MonoBehaviour
     private void ReleaseHeavyBullet(float chargePercent)
     {
         var damage = (int)Math.Floor(_damage * heavyDamageMultiplier * chargePercent);
-        var speed = Speed * heavySpeedMultiplier / chargePercent;
-
+        var speed = Speed * heavySpeedMultiplier * chargePercent;
         _heavyBullet.Fire(CalculateHeavyForward(), damage, speed);
     }
 

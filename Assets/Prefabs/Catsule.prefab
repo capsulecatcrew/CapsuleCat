@@ -502,6 +502,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7791946364515271216, guid: df5e654ad2e4644b0b007b9ab0a177a9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b8e864c0292f4f759b791db11de1d36, type: 2}
     - target: {fileID: 919132149155446097, guid: df5e654ad2e4644b0b007b9ab0a177a9, type: 3}
       propertyPath: m_Name
       value: Left Cat Ear
@@ -564,6 +568,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8552817040686897859, guid: 4ce93bcd1e0a1435f80033fd91130cb5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b8e864c0292f4f759b791db11de1d36, type: 2}
     - target: {fileID: 919132149155446097, guid: 4ce93bcd1e0a1435f80033fd91130cb5, type: 3}
       propertyPath: m_Name
       value: Right Cat Ear

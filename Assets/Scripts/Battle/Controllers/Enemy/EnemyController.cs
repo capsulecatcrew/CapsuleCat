@@ -68,7 +68,6 @@ namespace Enemy
         public void OnEnable()
         {
             InitMaxHealths();
-            SetEnemyColor();
         }
         
         private void InitMaxHealths()
@@ -112,14 +111,6 @@ namespace Enemy
             }
         }
 
-        private void SetEnemyColor()
-        {
-            var r = Random.Range(0.1f, 1.0f);
-            var g = Random.Range(0.1f, 1.0f);
-            var b = Random.Range(0.1f, 1.0f);
-            gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
-        }
-        
         private void HandleEnemyPrimaryHealthChanged(float amount)
         {
             OnEnemyPrimaryHealthChanged?.Invoke(amount);

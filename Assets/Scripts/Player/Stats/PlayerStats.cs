@@ -29,7 +29,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat Damage1 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
         // p1 - Stat 2
-        private static readonly UpgradeableLinearStat EnergyMax1 = new("Max Energy", 10, 50, 10, 50, 25);
+        private static readonly UpgradeableLinearStat EnergyMax1 = new("Max Energy", 10, 30, 10, 50, 25);
 
         // p1 - Stat 3
         private static readonly UpgradeableLinearStat EnergyAbsorb1 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
@@ -48,7 +48,7 @@ namespace Player.Stats
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb1, SpecialDamage1, SpecialDamaged1);
 
         // p1 - Stat 5
-        private static readonly UpgradeableLinearStat EnergyCostDash1 = new("Dash Energy Cost", 9, 20, -1.5f, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash1 = new("Dash Energy Cost", 9, 15, -1f, 100, 75);
 
         // p1 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare1 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
@@ -69,7 +69,7 @@ namespace Player.Stats
         private static readonly UpgradeableLinearStat Damage2 = new("Attack Damage", 10, 2, 0.5f, 50, 25);
 
         // p2 - Stat 2
-        private static readonly UpgradeableLinearStat EnergyMax2 = new("Max Energy", 10, 50, 10, 50, 25);
+        private static readonly UpgradeableLinearStat EnergyMax2 = new("Max Energy", 10, 30, 10, 50, 25);
         // p2 - Stat 3
         private static readonly UpgradeableLinearStat EnergyAbsorb2 = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
         private static readonly Stat Energy2 = new("Energy", EnergyMax2);
@@ -84,7 +84,7 @@ namespace Player.Stats
             new("Special Gain", 10, 150, 150, false, SpecialAbsorb2, SpecialDamage2, SpecialDamaged2);
 
         // p2 - Stat 5
-        private static readonly UpgradeableLinearStat EnergyCostDash2 = new("Dash Energy Cost", 9, 20, -1.5f, 100, 75);
+        private static readonly UpgradeableLinearStat EnergyCostDash2 = new("Dash Energy Cost", 9, 15, -1f, 100, 75);
 
         // p2 - Stat 6
         private static readonly UpgradeableLinearStat EnergyShare2 = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
