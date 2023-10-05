@@ -49,7 +49,7 @@ namespace Player.Special.Move
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             if (!PlayerController.EnableShield(PlayerNum)) return;
             Enable();
-            _timer = 0;
+            _timer = 1;
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
             PlayerSoundController.PlaySpecialEnabledSound();
