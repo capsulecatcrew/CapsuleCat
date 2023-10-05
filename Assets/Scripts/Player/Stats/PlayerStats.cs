@@ -369,9 +369,11 @@ namespace Player.Stats
             {
                 case 1:
                     specialIcon.SetSprite(_specialMove1);
+                    _specialMove1?.SetIcon(specialIcon);
                     return;
                 case 2:
                     specialIcon.SetSprite(_specialMove2);
+                    _specialMove2?.SetIcon(specialIcon);
                     return;
             }
         }
@@ -444,7 +446,7 @@ namespace Player.Stats
 
             return ControlMode.Movement;
         }
-        
+
         /**======================================== Battle Stat Apply Methods ========================================*/
         /// <summary>
         /// Applies energy absorption multiplier to damage amount for specified player.
