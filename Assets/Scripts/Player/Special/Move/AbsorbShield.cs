@@ -48,6 +48,7 @@ namespace Player.Special.Move
             }
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             if (!PlayerController.EnableShield(PlayerNum)) return;
+            Enable();
             _timer = 0;
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
@@ -58,6 +59,7 @@ namespace Player.Special.Move
         {
             PlayerController.DisableShield(PlayerNum);
             PlayerController.OnDeltaTimeUpdate -= UpdateTimer;
+            Disable();
             _isEnabled = false;
             PlayerSoundController.PlaySpecialDisabledSound();
         }

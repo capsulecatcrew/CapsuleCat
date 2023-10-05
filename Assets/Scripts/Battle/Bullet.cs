@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private bool ignoreIFrames;
     [SerializeField] private TrailRenderer trailRenderer;
     
-    public delegate void BulletHitUpdate(float damage);
+    public delegate void BulletHitUpdate(Bullet bullet, float damage);
     public event BulletHitUpdate OnBulletHitUpdate;
 
     public void OnEnable()
@@ -89,6 +89,6 @@ public class Bullet : MonoBehaviour
         if (hitbox == null) return;
         if (!hitbox.Hit(_firer, _damage, _damageType, ignoreIFrames)) return;
         Delete();
-        OnBulletHitUpdate?.Invoke(_damage);
+        OnBulletHitUpdate?.Invoke(this, _damage);
     }
 }
