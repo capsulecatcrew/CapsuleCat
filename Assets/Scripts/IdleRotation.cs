@@ -11,6 +11,8 @@ public class IdleRotation : MonoBehaviour
     public bool verticalOscillate = true;
 
     public float dist = 0.5f;
+
+    private float _time = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,9 @@ public class IdleRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _time += Time.deltaTime;
+        if (_time >= Mathf.PI * 2) _time = 0;
+        if (verticalOscillate) transform.Translate(0, dist * Mathf.Cos(_time) * Time.deltaTime, 0, Space.World);
         if (rotate) transform.Rotate(new Vector3(0, rotateSpeed * Time.deltaTime, 0));
     }
 }
