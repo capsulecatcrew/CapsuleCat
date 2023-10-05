@@ -23,7 +23,7 @@ public class ShopController : MonoBehaviour
     private static List<UpgradeableStat> _chosenStats1;
     private static List<UpgradeableStat> _chosenStats2;
     private const int HpChance = 35;
-    private const int SpecialChance = 10;
+    private const int SpecialChance = 20;
 
     // Start is called before the first frame update
     public void Start()

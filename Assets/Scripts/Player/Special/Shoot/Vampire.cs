@@ -46,6 +46,7 @@ namespace Player.Special.Shoot
                 return;
             }
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
+            Enable();
             _isEnabled = true;
             PlayerSoundController.PlaySpecialEnabledSound();
         }
@@ -53,17 +54,29 @@ namespace Player.Special.Shoot
         public override void Stop()
         {
             PlayerSoundController.PlaySpecialDisabledSound();
+            Disable();
             _isEnabled = false;
         }
 
         protected override void ApplyEffect(float amount)
         {
+            
+        }
+
+        private void ApplyEffect(Bullet bullet, float amount)
+        {
             PlayerController.Heal(amount * Amount);
+            bullet.OnBulletHitUpdate -= ApplyEffect;
         }
         
         private void HandleBulletShoot(Bullet bullet)
         {
             if (!_isEnabled) return;
+            if (!PlayerController.HasSpecial(PlayerNum, Cost))
+            {
+                Stop();
+                return;
+            }
             PlayerController.UseSpecial(PlayerNum, Cost);
             bullet.OnBulletHitUpdate += ApplyEffect;
         }
