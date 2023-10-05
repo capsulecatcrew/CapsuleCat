@@ -1,6 +1,7 @@
 // Author:  Ian Hong  (ianfromdover@gmail.com)
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Exposes the song ID to editor
@@ -12,11 +13,11 @@ public class PlayBgm : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private string songId;
-    [SerializeField] private bool playOnAwake = true;
+    [SerializeField] private bool playOnStart = true;
 
-    private void Awake()
+    private void Start()
     {
-        if (playOnAwake) StartBgm();
+        if (playOnStart) StartBgm();
     }
 
     /// <summary>
