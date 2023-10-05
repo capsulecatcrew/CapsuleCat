@@ -38,7 +38,7 @@ namespace Player.Special.Move
         
         private static void HandleShopItemButtonPressed(int playerNum)
         {
-            PlayerStats.SetSpecialMove(playerNum, SpecialMoveEnum.ShootVampire);
+            PlayerStats.SetSpecialMove(playerNum, SpecialMoveEnum.MoveHeal);
         }
 
         private static void HandleShopItemButtonDisable(ShopItemButton shopItemButton)
