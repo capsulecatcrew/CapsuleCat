@@ -1,4 +1,5 @@
 using Battle.Controllers.Player;
+using HUD;
 
 namespace Player.Special
 {
@@ -11,6 +12,8 @@ namespace Player.Special
 
         protected PlayerController PlayerController;
         protected PlayerSoundController PlayerSoundController;
+        
+        protected SpecialIcon SpecialIcon;
 
         protected SpecialMove(int playerNum, float cost)
         {
@@ -27,6 +30,13 @@ namespace Player.Special
         public abstract void Stop();
 
         protected abstract void ApplyEffect(float amount);
+
+        public void SetIcon(SpecialIcon specialIcon)
+        {
+            SpecialIcon = specialIcon;
+        }
+
+        protected abstract void UpdateIcon();
 
         protected static string GetCostString()
         {

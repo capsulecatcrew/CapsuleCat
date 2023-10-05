@@ -14812,7 +14812,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh46586
+  m_Name: pb_Mesh32532
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35795,6 +35795,9 @@ MonoBehaviour:
   healSprite: {fileID: 21300000, guid: fa46783e7da9b0a468d8ba15a885c09c, type: 3}
   absorbShieldSprite: {fileID: 21300000, guid: d9633f0b5f2a7be499b4d8cfab4c2cf3, type: 3}
   vampireSprite: {fileID: 21300000, guid: 423494b946f47884880d46c0f0993cf0, type: 3}
+  healEnabled: {fileID: 21300000, guid: 4e05020292b1ba04a952516fbc72797c, type: 3}
+  absorbShieldEnabled: {fileID: 21300000, guid: c171e1efa49c48b4c90c516afcd11b89, type: 3}
+  vampireEnabled: {fileID: 21300000, guid: fe65fd0a368c1dd47bf71aab6a340699, type: 3}
 --- !u!23 &1927680664 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6219271810544619922, guid: f2a57d22a76c4448aaa88bf90f4cdf20, type: 3}
@@ -41010,6 +41013,9 @@ MonoBehaviour:
   healSprite: {fileID: 21300000, guid: fa46783e7da9b0a468d8ba15a885c09c, type: 3}
   absorbShieldSprite: {fileID: 21300000, guid: d9633f0b5f2a7be499b4d8cfab4c2cf3, type: 3}
   vampireSprite: {fileID: 21300000, guid: 423494b946f47884880d46c0f0993cf0, type: 3}
+  healEnabled: {fileID: 21300000, guid: 4e05020292b1ba04a952516fbc72797c, type: 3}
+  absorbShieldEnabled: {fileID: 21300000, guid: c171e1efa49c48b4c90c516afcd11b89, type: 3}
+  vampireEnabled: {fileID: 21300000, guid: fe65fd0a368c1dd47bf71aab6a340699, type: 3}
 --- !u!1001 &2104714798
 PrefabInstance:
   m_ObjectHideFlags: 0
