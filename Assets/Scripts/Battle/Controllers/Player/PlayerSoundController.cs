@@ -3,10 +3,8 @@ using Random = UnityEngine.Random;
 
 namespace Battle.Controllers.Player
 {
-    public class PlayerSoundController : MonoBehaviour
+    public class PlayerSoundController : SoundController
     {
-        [SerializeField] private AudioSource audioSource;
-        
         [Header("Attack Sounds")]
         [SerializeField] private AudioClip cantShootSound;
         [SerializeField] private float cantShootVolume = 1;
@@ -20,10 +18,6 @@ namespace Battle.Controllers.Player
         [SerializeField] private float heavyShotReadyVolume = 1;
         [SerializeField] private AudioClip heavyShotReleaseSound;
         [SerializeField] private float heavyShotReleaseVolume = 1;
-        [SerializeField] private AudioClip specialShotEnableSound;
-        [SerializeField] private float specialShotEnableVolume = 1;
-        [SerializeField] private AudioClip specialShotDisableSound;
-        [SerializeField] private float specialShotDisableVolume = 1;
         private float _heavySoundCooldown;
         private const float HeavyShotChargingSoundLength = 0.05f;
         private bool _hasP1PlayedReadySound;
@@ -36,6 +30,16 @@ namespace Battle.Controllers.Player
         [SerializeField] private float p2JumpVolume = 1;
         [SerializeField] private AudioClip dashSound;
         [SerializeField] private float dashVolume = 1;
+        
+        [Header("Special Sounds")]
+        [SerializeField] private AudioClip specialShotEnableSound;
+        [SerializeField] private float specialShotEnableVolume = 1;
+        [SerializeField] private AudioClip specialShotDisableSound;
+        [SerializeField] private float specialShotDisableVolume = 1;
+        [SerializeField] private AudioClip laserChargingSound;
+        [SerializeField] private float laserChargingVolume;
+        [SerializeField] private AudioClip laserFiringSound;
+        [SerializeField] private float laserFiringVolume;
 
         public void Update()
         {
@@ -125,16 +129,6 @@ namespace Battle.Controllers.Player
             audioSource.pitch = tempPitch;
         }
 
-        public void PlaySpecialEnabledSound()
-        {
-            audioSource.PlayOneShot(specialShotEnableSound, specialShotEnableVolume);
-        }
-        
-        public void PlaySpecialDisabledSound()
-        {
-            audioSource.PlayOneShot(specialShotDisableSound, specialShotDisableVolume);
-        }
-
         public void PlayJumpSound(int playerNum)
         {
             switch (playerNum)
@@ -151,6 +145,26 @@ namespace Battle.Controllers.Player
         public void PlayDashSound()
         {
             audioSource.PlayOneShot(dashSound, dashVolume);
+        }
+        
+        public void PlaySpecialEnabledSound()
+        {
+            audioSource.PlayOneShot(specialShotEnableSound, specialShotEnableVolume);
+        }
+        
+        public void PlaySpecialDisabledSound()
+        {
+            audioSource.PlayOneShot(specialShotDisableSound, specialShotDisableVolume);
+        }
+
+        public void PlayLaserChargingSound()
+        {
+            audioSource.PlayOneShot(laserChargingSound, laserChargingVolume);
+        }
+
+        public void PlayLaserFiringSound()
+        {
+            audioSource.PlayOneShot(laserFiringSound, laserFiringVolume);
         }
     }
 }

@@ -8489,7 +8489,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 89
+  m_VersionIndex: 98
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8670,11 +8670,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93bbc0c5bd4f7498784355c365c6af05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  hitbox: {fileID: 311608433}
+  firer: 2
   damageType: 0
+  hitbox: {fileID: 311608433}
   target: {fileID: 0}
   animator: {fileID: 5607062548565506663}
+  chargingDuration: 0.52
+  targetLockDuration: 0.52
+  firingDuration: 2.02
+  finishDuration: 0.42
   audioSource: {fileID: 654724575176689747}
 --- !u!1 &5607062548697066182
 GameObject:

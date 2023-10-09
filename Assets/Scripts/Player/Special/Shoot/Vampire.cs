@@ -1,4 +1,3 @@
-using HUD;
 using Player.Stats;
 
 namespace Player.Special.Shoot

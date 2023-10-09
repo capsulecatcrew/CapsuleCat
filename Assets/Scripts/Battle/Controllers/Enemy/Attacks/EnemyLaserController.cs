@@ -91,9 +91,7 @@ public class EnemyLaserController : MonoBehaviour
             ? specialLaserPool.GetPooledObject()
             : laserPool.GetPooledObject();
         _laserLogic = _currLaser.GetComponent<EnemyLaser>();
-        _laserLogic.SetDamage(_damage);
-        _laserLogic.SetTargetTracking(target.transform);
-        _laserLogic.SetFiringTiming(firingDuration: 2);
+        _laserLogic.Init(_damage, target.transform);
         _currLaser.transform.position = transform.position;
         _currLaser.SetActive(true);
     }
