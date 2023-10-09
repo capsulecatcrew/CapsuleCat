@@ -1,11 +1,10 @@
+using Battle.Controllers;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemySoundController : MonoBehaviour
+    public class EnemySoundController : SoundController
     {
-        [SerializeField] private AudioSource audioSource;
-        
         [Header("Attack Sounds")]
         [SerializeField] private AudioClip bulletSound;
         [SerializeField] private float bulletVolume = 1;

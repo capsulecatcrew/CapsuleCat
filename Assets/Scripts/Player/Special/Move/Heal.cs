@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Threading.Tasks;
 using HUD;
 using Player.Stats;
-using UnityEngine;
 
 namespace Player.Special.Move
 {
