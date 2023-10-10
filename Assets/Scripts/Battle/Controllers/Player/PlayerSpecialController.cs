@@ -64,12 +64,12 @@ namespace Battle.Controllers.Player
         private void GainAbsorbed(float amount, DamageType damageType)
         {
             if (damageType == DamageType.Normal) return;
-            AddSpecial(PlayerStats.ApplySpecialAbsorbMultipler(playerNum, amount));
+            AddSpecial(PlayerStats.ApplySpecialAbsorbMultiplier(playerNum, amount));
         }
 
         private void GainDamaged(float amount, DamageType unused)
         {
-            AddSpecial(PlayerStats.ApplySpecialDamagedMultipler(playerNum, amount));
+            AddSpecial(PlayerStats.ApplySpecialDamagedMultiplier(playerNum, amount));
         }
 
         private void AddSpecial(float amount)
