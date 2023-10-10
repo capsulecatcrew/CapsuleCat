@@ -2,38 +2,32 @@ using UnityEngine;
 
 public class AimingVisuals : MonoBehaviour
 {
-    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private LayerMask layersToAimFor;
     [SerializeField] private RectTransform targetReticle;
     [SerializeField] private RectTransform renderingCanvas;
-    
-    private float maxDist = 100;
+
+    private const float MaxDist = 100;
     private RaycastHit _hit;
     
-    private Vector2 _reticleViewportPos = new Vector2();
-    private Vector2 _reticleCanvasPos = new Vector2();
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector2 _reticleViewportPos;
+    private Vector2 _reticleCanvasPos;
 
-    void OnEnable()
+    public void OnEnable()
     {
         targetReticle.gameObject.SetActive(true);
     }
     
-    void OnDisable()
+    public void OnDisable()
     {
         if (targetReticle != null) targetReticle.gameObject.SetActive(false);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out _hit, maxDist,layerMask:layersToAimFor))
+        if (Physics.Raycast(transform.position, transform.forward, out _hit, MaxDist,layerMask:layersToAimFor))
         {
-            _lineRenderer?.SetPosition(1, new Vector3(0, 0, _hit.distance));
+            lineRenderer.SetPosition(1, new Vector3(0, 0, _hit.distance));
             _reticleViewportPos = Camera.main.WorldToViewportPoint(_hit.point);
             targetReticle.gameObject.SetActive(true);
             var sizeDelta = renderingCanvas.sizeDelta;
@@ -43,7 +37,7 @@ public class AimingVisuals : MonoBehaviour
         }
         else
         {
-            _lineRenderer.SetPosition(1, new Vector3(0, 0, maxDist));
+            lineRenderer.SetPosition(1, new Vector3(0, 0, MaxDist));
             targetReticle.gameObject.SetActive(false);
         }
     }

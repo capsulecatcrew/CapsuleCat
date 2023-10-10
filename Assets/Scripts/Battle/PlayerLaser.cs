@@ -1,10 +1,7 @@
-using UnityEngine;
-
 namespace Battle.Controllers.Player
 {
     public class PlayerLaser : LaserController
     {
-        [SerializeField] private float playerNum;
         private PlayerSoundController _playerSoundController;
 
         protected override void PlayChargingSound()
@@ -15,6 +12,11 @@ namespace Battle.Controllers.Player
         protected override void PlayFiringSound()
         {
             _playerSoundController.PlayLaserFiringSound();
+        }
+
+        public void InitPlayerSoundController(PlayerSoundController playerSoundController)
+        {
+            _playerSoundController = playerSoundController;
         }
     }
 }

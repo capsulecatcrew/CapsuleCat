@@ -8,7 +8,8 @@ namespace Player.Special
         {
             SpecialMoveEnum.MoveHeal,
             SpecialMoveEnum.MoveAbsorbShield,
-            SpecialMoveEnum.ShootVampire
+            SpecialMoveEnum.ShootVampire,
+            SpecialMoveEnum.ShootLaser
         };
 
         public static List<SpecialMoveEnum> CopyAllSpecialMoves()
@@ -21,5 +22,6 @@ namespace Player.Special
         MoveHeal,
         MoveAbsorbShield,
         ShootVampire,
+        ShootLaser,
     }
 }

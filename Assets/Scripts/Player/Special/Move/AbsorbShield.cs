@@ -56,7 +56,7 @@ namespace Player.Special.Move
             UpdateIcon();
         }
 
-        public override void Stop()
+        public override void Stop(bool silent = false)
         {
             if (!_isEnabled) return;
             PlayerController.DisableShield(PlayerNum);

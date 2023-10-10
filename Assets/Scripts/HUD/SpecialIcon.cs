@@ -9,8 +9,8 @@ namespace HUD
     public class SpecialIcon : MonoBehaviour
     {
         [SerializeField] private Image spriteRenderer;
-        [SerializeField] private Sprite healSprite, absorbShieldSprite, vampireSprite;
-        [SerializeField] private Sprite healEnabled, absorbShieldEnabled, vampireEnabled;
+        [SerializeField] private Sprite healSprite, absorbShieldSprite, vampireSprite, laserSprite;
+        [SerializeField] private Sprite healEnabled, absorbShieldEnabled, vampireEnabled, laserEnabled;
 
         public void SetSprite(SpecialMove specialMove)
         {
@@ -25,6 +25,9 @@ namespace HUD
                     return;
                 case Vampire:
                     spriteRenderer.sprite = vampireSprite;
+                    return;
+                case Laser:
+                    spriteRenderer.sprite = laserSprite;
                     return;
                 default:
                     spriteRenderer.gameObject.SetActive(false);
@@ -44,6 +47,9 @@ namespace HUD
                     return;
                 case Vampire:
                     spriteRenderer.sprite = vampireEnabled;
+                    return;
+                case Laser:
+                    spriteRenderer.sprite = laserEnabled;
                     return;
             }
         }

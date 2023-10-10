@@ -1,31 +1,18 @@
 using Battle;
 using Battle.Controllers.Player;
-using Enemy;
 using UnityEngine;
 
 namespace Player.Special.Shoot
 {
     public class Laser : SpecialMove
     {
-        private float damage = 5;
-        private HitboxTrigger hitbox;
+        private const float Damage = 3f;
         private readonly Firer _firer;
-        private const DamageType DamageType = Battle.DamageType.Special;
-        private static GenericObjectPool<PlayerLaser> laserPool = new ();
-        private Transform target;
-
-        private Animator animator;
-        private static readonly int LockOnTrigger = Animator.StringToHash("Lock On");
-        private static readonly int FireTrigger = Animator.StringToHash("Fire");
-        private static readonly int FinishTrigger = Animator.StringToHash("Finish");
-
-        private static EnemySoundController _enemySoundController;
-
-        private float _chargingDuration = 2.5f;
-        private float _lockOnDuration = 0.5f;
-        private float _firingDuration = 2.0f;
-
-        private bool _trackingTarget;
+        private PlayerLaser _laser;
+        private PlayerLaserController _playerLaserController;
+        
+        private bool _isEnabled;
+        private float _timer;
 
         public Laser(int playerNum) : base(playerNum, 3) // cost: 3
         {
@@ -37,34 +24,86 @@ namespace Player.Special.Shoot
             };
         }
 
-        public override void Enable()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override void Enable() { }
 
-        public override void Disable()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override void Disable() { }
 
         public override void Start()
         {
-            throw new System.NotImplementedException();
+            if (_isEnabled)
+            {
+                Stop();
+                return;
+            }
+            if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
+            _laser = _playerLaserController.InitLaser(_firer, Damage);
+            _playerLaserController.OnForwardChange += HandleLaserForwardChange;
+            _playerLaserController.OnOriginChange += HandleLaserOriginChange;
+            _laser.gameObject.SetActive(true);
+            _timer = 1;
+            PlayerController.OnDeltaTimeUpdate += UpdateTimer;
+            _isEnabled = true;
+            PlayerSoundController.PlaySpecialEnabledSound();
+            UpdateIcon();
         }
 
-        public override void Stop()
+        public override void Stop(bool silent = false)
         {
-            throw new System.NotImplementedException();
+            if (!_isEnabled) return;
+            PlayerController.DisableShield(PlayerNum);
+            _laser.gameObject.SetActive(false);
+            _playerLaserController.OnForwardChange -= HandleLaserForwardChange;
+            _playerLaserController.OnOriginChange -= HandleLaserOriginChange;
+            PlayerController.OnDeltaTimeUpdate -= UpdateTimer;
+            Disable();
+            _isEnabled = false;
+            PlayerSoundController.PlaySpecialDisabledSound();
+            UpdateIcon();
         }
 
-        protected override void ApplyEffect(float amount)
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override void ApplyEffect(float amount) { }
 
         protected override void UpdateIcon()
         {
-            throw new System.NotImplementedException();
+            switch (_isEnabled)
+            {
+                case true:
+                    SpecialIcon.StartSpecial(this);
+                    return;
+                case false:
+                    SpecialIcon.StopSpecial(this);
+                    return;
+            }
+        }
+        
+        private void UpdateTimer(float deltaTime)
+        {
+            if (!_isEnabled) return;
+            if (_timer > 0) _timer -= deltaTime;
+            if (!PlayerController.HasSpecial(PlayerNum, Cost))
+            {
+                Stop();
+                return;
+            }
+            _timer = 1;
+            PlayerController.UseSpecial(PlayerNum, Cost);
+        }
+
+        public void InitPlayerLaserController(PlayerLaserController playerLaserController)
+        {
+            _playerLaserController = playerLaserController;
+        }
+
+        private void HandleLaserForwardChange(int playerNum, Vector3 forward)
+        {
+            if (playerNum != PlayerNum) return;
+            _laser.SetTargetForward(forward);
+        }
+        
+        private void HandleLaserOriginChange(int playerNum, Vector3 origin)
+        {
+            if (playerNum != PlayerNum) return;
+            _laser.SetLaserOrigin(origin);
         }
     }
 }

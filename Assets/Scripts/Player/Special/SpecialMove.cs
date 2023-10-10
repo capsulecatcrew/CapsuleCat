@@ -27,7 +27,7 @@ namespace Player.Special
 
         public abstract void Start();
 
-        public abstract void Stop();
+        public abstract void Stop(bool silent = false);
 
         protected abstract void ApplyEffect(float amount);
 

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // This script mainly exists so not all logic has to be directly attached to the GameObject with the collider.

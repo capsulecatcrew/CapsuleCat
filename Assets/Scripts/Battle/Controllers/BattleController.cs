@@ -1,6 +1,5 @@
 using Battle.Controllers.Player;
 using Enemy;
-using Player.Special;
 using Player.Stats;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +8,7 @@ public class BattleController : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerSoundController playerSoundController;
+    [SerializeField] private PlayerLaserController playerLaserController;
     [SerializeField] private EnemyController enemyController;
 
     [SerializeField] private LevelLoader levelLoader;
@@ -23,7 +23,7 @@ public class BattleController : MonoBehaviour
 
     public void Awake()
     {
-        PlayerStats.UpdatePlayerController(playerController, playerSoundController);
+        PlayerStats.UpdatePlayerController(playerController, playerSoundController, playerLaserController);
     }
 
     public void Start()
