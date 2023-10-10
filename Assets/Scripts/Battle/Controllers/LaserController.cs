@@ -31,6 +31,9 @@ namespace Battle
 
         private int _mode;
 
+        /// <summary>
+        /// Initialise a laser for tracking enemy attack.
+        /// </summary>
         public void Init(float damage, Transform target = null, float duration = 2.02f, bool isTracking = false)
         {
             _damage = damage;
@@ -40,12 +43,31 @@ namespace Battle
             InitTimers();
         }
 
+        /// <summary>
+        /// Initialise a laser for non tracking enemy attack.
+        /// </summary>
         public void Init(float damage, Vector3 targetPosition, float duration = 5.02f)
         {
             _damage = damage;
             transform.rotation = Quaternion.LookRotation(targetPosition - transform.position);
             firingDuration = duration;
             InitTimers();
+        }
+
+        /// <summary>
+        /// Initialise a player for player attack.
+        /// Laser will have 0.25x charge up time and 0 target lock time.
+        /// </summary>
+        public void Init(Firer player, float damage, Vector3 origin, Vector3 forward)
+        {
+            transform.position = origin;
+            firer = player;
+            _damage = damage;
+            transform.forward = forward;
+            firingDuration = float.MaxValue;
+            InitTimers();
+            _chargingTimer = chargingDuration / 4;
+            _targetLockTimer = 0.02f;
         }
 
         private void InitTimers()
@@ -58,7 +80,7 @@ namespace Battle
 
         public void FixedUpdate()
         {
-            if (_isTracking || _chargingTimer > 0) SetTargetPosition(target.position);
+            if (target != null && (_isTracking || _chargingTimer > 0)) SetTargetPosition(target.position);
             UpdateTimers();
             UpdateMode();
         }
@@ -132,6 +154,16 @@ namespace Battle
         private void SetTargetPosition(Vector3 targetPos)
         {
             transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
+        }
+
+        public void SetTargetForward(Vector3 targetForward)
+        {
+            transform.forward = targetForward;
+        }
+
+        public void SetLaserOrigin(Vector3 origin)
+        {
+            transform.position = origin;
         }
 
         private void OnHitBoxStay(Collider other)

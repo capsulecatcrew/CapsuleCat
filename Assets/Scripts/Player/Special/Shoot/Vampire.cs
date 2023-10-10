@@ -52,10 +52,10 @@ namespace Player.Special.Shoot
             UpdateIcon();
         }
 
-        public override void Stop()
+        public override void Stop(bool silent = false)
         {
             if (!_isEnabled) return;
-            PlayerSoundController.PlaySpecialDisabledSound();
+            if (!silent) PlayerSoundController.PlaySpecialDisabledSound();
             Disable();
             _isEnabled = false;
             UpdateIcon();

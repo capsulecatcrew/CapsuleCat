@@ -84,7 +84,7 @@ public class EnemyRadialLaserAttack : EnemyAttack
             }
 
             _laserLogic = _currLaser.GetComponent<EnemyLaser>();
-            _laserLogic.Init(damage, dir, 5.02f);
+            _laserLogic.Init(damage, dir);
             _currLaser.SetActive(true);
             _lasersInUse.Add(_currLaser);
         }

@@ -129,6 +129,7 @@ namespace Player.Stats
             SpecialDamage1.Reset();
             SpecialDamaged1.Reset();
             Special1.SetValue(0);
+            _specialMove1?.Stop(true);
             _specialMove1 = null;
 
             _money2 = 0;
@@ -141,6 +142,7 @@ namespace Player.Stats
             SpecialDamage2.Reset();
             SpecialDamaged2.Reset();
             Special2.SetValue(0);
+            _specialMove2?.Stop(true);
             _specialMove2 = null;
         }
         
@@ -153,6 +155,8 @@ namespace Player.Stats
             _currentStage++;
             _money1 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
             _money2 += CompletionMoney + (GetCurrentStage() - 1) * CompletionMoneyIncr;
+            _specialMove1?.Stop(true);
+            _specialMove2?.Stop(true);
         }
 
         /// <summary>
@@ -184,10 +188,21 @@ namespace Player.Stats
         /// <summary>
         /// Updates PlayerController class instance to specified instance when loading battle scene.
         /// </summary>
-        public static void UpdatePlayerController(PlayerController playerController, PlayerSoundController playerSoundController)
+        public static void UpdatePlayerController(
+            PlayerController playerController,
+            PlayerSoundController playerSoundController,
+            PlayerLaserController playerLaserController)
         {
             _specialMove1?.UpdateControllers(playerController, playerSoundController);
             _specialMove2?.UpdateControllers(playerController, playerSoundController);
+            if (_specialMove1 is Laser castMove1)
+            {
+                castMove1.InitPlayerLaserController(playerLaserController);
+            }
+            if (_specialMove2 is Laser castMove2)
+            {
+                castMove2.InitPlayerLaserController(playerLaserController);
+            }
         }
         
         /**=========================================== Stage Info Methods ===========================================*/
@@ -427,6 +442,8 @@ namespace Player.Stats
                             return ControlMode.Movement;
                         case Vampire:
                             return ControlMode.Shooting;
+                        case Laser:
+                            return ControlMode.Shooting;
                     }
 
                     break;
@@ -438,6 +455,8 @@ namespace Player.Stats
                         case AbsorbShield:
                             return ControlMode.Movement;
                         case Vampire:
+                            return ControlMode.Shooting;
+                        case Laser:
                             return ControlMode.Shooting;
                     }
 
@@ -605,6 +624,9 @@ namespace Player.Stats
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove1 = new Vampire(playerNum);
                             return;
+                        case SpecialMoveEnum.ShootLaser:
+                            _specialMove1 = new Laser(playerNum);
+                            return;
                         default:
                             return;
                     }
@@ -619,6 +641,9 @@ namespace Player.Stats
                             return;
                         case SpecialMoveEnum.ShootVampire:
                             _specialMove2 = new Vampire(playerNum);
+                            return;
+                        case SpecialMoveEnum.ShootLaser:
+                            _specialMove2 = new Laser(playerNum);
                             return;
                         default:
                             return;

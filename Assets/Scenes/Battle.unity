@@ -222,6 +222,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5892277863245916163, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
   m_PrefabInstance: {fileID: 1663737583}
   m_PrefabAsset: {fileID: 0}
+--- !u!120 &87674738 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5892277863245916160, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+  m_PrefabInstance: {fileID: 1663737583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &89983463
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +243,8 @@ GameObject:
   - component: {fileID: 89983474}
   - component: {fileID: 89983469}
   - component: {fileID: 89983476}
+  - component: {fileID: 89983478}
+  - component: {fileID: 89983477}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -477,16 +484,50 @@ MonoBehaviour:
   heavyShotReadyVolume: 0.4
   heavyShotReleaseSound: {fileID: 8300000, guid: 1d5c43ba3030e49aab98499cf2ffddc3, type: 3}
   heavyShotReleaseVolume: 0.6
-  specialShotEnableSound: {fileID: 8300000, guid: bd58403f589aa468ea734a3482996239, type: 3}
-  specialShotEnableVolume: 0.4
-  specialShotDisableSound: {fileID: 8300000, guid: 87ebd78378ba04ee0beb3e5f201c6a18, type: 3}
-  specialShotDisableVolume: 0.4
   p1JumpSound: {fileID: 8300000, guid: dd1a0f5ac05d64fbfa839e89fe36ef53, type: 3}
   p1JumpVolume: 1
   p2JumpSound: {fileID: 8300000, guid: 70e107f4bbf1742e28fe352b16459ced, type: 3}
   p2JumpVolume: 1
   dashSound: {fileID: 8300000, guid: fd98d4306ca4bc44e8e2934b97b3546d, type: 3}
   dashVolume: 1
+  specialShotEnableSound: {fileID: 8300000, guid: bd58403f589aa468ea734a3482996239, type: 3}
+  specialShotEnableVolume: 0.4
+  specialShotDisableSound: {fileID: 8300000, guid: 87ebd78378ba04ee0beb3e5f201c6a18, type: 3}
+  specialShotDisableVolume: 0.4
+  laserChargingSound: {fileID: 8300000, guid: 878ca5afeedeb49d29ef015e93becb69, type: 3}
+  laserChargingVolume: 0
+  laserFiringSound: {fileID: 8300000, guid: c4f00f3ac77534bae9bae16ce9053df6, type: 3}
+  laserFiringVolume: 0
+--- !u!114 &89983477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89983463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4120feddbe43a68e135cccdd63531f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserPool: {fileID: 89983478}
+  playerSoundController: {fileID: 89983476}
+--- !u!114 &89983478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89983463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4395717e874130bb20e1cad7cf6acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 4
+  prefab: {fileID: 5607062548565506657, guid: 14c6875dce09d0f4a9814f7ec6cb550d, type: 3}
+  pool: []
+  parentTransform: {fileID: 1961851102}
 --- !u!1 &137705985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5336160480522472628, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -5413,6 +5454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 89983475}
   playerSoundController: {fileID: 89983476}
+  playerLaserController: {fileID: 89983477}
   enemyController: {fileID: 779243620}
   levelLoader: {fileID: 301510219}
 --- !u!4 &203013227
@@ -15778,6 +15820,7 @@ MonoBehaviour:
   screenShaker: {fileID: 1106076139}
   playerMovement: {fileID: 89983467}
   playerController: {fileID: 89983475}
+  playerLaserController: {fileID: 89983477}
   playerSoundController: {fileID: 89983476}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
@@ -22499,8 +22542,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
-  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22653,6 +22696,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1959113295}
     m_Modifications:
+    - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+      propertyPath: lineRenderer
+      value: 
+      objectReference: {fileID: 1317460922}
     - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
       propertyPath: targetReticle
       value: 
@@ -23007,8 +23054,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 2.7271659e-25, y: 0.9998876, z: -0.014994942, w: 1.8185197e-23}
-  m_LocalPosition: {x: -7.2716274e-22, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
+  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23208,6 +23255,11 @@ GameObject:
 --- !u!4 &1122951868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5892277863245916163, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+  m_PrefabInstance: {fileID: 1316551794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &1122951870 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5892277863245916160, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
   m_PrefabInstance: {fileID: 1316551794}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1136786444
@@ -24179,6 +24231,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 187998082}
     m_Modifications:
     - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+      propertyPath: lineRenderer
+      value: 
+      objectReference: {fileID: 1122951870}
+    - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
       propertyPath: targetReticle
       value: 
       objectReference: {fileID: 1136786445}
@@ -24248,6 +24304,11 @@ GameObject:
 --- !u!4 &1317460920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5892277863245916163, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+  m_PrefabInstance: {fileID: 986554987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &1317460922 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5892277863245916160, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
   m_PrefabInstance: {fileID: 986554987}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1353484816
@@ -30485,6 +30546,7 @@ MonoBehaviour:
   screenShaker: {fileID: 1106076140}
   playerMovement: {fileID: 89983467}
   playerController: {fileID: 89983475}
+  playerLaserController: {fileID: 89983477}
   playerSoundController: {fileID: 89983476}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
@@ -30735,6 +30797,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 241813204}
     m_Modifications:
     - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+      propertyPath: lineRenderer
+      value: 
+      objectReference: {fileID: 1556381168}
+    - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
       propertyPath: targetReticle
       value: 
       objectReference: {fileID: 1527098447}
@@ -30800,6 +30866,11 @@ GameObject:
 --- !u!4 &1556381166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5892277863245916163, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+  m_PrefabInstance: {fileID: 1551573136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &1556381168 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5892277863245916160, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
   m_PrefabInstance: {fileID: 1551573136}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1557778634
@@ -31516,6 +31587,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1508056306}
     m_Modifications:
+    - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
+      propertyPath: lineRenderer
+      value: 
+      objectReference: {fileID: 87674738}
     - target: {fileID: 1766522820215487276, guid: 07fb496d5f4624ad1afb599d77d7ab16, type: 3}
       propertyPath: targetReticle
       value: 
@@ -37454,7 +37529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageFrom: 0000000001000000
-  weaknesses: 
+  weaknesses: 01000000
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
@@ -38462,9 +38537,11 @@ MonoBehaviour:
   healSprite: {fileID: 21300000, guid: fa46783e7da9b0a468d8ba15a885c09c, type: 3}
   absorbShieldSprite: {fileID: 21300000, guid: d9633f0b5f2a7be499b4d8cfab4c2cf3, type: 3}
   vampireSprite: {fileID: 21300000, guid: 423494b946f47884880d46c0f0993cf0, type: 3}
-  healEnabled: {fileID: 0}
-  absorbShieldEnabled: {fileID: 0}
-  vampireEnabled: {fileID: 0}
+  laserSprite: {fileID: 21300000, guid: 32caab288c6c94760886fc4eda6bcdb4, type: 3}
+  healEnabled: {fileID: 21300000, guid: 4e05020292b1ba04a952516fbc72797c, type: 3}
+  absorbShieldEnabled: {fileID: 21300000, guid: c171e1efa49c48b4c90c516afcd11b89, type: 3}
+  vampireEnabled: {fileID: 21300000, guid: fe65fd0a368c1dd47bf71aab6a340699, type: 3}
+  laserEnabled: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
 --- !u!1 &1923413755
 GameObject:
   m_ObjectHideFlags: 0
@@ -43764,9 +43841,11 @@ MonoBehaviour:
   healSprite: {fileID: 21300000, guid: fa46783e7da9b0a468d8ba15a885c09c, type: 3}
   absorbShieldSprite: {fileID: 21300000, guid: d9633f0b5f2a7be499b4d8cfab4c2cf3, type: 3}
   vampireSprite: {fileID: 21300000, guid: 423494b946f47884880d46c0f0993cf0, type: 3}
-  healEnabled: {fileID: 0}
-  absorbShieldEnabled: {fileID: 0}
-  vampireEnabled: {fileID: 0}
+  laserSprite: {fileID: 21300000, guid: 32caab288c6c94760886fc4eda6bcdb4, type: 3}
+  healEnabled: {fileID: 21300000, guid: 4e05020292b1ba04a952516fbc72797c, type: 3}
+  absorbShieldEnabled: {fileID: 21300000, guid: c171e1efa49c48b4c90c516afcd11b89, type: 3}
+  vampireEnabled: {fileID: 21300000, guid: fe65fd0a368c1dd47bf71aab6a340699, type: 3}
+  laserEnabled: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
 --- !u!1001 &2104714798
 PrefabInstance:
   m_ObjectHideFlags: 0

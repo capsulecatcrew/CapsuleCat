@@ -13,6 +13,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private ScreenShaker screenShaker;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerLaserController playerLaserController;
     [SerializeField] private PlayerSoundController playerSoundController;
 
     // General bullet info
@@ -65,6 +66,11 @@ public class PlayerShoot : MonoBehaviour
         _damage = PlayerStats.GetDamage(playerNum);
     }
 
+    public void OnEnable()
+    {
+        UpdateLaserControllerForward();
+    }
+
     /// <summary>
     /// Callback to draw gizmos only if the object is selected.
     /// </summary>
@@ -110,6 +116,23 @@ public class PlayerShoot : MonoBehaviour
                     Quaternion.Euler(gun.transform.rotation.eulerAngles.x, 360 - aimYLimit, 0);
             }
         }
+        UpdateLaserControllerForward();
+    }
+
+    private void UpdateLaserControllerForward()
+    {
+        var forward1 = shootingOrigins[0].forward;
+        var forward2 = shootingOrigins[1].forward;
+        var forwardx = forward1.x + (forward2.x - forward1.x) / 2;
+        var forwardy = forward1.y + (forward2.y - forward1.y) / 2;
+        var forwardz = forward1.z + (forward2.z - forward1.z) / 2;
+        var forward = new Vector3(forwardx, forwardy, forwardz);
+        playerLaserController.UpdateForward(playerNum, forward);
+    }
+
+    private void UpdateLaserControllerPosition()
+    {
+        playerLaserController.UpdateOrigin(playerNum, CalculateHeavyPosition());
     }
 
     /// <summary>
@@ -367,5 +390,6 @@ public class PlayerShoot : MonoBehaviour
     {
         UpdateCooldown(Time.deltaTime);
         UpdateHeavyCharge(Time.deltaTime);
+        UpdateLaserControllerPosition();
     }
 }

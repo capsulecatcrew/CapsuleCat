@@ -25,7 +25,7 @@ namespace Player.Special.Move
             UpdateIcon();
         }
 
-        public override void Stop() { }
+        public override void Stop(bool silent = false) { }
 
         protected override void ApplyEffect(float amount)
         {
