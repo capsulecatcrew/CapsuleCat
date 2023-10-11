@@ -312,6 +312,7 @@ namespace Player.Stats
         }
         
         /**====================================== Battle Scene Special Methods ======================================*/
+        // TODO can we move these into its own script & component?
         /// <summary>
         /// Uses the special move for the specified player.
         /// </summary>

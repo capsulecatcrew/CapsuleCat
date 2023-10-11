@@ -94,6 +94,9 @@ public class ShopController : MonoBehaviour
                 case SpecialMoveEnum.ShootVampire:
                     Vampire.InitShopItemButton(player1Buttons[0]);
                     break;
+                case SpecialMoveEnum.ShootLaser:
+                    Debug.Log("LASER: NOT IMPLEMENTED YET");
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -112,6 +115,9 @@ public class ShopController : MonoBehaviour
                     break;
                 case SpecialMoveEnum.ShootVampire:
                     Vampire.InitShopItemButton(player2Buttons[0]);
+                    break;
+                case SpecialMoveEnum.ShootLaser:
+                    Debug.Log("LASER: NOT IMPLEMENTED YET");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
