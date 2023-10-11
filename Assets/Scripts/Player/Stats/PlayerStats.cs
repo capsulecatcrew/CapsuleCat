@@ -92,8 +92,8 @@ namespace Player.Stats
             }
         }
 
-        private static readonly Player Player1 = new Player();
-        private static readonly Player Player2 = new Player();
+        private static readonly Player Player1 = new ();
+        private static readonly Player Player2 = new ();
 
         private static Player GetPlayer(int playerNum)
         {
