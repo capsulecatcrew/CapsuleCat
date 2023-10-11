@@ -9,6 +9,8 @@ namespace Player.Stats.Templates
         protected internal float Value;
         protected float BaseValue;
         protected readonly bool IsHealthStat;
+        
+        protected readonly string Description = "";
 
         public delegate void StatReset(float value);
 
@@ -20,12 +22,14 @@ namespace Player.Stats.Templates
         /// <param name="name">Name of stat created.</param>
         /// <param name="baseValue">Value to reset stat to.</param>
         /// <param name="isHealthStat">Whether stat is a health stat.</param>
-        public Stat(string name, float baseValue, bool isHealthStat)
+        /// <param name="description">Description of stat created.</param>
+        public Stat(string name, float baseValue, bool isHealthStat, string description = "")
         {
             Name = name;
             Value = baseValue;
             BaseValue = baseValue;
             IsHealthStat = isHealthStat;
+            Description = description;
         }
 
         /// <summary>
