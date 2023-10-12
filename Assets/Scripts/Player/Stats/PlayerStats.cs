@@ -60,18 +60,18 @@ namespace Player.Stats
 
             public Player()
             {
-                Damage = new("Attack Damage", 10, 2, 0.5f, 50, 25);
-                EnergyMax = new("Max Energy", 10, 30, 10, 50, 25);
-                EnergyAbsorb = new("Energy Absorb", 10, 1f, 0.1f, 50, 25);
-                Energy = new("Energy", EnergyMax);
-                SpecialAbsorb = new("Special Absorb Rate", 10, 2, 0.2f, 50, 75);
-                SpecialDamage = new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
-                SpecialDamaged = new("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75);
-                SpecialGain = new("Special Gain", 10, 150, 150, false, SpecialAbsorb, SpecialDamage, SpecialDamaged);
-                EnergyCostDash = new("Dash Energy Cost", 9, 15, -1f, 100, 75);
-                EnergyShare = new("Energy Share", 10, 0.1f, 0.1f, 100, 100);
-                Special = new("Special", SpecialMax, false);
-                PlayerStats = new() { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash, EnergyShare };
+                Damage = new UpgradeableLinearStat("Attack Damage", 10, 2, 0.5f, 50, 25);
+                EnergyMax = new UpgradeableLinearStat("Max Energy", 10, 30, 10, 50, 25);
+                EnergyAbsorb = new UpgradeableLinearStat("Energy Absorb", 10, 1f, 0.1f, 50, 25);
+                Energy = new Stat("Energy", EnergyMax);
+                SpecialAbsorb = new UpgradeableLinearStat("Special Absorb Rate", 10, 2, 0.2f, 50, 75);
+                SpecialDamage = new UpgradeableLinearStat("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
+                SpecialDamaged = new UpgradeableLinearStat("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75);
+                SpecialGain = new GroupedUpgradeableStat("Special Gain", 10, 150, 150, false, SpecialAbsorb, SpecialDamage, SpecialDamaged);
+                EnergyCostDash = new UpgradeableLinearStat("Dash Energy Cost", 9, 15, -1f, 100, 75);
+                EnergyShare = new UpgradeableLinearStat("Energy Share", 10, 0.1f, 0.1f, 100, 100);
+                Special = new Stat("Special", SpecialMax, false);
+                PlayerStats = new List<UpgradeableStat> { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash, EnergyShare };
                 Special.SetValue(0);
             }
 
