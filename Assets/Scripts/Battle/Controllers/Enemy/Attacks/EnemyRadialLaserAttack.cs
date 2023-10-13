@@ -56,8 +56,8 @@ public class EnemyRadialLaserAttack : EnemyAttack
     {
         if (arcAngle > 360 || arcAngle < 0) arcAngle = 360;
 
-        float theta = 0;
-        if (arcAngle == 360 || numOfLasers == 1)
+        float theta;
+        if (Math.Abs(arcAngle - 360) < float.Epsilon || numOfLasers == 1)
         {
             theta = Mathf.Deg2Rad * arcAngle / numOfLasers;
         }
@@ -66,13 +66,13 @@ public class EnemyRadialLaserAttack : EnemyAttack
             theta = Mathf.Deg2Rad * arcAngle / (numOfLasers - 1);
         }
 
-        float startingAngle = Random.Range(0.0f, theta);
+        var startingAngle = Random.Range(0.0f, theta);
         float distToPlayer = 30;
         // another time.
-        for (int i = 0; i < numOfLasers; i++)
+        for (var i = 0; i < numOfLasers; i++)
         {
             float targetHeight = Random.Range(1, 4) % 2 == 0 && i != 0 ? upperLaserHeight : lowerLaserHeight;
-            Vector3 dir = new Vector3(distToPlayer * Mathf.Sin(startingAngle + theta * i), targetHeight,
+            var dir = new Vector3(distToPlayer * Mathf.Sin(startingAngle + theta * i), targetHeight,
                 distToPlayer * Mathf.Cos(startingAngle + theta * i));
             if (Random.Range(1, 11) > 9) // 10% chance of special laser
             {
