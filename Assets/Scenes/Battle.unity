@@ -519,6 +519,12 @@ MonoBehaviour:
   playerBodyHitbox: {fileID: 725430207}
   playerBody: {fileID: 725430205}
   stage: {fileID: 283221464}
+  walls:
+  - left: 0
+    right: 0
+    height: 0
+    leftEnter: 0
+    rightEnter: 0
   mainBody: {fileID: 725430198}
   pivot: {fileID: 241017968}
   maxSpeed: 35
@@ -15357,7 +15363,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154504
+  m_Name: pb_Mesh235854
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22556,8 +22562,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
-  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
+  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23068,8 +23074,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -7.319849e-12, y: 0.9998876, z: -0.014994943, w: -4.880996e-10}
-  m_LocalPosition: {x: 0.000000019517403, y: 5.0997305, z: 49.991013}
+  m_LocalRotation: {x: 7.3198435e-12, y: 0.9998876, z: -0.014994942, w: 4.8809934e-10}
+  m_LocalPosition: {x: -0.000000019517392, y: 5.0997305, z: 49.991013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28362,7 +28368,7 @@ MonoBehaviour:
   wings: {fileID: 2131668980}
   weapons: {fileID: 1511992170}
   modeIcon: {fileID: 1557778635}
-  weaponController: {fileID: 1511992172}
+  shootingController: {fileID: 1511992172}
   movementController: {fileID: 89983479}
 --- !u!114 &1361610036
 MonoBehaviour:
@@ -41834,7 +41840,7 @@ MonoBehaviour:
   wings: {fileID: 1471213440}
   weapons: {fileID: 435951168}
   modeIcon: {fileID: 1263536227}
-  weaponController: {fileID: 435951170}
+  shootingController: {fileID: 435951170}
   movementController: {fileID: 89983479}
 --- !u!114 &1822170221
 MonoBehaviour:
@@ -42413,7 +42419,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154884
+  m_Name: pb_Mesh236240
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
