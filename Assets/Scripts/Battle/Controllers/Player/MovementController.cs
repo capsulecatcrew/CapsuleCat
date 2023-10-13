@@ -25,6 +25,10 @@ namespace Battle.Controllers.Player
         private float _currentVelocity;
         private readonly float[] _playerMovement = { 0.0f, 0.0f };
         private readonly float[] _playerLastMovement = { 1.0f, 1.0f };
+        private float _lastRotation;
+        private bool _isLeftWalled;
+        private bool _isRightWalled;
+        private Wall _currentWall;
 
         [Header("Jumping")]
         // btw gravity is set to 30, that's why this value is this high
@@ -45,6 +49,12 @@ namespace Battle.Controllers.Player
         {
             playerBodyHitbox.HitboxEnter += HandleHitGround;
             playerBodyHitbox.HitboxExit += HandleExitGround;
+            foreach (var wall in walls)
+            {
+                wall.OnEnterLeft += HandleHitLeftWall;
+                wall.OnEnterRight += HandleHitRightWall;
+                wall.OnExit += HandleExitWall;
+            }
         }
 
         public void Start()
@@ -63,6 +73,25 @@ namespace Battle.Controllers.Player
         {
             if (other.gameObject != stage) return;
             _isGrounded = false;
+        }
+
+        private void HandleHitLeftWall(Wall wall)
+        {
+            _currentWall = wall;
+            _isLeftWalled = true;
+        }
+        
+        private void HandleHitRightWall(Wall wall)
+        {
+            _currentWall = wall;
+            _isRightWalled = true;
+        }
+
+        private void HandleExitWall()
+        {
+            _currentWall = null;
+            _isLeftWalled = false;
+            _isRightWalled = false;
         }
 
         public void Jump()
@@ -91,10 +120,16 @@ namespace Battle.Controllers.Player
 
         public void FixedUpdate()
         {
+            CheckForBlocks();
+            
             var movement = _playerMovement[0] + _playerMovement[1];
+
+            if (_isRightWalled && movement > 0) movement = 0;
+            if (_isLeftWalled && movement < 0) movement = 0;
 
             if (movement != 0)
             {
+                _lastRotation = pivot.rotation.eulerAngles.y;
                 _currentVelocity = _speed * movement;
                 pivot.Rotate(new Vector3(0, 1, 0), -1 * _currentVelocity * Time.deltaTime);
             }
@@ -102,22 +137,18 @@ namespace Battle.Controllers.Player
             {
                 _currentVelocity = 0.0f;
             }
-            
-            var rot = pivot.rotation.eulerAngles.y;
-            print(rot);
 
             if (_dashCooldownTimer <= 0) return;
             _dashCooldownTimer -= Time.deltaTime;
         }
 
-        private bool IsBlockedLeft()
+        private void CheckForBlocks()
         {
-            var rot = pivot.rotation.eulerAngles.y;
-            return false;
-            // foreach (var wall in walls)
-            // {
-            //     if ()
-            // }
+            _currentWall?.CheckWallExit(mainBody, pivot);
+            foreach (var wall in walls)
+            {
+                wall.CheckWallEntry(mainBody, pivot, _lastRotation);
+            }
         }
         
         public void Dash(int playerNum)
@@ -162,14 +193,44 @@ namespace Battle.Controllers.Player
         {
             [SerializeField] private float left;
             [SerializeField] private float right;
-            [SerializeField] private float height;
-            [SerializeField] private float leftEnter;
-            [SerializeField] private float rightEnter;
+            [SerializeField] private float top;
+            [SerializeField] private float bottom;
 
-            public bool IsInWall(Transform mainBody, float rotation)
+            public delegate void EnterUpdate(Wall wall);
+            public event EnterUpdate OnEnterLeft;
+            public event EnterUpdate OnEnterRight;
+
+            public delegate void ExitUpdate();
+            public event ExitUpdate OnExit;
+
+            public void CheckWallEntry(Transform mainBody, Transform pivot, float lastRotation)
             {
-                if (mainBody.position.y >= height) return false;
-                return rotation >= leftEnter && rotation <= rightEnter;
+                if (!IsWithinHeight(mainBody)) return;
+                var rot = pivot.rotation.eulerAngles.y;
+                if (lastRotation <= left && lastRotation >= right) return;
+                if (rot > left || rot < right) return;
+                if (lastRotation <= left) OnEnterLeft?.Invoke(this);
+                if (lastRotation >= right) OnEnterRight?.Invoke(this);
+            }
+
+            public void CheckWallExit(Transform mainBody, Transform pivot)
+            {
+                if (!IsWithinHeight(mainBody)) OnExit?.Invoke();
+                if (!IsWithinWidth(pivot)) OnExit?.Invoke();
+            }
+
+            private bool IsWithinHeight(Transform mainBody)
+            {
+                var yPos = mainBody.position.y;
+                if (yPos + 0.75 <= bottom) return false;
+                return !(yPos - 0.75 >= top);
+            }
+
+            private bool IsWithinWidth(Transform pivot)
+            {
+                var rot = pivot.rotation.eulerAngles.y;
+                if (rot > left) return false;
+                return !(rot < right);
             }
         }
     }
