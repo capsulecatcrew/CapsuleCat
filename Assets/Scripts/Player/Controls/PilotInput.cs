@@ -109,7 +109,7 @@ public class PilotInput : MonoBehaviour
 
     private void OnSecondaryMove(InputAction.CallbackContext context)
     {
-        if (context.started) movementController.PerformDash(playerNum);
+        if (context.started) movementController.Dash(playerNum);
     }
 
     public void OnSpecial(InputAction.CallbackContext context)

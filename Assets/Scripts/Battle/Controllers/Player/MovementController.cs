@@ -15,6 +15,7 @@ namespace Battle.Controllers.Player
         [SerializeField] private HitboxTrigger playerBodyHitbox;
         [SerializeField] private Rigidbody playerBody;
         [SerializeField] private GameObject stage;
+        [SerializeField] private Wall[] walls;
         [SerializeField] private Transform mainBody;
         [SerializeField] private Transform pivot;
 
@@ -102,11 +103,24 @@ namespace Battle.Controllers.Player
                 _currentVelocity = 0.0f;
             }
             
+            var rot = pivot.rotation.eulerAngles.y;
+            print(rot);
+
             if (_dashCooldownTimer <= 0) return;
             _dashCooldownTimer -= Time.deltaTime;
         }
+
+        private bool IsBlockedLeft()
+        {
+            var rot = pivot.rotation.eulerAngles.y;
+            return false;
+            // foreach (var wall in walls)
+            // {
+            //     if ()
+            // }
+        }
         
-        public void PerformDash(int playerNum)
+        public void Dash(int playerNum)
         {
             if (_dashCooldownTimer > 0) return;
             var p = playerNum - 1;
@@ -141,6 +155,22 @@ namespace Battle.Controllers.Player
         public static void UseSpecialMove(int playerNum)
         {
             PlayerStats.UseSpecialMove(playerNum);
+        }
+
+        [Serializable]
+        private class Wall
+        {
+            [SerializeField] private float left;
+            [SerializeField] private float right;
+            [SerializeField] private float height;
+            [SerializeField] private float leftEnter;
+            [SerializeField] private float rightEnter;
+
+            public bool IsInWall(Transform mainBody, float rotation)
+            {
+                if (mainBody.position.y >= height) return false;
+                return rotation >= leftEnter && rotation <= rightEnter;
+            }
         }
     }
 }
