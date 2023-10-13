@@ -10,7 +10,7 @@ namespace Battle.Controllers.Player
         [SerializeField] private Killable playerBody;
         [SerializeField] private PlayerEnergyController p1Energy, p2Energy;
         [SerializeField] private PlayerSpecialController p1Special, p2Special;
-        [SerializeField] private PlayerShoot p1Shoot, p2Shoot;
+        [SerializeField] private ShootingController p1Shoot, p2Shoot;
         [SerializeField] private Hitbox p1Shield, p2Shield;
 
         public delegate void StatChange(float change);

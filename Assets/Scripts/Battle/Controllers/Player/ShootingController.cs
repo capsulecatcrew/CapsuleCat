@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Player.Controls
 {
-    public class PlayerShoot : MonoBehaviour
+    public class ShootingController : MonoBehaviour
     {
         [Header("Trackers")]
         [SerializeField] [Range(1, 2)] private int playerNum;

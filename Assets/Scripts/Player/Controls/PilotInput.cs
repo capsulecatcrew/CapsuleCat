@@ -25,7 +25,7 @@ public class PilotInput : MonoBehaviour
     [SerializeField] private ModeIcon modeIcon;
     
     [Header("Controllers")]
-    [SerializeField] private PlayerShoot weaponController;
+    [SerializeField] private ShootingController shootingController;
     [SerializeField] private MovementController movementController;
     
     private float _moveAmount;
@@ -50,7 +50,7 @@ public class PilotInput : MonoBehaviour
             case ControlMode.Shooting:
                 movementController.SetMoveAmount(playerNum, 0.0f);
                 _moveAmount = 0;
-                weaponController.MoveGunsBy(_weaponMoveAmount);
+                shootingController.MoveGunsBy(_weaponMoveAmount);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -82,7 +82,7 @@ public class PilotInput : MonoBehaviour
 
     private void OnPrimaryShoot(InputAction.CallbackContext ignored)
     {
-        weaponController.ShootBasicBullets();
+        shootingController.ShootBasicBullets();
     }
 
     private void OnPrimaryJump()
@@ -100,11 +100,11 @@ public class PilotInput : MonoBehaviour
     {
         if (context.started)
         {
-            weaponController.ChargeHeavyBullet();
+            shootingController.ChargeHeavyBullet();
             return;
         }
         var elapsedTime = context.time - context.startTime;
-        weaponController.ShootHeavyBullet((float) elapsedTime);
+        shootingController.ShootHeavyBullet((float) elapsedTime);
     }
 
     private void OnSecondaryMove(InputAction.CallbackContext context)
@@ -122,7 +122,7 @@ public class PilotInput : MonoBehaviour
     private void OnSpecialAttack()
     {
         if (PlayerStats.GetSpecialControlMode(playerNum) != ControlMode.Shooting) return;
-        weaponController.UseSpecialMove();
+        shootingController.UseSpecialMove();
     }
 
     private void OnSpecialMove()
@@ -140,7 +140,7 @@ public class PilotInput : MonoBehaviour
             case ControlMode.Movement:
                 controlMode = ControlMode.Shooting;
                 break;
-            case ControlMode.Shooting when weaponController.CanSwitchControlMode():
+            case ControlMode.Shooting when shootingController.CanSwitchControlMode():
                 return;
             case ControlMode.Shooting:
                 controlMode = ControlMode.Movement;
