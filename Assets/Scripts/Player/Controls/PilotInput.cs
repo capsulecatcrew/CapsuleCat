@@ -1,4 +1,6 @@
+using System;
 using Battle.Controllers.Player;
+using Player.Controls;
 using Player.Stats;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,45 +15,53 @@ public enum ControlMode
 [RequireComponent(typeof(PlayerInput))]
 public class PilotInput : MonoBehaviour
 {
+    [Header("Trackers")]
     [FormerlySerializedAs("player")] [Range(1, 2)] public int playerNum; // player 1 or 2
     [SerializeField] private ControlMode controlMode;
     
+    [Header("Objects")]
     [SerializeField] private GameObject wings;
-    [SerializeField] private PlayerMovement movementController;
     [SerializeField] private GameObject weapons;
-    [SerializeField] private PlayerShoot weaponController;
     [SerializeField] private ModeIcon modeIcon;
-    private float _movement;
-    private Vector2 _weaponMovement = Vector2.zero;
+    
+    [Header("Controllers")]
+    [SerializeField] private PlayerShoot weaponController;
+    [SerializeField] private MovementController movementController;
+    
+    private float _moveAmount;
+    private Vector2 _weaponMoveAmount = Vector2.zero;
     
     public void Start()
     {
         controlMode = PlayerStats.GetPlayerControlMode(playerNum);
         ActivateParts();
-        modeIcon?.SetSprite(controlMode);
+        if (!modeIcon.isActiveAndEnabled) return;
+        modeIcon.SetSprite(controlMode);
     }
     
     public void Update()
     {
-        if (controlMode == ControlMode.Movement)
+        switch (controlMode)
         {
-            movementController.SetPlayerMovement(playerNum, _movement);
-            _weaponMovement = Vector2.zero;
+            case ControlMode.Movement:
+                movementController.SetMoveAmount(playerNum, _moveAmount);
+                _weaponMoveAmount = Vector2.zero;
+                break;
+            case ControlMode.Shooting:
+                movementController.SetMoveAmount(playerNum, 0.0f);
+                _moveAmount = 0;
+                weaponController.MoveGunsBy(_weaponMoveAmount);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-        else if (controlMode == ControlMode.Shooting)
-        {
-            movementController.SetPlayerMovement(playerNum, 0.0f);
-            _movement = 0;
-            weaponController.MoveGunsBy(_weaponMovement);
-        }
-        
     }
 
     public void OnMoveLR(InputAction.CallbackContext context)
     {
         if (controlMode == ControlMode.Movement)
         {
-            _movement = context.ReadValue<float>();
+            _moveAmount = context.ReadValue<float>();
         }
     }
 
@@ -59,7 +69,7 @@ public class PilotInput : MonoBehaviour
     {
         if (controlMode == ControlMode.Shooting)
         {
-            _weaponMovement = context.ReadValue<Vector2>();
+            _weaponMoveAmount = context.ReadValue<Vector2>();
         }
     }
 
@@ -70,14 +80,14 @@ public class PilotInput : MonoBehaviour
         if (controlMode == ControlMode.Movement) OnPrimaryJump();
     }
 
-    private void OnPrimaryShoot(InputAction.CallbackContext context)
+    private void OnPrimaryShoot(InputAction.CallbackContext ignored)
     {
         weaponController.ShootBasicBullets();
     }
 
     private void OnPrimaryJump()
     {
-        movementController.RequestPlayerJump(playerNum);
+        movementController.Jump();
     }
 
     public void OnSecondary(InputAction.CallbackContext context)
@@ -118,7 +128,7 @@ public class PilotInput : MonoBehaviour
     private void OnSpecialMove()
     {
         if (PlayerStats.GetSpecialControlMode(playerNum) != ControlMode.Movement) return;
-        PlayerMovement.UseSpecialMove(playerNum);
+        MovementController.UseSpecialMove(playerNum);
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
@@ -141,7 +151,8 @@ public class PilotInput : MonoBehaviour
 
         ActivateParts();
         PlayerStats.SavePlayerControlMode(playerNum, controlMode);
-        modeIcon?.SetSprite(controlMode);
+        if (!modeIcon.isActiveAndEnabled) return;
+        modeIcon.SetSprite(controlMode);
     }
 
     /**

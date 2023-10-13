@@ -1,5 +1,6 @@
 using UnityEngine;
 using Battle.Hitboxes;
+using Player.Controls;
 using Player.Stats;
 
 namespace Battle.Controllers.Player

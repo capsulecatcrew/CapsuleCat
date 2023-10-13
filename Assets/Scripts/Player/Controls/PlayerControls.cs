@@ -15,12 +15,14 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @PlayerControls : IInputActionCollection2, IDisposable
+namespace Player.Controls
 {
-    public InputActionAsset asset { get; }
-    public @PlayerControls()
+    public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
-        asset = InputActionAsset.FromJson(@"{
+        public InputActionAsset asset { get; }
+        public @PlayerControls()
+        {
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
@@ -571,186 +573,187 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     ]
 }");
+            // Player
+            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_MoveLR = m_Player.FindAction("MoveLR", throwIfNotFound: true);
+            m_Player_Secondary = m_Player.FindAction("Secondary", throwIfNotFound: true);
+            m_Player_Primary = m_Player.FindAction("Primary", throwIfNotFound: true);
+            m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
+            m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
+            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+            m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+        public IEnumerable<InputBinding> bindings => asset.bindings;
+
+        public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
+        {
+            return asset.FindAction(actionNameOrId, throwIfNotFound);
+        }
+        public int FindBinding(InputBinding bindingMask, out InputAction action)
+        {
+            return asset.FindBinding(bindingMask, out action);
+        }
+
         // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_MoveLR = m_Player.FindAction("MoveLR", throwIfNotFound: true);
-        m_Player_Secondary = m_Player.FindAction("Secondary", throwIfNotFound: true);
-        m_Player_Primary = m_Player.FindAction("Primary", throwIfNotFound: true);
-        m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
-        m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
-        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
-    }
-
-    public void Dispose()
-    {
-        UnityEngine.Object.Destroy(asset);
-    }
-
-    public InputBinding? bindingMask
-    {
-        get => asset.bindingMask;
-        set => asset.bindingMask = value;
-    }
-
-    public ReadOnlyArray<InputDevice>? devices
-    {
-        get => asset.devices;
-        set => asset.devices = value;
-    }
-
-    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-    public bool Contains(InputAction action)
-    {
-        return asset.Contains(action);
-    }
-
-    public IEnumerator<InputAction> GetEnumerator()
-    {
-        return asset.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public void Enable()
-    {
-        asset.Enable();
-    }
-
-    public void Disable()
-    {
-        asset.Disable();
-    }
-    public IEnumerable<InputBinding> bindings => asset.bindings;
-
-    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
-    {
-        return asset.FindAction(actionNameOrId, throwIfNotFound);
-    }
-    public int FindBinding(InputBinding bindingMask, out InputAction action)
-    {
-        return asset.FindBinding(bindingMask, out action);
-    }
-
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_MoveLR;
-    private readonly InputAction m_Player_Secondary;
-    private readonly InputAction m_Player_Primary;
-    private readonly InputAction m_Player_Switch;
-    private readonly InputAction m_Player_Special;
-    private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Quit;
-    public struct PlayerActions
-    {
-        private @PlayerControls m_Wrapper;
-        public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveLR => m_Wrapper.m_Player_MoveLR;
-        public InputAction @Secondary => m_Wrapper.m_Player_Secondary;
-        public InputAction @Primary => m_Wrapper.m_Player_Primary;
-        public InputAction @Switch => m_Wrapper.m_Player_Switch;
-        public InputAction @Special => m_Wrapper.m_Player_Special;
-        public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Quit => m_Wrapper.m_Player_Quit;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        private readonly InputActionMap m_Player;
+        private IPlayerActions m_PlayerActionsCallbackInterface;
+        private readonly InputAction m_Player_MoveLR;
+        private readonly InputAction m_Player_Secondary;
+        private readonly InputAction m_Player_Primary;
+        private readonly InputAction m_Player_Switch;
+        private readonly InputAction m_Player_Special;
+        private readonly InputAction m_Player_Move;
+        private readonly InputAction m_Player_Quit;
+        public struct PlayerActions
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            private @PlayerControls m_Wrapper;
+            public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @MoveLR => m_Wrapper.m_Player_MoveLR;
+            public InputAction @Secondary => m_Wrapper.m_Player_Secondary;
+            public InputAction @Primary => m_Wrapper.m_Player_Primary;
+            public InputAction @Switch => m_Wrapper.m_Player_Switch;
+            public InputAction @Special => m_Wrapper.m_Player_Special;
+            public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Quit => m_Wrapper.m_Player_Quit;
+            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerActions instance)
             {
-                @MoveLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
-                @MoveLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
-                @MoveLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
-                @Secondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
-                @Secondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
-                @Secondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
-                @Primary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
-                @Primary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
-                @Primary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
-                @Switch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
-                @Switch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
-                @Switch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
-                @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
-                @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
-                @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
-                @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Quit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
-                @Quit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
-                @Quit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
-            }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @MoveLR.started += instance.OnMoveLR;
-                @MoveLR.performed += instance.OnMoveLR;
-                @MoveLR.canceled += instance.OnMoveLR;
-                @Secondary.started += instance.OnSecondary;
-                @Secondary.performed += instance.OnSecondary;
-                @Secondary.canceled += instance.OnSecondary;
-                @Primary.started += instance.OnPrimary;
-                @Primary.performed += instance.OnPrimary;
-                @Primary.canceled += instance.OnPrimary;
-                @Switch.started += instance.OnSwitch;
-                @Switch.performed += instance.OnSwitch;
-                @Switch.canceled += instance.OnSwitch;
-                @Special.started += instance.OnSpecial;
-                @Special.performed += instance.OnSpecial;
-                @Special.canceled += instance.OnSpecial;
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
-                @Quit.started += instance.OnQuit;
-                @Quit.performed += instance.OnQuit;
-                @Quit.canceled += instance.OnQuit;
+                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                {
+                    @MoveLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
+                    @MoveLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
+                    @MoveLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveLR;
+                    @Secondary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
+                    @Secondary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
+                    @Secondary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondary;
+                    @Primary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
+                    @Primary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
+                    @Primary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimary;
+                    @Switch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
+                    @Switch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
+                    @Switch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitch;
+                    @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                    @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                    @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                    @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Quit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                    @Quit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                    @Quit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                }
+                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @MoveLR.started += instance.OnMoveLR;
+                    @MoveLR.performed += instance.OnMoveLR;
+                    @MoveLR.canceled += instance.OnMoveLR;
+                    @Secondary.started += instance.OnSecondary;
+                    @Secondary.performed += instance.OnSecondary;
+                    @Secondary.canceled += instance.OnSecondary;
+                    @Primary.started += instance.OnPrimary;
+                    @Primary.performed += instance.OnPrimary;
+                    @Primary.canceled += instance.OnPrimary;
+                    @Switch.started += instance.OnSwitch;
+                    @Switch.performed += instance.OnSwitch;
+                    @Switch.canceled += instance.OnSwitch;
+                    @Special.started += instance.OnSpecial;
+                    @Special.performed += instance.OnSpecial;
+                    @Special.canceled += instance.OnSpecial;
+                    @Move.started += instance.OnMove;
+                    @Move.performed += instance.OnMove;
+                    @Move.canceled += instance.OnMove;
+                    @Quit.started += instance.OnQuit;
+                    @Quit.performed += instance.OnQuit;
+                    @Quit.canceled += instance.OnQuit;
+                }
             }
         }
-    }
-    public PlayerActions @Player => new PlayerActions(this);
-    private int m_SplitKeyboardLSchemeIndex = -1;
-    public InputControlScheme SplitKeyboardLScheme
-    {
-        get
+        public PlayerActions @Player => new PlayerActions(this);
+        private int m_SplitKeyboardLSchemeIndex = -1;
+        public InputControlScheme SplitKeyboardLScheme
         {
-            if (m_SplitKeyboardLSchemeIndex == -1) m_SplitKeyboardLSchemeIndex = asset.FindControlSchemeIndex("SplitKeyboardL");
-            return asset.controlSchemes[m_SplitKeyboardLSchemeIndex];
+            get
+            {
+                if (m_SplitKeyboardLSchemeIndex == -1) m_SplitKeyboardLSchemeIndex = asset.FindControlSchemeIndex("SplitKeyboardL");
+                return asset.controlSchemes[m_SplitKeyboardLSchemeIndex];
+            }
         }
-    }
-    private int m_SplitKeyboardRSchemeIndex = -1;
-    public InputControlScheme SplitKeyboardRScheme
-    {
-        get
+        private int m_SplitKeyboardRSchemeIndex = -1;
+        public InputControlScheme SplitKeyboardRScheme
         {
-            if (m_SplitKeyboardRSchemeIndex == -1) m_SplitKeyboardRSchemeIndex = asset.FindControlSchemeIndex("SplitKeyboardR");
-            return asset.controlSchemes[m_SplitKeyboardRSchemeIndex];
+            get
+            {
+                if (m_SplitKeyboardRSchemeIndex == -1) m_SplitKeyboardRSchemeIndex = asset.FindControlSchemeIndex("SplitKeyboardR");
+                return asset.controlSchemes[m_SplitKeyboardRSchemeIndex];
+            }
         }
-    }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
         {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
         }
-    }
-    public interface IPlayerActions
-    {
-        void OnMoveLR(InputAction.CallbackContext context);
-        void OnSecondary(InputAction.CallbackContext context);
-        void OnPrimary(InputAction.CallbackContext context);
-        void OnSwitch(InputAction.CallbackContext context);
-        void OnSpecial(InputAction.CallbackContext context);
-        void OnMove(InputAction.CallbackContext context);
-        void OnQuit(InputAction.CallbackContext context);
+        public interface IPlayerActions
+        {
+            void OnMoveLR(InputAction.CallbackContext context);
+            void OnSecondary(InputAction.CallbackContext context);
+            void OnPrimary(InputAction.CallbackContext context);
+            void OnSwitch(InputAction.CallbackContext context);
+            void OnSpecial(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
+            void OnQuit(InputAction.CallbackContext context);
+        }
     }
 }
