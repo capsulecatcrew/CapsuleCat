@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Hitboxes;
@@ -10,7 +11,7 @@ namespace Enemy
 {
     public class EnemyController: MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         private class PrimaryPart
         {
             public Killable hitbox;
@@ -126,6 +127,10 @@ namespace Enemy
             _primaryPartsLeft--;
             if (_primaryPartsLeft > 0) return;
             HandleEnemyDeath();
+            foreach (var part in secondaryParts)
+            {
+                part.gameObject.SetActive(false);
+            }
         }
 
         private void HandleEnemyDeath()

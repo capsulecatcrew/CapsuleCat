@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Player.Stats;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Battle.Controllers.Player
         [SerializeField] private Rigidbody playerBody;
         [SerializeField] private GameObject stage;
         [SerializeField] private Wall[] walls;
+        [SerializeField] private GameObject[] wallObjects;
         [SerializeField] private Transform mainBody;
         [SerializeField] private Transform pivot;
 
@@ -65,13 +67,13 @@ namespace Battle.Controllers.Player
 
         private void HandleHitGround(Collider other)
         {
-            if (other.gameObject != stage) return;
+            if (other.gameObject != stage && !wallObjects.Contains(other.gameObject)) return;
             _isGrounded = true;
         }
 
         private void HandleExitGround(Collider other)
         {
-            if (other.gameObject != stage) return;
+            if (other.gameObject != stage && !wallObjects.Contains(other.gameObject)) return;
             _isGrounded = false;
         }
 
