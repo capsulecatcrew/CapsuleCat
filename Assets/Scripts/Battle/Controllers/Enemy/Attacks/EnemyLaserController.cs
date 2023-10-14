@@ -38,6 +38,9 @@ public class EnemyLaserController : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private EnemySoundController enemySoundController;
 
+    public delegate void Attack();
+    public event Attack OnAttack;
+    
     /// <summary>
     /// Chance of firing a special laser out of 100.
     /// </summary>
@@ -80,7 +83,7 @@ public class EnemyLaserController : MonoBehaviour
             {
                 SingleAimedLaser();
             }
-
+            OnAttack?.Invoke();
             ResetTimer();
         }
     }
