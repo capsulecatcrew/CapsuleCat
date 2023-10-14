@@ -73,7 +73,7 @@
                 {
                     "name": "",
                     "id": "0242fc3c-7c6e-4b93-a33c-b78649879371",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -148,7 +148,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Arrow Keys",
+                    "name": "OKL;",
                     "id": "875ddc10-d8cf-4205-b76f-8214e4d28089",
                     "path": "1DAxis",
                     "interactions": "",
@@ -161,7 +161,7 @@
                 {
                     "name": "negative",
                     "id": "2e033b06-bcbb-426d-80c7-99084450012c",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -172,7 +172,7 @@
                 {
                     "name": "positive",
                     "id": "a22e19b6-1b17-4441-97d0-f6b164b6212f",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -269,7 +269,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Arrow Keys",
+                    "name": "OKL;",
                     "id": "23ec07ef-6e13-4762-b296-ac895babea7a",
                     "path": "2DVector",
                     "interactions": "",
@@ -282,7 +282,7 @@
                 {
                     "name": "up",
                     "id": "d8132405-ad01-440f-a4bc-a87942816ee4",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -293,7 +293,7 @@
                 {
                     "name": "down",
                     "id": "c8fc9459-404f-4ba6-bcbd-ca49cc2a3ccb",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -304,7 +304,7 @@
                 {
                     "name": "left",
                     "id": "944135d8-46eb-4673-bd7d-dfb1c8feb907",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -315,7 +315,7 @@
                 {
                     "name": "right",
                     "id": "6cb33984-3727-4183-9ea0-4c5e6068e8f2",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -359,7 +359,7 @@
                 {
                     "name": "",
                     "id": "4fc37037-a1e0-40d2-a9fa-ce0a149b06c5",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -425,7 +425,7 @@
                 {
                     "name": "",
                     "id": "b5388c87-5c8c-4615-9f43-1d8424a7a125",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -447,7 +447,7 @@
                 {
                     "name": "",
                     "id": "0db2379a-831c-441a-812f-5ea8946e56a1",
-                    "path": "<Keyboard>/4",
+                    "path": "<Keyboard>/6",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
