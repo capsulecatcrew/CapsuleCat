@@ -145,7 +145,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: PLAYER_ENERGY_ABSORB
-    clip: {fileID: 8300000, guid: 11e3ef13ad672465aa87a420c504a034, type: 3}
+    clip: {fileID: 8300000, guid: 9ab87e3f464b94f7ea13f663e0234834, type: 3}
     priority: 89
     volume: 1
     pitch: 1
@@ -173,14 +173,14 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: LOBBY_READY_P1
-    clip: {fileID: 8300000, guid: 1136e3e6821534e02ba338cc0c1f6c15, type: 3}
+    clip: {fileID: 8300000, guid: 745e71317ef5e4f10a756468364cce8e, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: LOBBY_READY_P2
-    clip: {fileID: 8300000, guid: 6687b09bfb9214e57bdaecb032103618, type: 3}
+    clip: {fileID: 8300000, guid: 6eb45a93c25604892af6fd31a5e2a4b2, type: 3}
     priority: 89
     volume: 1
     pitch: 1
@@ -215,44 +215,58 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: UI_BTN_DISABLED
-    clip: {fileID: 8300000, guid: 48465c48b8dff4fa8ad37421fe5c815c, type: 3}
+    clip: {fileID: 8300000, guid: 52e38d4b5a7524a799ee3ee90f1de5b5, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UI_BTN_HIGHLIGHTED
-    clip: {fileID: 8300000, guid: 4845c5fedc8bd4edcbc7a3183f435566, type: 3}
+    clip: {fileID: 8300000, guid: 4dbc2c2786c9147e5887922c4aca43fb, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UI_BTN_PRESSED
-    clip: {fileID: 8300000, guid: 7f8e77a7dbf3b4b56b7737c3136d5359, type: 3}
+    clip: {fileID: 8300000, guid: f5bb915dace864bdd8062d807f33cacc, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UI_SHOP_BROKE
-    clip: {fileID: 8300000, guid: 0c4eeebe4fbbc46689b29010c1d40d75, type: 3}
+    clip: {fileID: 8300000, guid: 52e38d4b5a7524a799ee3ee90f1de5b5, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UI_SHOP_BOUGHT
-    clip: {fileID: 8300000, guid: 9a7847e182bdf4acf9d3fc713610b3f3, type: 3}
+    clip: {fileID: 8300000, guid: f2447dbaea7b2494eb2d4ef27ab312e5, type: 3}
     priority: 89
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UI_TITLE_STARTGAME
-    clip: {fileID: 8300000, guid: d55c62f224573451097ed8f18b1e2f4d, type: 3}
+    clip: {fileID: 8300000, guid: 064854a4ddd3a418fbfa0d3a90c8df03, type: 3}
     priority: 89
     volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ENEMY_SHIELD_HIT
+    clip: {fileID: 8300000, guid: e08d8116dbcea4632b4f15c57567afce, type: 3}
+    priority: 89
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PLAYER_DASH
+    clip: {fileID: 8300000, guid: fd98d4306ca4bc44e8e2934b97b3546d, type: 3}
+    priority: 89
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}

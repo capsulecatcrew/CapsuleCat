@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: SpecialMoveSprites
   m_EditorClassIdentifier: 
   healSprite:
-    mainSprite: {fileID: 21300000, guid: 5adaecb987fb341f9990246073418380, type: 3}
-    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+    mainSprite: {fileID: 21300000, guid: fa46783e7da9b0a468d8ba15a885c09c, type: 3}
+    activatedSprite: {fileID: 21300000, guid: 4e05020292b1ba04a952516fbc72797c, type: 3}
   absorbShieldSprite:
-    mainSprite: {fileID: 21300000, guid: 5d099df2455ed4d8eaec9251b20298cc, type: 3}
-    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+    mainSprite: {fileID: 21300000, guid: d9633f0b5f2a7be499b4d8cfab4c2cf3, type: 3}
+    activatedSprite: {fileID: 21300000, guid: c171e1efa49c48b4c90c516afcd11b89, type: 3}
   vampireSprite:
-    mainSprite: {fileID: 21300000, guid: 4c914fb6196594619a4a289512c88ac8, type: 3}
-    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+    mainSprite: {fileID: 21300000, guid: 423494b946f47884880d46c0f0993cf0, type: 3}
+    activatedSprite: {fileID: 21300000, guid: fe65fd0a368c1dd47bf71aab6a340699, type: 3}
   laserSprite:
-    mainSprite: {fileID: 21300000, guid: 3eb684397eb174dfdaf1b20087e9a048, type: 3}
-    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+    mainSprite: {fileID: 21300000, guid: 65ef455cd5e99d344b062562ebee8219, type: 3}
+    activatedSprite: {fileID: 21300000, guid: b19bbabe578f7fb47b11bc1c8b431485, type: 3}
   noSpecialSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}

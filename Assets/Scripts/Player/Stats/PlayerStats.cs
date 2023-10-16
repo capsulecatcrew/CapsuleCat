@@ -86,6 +86,7 @@ namespace Player.Stats
                 SpecialAbsorb.Reset();
                 SpecialDamage.Reset();
                 SpecialDamaged.Reset();
+                SpecialGain.Reset();
                 Special.SetValue(0);
                 SpecialMove?.Stop(true);
                 SpecialMove = null;

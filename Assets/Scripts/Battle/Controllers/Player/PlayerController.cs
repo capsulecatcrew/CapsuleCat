@@ -173,19 +173,19 @@ namespace Battle.Controllers.Player
             }
         }
 
-        public bool EnableShield(int playerNum)
+        public bool EnableShield(int playerNum, bool showModel = true)
         {
             switch (playerNum)
             {
                 case 1:
                     if (p2Shield.gameObject.activeSelf) return false;
-                    p1Shield.gameObject.SetActive(true);
+                    if (showModel) p1Shield.gameObject.SetActive(true);
                     playerBody.EnableShield();
                     p1Shield.OnHitBox += HandleP1ShieldHit;
                     return true;
                 case 2:
                     if (p1Shield.gameObject.activeSelf) return false;
-                    p2Shield.gameObject.SetActive(true);
+                    if (showModel) p2Shield.gameObject.SetActive(true);
                     playerBody.EnableShield();
                     p2Shield.OnHitBox += HandleP2ShieldHit;
                     return true;

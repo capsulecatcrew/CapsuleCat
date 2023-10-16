@@ -126,7 +126,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390090709555992144}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -149,7 +149,8 @@ MonoBehaviour:
   weaknessMult: 2
   resistanceMult: 0.5
   audioSource: {fileID: 0}
-  damageSound: {fileID: 8300000, guid: e08d8116dbcea4632b4f15c57567afce, type: 3}
+  audioSource2: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!114 &5827292304430509373
 MonoBehaviour:
   m_ObjectHideFlags: 0

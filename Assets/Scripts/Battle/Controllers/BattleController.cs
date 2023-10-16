@@ -51,6 +51,7 @@ public class BattleController : MonoBehaviour
 
     private void Win()
     {
+        playerController.EnableShield(1, false); // make player invincible
         GlobalAudio.Singleton.StopMusic();
         GlobalAudio.Singleton.PlaySound("ENEMY_DEATH");
         GlobalAudio.Singleton.PlayMusic("Victory");
