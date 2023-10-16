@@ -36,6 +36,9 @@ public class EnemyBulletController : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private EnemySoundController enemySoundController;
+    
+    public delegate void Attack();
+    public event Attack OnAttack;
 
     public void Start()
     {
@@ -87,6 +90,7 @@ public class EnemyBulletController : MonoBehaviour
             bullet.GetComponent<Bullet>()?.Init(_damageValue, bulletSpeed, direction, Firer.Enemy);
             bullet.SetActive(true);
         }
+        OnAttack?.Invoke();
         enemySoundController.PlayBulletSound();
     }
 

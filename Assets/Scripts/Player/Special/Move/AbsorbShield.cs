@@ -9,7 +9,6 @@ namespace Player.Special.Move
         private const string Description = "";
         
         private bool _isEnabled;
-        private float _timer;
         
         public AbsorbShield(int playerNum) : base(playerNum, 3) { } // cost: 3
 
@@ -49,7 +48,6 @@ namespace Player.Special.Move
             if (!PlayerController.HasSpecial(PlayerNum, Cost)) return;
             if (!PlayerController.EnableShield(PlayerNum)) return;
             Enable();
-            _timer = 1;
             PlayerController.OnDeltaTimeUpdate += UpdateTimer;
             _isEnabled = true;
             PlayerSoundController.PlaySpecialEnabledSound();
@@ -92,14 +90,13 @@ namespace Player.Special.Move
         private void UpdateTimer(float deltaTime)
         {
             if (!_isEnabled) return;
-            if (_timer > 0) _timer -= deltaTime;
-            if (!PlayerController.HasSpecial(PlayerNum, Cost))
+            var usage = deltaTime * Cost;
+            if (!PlayerController.HasSpecial(PlayerNum, usage))
             {
                 Stop();
                 return;
             }
-            _timer = 1;
-            PlayerController.UseSpecial(PlayerNum, Cost);
+            PlayerController.UseSpecial(PlayerNum, usage);
         }
         
         public static void InitShopItemButton(ShopItemButton shopItemButton)

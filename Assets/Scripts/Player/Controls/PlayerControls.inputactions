@@ -73,7 +73,7 @@
                 {
                     "name": "",
                     "id": "0242fc3c-7c6e-4b93-a33c-b78649879371",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -94,19 +94,8 @@
                 },
                 {
                     "name": "",
-                    "id": "e901524d-c4d0-49c7-9a1a-cfc977432f7d",
-                    "path": "<SwitchProControllerHID>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Primary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "845c3774-99cc-4adc-a428-d97af1369f58",
-                    "path": "<XInputController>/buttonSouth",
+                    "id": "ac835be4-0f76-4912-b3ac-c884dcc36d82",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -148,7 +137,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Arrow Keys",
+                    "name": "OKL;",
                     "id": "875ddc10-d8cf-4205-b76f-8214e4d28089",
                     "path": "1DAxis",
                     "interactions": "",
@@ -161,7 +150,7 @@
                 {
                     "name": "negative",
                     "id": "2e033b06-bcbb-426d-80c7-99084450012c",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -172,7 +161,7 @@
                 {
                     "name": "positive",
                     "id": "a22e19b6-1b17-4441-97d0-f6b164b6212f",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -269,7 +258,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Arrow Keys",
+                    "name": "OKL;",
                     "id": "23ec07ef-6e13-4762-b296-ac895babea7a",
                     "path": "2DVector",
                     "interactions": "",
@@ -282,7 +271,7 @@
                 {
                     "name": "up",
                     "id": "d8132405-ad01-440f-a4bc-a87942816ee4",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -293,7 +282,7 @@
                 {
                     "name": "down",
                     "id": "c8fc9459-404f-4ba6-bcbd-ca49cc2a3ccb",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -304,7 +293,7 @@
                 {
                     "name": "left",
                     "id": "944135d8-46eb-4673-bd7d-dfb1c8feb907",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -315,7 +304,7 @@
                 {
                     "name": "right",
                     "id": "6cb33984-3727-4183-9ea0-4c5e6068e8f2",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardR",
@@ -359,7 +348,7 @@
                 {
                     "name": "",
                     "id": "4fc37037-a1e0-40d2-a9fa-ce0a149b06c5",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -380,41 +369,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a7203509-99ad-4662-961e-80e8969afac4",
-                    "path": "<SwitchProControllerHID>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "47ed9f8d-9f76-4ea2-a739-8e0b8b2ef8ec",
-                    "path": "<DualShockGamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c577abf-1055-4b8f-8046-18acb4d8f2f7",
-                    "path": "<XInputController>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24ad7b9b-8dcf-4929-ba35-2b4856b8e0f9",
-                    "path": "<WebGLGamepad>/buttonNorth",
+                    "id": "648f7dc0-8702-43be-bf62-ca99a33efea6",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -425,7 +381,7 @@
                 {
                     "name": "",
                     "id": "b5388c87-5c8c-4615-9f43-1d8424a7a125",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -446,8 +402,19 @@
                 },
                 {
                     "name": "",
+                    "id": "53721869-6753-46c6-8940-6d3f79135b84",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Secondary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0db2379a-831c-441a-812f-5ea8946e56a1",
-                    "path": "<Keyboard>/4",
+                    "path": "<Keyboard>/6",
                     "interactions": "",
                     "processors": "",
                     "groups": "SplitKeyboardL",
@@ -468,41 +435,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7be0391a-bd76-402a-8f1c-fd5bf826e938",
-                    "path": "<SwitchProControllerHID>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b941b8d6-ad6a-4b6e-ad1c-ac8fa551cdaf",
-                    "path": "<DualShockGamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3daaea64-f5bc-40fc-8f9b-b7b6dd62a8b1",
-                    "path": "<XInputController>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e17ecf77-f221-48f5-9058-1de9f3a4b159",
-                    "path": "<WebGLGamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

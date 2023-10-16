@@ -72,7 +72,6 @@ public class Bullet : MonoBehaviour
     public void Update()
     {
         transform.position += _speed * Time.deltaTime * _direction;
-        
         if (Vector3.Distance(_origin, transform.position) <= MaxDistance) return;
         Delete();
     }

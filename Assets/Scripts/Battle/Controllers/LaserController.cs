@@ -80,7 +80,7 @@ namespace Battle
 
         public void FixedUpdate()
         {
-            if (target != null && (_isTracking || _chargingTimer > 0)) SetTargetPosition(target.position);
+            if (target != null && _isTracking && _chargingTimer > 0) SetTargetPosition(target.position);
             UpdateTimers();
             UpdateMode();
         }
