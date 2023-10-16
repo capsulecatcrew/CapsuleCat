@@ -16,8 +16,8 @@ public class GlobalAudio : MonoBehaviour
     private Sound _currentMusic;
     
     public Sound[] sounds;
-    
-    void Awake()
+
+    private void Awake()
     {
         if (Singleton == null)
         {
@@ -28,9 +28,12 @@ public class GlobalAudio : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         DontDestroyOnLoad(gameObject);
-        
+    }
+
+    private void Start()
+    {
         foreach (Sound s in music)
         {
             s.BindAudioSourceProperties(gameObject.AddComponent<AudioSource>());
@@ -40,7 +43,6 @@ public class GlobalAudio : MonoBehaviour
         {
             s.BindAudioSourceProperties(gameObject.AddComponent<AudioSource>());
         }
-
     }
 
     // Used for 'global-scale' sound effects that are not localised
