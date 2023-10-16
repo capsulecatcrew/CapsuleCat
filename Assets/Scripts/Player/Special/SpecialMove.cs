@@ -37,12 +37,7 @@ namespace Player.Special
         }
 
         protected abstract void UpdateIcon();
-
-        protected static string GetCostString()
-        {
-            return "$" + ShopCost;
-        }
-
+        
         public void UpdateControllers(PlayerController playerController, PlayerSoundController playerSoundController)
         {
             PlayerController = playerController;

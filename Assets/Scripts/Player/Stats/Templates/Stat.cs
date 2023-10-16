@@ -4,13 +4,13 @@ namespace Player.Stats.Templates
 {
     public class Stat
     {
-        protected readonly string Name;
+        public string Name { get; }
 
         protected internal float Value;
         protected float BaseValue;
         protected readonly bool IsHealthStat;
-        
-        protected readonly string Description = "";
+
+        public string Description { get; } = "";
 
         public delegate void StatReset(float value);
 

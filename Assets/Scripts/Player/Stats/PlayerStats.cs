@@ -44,7 +44,7 @@ namespace Player.Stats
             public UpgradeableLinearStat SpecialDamaged { get; }
 
             // Stat 4
-            private GroupedUpgradeableStat SpecialGain { get; }
+            public GroupedUpgradeableStat SpecialGain { get; }
 
             // Stat 5
             public UpgradeableLinearStat EnergyCostDash { get; }
@@ -60,18 +60,18 @@ namespace Player.Stats
 
             public Player()
             {
-                Damage = new UpgradeableLinearStat("Attack Damage", 10, 2, 0.5f, 50, 25);
-                EnergyMax = new UpgradeableLinearStat("Max Energy", 10, 30, 10, 50, 25);
-                EnergyAbsorb = new UpgradeableLinearStat("Energy Absorb", 10, 1f, 0.1f, 50, 25);
-                Energy = new Stat("Energy", EnergyMax);
-                SpecialAbsorb = new UpgradeableLinearStat("Special Absorb Rate", 10, 2, 0.2f, 50, 75);
-                SpecialDamage = new UpgradeableLinearStat("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75);
-                SpecialDamaged = new UpgradeableLinearStat("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75);
-                SpecialGain = new GroupedUpgradeableStat("Special Gain", 10, 150, 150, false, SpecialAbsorb, SpecialDamage, SpecialDamaged);
-                EnergyCostDash = new UpgradeableLinearStat("Dash Energy Cost", 9, 15, -1f, 100, 75);
-                EnergyShare = new UpgradeableLinearStat("Energy Share", 10, 0.1f, 0.1f, 100, 100);
-                Special = new Stat("Special", SpecialMax, false);
-                PlayerStats = new List<UpgradeableStat> { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash, EnergyShare };
+                Damage = new("Attack Damage", 10, 2, 0.5f, 50, 25, description:"");
+                EnergyMax = new("Max Energy", 10, 30, 10, 50, 25, description:"");
+                EnergyAbsorb = new("Energy Absorb", 10, 1f, 0.1f, 50, 25, description:"");
+                Energy = new("Energy", EnergyMax);
+                SpecialAbsorb = new("Special Absorb Rate", 10, 2, 0.2f, 50, 75, description:"");
+                SpecialDamage = new("Special Damage Rate", 10, 0.15f, 0.015f, 50, 75, description:"");
+                SpecialDamaged = new("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75, description:"");
+                SpecialGain = new("Special Gain", 10, 150, 150, false, "", SpecialAbsorb, SpecialDamage, SpecialDamaged);
+                EnergyCostDash = new("Dash Energy Cost", 9, 15, -1f, 100, 75, description:"");
+                EnergyShare = new("Energy Share", 10, 0.1f, 0.1f, 100, 100, description:"");
+                Special = new("Special", SpecialMax, false);
+                PlayerStats = new() { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash, EnergyShare };
                 Special.SetValue(0);
             }
 
@@ -105,7 +105,7 @@ namespace Player.Stats
         }
         
         // both - Stat 7
-        public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true);
+        public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true, description:"");
         private static readonly Stat Health = new("Health", MaxHealth);
 
         private static int _prevStage;
@@ -453,5 +453,15 @@ namespace Player.Stats
                     return;
             }
         }
+
+        public static SpecialMove GetPlayerSpecialMove(int playerNum) => GetPlayer(playerNum).SpecialMove;
+        public static UpgradeableStat GetMaxHealthStat() => MaxHealth;
+        public static UpgradeableStat GetEnergyShareStat(int playerNum) => GetPlayer(playerNum).EnergyShare;
+        public static UpgradeableStat GetAttackDamageStat(int playerNum) => GetPlayer(playerNum).Damage;
+        public static UpgradeableStat GetMaxEnergyStat(int playerNum) => GetPlayer(playerNum).EnergyMax;
+        public static UpgradeableStat GetEnergyAbsorbStat(int playerNum) => GetPlayer(playerNum).EnergyAbsorb;
+        public static UpgradeableStat GetSpecialGainStat(int playerNum) => GetPlayer(playerNum).SpecialGain;
+        public static UpgradeableStat GetDashEnergyCostStat(int playerNum) => GetPlayer(playerNum).EnergyCostDash;
+
     }
 }
