@@ -138,7 +138,6 @@ namespace Shop
         /// </summary>
         private void ResetButtonsUsability()
         {
-            Debug.Log("resetting usability");
             Buttons1Usable.Clear();
             Buttons2Usable.Clear();
             for (var i = 0; i < player1Buttons.Count; i++)

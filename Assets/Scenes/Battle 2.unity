@@ -5453,7 +5453,6 @@ GameObject:
   m_Component:
   - component: {fileID: 203013227}
   - component: {fileID: 203013226}
-  - component: {fileID: 203013228}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -5493,50 +5492,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &203013228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203013225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Join
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8d3413b5-b1b4-4a25-ae13-f2973573c6f5
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!1 &205300874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1053287424301608022, guid: ab08eb299203a4f99a4019850e4c1db8, type: 3}
@@ -21631,8 +21586,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 8.6604857e-10, y: 0.9972303, z: -0.074376225, w: 0.000000011611911}
-  m_LocalPosition: {x: -0.00000046061336, y: 7.4668097, z: 49.778744}
+  m_LocalRotation: {x: -0.0000000013740591, y: 0.9972303, z: -0.07437618, w: -0.000000018423282}
+  m_LocalPosition: {x: 0.0000007308023, y: 7.4668083, z: 49.778744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21893,8 +21848,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: 8.6604857e-10, y: 0.9972303, z: -0.074376225, w: 0.000000011611911}
-  m_LocalPosition: {x: -0.00000046061336, y: 7.4668097, z: 49.778744}
+  m_LocalRotation: {x: -0.0000000013740591, y: 0.9972303, z: -0.07437618, w: -0.000000018423282}
+  m_LocalPosition: {x: 0.0000007308023, y: 7.4668083, z: 49.778744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27270,6 +27225,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Input Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 363636727752967113, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
+      propertyPath: p1Input
+      value: 
+      objectReference: {fileID: 1822170217}
+    - target: {fileID: 363636727752967113, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
+      propertyPath: p2Input
+      value: 
+      objectReference: {fileID: 1361610032}
     - target: {fileID: 363636727752967114, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
       propertyPath: m_RootOrder
       value: 14
