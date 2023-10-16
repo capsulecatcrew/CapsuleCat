@@ -4,12 +4,12 @@ namespace Player.Stats.Templates
 {
     public class UpgradeableStat : Stat
     {
-        protected int Level = 1;
+        public int Level { get; private set; } = 1;
         protected readonly int MaxLevel;
         
         protected readonly float ChangeValue;
 
-        private int _cost;
+        public int Cost { get; private set; }
         private readonly int _baseCost;
         private readonly int _changeCost;
 
@@ -17,12 +17,12 @@ namespace Player.Stats.Templates
         public event StatUpdate OnStatUpdate;
         
         protected UpgradeableStat(
-            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost, bool isHealthStat) :
-            base (name, baseValue, isHealthStat)
+            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost, bool isHealthStat, string description = "") :
+            base (name, baseValue, isHealthStat, description)
         {
             MaxLevel = maxLevel;
             ChangeValue = changeValue;
-            _cost = baseCost;
+            Cost = baseCost;
             _baseCost = baseCost;
             _changeCost = changeCost;
         }
@@ -36,9 +36,9 @@ namespace Player.Stats.Templates
         public override void Reset()
         {
             Level = 1;
-            _cost = _baseCost;
+            Cost = _baseCost;
             base.Reset();
-            OnStatUpdate?.Invoke(Level, Value, _cost);
+            OnStatUpdate?.Invoke(Level, Value, Cost);
         }
         
         /// <summary>
@@ -50,8 +50,8 @@ namespace Player.Stats.Templates
         {
             if (IsMaxLevel()) return;
             Level++;
-            _cost += _changeCost;
-            OnStatUpdate?.Invoke(Level, Value, _cost);
+            Cost += _changeCost;
+            OnStatUpdate?.Invoke(Level, Value, Cost);
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace Player.Stats.Templates
         {
             Level = level;
             if (IsMaxLevel()) Level = MaxLevel;
-            _cost = _baseCost + (Level - 1) * _changeCost;
-            OnStatUpdate?.Invoke(Level, Value, _cost);
+            Cost = _baseCost + (Level - 1) * _changeCost;
+            OnStatUpdate?.Invoke(Level, Value, Cost);
         }
         
         protected bool IsMaxLevel()
@@ -72,40 +72,5 @@ namespace Player.Stats.Templates
             return Level >= MaxLevel;
         }
 
-        /// <summary>
-        /// Initialise a ShopItemButton in the shop.
-        /// </summary>
-        public void InitShopItemButton(ShopItemButton shopItemButton)
-        {
-            shopItemButton.Init(GetShopItemName(), GetCostString(), !IsMaxLevel(), _cost);
-            shopItemButton.OnButtonPressed += HandleShopItemButtonPressed;
-            shopItemButton.OnButtonDisable += HandleShopItemButtonDisable;
-        }
-        
-        private void HandleShopItemButtonPressed(int ignored)
-        {
-            UpgradeLevel();
-        }
-
-        private void HandleShopItemButtonDisable(ShopItemButton shopItemButton)
-        {
-            shopItemButton.OnButtonPressed -= HandleShopItemButtonPressed;
-            shopItemButton.OnButtonDisable -= HandleShopItemButtonDisable;
-        }
-
-        private string GetShopItemName()
-        {
-            var shopItemNameBuilder = new StringBuilder();
-            shopItemNameBuilder.Append(Name);
-            if (IsMaxLevel()) return shopItemNameBuilder.ToString();
-            shopItemNameBuilder.Append(" ");
-            shopItemNameBuilder.Append(Level);
-            return shopItemNameBuilder.ToString();
-        }
-        
-        private string GetCostString()
-        {
-            return IsMaxLevel() ? "MAX LEVEL" : "$" + _cost;
-        }
     }
 }

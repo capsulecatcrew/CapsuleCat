@@ -43,28 +43,5 @@ namespace Player.Special.Move
         {
             specialIcon.StopSpecial(this);
         }
-        
-        public static void InitShopItemButton(ShopItemButton shopItemButton)
-        {
-            shopItemButton.Init(GetShopItemName(), GetCostString(), true, ShopCost);
-            shopItemButton.OnButtonDisable += HandleShopItemButtonDisable;
-            shopItemButton.OnButtonPressed += HandleShopItemButtonPressed;
-        }
-        
-        private static void HandleShopItemButtonPressed(int playerNum)
-        {
-            PlayerStats.SetSpecialMove(playerNum, SpecialMoveEnum.MoveHeal);
-        }
-
-        private static void HandleShopItemButtonDisable(ShopItemButton shopItemButton)
-        {
-            shopItemButton.OnButtonPressed -= HandleShopItemButtonPressed;
-            shopItemButton.OnButtonDisable -= HandleShopItemButtonDisable;
-        }
-        
-        private static string GetShopItemName()
-        {
-            return Name;
-        }
     }
 }
