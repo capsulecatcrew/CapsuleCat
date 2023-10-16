@@ -66,6 +66,13 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: Shop
+    clip: {fileID: 8300000, guid: a29a41ac24b3c4f58b9ffbf5077cec10, type: 3}
+    priority: 128
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Battle 1
     clip: {fileID: 8300000, guid: e59a20f319c254fda967b63c11d77bc3, type: 3}
     priority: 128
@@ -102,7 +109,7 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Battle 6
-    clip: {fileID: 8300000, guid: 0b51614ad67c24fa08228ca1483cae23, type: 3}
+    clip: {fileID: 8300000, guid: b7e10714e5f974593878e35852112212, type: 3}
     priority: 128
     volume: 0.05
     pitch: 1
@@ -159,9 +166,9 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: ENEMY_HURT
-    clip: {fileID: 8300000, guid: bf31a6a9556eb494081b1f2cf7d300e7, type: 3}
+    clip: {fileID: 8300000, guid: 4fcbae30d600c4cedb9df7da69d8b608, type: 3}
     priority: 89
-    volume: 1
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
