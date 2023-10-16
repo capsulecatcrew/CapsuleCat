@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0067257374, g: 0.028710153, b: 0.0958664, a: 1}
+  m_IndirectSpecularColor: {r: 0.006747297, g: 0.028704055, b: 0.09586762, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '|| Move: [WASD]/[Arrows] || Select: [2]/[-] ||'
+  m_text: '|| Move: [WASD]/[Arrows] || Select: [4]/[-] ||'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0edeb746fa4ad468e812bff5d10601de, type: 2}
   m_sharedMaterial: {fileID: -3764825171068436369, guid: 0edeb746fa4ad468e812bff5d10601de, type: 2}

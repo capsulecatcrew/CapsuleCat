@@ -46,7 +46,6 @@ public class BattleController : MonoBehaviour
         playerController.OnPlayerDeath -= Lose;
         OnPlayerWin -= PlayerStats.Win;
         OnPlayerLose -= PlayerStats.Lose;
-        GlobalAudio.Singleton.StopMusic();
     }
 
     private void Win()

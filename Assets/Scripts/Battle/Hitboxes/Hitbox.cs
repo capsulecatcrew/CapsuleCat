@@ -14,9 +14,9 @@ namespace Battle.Hitboxes
         [SerializeField] private float weaknessMult = 2;
         [SerializeField] private float resistanceMult = 0.5f;
 
-        private const float HitIFrameTime = 1;
+        [SerializeField] private float hitIFrameTime = 1;
         private float _hitIFrameTimer;
-        protected bool OnCooldown;
+        protected bool IsOnCooldown;
         
         private bool _isShielded;
         
@@ -46,7 +46,7 @@ namespace Battle.Hitboxes
 
         private void ResetHitTimer()
         {
-            _hitIFrameTimer = HitIFrameTime;
+            _hitIFrameTimer = hitIFrameTime;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Battle.Hitboxes
             if (!takeDamageFrom.Contains(firer)) return false;
             if (!ignoreIFrames && _hitIFrameTimer > 0)
             {
-                OnCooldown = true;
+                IsOnCooldown = true;
                 return true;
             }
             if (weaknesses.Contains(damageType)) damage *= weaknessMult;

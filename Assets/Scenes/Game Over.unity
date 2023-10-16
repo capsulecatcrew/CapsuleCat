@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -528,7 +528,6 @@ MonoBehaviour:
   scoreText: {fileID: 466643783}
   textBefore: 
   textAfter: 
-  offset: 0
 --- !u!224 &466643786
 RectTransform:
   m_ObjectHideFlags: 0
@@ -702,7 +701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [2]/[-] to return to Title Screen
+  m_text: Press [4]/[-] to return to Title Screen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0edeb746fa4ad468e812bff5d10601de, type: 2}
   m_sharedMaterial: {fileID: -3764825171068436369, guid: 0edeb746fa4ad468e812bff5d10601de, type: 2}

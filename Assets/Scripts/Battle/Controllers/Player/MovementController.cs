@@ -57,6 +57,7 @@ namespace Battle.Controllers.Player
                 wall.OnEnterRight += HandleHitRightWall;
                 wall.OnExit += HandleExitWall;
             }
+            _isGrounded = true;
         }
 
         public void Start()
