@@ -34,8 +34,8 @@ namespace Battle.Hitboxes
         public override bool Hit(Firer firer, float damage, DamageType damageType = DamageType.Normal, bool ignoreIFrames = false)
         {
             if (!base.Hit(firer, damage, damageType, ignoreIFrames)) return false;
-            if (!OnCooldown) return BattleStat.MinusValue(damage);
-            OnCooldown = false;
+            if (!IsOnCooldown) return BattleStat.MinusValue(damage);
+            IsOnCooldown = false;
             return true;
         }
 

@@ -32,7 +32,9 @@ namespace Enemy.Bosses.Attacks
         private async void ShootBullet(Transform origin, int number)
         {
             await Task.Delay(Delay * number);
+            if (origin == null) return;
             var spawnPosition = origin.position;
+            if (BulletPool == null) return;
             var bullet = BulletPool.GetPooledObject();
             bullet.gameObject.transform.position = spawnPosition;
             bullet.Init(Damage, Speed, origin.forward, Firer.Enemy);

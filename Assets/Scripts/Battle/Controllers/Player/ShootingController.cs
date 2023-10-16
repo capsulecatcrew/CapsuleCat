@@ -17,6 +17,7 @@ namespace Player.Controls
         [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerLaserController playerLaserController;
         [SerializeField] private PlayerSoundController playerSoundController;
+        [SerializeField] private GameObject playerBody;
 
         // General bullet info
         private float _cooldownTime;
@@ -293,6 +294,7 @@ namespace Player.Controls
                 var firer = playerNum == 1 ? Firer.Player1 : Firer.Player2;
                 bulletComponent.Init(damage, speed, direction, firer);
                 bullet.SetActive(true);
+                bulletComponent.PlayParticles();
 
                 _bullet = bulletComponent;
             }
@@ -311,6 +313,7 @@ namespace Player.Controls
             var firer = playerNum == 1 ? Firer.Player1 : Firer.Player2;
             _heavyBullet.InitHeavy(CalculateHeavyForward(), firer);
             _heavyObject.SetActive(true);
+            _heavyBullet.PlayChargingParticles();
         }
 
         private Vector3 CalculateHeavyPosition()
@@ -353,11 +356,12 @@ namespace Player.Controls
         {
             if (!_isHeavyCharging) return;
             _heavyChargeTime += deltaTime;
+            if (_heavyChargeTime >= heavyMaxCharge) { _heavyBullet.PlayChargedParticles(); }
             var clampedTime = Math.Clamp(_heavyChargeTime, 0, heavyMaxCharge);
 
             var scalar = clampedTime * heavySizeMultiplier;
             var scale = new Vector3(scalar, scalar, scalar);
-            _heavyBullet.HoldHeavy(scale, CalculateHeavyPosition());
+            _heavyBullet.HoldHeavy(scale, CalculateHeavyPosition(), playerBody.transform.forward);
 
             var slowMultiplier = 1.5f - clampedTime / heavyMaxCharge;
             movementController.SlowSpeed(slowMultiplier);

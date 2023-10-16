@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ca9546357884f65bbbe28be8307d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToPool: {fileID: 3181999364343464044, guid: d4fc3a33b28614b6daa859986410cc78, type: 3}
+  prefabToPool: {fileID: 3181999364343464044, guid: 67777eba40c0ba841ba0b417883ee9b3, type: 3}
   amountToPool: 40
   parentTransform: {fileID: 1961851102}
   pooledObjects: []
@@ -5796,6 +5796,7 @@ MonoBehaviour:
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
+  hitIFrameTime: 1
   audioSource: {fileID: 1471213443}
   audioSource2: {fileID: 1471213444}
   hitSound: {fileID: 8300000, guid: 9ab87e3f464b94f7ea13f663e0234834, type: 3}
@@ -14778,6 +14779,7 @@ MonoBehaviour:
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
+  hitIFrameTime: 1
   audioSource: {fileID: 2131668983}
   audioSource2: {fileID: 2131668984}
   hitSound: {fileID: 8300000, guid: 9ab87e3f464b94f7ea13f663e0234834, type: 3}
@@ -14859,6 +14861,14 @@ PrefabInstance:
     - target: {fileID: 8303018649179188975, guid: 6d6e64c64ae2a3c449b6b588327533cc, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473257210216885277, guid: 6d6e64c64ae2a3c449b6b588327533cc, type: 3}
+      propertyPath: hitIFrameTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772798814841961268, guid: 6d6e64c64ae2a3c449b6b588327533cc, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8772798814841961268, guid: 6d6e64c64ae2a3c449b6b588327533cc, type: 3}
       propertyPath: m_IsTrigger
@@ -15113,7 +15123,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh81286
+  m_Name: pb_Mesh68880
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15329,6 +15339,7 @@ MonoBehaviour:
   playerController: {fileID: 89983475}
   playerLaserController: {fileID: 89983477}
   playerSoundController: {fileID: 89983476}
+  playerBody: {fileID: 7711659574321420067}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
@@ -20547,7 +20558,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4111553387954196777, guid: 23e35baea538842428eddd2755210129, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4111553387954196777, guid: 23e35baea538842428eddd2755210129, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21586,8 +21597,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.0000000013740591, y: 0.9972303, z: -0.07437618, w: -0.000000018423282}
-  m_LocalPosition: {x: 0.0000007308023, y: 7.4668083, z: 49.778744}
+  m_LocalRotation: {x: 0, y: 0.9972303, z: -0.0743762, w: 0}
+  m_LocalPosition: {x: 0, y: 7.466809, z: 49.778744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21848,8 +21859,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106076136}
-  m_LocalRotation: {x: -0.0000000013740591, y: 0.9972303, z: -0.07437618, w: -0.000000018423282}
-  m_LocalPosition: {x: 0.0000007308023, y: 7.4668083, z: 49.778744}
+  m_LocalRotation: {x: -0, y: 0.9972303, z: -0.0743762, w: 0}
+  m_LocalPosition: {x: 0, y: 7.466809, z: 49.778744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22683,7 +22694,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 13.07, z: 14.875}
 --- !u!1 &1231861942
 GameObject:
@@ -22801,6 +22812,7 @@ MonoBehaviour:
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
+  hitIFrameTime: 1
   audioSource: {fileID: 2131668983}
   audioSource2: {fileID: 2131668984}
   hitSound: {fileID: 8300000, guid: 9ab87e3f464b94f7ea13f663e0234834, type: 3}
@@ -23009,7 +23021,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1313889669 stripped
 MonoBehaviour:
@@ -27235,7 +27247,7 @@ PrefabInstance:
       objectReference: {fileID: 1361610032}
     - target: {fileID: 363636727752967114, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 363636727752967114, guid: c0748645de38b46a2ba7bc54dde01f8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27854,6 +27866,7 @@ MonoBehaviour:
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
+  hitIFrameTime: 1
   audioSource: {fileID: 1471213443}
   audioSource2: {fileID: 1471213444}
   hitSound: {fileID: 8300000, guid: 9ab87e3f464b94f7ea13f663e0234834, type: 3}
@@ -32788,6 +32801,7 @@ MonoBehaviour:
   playerController: {fileID: 89983475}
   playerLaserController: {fileID: 89983477}
   playerSoundController: {fileID: 89983476}
+  playerBody: {fileID: 7711659574321420067}
   basicCooldownTime: 0.5
   basicBulletPool: {fileID: 89983470}
   weakDamageMultiplier: 0.7
@@ -39852,7 +39866,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh81604
+  m_Name: pb_Mesh69202
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46272,6 +46286,7 @@ MonoBehaviour:
   resistances: 
   weaknessMult: 2
   resistanceMult: 0.5
+  hitIFrameTime: 1
   audioSource: {fileID: 89983469}
   audioSource2: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 7ae321aa1fe8c4562ad529f98d8e10e2, type: 3}

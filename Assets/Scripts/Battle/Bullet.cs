@@ -16,9 +16,11 @@ public class Bullet : MonoBehaviour
     private DamageType _damageType;
 
     private Transform _transform;
-    
+
     [SerializeField] private bool ignoreIFrames;
-    [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private ParticleSystem chargingParticles;
+    [SerializeField] private ParticleSystem chargedParticles;
     
     public delegate void BulletHitUpdate(Bullet bullet, float damage);
     public event BulletHitUpdate OnBulletHitUpdate;
@@ -34,6 +36,7 @@ public class Bullet : MonoBehaviour
         _speed = speed;
         
         _origin = transform.position;
+        gameObject.transform.forward = direction;
         _direction = direction.normalized;
 
         _firer = firer;
@@ -43,25 +46,51 @@ public class Bullet : MonoBehaviour
     public void InitHeavy(Vector3 direction, Firer firer)
     {
         _origin = transform.position;
+        gameObject.transform.forward = direction;
         _direction = direction.normalized;
         
         _firer = firer;
     }
+
+    public void PlayParticles()
+    {
+        particles.Play();
+    }
+
+    public void PlayChargingParticles()
+    {
+        chargingParticles.Play();
+    }
+
+    public void PlayChargedParticles()
+    {
+        chargingParticles.Stop();
+        if (!chargedParticles.isPlaying) chargedParticles.Play();
+    }
+
+    private void StopHeavyParticles()
+    {
+        chargingParticles.Stop();
+        chargedParticles.Stop();
+    }
     
-    public void HoldHeavy(Vector3 scale, Vector3 position)
+    public void HoldHeavy(Vector3 scale, Vector3 position, Vector3 direction)
     {
         _origin = position;
         _transform.position = position;
         _transform.localScale = scale;
-        trailRenderer.widthMultiplier = scale.magnitude + 0.1f;
+        gameObject.transform.forward = -direction;
     }
 
     public void Fire(Vector3 direction, int damage, float speed)
     {
         _direction = direction;
+        gameObject.transform.forward = direction;
         _damage = damage;
         if (_damage < 1) _damage = 1;
         _speed = speed;
+        StopHeavyParticles();
+        PlayParticles();
     }
 
     public void Delete()
