@@ -1,6 +1,7 @@
 using Player.Special;
 using Player.Special.Move;
 using Player.Special.Shoot;
+using Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,25 +10,25 @@ namespace HUD
     public class SpecialIcon : MonoBehaviour
     {
         [SerializeField] private Image spriteRenderer;
-        [SerializeField] private Sprite healSprite, absorbShieldSprite, vampireSprite, laserSprite;
-        [SerializeField] private Sprite healEnabled, absorbShieldEnabled, vampireEnabled, laserEnabled;
+        [SerializeField] private SpecialMoveSpriteScriptableObject sprites;
 
         public void SetSprite(SpecialMove specialMove)
         {
             spriteRenderer.gameObject.SetActive(true);
             switch (specialMove)
             {
+                // TODO: any idea how to shorten this?
                 case Heal:
-                    spriteRenderer.sprite = healSprite;
+                    spriteRenderer.sprite = sprites.GetSprite(specialMove);
                     return;
                 case AbsorbShield:
-                    spriteRenderer.sprite = absorbShieldSprite;
+                    spriteRenderer.sprite = sprites.GetSprite(specialMove);
                     return;
                 case Vampire:
-                    spriteRenderer.sprite = vampireSprite;
+                    spriteRenderer.sprite = sprites.GetSprite(specialMove);
                     return;
                 case Laser:
-                    spriteRenderer.sprite = laserSprite;
+                    spriteRenderer.sprite = sprites.GetSprite(specialMove);
                     return;
                 default:
                     spriteRenderer.gameObject.SetActive(false);
@@ -37,21 +38,7 @@ namespace HUD
 
         public void StartSpecial(SpecialMove specialMove)
         {
-            switch (specialMove)
-            {
-                case Heal:
-                    spriteRenderer.sprite = healEnabled;
-                    return;
-                case AbsorbShield:
-                    spriteRenderer.sprite = absorbShieldEnabled;
-                    return;
-                case Vampire:
-                    spriteRenderer.sprite = vampireEnabled;
-                    return;
-                case Laser:
-                    spriteRenderer.sprite = laserEnabled;
-                    return;
-            }
+            spriteRenderer.sprite = sprites.GetSprite(specialMove, true);
         }
 
         public void StopSpecial(SpecialMove specialMove)

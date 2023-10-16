@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e67c2e45e84960a02a535d50957412, type: 3}
+  m_Name: SpecialMoveSprites
+  m_EditorClassIdentifier: 
+  healSprite:
+    mainSprite: {fileID: 21300000, guid: 5adaecb987fb341f9990246073418380, type: 3}
+    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+  absorbShieldSprite:
+    mainSprite: {fileID: 21300000, guid: 5d099df2455ed4d8eaec9251b20298cc, type: 3}
+    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+  vampireSprite:
+    mainSprite: {fileID: 21300000, guid: 4c914fb6196594619a4a289512c88ac8, type: 3}
+    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+  laserSprite:
+    mainSprite: {fileID: 21300000, guid: 3eb684397eb174dfdaf1b20087e9a048, type: 3}
+    activatedSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}
+  noSpecialSprite: {fileID: 21300000, guid: 95fc71d010f0941a7bb0ccf7d338b1b9, type: 3}

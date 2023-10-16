@@ -7,8 +7,8 @@ namespace Player.Stats.Persistent
         private readonly UpgradeableStat[] _stats;
         
         public GroupedUpgradeableStat(
-            string name, int maxLevel, int baseCost, int changeCost, bool isHealthStat, params UpgradeableStat[] stats) :
-            base(name, maxLevel, 0, 0, baseCost, changeCost, isHealthStat)
+            string name, int maxLevel, int baseCost, int changeCost, bool isHealthStat = false, string description = "", params UpgradeableStat[] stats) :
+            base(name, maxLevel, 0, 0, baseCost, changeCost, isHealthStat, description)
         {
             _stats = stats;
         }

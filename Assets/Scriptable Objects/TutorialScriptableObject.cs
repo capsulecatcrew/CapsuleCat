@@ -1,16 +1,19 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TutorialScriptableObject", menuName = "Tutorial")]
-public class TutorialScriptableObject : ScriptableObject
+namespace Scriptable_Objects
 {
-    [System.Serializable]
-    public class Page
+    [CreateAssetMenu(fileName = "TutorialScriptableObject", menuName = "Tutorial")]
+    public class TutorialScriptableObject : ScriptableObject
     {
-        public Sprite image;
-        [TextArea(3, 10)]
-        public string text;
-    }
+        [System.Serializable]
+        public class Page
+        {
+            public Sprite image;
+            [TextArea(3, 10)]
+            public string text;
+        }
 
-    public string title;
-    public Page[] pages;
+        public string title;
+        public Page[] pages;
+    }
 }

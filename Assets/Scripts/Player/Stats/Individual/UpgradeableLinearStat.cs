@@ -6,8 +6,8 @@ namespace Player.Stats.Persistent
     public class UpgradeableLinearStat : UpgradeableStat
     {
         public UpgradeableLinearStat(
-            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost, bool isHealthStat = false) :
-            base(name, maxLevel, baseValue, changeValue, baseCost, changeCost, isHealthStat) { }
+            string name, int maxLevel, float baseValue, float changeValue, int baseCost, int changeCost, bool isHealthStat = false, string description = "") :
+            base(name, maxLevel, baseValue, changeValue, baseCost, changeCost, isHealthStat, description) { }
 
         public override void UpgradeLevel()
         {
