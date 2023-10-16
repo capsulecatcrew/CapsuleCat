@@ -17,7 +17,7 @@ public class GlobalAudio : MonoBehaviour
     
     public Sound[] sounds;
 
-    private void Awake()
+    void Awake()
     {
         if (Singleton == null)
         {
@@ -30,10 +30,7 @@ public class GlobalAudio : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
+        
         foreach (Sound s in music)
         {
             s.BindAudioSourceProperties(gameObject.AddComponent<AudioSource>());
