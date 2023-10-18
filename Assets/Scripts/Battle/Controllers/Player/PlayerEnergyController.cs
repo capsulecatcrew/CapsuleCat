@@ -59,7 +59,7 @@ namespace Battle.Controllers.Player
             if (damageType == DamageType.Special) return;
             var absorbedAmount = PlayerStats.ApplyEnergyAbsorbMultiplier(playerNum, amount);
             AddEnergy(absorbedAmount);
-            var sharedAmount = PlayerStats.ApplyEnergyShareMultiplier(playerNum, absorbedAmount);
+            var sharedAmount = PlayerStats.ApplyEnergyShareMultiplier(absorbedAmount);
             otherPlayerEnergy.AddEnergy(sharedAmount);
         }
 

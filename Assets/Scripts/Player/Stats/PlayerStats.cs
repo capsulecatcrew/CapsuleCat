@@ -48,10 +48,7 @@ namespace Player.Stats
 
             // Stat 5
             public UpgradeableLinearStat EnergyCostDash { get; }
-
-            // Stat 6
-            public UpgradeableLinearStat EnergyShare { get; }
-
+            
             public Stat Special { get; }
             public SpecialMove SpecialMove { get; set; }
             public List<SpecialMoveEnum> SpecialPool { get; } = SpecialMoveEnumController.CopyAllSpecialMoves();
@@ -69,9 +66,8 @@ namespace Player.Stats
                 SpecialDamaged = new("Special Damaged Rate", 10, 0.5f, 0.05f, 50, 75, description:"");
                 SpecialGain = new("Special Gain", 10, 150, 150, false, "", SpecialAbsorb, SpecialDamage, SpecialDamaged);
                 EnergyCostDash = new("Dash Energy Cost", 9, 15, -1f, 100, 75, description:"");
-                EnergyShare = new("Energy Share", 10, 0.1f, 0.1f, 100, 100, description:"");
                 Special = new("Special", SpecialMax, false);
-                PlayerStats = new() { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash, EnergyShare };
+                PlayerStats = new() { Damage, EnergyMax, EnergyAbsorb, SpecialGain, EnergyCostDash };
                 Special.SetValue(0);
             }
 
@@ -105,6 +101,9 @@ namespace Player.Stats
             };
         }
         
+        // both - Stat 6
+        public static readonly UpgradeableLinearStat EnergyShare = new("Energy Share", 10, 0.1f, 0.1f, 100, 100, description:"");
+
         // both - Stat 7
         public static readonly UpgradeableLinearStat MaxHealth = new("Max Health", 10, 25, 10, 50, 25, true, description:"");
         private static readonly Stat Health = new("Health", MaxHealth);
@@ -126,7 +125,7 @@ namespace Player.Stats
             _currentStage = 1;
             MaxHealth.Reset();
             Health.Reset();
-            
+            EnergyShare.Reset();
             Player1.ResetPlayer();
             Player2.ResetPlayer();
         }
@@ -358,9 +357,9 @@ namespace Player.Stats
         /// <summary>
         /// Applies energy sharing multiplier to absorbed amount for specified player.
         /// </summary>
-        public static float ApplyEnergyShareMultiplier(int playerNum, float amount)
+        public static float ApplyEnergyShareMultiplier(float amount)
         {
-            return GetPlayer(playerNum).EnergyShare.ApplyValue(amount);
+            return EnergyShare.ApplyValue(amount);
         }
 
         /// <summary>
@@ -457,7 +456,7 @@ namespace Player.Stats
 
         public static SpecialMove GetPlayerSpecialMove(int playerNum) => GetPlayer(playerNum).SpecialMove;
         public static UpgradeableStat GetMaxHealthStat() => MaxHealth;
-        public static UpgradeableStat GetEnergyShareStat(int playerNum) => GetPlayer(playerNum).EnergyShare;
+        public static UpgradeableStat GetEnergyShareStat() => EnergyShare;
         public static UpgradeableStat GetAttackDamageStat(int playerNum) => GetPlayer(playerNum).Damage;
         public static UpgradeableStat GetMaxEnergyStat(int playerNum) => GetPlayer(playerNum).EnergyMax;
         public static UpgradeableStat GetEnergyAbsorbStat(int playerNum) => GetPlayer(playerNum).EnergyAbsorb;

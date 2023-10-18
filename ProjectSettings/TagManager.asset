@@ -8,6 +8,8 @@ TagManager:
   - CinemachineTarget
   - EnemyShield
   - PlayerAbsorber
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

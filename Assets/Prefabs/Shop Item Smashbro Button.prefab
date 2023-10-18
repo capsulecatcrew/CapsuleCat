@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ed8864103a25d417296ad2ed839484a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2b88e3aa1c6b40a0813274547b484be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,9 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useable: 1
-  normalSprite: {fileID: 21300000, guid: ed8864103a25d417296ad2ed839484a9, type: 3}
-  highlightedSprite: {fileID: 21300000, guid: 0ca2e66ac1b164eb79b9146e7650a532, type: 3}
-  disabledSprite: {fileID: 21300000, guid: 65fcb8e08e5914960b5cd4a44e16436e, type: 3}
+  normalSprite: {fileID: 21300000, guid: a2b88e3aa1c6b40a0813274547b484be, type: 3}
+  highlightedSprite: {fileID: 21300000, guid: 312373a12175d4065a044689eb50cbde, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 433ea3276a14d41f8862cafa37b5705a, type: 3}
 --- !u!1 &3073361160947701053
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,13 +181,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
-  itemSpriteRenderer: {fileID: 0}
+  itemSpriteRenderer: {fileID: 8358454442834652414}
   descriptionField: {fileID: 0}
   buttonSpriteManager: {fileID: 5201478510264246997}
   audioSource: {fileID: 0}
-  bought: {fileID: 8300000, guid: 5ebcf4dc8093e4915a2ca8a345693dac, type: 3}
+  bought: {fileID: 8300000, guid: f2447dbaea7b2494eb2d4ef27ab312e5, type: 3}
   broke: {fileID: 8300000, guid: 0c4eeebe4fbbc46689b29010c1d40d75, type: 3}
-  disabled: {fileID: 8300000, guid: 48465c48b8dff4fa8ad37421fe5c815c, type: 3}
+  disabled: {fileID: 8300000, guid: 52e38d4b5a7524a799ee3ee90f1de5b5, type: 3}
   usable: 1
 --- !u!114 &3073361160947701025
 MonoBehaviour:
