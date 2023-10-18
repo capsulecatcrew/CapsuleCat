@@ -30,7 +30,7 @@ namespace Shop
         private static List<Sprite> _sprites1;
         private static List<Sprite> _sprites2;
     
-        private const int HpChance = 35;
+        private const int SharedStatChance = 35;
         private const int SpecialChance = 20;
 
         // Start is called before the first frame update
@@ -62,7 +62,7 @@ namespace Shop
         {
             _chosenStats1 = PlayerStats.GetShopStats(1);
             _chosenStats2 = PlayerStats.GetShopStats(2);
-            var includeHealth = Random.Range(1, 101) < HpChance;
+            var includeHealth = Random.Range(1, 101) < SharedStatChance;
             if (!includeHealth) return;
             var slot = Random.Range(0, 6);
             if (slot < 3)
@@ -74,6 +74,20 @@ namespace Shop
                 slot -= 3;
                 _chosenStats2[slot] = PlayerStats.MaxHealth;
             }
+            
+            var includeEnergyShare = Random.Range(1, 101) < SharedStatChance;
+            if (!includeEnergyShare) return;
+            slot = Random.Range(0, 6);
+            if (slot < 3)
+            {
+                _chosenStats1[slot] = PlayerStats.EnergyShare;
+            }
+            else
+            {
+                slot -= 3;
+                _chosenStats2[slot] = PlayerStats.EnergyShare;
+            }
+
         }
 
         private void InitShopButtons()

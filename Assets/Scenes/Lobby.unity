@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b379a3b7ecfeb4a2c827e0894a92077c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagToTrigger: Player
+  tagsToTrigger: []
   m_TriggerEnterEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1882,7 +1882,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 3.5, y: 4}
   m_EdgeRadius: 0
 --- !u!4 &936738847
 Transform:
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b379a3b7ecfeb4a2c827e0894a92077c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagToTrigger: Player
+  tagsToTrigger: []
   m_TriggerEnterEvent:
     m_PersistentCalls:
       m_Calls:

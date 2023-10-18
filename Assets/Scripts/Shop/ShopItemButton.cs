@@ -1,4 +1,6 @@
+using System;
 using Player.Stats;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,11 +8,20 @@ namespace Shop
 {
     public class ShopItemButton : MonoBehaviour
     {
-        [SerializeField] [Range(1, 2)] protected int playerNum = 1;
+        private enum UsableByPlayer
+        {
+            Both,
+            Player1,
+            Player2
+        }
+
+        [SerializeField] private UsableByPlayer usableByPlayer = UsableByPlayer.Both;
 
         private IShopItem _shopItem;
         [SerializeField] private SpriteRenderer itemSpriteRenderer;
-        [SerializeField] private ShopDescriptionField descriptionField;
+        [SerializeField] private ShopDescriptionField p1DescriptionField;
+        [SerializeField] private ShopDescriptionField p2DescriptionField;
+        [SerializeField] private HitboxTrigger2D hitboxTrigger2D;
         
         public ButtonSprite buttonSpriteManager;
         public delegate void ButtonPressed(int playerNum);
@@ -48,19 +59,20 @@ namespace Shop
                 GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
                 return;
             }
-            if (purchaserNum != playerNum)
+            if (usableByPlayer != UsableByPlayer.Both && purchaserNum != (int) usableByPlayer)
             {
                 GlobalAudio.Singleton.PlaySound("UI_BTN_DISABLED");
                 return;
             }
-            if (!PlayerStats.RemoveMoney(playerNum, _cost))
+            if (!PlayerStats.RemoveMoney(purchaserNum, _cost))
             {
                 GlobalAudio.Singleton.PlaySound("UI_SHOP_BROKE");
                 return;
             }
-            OnButtonPressed?.Invoke(playerNum);
+            OnButtonPressed?.Invoke(purchaserNum);
             _shopItem.Purchase();
             GlobalAudio.Singleton.PlaySound("UI_SHOP_BOUGHT");
+            ShowDescription(purchaserNum);
             DisableButton();
         }
 
@@ -70,12 +82,17 @@ namespace Shop
             
             buttonSpriteManager.SetToSpriteState(2);
             buttonSpriteManager.useable = false;
-            ShowDescription();
         }
-    
-        public void OnDisable()
+
+        private void OnEnable()
+        {
+            hitboxTrigger2D.HitboxEnter += ShowDescription;
+        }
+
+        private void OnDisable()
         {
             OnButtonDisable?.Invoke(this);
+            hitboxTrigger2D.HitboxEnter -= ShowDescription;
         }
 
         public bool IsUsable()
@@ -87,13 +104,29 @@ namespace Shop
         /// Called by Hitbox Trigger 2D Trigger Enter Event
         /// </summary>
         public void PlayHighlightedSound() => GlobalAudio.Singleton.PlaySound("UI_BTN_HIGHLIGHTED");
-
-        /// <summary>
-        /// Called by Hitbox Trigger 2D Trigger Enter Event
-        /// </summary>
-        public void ShowDescription()
+        
+        private void ShowDescription(Collider2D other)
         {
-            descriptionField.UpdateDescription(_shopItem, !usable);
+            if (other.CompareTag("Player1") && usableByPlayer != UsableByPlayer.Player2)
+            {
+                p1DescriptionField.UpdateDescription(_shopItem, !usable);
+            } 
+            else if (other.CompareTag("Player2") && usableByPlayer != UsableByPlayer.Player1)
+            {
+                p2DescriptionField.UpdateDescription(_shopItem, !usable);
+            }
+        }
+        
+        private void ShowDescription(int playerNum)
+        {
+            if (playerNum == 1 && usableByPlayer != UsableByPlayer.Player2)
+            {
+                p1DescriptionField.UpdateDescription(_shopItem, !usable);
+            } 
+            else if (playerNum == 2 && usableByPlayer != UsableByPlayer.Player1)
+            {
+                p2DescriptionField.UpdateDescription(_shopItem, !usable);
+            }
         }
 
     }

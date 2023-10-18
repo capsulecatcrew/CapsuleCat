@@ -46,7 +46,7 @@ namespace Shop
             stat = PlayerStats.GetMaxHealthStat();
             maxHealthStat.Init(new StatInfoStatsPageItem(stat), statSprites.GetSprite(stat));
             // TODO: update when energy share is changed to a shared stat
-            stat = PlayerStats.GetEnergyShareStat(1);
+            stat = PlayerStats.GetEnergyShareStat();
             energyShareStat.Init(new StatInfoStatsPageItem(stat), statSprites.GetSprite(stat));
         }
     }

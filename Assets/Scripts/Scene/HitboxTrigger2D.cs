@@ -1,11 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 // This script mainly exists so not all logic has to be directly attached to the GameObject with the collider.
 // Attach to a hitbox, have relevant components subscribe to its events.
 public class HitboxTrigger2D : MonoBehaviour
 {
-    public string tagToTrigger;
+    public List<string> tagsToTrigger;
     public UnityEvent m_TriggerEnterEvent;
     public UnityEvent m_TriggerStayEvent;
     public UnityEvent m_TriggerExitEvent;
@@ -20,28 +23,22 @@ public class HitboxTrigger2D : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (tagToTrigger == "" || other.CompareTag(tagToTrigger))
-        {
-            HitboxEnter?.Invoke(other);
-            m_TriggerEnterEvent.Invoke();
-        }
+        if (tagsToTrigger.Count > 0 && !tagsToTrigger.Contains(other.tag)) return;
+        HitboxEnter?.Invoke(other);
+        m_TriggerEnterEvent.Invoke();
     }
     
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (tagToTrigger == "" || other.CompareTag(tagToTrigger))
-        {
-            HitboxStay?.Invoke(other);
-            m_TriggerStayEvent.Invoke();
-        }
+        if (tagsToTrigger.Count > 0 && !tagsToTrigger.Contains(other.tag)) return;
+        HitboxStay?.Invoke(other);
+        m_TriggerStayEvent.Invoke();
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (tagToTrigger == "" || other.CompareTag(tagToTrigger))
-        {
-            HitboxExit?.Invoke(other);
-            m_TriggerExitEvent.Invoke();
-        }
+        if (tagsToTrigger.Count > 0 && !tagsToTrigger.Contains(other.tag)) return;
+        HitboxExit?.Invoke(other);
+        m_TriggerExitEvent.Invoke();
     }
 }
